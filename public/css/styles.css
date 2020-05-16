@@ -1,0 +1,203 @@
+:root {
+  --main-color: white;
+  --main-background-color: #7a7e81db;
+  --border-color: #4d4e4d;
+  --accent-color: #34a6a5;
+  --buttton-border-color: white;
+  --button-color: #5e6b79;
+  --button-hover-color: #a9adb0;
+
+  --table-orange: #a33;
+  --table-orange-dark: #711;
+  --table-blue: #33a;
+  --table-blue-dark: #117;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--main-background-color);
+  background: radial-gradient(circle, #b4b8bb 0%, #8a8d8f 100%);
+}
+
+.echobutton {
+  background-color: var(--button-color);
+  border: .2em solid var(--buttton-border-color);
+  position: relative;
+  width: 8em;
+  display: block;
+  margin: 1em auto 0 auto;
+}
+
+.echobutton:before {
+  content: "";
+  position: absolute;
+  display: block;
+  top: -.18em;
+  left: -.18em;
+  border-top: 1em solid var(--buttton-border-color);
+  border-right: 1em solid transparent;
+}
+
+.echobutton:after {
+  content: "";
+  position: absolute;
+  display: block;
+  top: -.33em;
+  left: -.33em;
+  border-top: 1em solid #717377;
+  border-right: 1em solid transparent;
+}
+
+.echobutton a {
+  text-decoration: none;
+  display: block;
+  color: var(--main-color);
+  padding: .7em;
+}
+
+.echobutton:hover {
+  background-color: var(--button-hover-color);
+}
+
+.team_box {
+}
+
+#page_title {
+  margin:auto;
+  width: max-content;
+}
+
+.header_with_background {
+  position: relative;
+}
+
+.header_with_background h1 {
+  color: var(--main-color);
+  text-transform: uppercase;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: lighter;
+}
+
+.header_with_background div {
+  background-color: var(--border-color);
+  transform: skew(-45deg);
+  height: 2.8em;
+  margin: 0 auto;
+  width: 26em;
+  position: absolute;
+  top: -.3em;
+  left: -4.5em;
+  z-index: -1;
+}
+
+.header_with_background div:before {
+  width: .5em;
+  height: 1em;
+  display: block;
+  content: "";
+  position: relative;
+  left: -1em;
+  background-color: var(--accent-color);
+}
+
+.header_with_background div:after {
+  width: .5em;
+  height: 2em;
+  float: right;
+  display: block;
+  content: "";
+  position: relative;
+  right: -1em;
+  top: -1em;
+  background-color: var(--accent-color);
+}
+
+.echo_alert_box {
+  position: relative;
+  border: .3em solid var(--border-color);
+  border-top: 1.5em solid var(--border-color);
+  padding: 1em;
+  background-color: var(--main-background-color);
+  text-align: center;
+  margin: 3em auto 3em auto;
+  width: max-content;
+  /* color: var(--main-color); */
+}
+
+.team_name {
+  text-align: left;
+}
+
+.team_logo {
+  float:right;
+  width: 5em;
+}
+
+.stats_table {
+  color: var(--main-color);
+  background-color: var(--main-background-color);
+}
+
+.stats_table tr {
+  border-spacing: .5em;
+  background-color: var(--border-color);
+}
+
+.stats_table td,th {
+  padding: 1em;
+}
+
+.stats_table .orange {
+  background-color: var(--table-orange);
+}
+
+.stats_table .orange tr {
+  background-color: var(--table-orange-dark);
+}
+
+.stats_table .blue {
+  background-color: var(--table-blue);
+}
+
+.stats_table .blue tr {
+  background-color: var(--table-blue-dark);
+}
+
+.stats_table img {
+  max-height: 2em;
+  margin: -1em;
+}
+
+.hide {
+  display: none;
+}
+
+.filtered_out {
+  display: none;
+}
+
+.search_box {
+  padding: 1em;
+  color: white;
+  background-color: var(--border-color);
+  border: none;
+  border-radius: .4em;
+  outline: none;
+  width: 10em;
+  font-size: 1.2em;
+  margin: auto;
+  display: block;
+  transition: background-color .2s;
+}
+
+.search_box:hover {
+  background-color: #5c5c5c;
+}
+
+.search_box::placeholder:hover {
+  color: white;
+}
+
+.search_box:active {
+  background-color: #414141;
+}

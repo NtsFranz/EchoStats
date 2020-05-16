@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VRML Team List</title>
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/7.14.3/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/7.14.3/firebase-auth.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-database.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-messaging.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-firestore.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-storage.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-analytics.js"></script>
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+
+<body>
+  <div id="content">
+    <div class="header_area">
+      <div id="page_title">
+        <div class="header_with_background">
+          <div></div>
+          <h1>VRML Team List</h1>
+        </div>
+        <p>Full list of VRML teams with live updating</p>
+      </div>
+  
+      <input type="text" class="search_box" id="teamSearchBox" oninput="teamFilter()" placeholder="Search for teams..">
+    </div>
+
+    <div id="teams">
+      <div class="team_box echo_alert_box hide">
+        <img class="team_logo" loading="lazy" />
+        <h2 class="team_name">Test Team</h2>
+        <div></div>
+
+        <div class="team_stats">
+          <h3>Team Stats</h3>
+          <table class="stats_table">
+            <tr>
+              <th>Rank</th>
+              <th>Division</th>
+              <th>Region</th>
+              <th>Games</th>
+              <th>Points</th>
+              <th>Avg Possession Time</th>
+              <th>Wins</th>
+              <th>Losses</th>
+              <th>W/L Ratio</th>
+              <th>MMR</th>
+            </tr>
+            <tr>
+              <td class="rank">--</td>
+              <td class="division">--</td>
+              <td class="region">--</td>
+              <td class="games">--</td>
+              <td class="points">--</td>
+              <td class="possession_time_percentage">--%</td>
+              <td class="wins">--</td>
+              <td class="losses">--</td>
+              <td class="wr">--</td>
+              <td class="mmr">--</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="player_stats">
+          <h3>Player Stats</h3>
+          <table class="stats_table">
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Points</th>
+              <th>Assists</th>
+              <th>Saves</th>
+              <th>Steals</th>
+              <th>Stuns</th>
+              <th>Shots</th>
+              <th>Possession Time</th>
+            </tr>
+
+            <tr class="team_player_stats_row hide">
+              <td class="team_player_logo"></td>
+              <td class="team_player_name">--</td>
+              <td class="team_player_points">--</td>
+              <td class="team_player_assists">--</td>
+              <td class="team_player_saves">--</td>
+              <td class="team_player_steals">--</td>
+              <td class="team_player_stuns">--</td>
+              <td class="team_player_shots">--</td>
+              <td class="team_player_possession_time">--</td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+
+
+  <!-- Load our custom Firebase stuff -->
+  <script defer src="js/firebase.js"></script>
+
+</body>
+
+</html>
