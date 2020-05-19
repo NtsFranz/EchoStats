@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VRML Team List</title>
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/7.14.3/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/7.14.3/firebase-auth.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-database.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-messaging.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-firestore.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-storage.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-analytics.js"></script>
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+
+<body>
+  <div id="content">
+    <div class="header_area">
+      <div id="page_title">
+        <div class="header_with_background">
+          <div></div>
+          <h1>VRML Match History</h1>
+        </div>
+        <p>Full list of VRML matches with live updating</p>
+      </div>
+    </div>
+
+    <div id="seasons">
+      <div class="season_box echo_alert_box hide">
+        <img class="season_logo" loading="lazy" />
+        <h2 class="season">Season 1</h2>
+        <div></div>
+
+        <div class="matches">
+          <h3>Matches</h3>
+          <table class="stats_table">
+            <tr>
+              <th>Date</th>
+              <th>Orange</th>
+              <th>Score</th>
+              <th>Blue</th>
+              <th>Casters</th>
+              <th>Cameramen</th>
+              <th>VRML Match Page</th>
+              <th>Video</th>
+            </tr>
+
+            <tr class="match_data_row hide">
+              <td class="date">--</td>
+              <td class="orange">--</td>
+              <td class="score">--</td>
+              <td class="blue">--</td>
+              <td class="casters">--</td>
+              <td class="cameramen">--%</td>
+              <td class="match_page">--</td>
+              <td class="video">--</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+  <!-- Load our custom Firebase stuff -->
+  <script defer src="js/matches_page.js"></script>
+
+</body>
+
+</html>
