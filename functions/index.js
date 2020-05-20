@@ -6,13 +6,14 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 let db = admin.firestore();
 
-//const consolidate = require('consolidate');
+const engines = require('consolidate');
 
 const app = express();
-// app.engine('hbs', engines.handlebars);
-// app.set('views', './views');
-// app.set('view engine', 'hbs');
+app.engine('hbs', engines.handlebars);
+app.set('views', './views');
+app.set('view engine', 'hbs');
 
+/*
 app.get('/get_team_name_from_list', async (req, res) => {
     // get player list
     let player_list = req.query.player_list;
@@ -57,6 +58,13 @@ app.get('/get_team_name_from_list', async (req, res) => {
         'team_name': team_name,
         'likelihood': likelihood
     });
+});
+*/
+
+app.get('/most_recent_match', (req, res) => {
+    const client_name = req.query.client_name;
+
+    res.render("match_data", {client_name});
 });
 
 exports.app = functions.https.onRequest(app);

@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     db.collection('series').doc('vrml_season_1').collection('match_stats')
         .orderBy("match_time", "desc")
+        .where("client_name", "==", client_name)
         .limit(1)
         .get()
         .then(querySnapshot => {
