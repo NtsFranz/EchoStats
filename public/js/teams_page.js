@@ -27,6 +27,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var db = firebase.firestore()
 
+    
+    console.log('\n\n\nhi\n\n');
+
     teamsDiv = document.getElementById('teams');
     teamDivTemplate = document.getElementsByClassName('team_box')[0];
     playerRow = document.getElementsByClassName('team_player_stats_row')[0];

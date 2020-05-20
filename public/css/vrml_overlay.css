@@ -1,0 +1,175 @@
+html,
+body {
+	color: #F5F5F5;
+}
+
+@font-face {
+	font-family: goodtimes;
+	src: url(../fonts/goodtimes.ttf);
+}
+
+table {
+	border-collapse: collapse;
+}
+
+td {
+	border: none;
+}
+
+th {
+	border: none;
+}
+
+#container {
+	width: 1920px;
+	height: 1080px;
+}
+
+#orangeplayerhead {
+	position: fixed;
+	bottom: 173px;
+	left: 183px;
+	width: 724px;
+	height: 33px;
+	text-align: center;
+}
+
+#orangeplayerhead tr {
+	height: 33px;
+	background: #240407;
+}
+
+#orangeplayerstable {
+	position: fixed;
+	bottom: 28px;
+	left: 183px;
+	width: 724px;
+	height: 145px;
+	text-align: center;
+	border-collapse: separate;
+	border-spacing: 0 6px;
+	background-color: rgba(255, 150, 50, 0.7);
+	visibility: hidden;
+}
+
+#blueplayerstable {
+	position: fixed;
+	bottom: 28px;
+	right: 183px;
+	width: 724px;
+	height: 145px;
+	background-color: rgba(50, 150, 255, 0.7);
+	text-align: center;
+	border-collapse: separate;
+	border-spacing: 0 6px;
+	visibility: hidden;
+}
+
+#blueplayerhead {
+	font-family: goodtimes;
+	position: fixed;
+	bottom: 173px;
+	right: 183px;
+	width: 724px;
+	height: 33px;
+	text-align: center;
+}
+
+#blueplayerhead tr {
+	height: 33px;
+	background: #0b0b13;
+}
+
+#blueplayerstable tr td:first-child {
+	text-align: left;
+	padding-left: 10px;
+	width: 248px;
+}
+
+#orangeplayerstable tr td:first-child {
+	text-align: left;
+	padding-left: 10px;
+	width: 248px;
+}
+
+.playerhead {
+	font-family: goodtimes;
+	font-size: 12px;
+}
+
+.playerhead tr td:first-child {
+	width: 248px;
+}
+
+.playerhead tr td {
+	width: 95px;
+}
+
+.playerstats {
+	font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.playerstats tr td {
+	width: 95px;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+#orangestats {
+	font-family: goodtimes;
+	position: fixed;
+	bottom: 28px;
+	left: 0;
+	width: 174;
+	height: 178px;
+	background-image: linear-gradient(to top right, #7e3c37, #240407);
+
+	border-collapse: separate;
+	border-spacing: 0 6px;
+	border-right: 4px solid #4c4e4d;
+	border-left: 2px solid #4c4e4d;
+	visibility: hidden;
+}
+
+#bluestats {
+	font-family: goodtimes;
+	position: fixed;
+	bottom: 28px;
+	right: 0;
+	width: 174;
+	height: 178px;
+	background-image: linear-gradient(to top right, #4a6075, #0e0b14);
+	border-collapse: separate;
+	border-spacing: 0 6px;
+	border-left: 4px solid #4c4e4d;
+	border-right: 2px solid #4c4e4d;
+	visibility: hidden;
+}
+
+#orangestats tr td:first-child {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	text-align: center;
+	width: 40px;
+	background-color: rgba(221, 147, 74, 0.7);
+}
+
+#orangestats tr td:last-child {
+	font-size: 12px;
+	text-align: center;
+	width: 134px;
+}
+
+#bluestats tr td:first-child {
+	text-align: center;
+	width: 134px;
+	font-size: 12px;
+}
+
+#bluestats tr td:last-child {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	text-align: center;
+	width: 40px;
+	background-color: rgba(73, 145, 221, 0.6);
+}
