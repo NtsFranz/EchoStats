@@ -2,7 +2,7 @@ const functions = require('firebase-functions');
 const express = require('express');
 
 // firestore
-const admin = require('firebase-admin');  
+const admin = require('firebase-admin');
 admin.initializeApp();
 let db = admin.firestore();
 
@@ -64,8 +64,13 @@ app.get('/get_team_name_from_list', async (req, res) => {
 app.get('/most_recent_match', (req, res) => {
     const client_name = req.query.client_name;
     const custom_id = req.query.custom_id;
+    const series_name = req.query.series_name;
 
-    res.render("match_data", {client_name,custom_id});
+    res.render("match_data", {
+        client_name,
+        custom_id,
+        series_name
+    });
 });
 
 exports.app = functions.https.onRequest(app);

@@ -27,42 +27,68 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var db = firebase.firestore()
 
-    if (client_name != "" && custom_id == "") {
+    if (series_name == "") {
+        series_name = "vrml_season_1";
+    }
 
-        db.collection('series').doc('vrml_season_1').collection('match_stats')
+    if (client_name != "" && custom_id == "") {
+        db.collection('series').doc(series_name).collection('match_stats')
             .orderBy("match_time", "desc")
             .where("client_name", "==", client_name)
             .limit(1)
             .get()
             .then(querySnapshot => {
                 if (!querySnapshot.empty) {
-                    //We know there is one doc in the querySnapshot
-                    const lastMatchDoc = querySnapshot.docs[0];
-
-                    console.log(lastMatchDoc.data());
-
-                    // get all players
-                    lastMatchDoc.ref.collection('players')
-                        .onSnapshot(playersQuery => {
-                            if (!playersQuery.empty) {
+                    recent_custom_id = querySnapshot.docs[0].data().custom_id;
+                    console.log(recent_custom_id);
+                    db.collection('series').doc(series_name).collection('match_stats')
+                        .orderBy("match_time", "desc")
+                        .where("custom_id", "==", recent_custom_id)
+                        .where("client_name", "==", client_name)    // Probably not necessary, but possible because of sha256 collisions
+                        .get()
+                        .then(querySnapshot => {
+                            if (!querySnapshot.empty) {
 
                                 players = {}
-
-                                playersQuery.docs.forEach(playerDoc => {
-                                    players[playerDoc.id] = playerDoc.data();
+            
+                                var playerPromises = [];
+            
+                                querySnapshot.docs.forEach(match => {
+                                    playerPromises.push(
+                                        // get all players
+                                        match.ref.collection('players')
+                                        .get());
                                 });
-
-                                processData(players);
-
+            
+                                Promise.all(playerPromises).then(playersQueries => {
+            
+                                    playersQueries.forEach(playersQuery => {
+                                        if (!playersQuery.empty) {
+                                            playersQuery.docs.forEach(player => {
+                                                if (players.hasOwnProperty(player.id)) {
+                                                    players[player.id] = mergeSum(players[player.id], player.data());
+                                                } else {
+                                                    players[player.id] = player.data();
+                                                }
+                                            });
+                                        }
+                                    });
+                                    console.log(players);
+            
+                                    processData(players);
+                                });
+            
                             }
                         });
                 }
             });
+
     } else if (custom_id != "") {
-        db.collection('series').doc('vrml_season_1').collection('match_stats')
+        db.collection('series').doc(series_name).collection('match_stats')
             .orderBy("match_time", "desc")
             .where("custom_id", "==", custom_id)
-            .onSnapshot(querySnapshot => {
+            .get()
+            .then(querySnapshot => {
                 if (!querySnapshot.empty) {
 
                     players = {}
@@ -205,10 +231,11 @@ function teamCentage(team, total) {
 
 // adds numeric values from ob2 to ob1
 function mergeSum(ob1, ob2) {
+    sum = {}
     Object.keys(ob1).forEach(key => {
         if (ob2.hasOwnProperty(key) && (typeof ob2[key]) == "number") {
-            ob1[key] = ob1[key] + ob2[key]
+            sum[key] = ob1[key] + ob2[key]
         }
     })
-    return ob1;
+    return sum;
 }
