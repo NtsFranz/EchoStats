@@ -40,28 +40,29 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(querySnapshot => {
                 if (!querySnapshot.empty) {
                     recent_custom_id = querySnapshot.docs[0].data().custom_id;
+                    console.log("Most recent Stats Id:");
                     console.log(recent_custom_id);
                     db.collection('series').doc(series_name).collection('match_stats')
                         .orderBy("match_time", "desc")
                         .where("custom_id", "==", recent_custom_id)
-                        .where("client_name", "==", client_name)    // Probably not necessary, but possible because of sha256 collisions
+                        .where("client_name", "==", client_name) // Probably not necessary, but possible because of sha256 collisions
                         .get()
                         .then(querySnapshot => {
                             if (!querySnapshot.empty) {
 
                                 players = {}
-            
+
                                 var playerPromises = [];
-            
+
                                 querySnapshot.docs.forEach(match => {
                                     playerPromises.push(
                                         // get all players
                                         match.ref.collection('players')
                                         .get());
                                 });
-            
+
                                 Promise.all(playerPromises).then(playersQueries => {
-            
+
                                     playersQueries.forEach(playersQuery => {
                                         if (!playersQuery.empty) {
                                             playersQuery.docs.forEach(player => {
@@ -73,11 +74,13 @@ document.addEventListener('DOMContentLoaded', function () {
                                             });
                                         }
                                     });
+
+                                    console.log("Player data:");
                                     console.log(players);
-            
+
                                     processData(players);
                                 });
-            
+
                             }
                         });
                 }
@@ -117,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         });
 
 
-
+                        console.log("Player data:");
                         console.log(players);
 
                         processData(players);
@@ -165,7 +168,6 @@ function processData(players) {
     // loop through all players
     Object.keys(players).forEach(key => {
         const p = players[key];
-        // console.log(p);
         table = "";
         table +=
             "<tr><td>" + p.player_name +
@@ -175,6 +177,7 @@ function processData(players) {
             "</td><td>" + p.steals +
             "</td><td>" + p.stuns +
             "</td></tr>";
+
         if (p.team_color == "blue") {
             bluePlayersTable += table;
             teamStats.blue.possession_time += p.possession_time;
@@ -194,7 +197,9 @@ function processData(players) {
         }
     });
     var totalStats = mergeSum(teamStats.blue, teamStats.orange);
+    console.log("Blue team stats:");
     console.log(teamStats.blue);
+    console.log("Orange team stats:");
     console.log(teamStats.orange);
     var teamStatsText = "";
     Object.keys(teamStatsHeaders).forEach(function (key) {
@@ -233,8 +238,12 @@ function teamCentage(team, total) {
 function mergeSum(ob1, ob2) {
     sum = {}
     Object.keys(ob1).forEach(key => {
-        if (ob2.hasOwnProperty(key) && (typeof ob2[key]) == "number") {
-            sum[key] = ob1[key] + ob2[key]
+        if (ob2.hasOwnProperty(key)) {
+            if ((typeof ob2[key]) == "number") {
+                sum[key] = ob1[key] + ob2[key]
+            } else {
+                sum[key] = ob1[key];
+            }
         }
     })
     return sum;
