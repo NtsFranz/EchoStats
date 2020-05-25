@@ -25,10 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     // Subsequent queries will use persistence, if it was enabled successfully
 
-    var db = firebase.firestore()
-
-    
-    console.log('\n\n\nhi\n\n');
+    var db = firebase.firestore();
 
     teamsDiv = document.getElementById('teams');
     teamDivTemplate = document.getElementsByClassName('team_box')[0];

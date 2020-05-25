@@ -28,17 +28,21 @@ app.get('/get_team_name_from_list', async (req, res) => {
 
     // get teams that the players are on
     teams = [];
+    var playerPromises = [];
     let playersRef = db.collection('players');
     player_list.forEach(p => {
         console.log(p);
         // get the player in question from the db
-        playersRef.get(p)
-            .then(doc => {
-                console.log(doc.data());
-                if (doc.exists) {
-                    teams.push(doc.data().team_name);
-                }
-            });
+        playerPromises.push(
+            playersRef.get(p)
+        );
+    });
+
+    Promise.all(playerPromises).then(doc => {
+        console.log(doc.data());
+        if (doc.exists) {
+            teams.push(doc.data().team_name);
+        }
     });
 
     console.log(teams);
@@ -49,7 +53,9 @@ app.get('/get_team_name_from_list', async (req, res) => {
         counts[t] = counts[t] ? counts[t] + 1 : 1;
     });
     // get the team with the max count
-    team_name = Object.keys(counts).reduce((a,b) => { counts[a] > counts[b] ? a : b });
+    team_name = Object.keys(counts).reduce((a, b) => {
+        counts[a] > counts[b] ? a : b
+    });
     likelihood = counts[team_name] / teams.length;
 
     // return the result
