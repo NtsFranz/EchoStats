@@ -1,35 +1,9 @@
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
 import requests
 from pyquery import PyQuery as pq
 from pathlib import Path
-from google.cloud import storage
 import os
 import datetime
 import json
-
-
-#################
-# Init Firestore
-#################
-project_id="ignitevr-echostats"
-
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="ignitevr-echostats-firebase-adminsdk-nzhes-c287edff87.json"
-
-# Use the application default credentials
-#cred = credentials.Certificate("ignitevr-echostats-firebase-adminsdk-nzhes-c287edff87.json")
-cred = credentials.Certificate("ignitevr-echostats-9e1d8f70c8a0.json")
-firebase_admin.initialize_app(cred, { 'projectId': project_id })
-#firebase_admin.get_app()
-
-
-db = firestore.client()
-
-
-##################
-# Actually scrape
-##################
 
 baseURL = 'https://vrmasterleague.com'
 
@@ -130,8 +104,6 @@ def scrapeTeams():
             insertIntoDB([team], "series/"+season['name']+'/teams', 'team_name')
             insertIntoDB(team_matches_temp, "series/"+season['name']+'/matches', 'match_id')
 
-
-
 def scrapePlayers():
     return # DON'T CALL THIS BECAUSE THE DATA ON THE WEBSITE IS NOW NO LONGER THERE
     players = []
@@ -195,7 +167,6 @@ def downloadImages():
         fileName = fullPath[27:]
         writeImage(fullPath, fileName)
         
-        
 # uploads images from a folder structure into firebase
 def uploadImages():
     client = storage.Client()
@@ -214,7 +185,6 @@ def uploadImages():
         blob.upload_from_filename(f)
         print(f)
 
-    
 def insertIntoDB(arr_of_dict, collection_name, key_name=None):
     batch = db.batch()
     for elem in arr_of_dict:
@@ -226,40 +196,73 @@ def insertIntoDB(arr_of_dict, collection_name, key_name=None):
         batch.set(doc_ref, elem)
     batch.commit()
     
-    
 def scrapeESLPlayers():
     esl_data = {
-        "cups": []
+        "cups": [],
+        "teams": []
     }
 
     teams = {} # unique team names
     baseURL = "https://play.eslgaming.com"
     URL = "https://play.eslgaming.com/echoarena/north-america/tournaments"
 
-    naURL = "https://api.eslgaming.com/play/v1/leagues?types=a_series,cup,esl_series,ladder,premiership,swiss&states=finished&tags=&path=/play/echoarena/north-america/&includeHidden=0&skill_levels=pro_qualifier,open,pro,major&limit.total=2000"
-    euURL = "https://api.eslgaming.com/play/v1/leagues?types=a_series,cup,esl_series,ladder,premiership,swiss&states=finished&tags=&path=/play/echoarena/europe/&includeHidden=0&skill_levels=pro_qualifier,open,pro,major&limit.total=2000"
+    naURL = "https://api.eslgaming.com/play/v1/leagues?types=a_series,cup,esl_series,ladder,premiership,swiss&states=finished&tags=&path=/play/echoarena/north-america/&includeHidden=0&skill_levels=pro_qualifier,open,pro,major&limit.total=5000"
+    euURL = "https://api.eslgaming.com/play/v1/leagues?types=a_series,cup,esl_series,ladder,premiership,swiss&states=finished&tags=&path=/play/echoarena/europe/&includeHidden=0&skill_levels=pro_qualifier,open,pro,major&limit.total=5000"
 
-    contestantsURL = "https://api.eslgaming.com/play/v1/leagues/162327/contestants"
-
-    r = requests.get(euURL)
+    r = requests.get(naURL)
     cupsPages = json.loads(r.text)
     for cup in cupsPages.items():
         pageURL = baseURL + cup[1]['uri']
         cup_data = {
+            "id": cup[0],
             "link": pageURL,
-            "teams": []
+            "teams": [],
+            "matches": []
         }
-        if '-registration' in pageURL:
-            contestantsURL = "https://api.eslgaming.com/play/v1/leagues/" + cup[0] + "/contestants"
-            r = requests.get(contestantsURL)
-            contestants = json.loads(r.text)
-            for c in contestants:
-                cup_data['teams'].append()
-                teams[c['id']] = {'team_name': c['name']}
-                print(c['name'])
+
+        # Get participating teams
+        contestantsURL = "https://api.eslgaming.com/play/v1/leagues/" + cup[0] + "/contestants"
+        r = requests.get(contestantsURL)
+        print(contestantsURL)
+        contestants = json.loads(r.text)
+        for c in contestants:
+            cup_data['teams'].append({
+                "id": c['id'],
+                "team_name": c['name']
+            })
+            teams[c['id']] = {'team_name': c['name']}
+
+        # get matches
+        matchesURL = "https://api.eslgaming.com/play/v1/leagues/" + cup[0] + "/matches"
+        r = requests.get(matchesURL)
+        print(matchesURL)
+        matches = json.loads(r.text)
+        for m in matches:
+            cup_data['matches'].append({
+                "id": m['id'],
+                "teams": [
+                    {
+                        "id": m['contestants'][0]['team']['id'],
+                        "team_name": m['contestants'][0]['team']['name'],
+                        "team_logo": m['contestants'][0]['team']['logo'],
+                        "score": m['result']['score'][m['contestants'][0]['team']['id'] if m['contestants'][0]['team']['id'] is not None else "0"]
+                    },
+                    {
+                        "id": m['contestants'][1]['team']['id'],
+                        "team_name": m['contestants'][1]['team']['name'],
+                        "team_logo": m['contestants'][1]['team']['logo'],
+                        "score": m['result']['score'][m['contestants'][1]['team']['id'] if m['contestants'][1]['team']['id'] is not None else "0"]
+                    }
+                ],
+                "match_time": m['beginAt']
+            })
         
         esl_data['cups'].append(cup_data)
 
+    return esl_data
+
+
+def get_esl_players_from_team_list(teams):
     for team in teams:
         teamPageURL = "https://play.eslgaming.com/team/" + str(team)
         teamPage = pq(teamPageURL)
@@ -281,17 +284,12 @@ def scrapeESLPlayers():
         teams[team]['roster'] = players
         print("Got roster for: " + teams[team]['team_name'])
 
-    # convert dict to array of dicts
-    teamsArr = []
-    for team in teams:
-        teamsArr.append(teams[team])
-
     # insertIntoDB(teamsArr, 'series/esl_season_1/teams', 'team_name')
-    return teamsArr
         
 
-def upload_players_wiki():
-    print(scrapeESLPlayers())
+def save_esl_scrape():
+    with open('ESL_NA.json', 'w') as outfile:
+        json.dump(scrapeESLPlayers(), outfile)
 
 #scrapePlayers()
 #scrapeMatches()
@@ -300,4 +298,4 @@ def upload_players_wiki():
 #uploadImages()
 #scrapeESLPlayers()
 
-upload_players_wiki()
+save_esl_scrape()
