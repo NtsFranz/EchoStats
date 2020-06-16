@@ -10,7 +10,8 @@ from datetime import datetime
 WIKI = True
 S = requests.Session()
 
-URL = "http://localhost/mediawiki/api.php"
+#URL = "http://localhost/mediawiki/api.php"
+URL = "http://192.168.1.128/mediawiki/api.php"
 
 # Step 1: GET request to fetch login token
 PARAMS_0 = {
@@ -92,15 +93,13 @@ def UploadSeasonCupsESL():
 # Creates pages with a list of matches for each cup
 def UploadCupMatchPagesESL():
     # load the data into an object from file
-    with open('data/ESL_NA.json') as f:
+    with open('data/ESL_cups.json') as f:
         esl_data = json.load(f)
 
     for cup in esl_data['cups']:
         page = "This cup is a part of the VR Challenger League. See the [[VR Challenger League (ESL) List of Cups|full list of cups]].\n\n"
 
         page += "[" + cup['link'] + " ESL Cup Page]\n\n"
-
-        page += "Number of teams in this cup: " + str(len(cup['teams'])) + "\n\n"
 
         if "registration" in cup['link']:
             page += "This cup is a registration cup, so it contains no matches.\n"
@@ -110,7 +109,7 @@ def UploadCupMatchPagesESL():
             # Create the table string
             page += table_header
             page += table_row
-            page += '! Time !! External Cup Page !! Home Team !! Home Team Score !! Away Team Score !! Away Team\n'
+            page += '! Time !! External Match Page !! Home Team !! Home Team Score !! Away Team Score !! Away Team\n'
             cup['matches'] = sorted(cup['matches'], key=lambda i: i['match_time'])
             for m in cup['matches']:
                 page += table_row
@@ -128,6 +127,8 @@ def UploadCupMatchPagesESL():
             page += table_footer
 
         page += "=== List of Teams ===\n"
+        page += "Number of teams in this cup: " + str(len(cup['teams'])) + "\n"
+
         # Create the table string
         page += table_header
         page += table_row
@@ -145,6 +146,41 @@ def UploadCupMatchPagesESL():
 
         createPage(cup['name'].replace('#', ''), page)
 
+def UploadTeamPages():
+    # load the data into an object from file
+    with open('data/ESL_cups.json') as f:
+        esl_data = json.load(f)
+
+    for teamItem in esl_data['teams'].items():
+        team = teamItem[1]
+
+        page = ""
+
+        if "team_logo" in team:
+            page += team['team_logo'] + "\n\n"
+        page += "[" + team['team_page'] + " ESL Team Page]\n\n"
+        if "founded" in team:
+            page += "Founded: " + team['founded'] + "\n\n"
+        if "region" in team:
+            page += "Region: " + team['region'] + "\n\n"
+
+        page += "=== Players ===\n"
+        page += table_header
+        page += '! Player Logo !! Player Name !! External Player Page\n'
+        for p in team['roster']:
+            page += table_row
+            row = Template('| $player_logo || [[$player_name]] || [$player_page ESL Player Page]\n')
+            row = row.substitute({
+                "player_logo": "",
+                "player_name": p['name'],
+                "player_page": p['player_page']
+            })
+            page += row
+        page += table_footer
+
+        page += "=== Match History ===\n"
+
+        createPage(team['team_name'], page)
 
 def createPage(pageName, pageData):
     # Step 4: POST request to edit a page
@@ -162,4 +198,5 @@ def createPage(pageName, pageData):
     print(DATA)
 
 #UploadSeasonCupsESL()
-UploadCupMatchPagesESL()
+#UploadCupMatchPagesESL()
+UploadTeamPages()
