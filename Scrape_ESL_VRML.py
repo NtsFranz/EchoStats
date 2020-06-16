@@ -209,19 +209,22 @@ def scrapeESLPlayers():
     naURL = "https://api.eslgaming.com/play/v1/leagues?types=a_series,cup,esl_series,ladder,premiership,swiss&states=finished&tags=&path=/play/echoarena/north-america/&includeHidden=0&skill_levels=pro_qualifier,open,pro,major&limit.total=5000"
     euURL = "https://api.eslgaming.com/play/v1/leagues?types=a_series,cup,esl_series,ladder,premiership,swiss&states=finished&tags=&path=/play/echoarena/europe/&includeHidden=0&skill_levels=pro_qualifier,open,pro,major&limit.total=5000"
 
-    r = requests.get(naURL)
-    cupsPages = json.loads(r.text)
-    for cup in cupsPages.items():
-        pageURL = baseURL + cup[1]['uri']
+    r = requests.get(euURL)
+    cups = json.loads(r.text)
+    for cupItem in cups.items():
+        cup = cupItem[1]
+        pageURL = baseURL + cup['uri']
         cup_data = {
-            "id": cup[0],
+            "id": cup['id'],
             "link": pageURL,
+            "name": cup['name']['normal'],
+            "date": cup['timeline']['inProgress']['begin'] if len(cup['timeline']) > 0 else "n/a",
             "teams": [],
             "matches": []
         }
 
         # Get participating teams
-        contestantsURL = "https://api.eslgaming.com/play/v1/leagues/" + cup[0] + "/contestants"
+        contestantsURL = "https://api.eslgaming.com/play/v1/leagues/" + str(cup['id']) + "/contestants"
         r = requests.get(contestantsURL)
         print(contestantsURL)
         contestants = json.loads(r.text)
@@ -233,7 +236,7 @@ def scrapeESLPlayers():
             teams[c['id']] = {'team_name': c['name']}
 
         # get matches
-        matchesURL = "https://api.eslgaming.com/play/v1/leagues/" + cup[0] + "/matches"
+        matchesURL = "https://api.eslgaming.com/play/v1/leagues/" + str(cup['id']) + "/matches"
         r = requests.get(matchesURL)
         print(matchesURL)
         matches = json.loads(r.text)
@@ -288,7 +291,7 @@ def get_esl_players_from_team_list(teams):
         
 
 def save_esl_scrape():
-    with open('ESL_NA.json', 'w') as outfile:
+    with open('data/ESL_EU.json', 'w') as outfile:
         json.dump(scrapeESLPlayers(), outfile)
 
 #scrapePlayers()
