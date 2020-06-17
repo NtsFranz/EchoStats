@@ -207,13 +207,21 @@ def scrapeESLCups():
     baseURL = "https://play.eslgaming.com"
     URL = "https://play.eslgaming.com/echoarena/north-america/tournaments"
 
-    regionURLS = ["https://api.eslgaming.com/play/v1/leagues?types=a_series,cup,esl_series,ladder,premiership,swiss&states=finished&tags=&path=/play/echoarena/north-america/&includeHidden=0&skill_levels=pro_qualifier,open,pro,major&limit.total=5000", "https://api.eslgaming.com/play/v1/leagues?types=a_series,cup,esl_series,ladder,premiership,swiss&states=finished&tags=&path=/play/echoarena/europe/&includeHidden=0&skill_levels=pro_qualifier,open,pro,major&limit.total=5000"]
+    regionURLS_VRCL = ["https://api.eslgaming.com/play/v1/leagues?types=a_series,cup,esl_series,ladder,premiership,swiss&states=finished&tags=&path=/play/echoarena/north-america/&includeHidden=0&skill_levels=pro_qualifier,open,pro,major&limit.total=5000", "https://api.eslgaming.com/play/v1/leagues?types=a_series,cup,esl_series,ladder,premiership,swiss&states=finished&tags=&path=/play/echoarena/europe/&includeHidden=0&skill_levels=pro_qualifier,open,pro,major&limit.total=5000"]
+
+    regionURLS_VRL = [
+        "https://api.eslgaming.com/play/v1/leagues?types=swiss&states=finished&tags=vrlechoarena-na-portal&path=/play/&includeHidden=0&skill_levels=major&limit.total=40000", 
+        "https://api.eslgaming.com/play/v1/leagues?types=swiss&states=finished&tags=vrlechoarena-eu-portal&path=/play/&includeHidden=0&skill_levels=major&limit.total=40000"]
     
-    for url in regionURLS:
+    for url in regionURLS_VRL:
         r = requests.get(url)
         cups = json.loads(r.text)
         for cupItem in cups.items():
             cup = cupItem[1]
+
+            if '2019-' not in cup['uri']:
+                continue
+
             pageURL = baseURL + cup['uri']
             cup_data = {
                 "id": cup['id'],
@@ -264,13 +272,13 @@ def scrapeESLCups():
             esl_data['cups'].append(cup_data)
     esl_data['teams'] = teams
 
-    with open('data/ESL_cups.json', 'w') as outfile:
+    with open('data/VRL_S3_cups.json', 'w') as outfile:
         json.dump(esl_data, outfile)
 
 # Gets all teams and players on teams from ESL site
 # gets teams from json file, exports to json file
 def get_esl_players_from_team_list():
-    with open('data/ESL_cups.json', 'r+') as f:
+    with open('data/VRL_S3_cups.json', 'r+') as f:
         esl_data = json.load(f)
         f.seek(0)
 
@@ -293,7 +301,7 @@ def get_esl_players_from_team_list():
             playerList = pq(teamPage('#playersheet_title').next())('tr > td > div')('a')
             players = []
             for playerElem in playerList:
-                if "Show all matches" not in playerElem.text:
+                if playerElem.text is not None and "Show all matches" not in playerElem.text:
                     p = {
                         "id": pq(playerElem).attr('href').split('/')[2],
                         "name": playerElem.text,
@@ -311,6 +319,6 @@ def get_esl_players_from_team_list():
 #scrapeTeams()
 #downloadImages()
 #uploadImages()
-#scrapeESLPlayers()
 
+# scrapeESLCups()
 get_esl_players_from_team_list()
