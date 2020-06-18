@@ -1,0 +1,3210 @@
+{
+    "Dallas Space Cowboys": {
+        "esl_team_id": "11655669",
+        "esl_team_page": "https://play.eslgaming.com/team/11655669",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11655000/11655669_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11655000/11655669_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11655000/11655669_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "AGr",
+                    "TaylorR137",
+                    "Vrchangel"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "AGr",
+                    "TaylorR137",
+                    "Vrchangel"
+                ]
+            }
+        }
+    },
+    "oof": {
+        "esl_team_id": "12352616",
+        "esl_team_page": "https://play.eslgaming.com/team/12352616",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12352000/12352616_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12352000/12352616_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12352000/12352616_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "ender-",
+                    "Tasic"
+                ]
+            }
+        }
+    },
+    "MetaMercs": {
+        "esl_team_id": "12381350",
+        "esl_team_page": "https://play.eslgaming.com/team/12381350",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12381000/12381350_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12381000/12381350_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12381000/12381350_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Fahrenuf",
+                    "speedy_v",
+                    "Strembitsky"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "Fahrenuf",
+                    "speedy_v",
+                    "Strembitsky"
+                ]
+            }
+        }
+    },
+    "BlitzBallerz": {
+        "esl_team_id": "12317813",
+        "esl_team_page": "https://play.eslgaming.com/team/12317813",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12317000/12317813_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12317000/12317813_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12317000/12317813_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Dash",
+                    "Palidore",
+                    "Simeonk21"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "Dash",
+                    "Palidore",
+                    "Simeonk21"
+                ]
+            }
+        }
+    },
+    "Don't Panic!": {
+        "esl_team_id": "12264237",
+        "esl_team_page": "https://play.eslgaming.com/team/12264237",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12264000/12264237_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12264000/12264237_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12264000/12264237_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "egret85",
+                    "SweetPotato",
+                    "Giligin"
+                ]
+            },
+            "vrl_s3": {
+                "roster": [
+                    "egret85",
+                    "SweetPotato",
+                    "Giligin"
+                ]
+            }
+        }
+    },
+    "Legend Of The Recursive Blade": {
+        "esl_team_id": "11684794",
+        "esl_team_page": "https://play.eslgaming.com/team/11684794",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11684000/11684794_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11684000/11684794_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11684000/11684794_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "recursiveconnectome",
+                    "Brainjax44",
+                    "Devinsharp"
+                ]
+            }
+        }
+    },
+    "Schindler's Disc": {
+        "esl_team_id": "11677705",
+        "esl_team_page": "https://play.eslgaming.com/team/11677705",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11677000/11677705_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11677000/11677705_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11677000/11677705_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "SaoKirito",
+                    "darkninja725",
+                    "Hasko7",
+                    "RobotMind",
+                    "StufMuff"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "SaoKirito",
+                    "darkninja725",
+                    "Hasko7",
+                    "RobotMind",
+                    "StufMuff"
+                ]
+            }
+        }
+    },
+    "Crocodilobsterz": {
+        "esl_team_id": "12282077",
+        "esl_team_page": "https://play.eslgaming.com/team/12282077",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12282000/12282077_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12282000/12282077_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12282000/12282077_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Sealablebag",
+                    "SoMuch4Subtlety",
+                    "Wit"
+                ]
+            }
+        }
+    },
+    "Team Solace": {
+        "esl_team_id": "11664192",
+        "esl_team_page": "https://play.eslgaming.com/team/11664192",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11664000/11664192_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11664000/11664192_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11664000/11664192_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Delusion_",
+                    "CraigglesO",
+                    "Its not Fate",
+                    "skippy",
+                    "SoleRanger"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "Delusion_",
+                    "CraigglesO",
+                    "Its not Fate",
+                    "skippy",
+                    "SoleRanger"
+                ]
+            }
+        }
+    },
+    "Error 418: I'm a teapot": {
+        "esl_team_id": "12346811",
+        "esl_team_page": "https://play.eslgaming.com/team/12346811",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12346000/12346811_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12346000/12346811_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12346000/12346811_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Jsmith930",
+                    "NtsFranz"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "Jsmith930",
+                    "NtsFranz"
+                ]
+            }
+        }
+    },
+    "Celestial Order": {
+        "esl_team_id": "12348399",
+        "esl_team_page": "https://play.eslgaming.com/team/12348399",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12348000/12348399_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12348000/12348399_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12348000/12348399_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Vrchangel",
+                    "CooGuySteve"
+                ]
+            }
+        }
+    },
+    "B Team": {
+        "esl_team_id": "12287824",
+        "esl_team_page": "https://play.eslgaming.com/team/12287824",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12287000/12287824_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12287000/12287824_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12287000/12287824_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Guntherman5000",
+                    "LoneKingWilly",
+                    "Mishonee"
+                ]
+            }
+        }
+    },
+    "Move oVR": {
+        "esl_team_id": "11663328",
+        "esl_team_page": "https://play.eslgaming.com/team/11663328",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11663000/11663328_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11663000/11663328_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11663000/11663328_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "billyisms",
+                    "InfernalSyndicate",
+                    "MercyHunter"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "billyisms",
+                    "InfernalSyndicate",
+                    "MercyHunter"
+                ]
+            },
+            "vrl_s3": {
+                "roster": [
+                    "billyisms",
+                    "InfernalSyndicate",
+                    "MercyHunter"
+                ]
+            }
+        }
+    },
+    "Jokr": {
+        "esl_team_id": "12247870",
+        "esl_team_page": "https://play.eslgaming.com/team/12247870",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12247000/12247870_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12247000/12247870_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12247000/12247870_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Kungg",
+                    "JayWalker",
+                    "RyanRhino8"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "Kungg",
+                    "JayWalker",
+                    "RyanRhino8"
+                ]
+            },
+            "vrl_s3": {
+                "roster": [
+                    "Kungg",
+                    "JayWalker",
+                    "RyanRhino8"
+                ]
+            }
+        }
+    },
+    "TitaN": {
+        "esl_team_id": "11660489",
+        "esl_team_page": "https://play.eslgaming.com/team/11660489",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11660000/11660489_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11660000/11660489_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11660000/11660489_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Dual-",
+                    "Game-",
+                    "pikes-",
+                    "play_n_joy"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "Dual-",
+                    "Game-",
+                    "pikes-",
+                    "play_n_joy"
+                ]
+            }
+        }
+    },
+    "X-WINGS": {
+        "esl_team_id": "12281762",
+        "esl_team_page": "https://play.eslgaming.com/team/12281762",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12281000/12281762_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12281000/12281762_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12281000/12281762_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Chuck.NotNorris",
+                    "CitizenGlock",
+                    "PANG0"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "Chuck.NotNorris",
+                    "CitizenGlock",
+                    "PANG0"
+                ]
+            }
+        }
+    },
+    "Knuckle Puck": {
+        "esl_team_id": "11677975",
+        "esl_team_page": "https://play.eslgaming.com/team/11677975",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11677000/11677975_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11677000/11677975_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11677000/11677975_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "DaeFox",
+                    "Rogar"
+                ]
+            }
+        }
+    },
+    "LubeTubeDudes": {
+        "esl_team_id": "11682165",
+        "esl_team_page": "https://play.eslgaming.com/team/11682165",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11682000/11682165_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11682000/11682165_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11682000/11682165_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "ShiZZ_DiGG",
+                    "Exxod"
+                ]
+            }
+        }
+    },
+    "Frisbee Kings": {
+        "esl_team_id": "11681761",
+        "esl_team_page": "https://play.eslgaming.com/team/11681761",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11681000/11681761_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11681000/11681761_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11681000/11681761_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "marko_polo",
+                    "Paul3221"
+                ]
+            }
+        }
+    },
+    "Hella Fresh": {
+        "esl_team_id": "11673069",
+        "esl_team_page": "https://play.eslgaming.com/team/11673069",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11673000/11673069_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11673000/11673069_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11673000/11673069_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Far",
+                    "furafo",
+                    "Wolf_23"
+                ]
+            }
+        }
+    },
+    "Dyskovr": {
+        "esl_team_id": "11718494",
+        "esl_team_page": "https://play.eslgaming.com/team/11718494",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11718000/11718494_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11718000/11718494_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11718000/11718494_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "w1lDc4rD"
+                ]
+            }
+        }
+    },
+    "Lamplighters": {
+        "esl_team_id": "11664432",
+        "esl_team_page": "https://play.eslgaming.com/team/11664432",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11664000/11664432_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11664000/11664432_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11664000/11664432_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "leoPWNadon",
+                    "noob_fodder",
+                    "SoMuch4Subtlety"
+                ]
+            }
+        }
+    },
+    "Kangorillaz": {
+        "esl_team_id": "11657398",
+        "esl_team_page": "https://play.eslgaming.com/team/11657398",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11657000/11657398_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11657000/11657398_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11657000/11657398_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Loveridge-",
+                    "Sealablebag",
+                    "Strembitsky"
+                ]
+            },
+            "vrl_s3": {
+                "roster": [
+                    "Loveridge-",
+                    "Sealablebag",
+                    "Strembitsky"
+                ]
+            }
+        }
+    },
+    "Saturn SpaceTrotters": {
+        "esl_team_id": "11672015",
+        "esl_team_page": "https://play.eslgaming.com/team/11672015",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11672000/11672015_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11672000/11672015_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11672000/11672015_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Equinox83",
+                    "machmachmach"
+                ]
+            }
+        }
+    },
+    "Danksauce": {
+        "esl_team_id": "11673622",
+        "esl_team_page": "https://play.eslgaming.com/team/11673622",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11673000/11673622_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11673000/11673622_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11673000/11673622_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Calvo",
+                    "pikes-",
+                    "Wit"
+                ]
+            }
+        }
+    },
+    "Dingers": {
+        "esl_team_id": "11693908",
+        "esl_team_page": "https://play.eslgaming.com/team/11693908",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11693000/11693908_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11693000/11693908_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11693000/11693908_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "ESL_Champion",
+                    "kipper44",
+                    "DaeFox",
+                    "MooneyWhy",
+                    "ZacShmack"
+                ]
+            }
+        }
+    },
+    "Diskin Around": {
+        "esl_team_id": "11753729",
+        "esl_team_page": "https://play.eslgaming.com/team/11753729",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Nerdburglar",
+                    "Reukifellth",
+                    "Springsteen"
+                ]
+            }
+        }
+    },
+    "Discrete Lobsters": {
+        "esl_team_id": "11677814",
+        "esl_team_page": "https://play.eslgaming.com/team/11677814",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11677000/11677814_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11677000/11677814_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11677000/11677814_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "darkninja725",
+                    "DoomBlossom",
+                    "onikaze",
+                    "thebigman433"
+                ]
+            }
+        }
+    },
+    "2 Dads 1 Mom": {
+        "esl_team_id": "11976596",
+        "esl_team_page": "https://play.eslgaming.com/team/11976596",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Fuel The Fury",
+                    "LilJess13",
+                    "Shoeboot"
+                ]
+            }
+        }
+    },
+    "Who Are We?": {
+        "esl_team_id": "11948822",
+        "esl_team_page": "https://play.eslgaming.com/team/11948822",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "CraigglesO",
+                    "Enderslot",
+                    "HappiestBroom",
+                    "spacestuff"
+                ]
+            }
+        }
+    },
+    "Robo House": {
+        "esl_team_id": "11698641",
+        "esl_team_page": "https://play.eslgaming.com/team/11698641",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Jaysmith2015",
+                    "Trialobite",
+                    "turtuls"
+                ]
+            }
+        }
+    },
+    "ec.LiP.se": {
+        "esl_team_id": "11657266",
+        "esl_team_page": "https://play.eslgaming.com/team/11657266",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11657000/11657266_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11657000/11657266_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11657000/11657266_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Palidore",
+                    "Simeonk21",
+                    "iShiny",
+                    "Lemming"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "Palidore",
+                    "Simeonk21",
+                    "iShiny",
+                    "Lemming"
+                ]
+            },
+            "vrl_s3": {
+                "roster": [
+                    "Palidore",
+                    "Simeonk21",
+                    "iShiny",
+                    "Lemming"
+                ]
+            }
+        }
+    },
+    "Disc Fondlers": {
+        "esl_team_id": "11656689",
+        "esl_team_page": "https://play.eslgaming.com/team/11656689",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11656000/11656689_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11656000/11656689_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11656000/11656689_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "ADverseNAX",
+                    "Chief Herb"
+                ]
+            }
+        }
+    },
+    "Team ABZ": {
+        "esl_team_id": "11657267",
+        "esl_team_page": "https://play.eslgaming.com/team/11657267",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11657000/11657267_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11657000/11657267_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11657000/11657267_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "BitHappy",
+                    "MrZoops"
+                ]
+            }
+        }
+    },
+    "Limp Discuit": {
+        "esl_team_id": "11816170",
+        "esl_team_page": "https://play.eslgaming.com/team/11816170",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11816000/11816170_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11816000/11816170_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11816000/11816170_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "heavyy",
+                    "Kasbo",
+                    "Schrifty"
+                ]
+            }
+        }
+    },
+    "bees": {
+        "esl_team_id": "11754135",
+        "esl_team_page": "https://play.eslgaming.com/team/11754135",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "fourdubb7",
+                    "piffblunts",
+                    "vKush Clouds"
+                ]
+            }
+        }
+    },
+    "VR Echo Elite": {
+        "esl_team_id": "11756900",
+        "esl_team_page": "https://play.eslgaming.com/team/11756900",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Bygrace57",
+                    "Haussmann",
+                    "pancakesplease"
+                ]
+            }
+        }
+    },
+    "Phantom": {
+        "esl_team_id": "12372856",
+        "esl_team_page": "https://play.eslgaming.com/team/12372856",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12372000/12372856_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12372000/12372856_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12372000/12372856_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Aces_",
+                    "IS0LAT3",
+                    "rickoooooo",
+                    "Tasic"
+                ]
+            },
+            "vrl_s3": {
+                "roster": [
+                    "Aces_",
+                    "IS0LAT3",
+                    "rickoooooo",
+                    "Tasic"
+                ]
+            }
+        }
+    },
+    "Fauxgasms": {
+        "esl_team_id": "12372573",
+        "esl_team_page": "https://play.eslgaming.com/team/12372573",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Fahrenuf",
+                    "Guygasm",
+                    "speedy_v"
+                ]
+            }
+        }
+    },
+    "Global Warming": {
+        "esl_team_id": "12084769",
+        "esl_team_page": "https://play.eslgaming.com/team/12084769",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "CraigglesO",
+                    "Enderslot",
+                    "Its not Fate"
+                ]
+            }
+        }
+    },
+    "Expectancy RL": {
+        "esl_team_id": "12109236",
+        "esl_team_page": "https://play.eslgaming.com/team/12109236",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Furrxy",
+                    "guuda_",
+                    "Nova-Brosia"
+                ]
+            }
+        }
+    },
+    "Ruin": {
+        "esl_team_id": "11658319",
+        "esl_team_page": "https://play.eslgaming.com/team/11658319",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11658000/11658319_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11658000/11658319_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11658000/11658319_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Shad_",
+                    "ShiZZ_DiGG",
+                    "SolidShot"
+                ]
+            }
+        }
+    },
+    "BoostJunkies": {
+        "esl_team_id": "12098668",
+        "esl_team_page": "https://play.eslgaming.com/team/12098668",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12098000/12098668_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12098000/12098668_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12098000/12098668_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Oteku",
+                    "Grav-"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "Oteku",
+                    "Grav-"
+                ]
+            }
+        }
+    },
+    "That One Team": {
+        "esl_team_id": "12180439",
+        "esl_team_page": "https://play.eslgaming.com/team/12180439",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12180000/12180439_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12180000/12180439_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12180000/12180439_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Prymate",
+                    "sillychris314"
+                ]
+            }
+        }
+    },
+    "Reckless Bubbles": {
+        "esl_team_id": "12064893",
+        "esl_team_page": "https://play.eslgaming.com/team/12064893",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12064000/12064893_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12064000/12064893_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12064000/12064893_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Vikt0r_"
+                ]
+            }
+        }
+    },
+    "Not Fast and Not Furious": {
+        "esl_team_id": "12152405",
+        "esl_team_page": "https://play.eslgaming.com/team/12152405",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Everblaze",
+                    "NavIo_ThEme",
+                    "WafflezFTT"
+                ]
+            }
+        }
+    },
+    "We Help Hamburgers": {
+        "esl_team_id": "11684531",
+        "esl_team_page": "https://play.eslgaming.com/team/11684531",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11684000/11684531_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11684000/11684531_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11684000/11684531_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Brainjax44",
+                    "sakura1138",
+                    "Soupertrooper"
+                ]
+            }
+        }
+    },
+    "Team Velocity": {
+        "esl_team_id": "12413941",
+        "esl_team_page": "https://play.eslgaming.com/team/12413941",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12413000/12413941_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12413000/12413941_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12413000/12413941_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "GanjafLuX",
+                    "F0XTR0T_0SCAR",
+                    "InfernalSyndicate"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "GanjafLuX",
+                    "F0XTR0T_0SCAR",
+                    "InfernalSyndicate"
+                ]
+            }
+        }
+    },
+    "Zero Gravity": {
+        "esl_team_id": "12413839",
+        "esl_team_page": "https://play.eslgaming.com/team/12413839",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12413000/12413839_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12413000/12413839_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12413000/12413839_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "GhettoSandwich64",
+                    "Skinny",
+                    "D3vrock",
+                    "RoseyHope",
+                    "Vlastro"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "GhettoSandwich64",
+                    "Skinny",
+                    "D3vrock",
+                    "RoseyHope",
+                    "Vlastro"
+                ]
+            }
+        }
+    },
+    "Saucer Tossers": {
+        "esl_team_id": "12429133",
+        "esl_team_page": "https://play.eslgaming.com/team/12429133",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12429000/12429133_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12429000/12429133_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12429000/12429133_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Fahrenuf",
+                    "SoMuch4Subtlety",
+                    "speedy_v"
+                ]
+            }
+        }
+    },
+    "zerOGs": {
+        "esl_team_id": "12328892",
+        "esl_team_page": "https://play.eslgaming.com/team/12328892",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12328000/12328892_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12328000/12328892_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12328000/12328892_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "fps_rawb",
+                    "IdahoBlack",
+                    "insLane"
+                ]
+            }
+        }
+    },
+    "Flu Free": {
+        "esl_team_id": "12282005",
+        "esl_team_page": "https://play.eslgaming.com/team/12282005",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12282000/12282005_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12282000/12282005_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12282000/12282005_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "grumpiestbroom",
+                    "pikes-",
+                    "speedy_v"
+                ]
+            }
+        }
+    },
+    "0.G.": {
+        "esl_team_id": "11658181",
+        "esl_team_page": "https://play.eslgaming.com/team/11658181",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11658000/11658181_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11658000/11658181_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11658000/11658181_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Charizard",
+                    "jon",
+                    "ServError"
+                ]
+            }
+        }
+    },
+    "Most Velvety": {
+        "esl_team_id": "11669001",
+        "esl_team_page": "https://play.eslgaming.com/team/11669001",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11669000/11669001_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11669000/11669001_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11669000/11669001_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "AJqt",
+                    "Jumpinbean92r"
+                ]
+            }
+        }
+    },
+    "LastMinute": {
+        "esl_team_id": "11684694",
+        "esl_team_page": "https://play.eslgaming.com/team/11684694",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11684000/11684694_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11684000/11684694_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11684000/11684694_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Loud Software",
+                    "Suitch",
+                    "WinEpic"
+                ]
+            }
+        }
+    },
+    "Three Wise Men": {
+        "esl_team_id": "11657522",
+        "esl_team_page": "https://play.eslgaming.com/team/11657522",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11657000/11657522_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11657000/11657522_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11657000/11657522_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Jables 972",
+                    "RealityCheckVR",
+                    "Talemire"
+                ]
+            }
+        }
+    },
+    "Last Minute Echoes": {
+        "esl_team_id": "11684701",
+        "esl_team_page": "https://play.eslgaming.com/team/11684701",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11684000/11684701_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11684000/11684701_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11684000/11684701_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "darkninja725",
+                    "justinjja",
+                    "pancakesplease"
+                ]
+            }
+        }
+    },
+    "GigaFooz_.-._.-._": {
+        "esl_team_id": "11684500",
+        "esl_team_page": "https://play.eslgaming.com/team/11684500",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11684000/11684500_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11684000/11684500_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11684000/11684500_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Dave_.-._.-._",
+                    "Fooz",
+                    "Giga_Moose"
+                ]
+            }
+        }
+    },
+    "Eagles": {
+        "esl_team_id": "11657384",
+        "esl_team_page": "https://play.eslgaming.com/team/11657384",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11657000/11657384_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11657000/11657384_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11657000/11657384_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Dartans",
+                    "BRBoss",
+                    "MystikIncarnate"
+                ]
+            }
+        }
+    },
+    "D3TOX": {
+        "esl_team_id": "12130347",
+        "esl_team_page": "https://play.eslgaming.com/team/12130347",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12130000/12130347_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12130000/12130347_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12130000/12130347_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "D3vrock",
+                    "Jiraiya_sama"
+                ]
+            }
+        }
+    },
+    "We Dont Know What We Are Doing": {
+        "esl_team_id": "12094808",
+        "esl_team_page": "https://play.eslgaming.com/team/12094808",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Dunkas",
+                    "Verbluten",
+                    "xanderdagr8"
+                ]
+            }
+        }
+    },
+    "Sim's Poland Performance": {
+        "esl_team_id": "12352578",
+        "esl_team_page": "https://play.eslgaming.com/team/12352578",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12352000/12352578_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12352000/12352578_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12352000/12352578_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Exhibit",
+                    "Guygasm",
+                    "noob_fodder"
+                ]
+            }
+        }
+    },
+    "Enuf with the noobgasms": {
+        "esl_team_id": "12327759",
+        "esl_team_page": "https://play.eslgaming.com/team/12327759",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Fahrenuf",
+                    "Guygasm",
+                    "noob_fodder"
+                ]
+            }
+        }
+    },
+    "Eleven Point Five": {
+        "esl_team_id": "12270517",
+        "esl_team_page": "https://play.eslgaming.com/team/12270517",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12270000/12270517_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12270000/12270517_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12270000/12270517_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Dash",
+                    "Wit"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "Dash",
+                    "Wit"
+                ]
+            },
+            "vrl_s3": {
+                "roster": [
+                    "Dash",
+                    "Wit"
+                ]
+            }
+        }
+    },
+    "Lemming's Fantasy Team": {
+        "esl_team_id": "12282495",
+        "esl_team_page": "https://play.eslgaming.com/team/12282495",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12282000/12282495_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12282000/12282495_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12282000/12282495_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Exhibit",
+                    "noob_fodder",
+                    "Palidore"
+                ]
+            }
+        }
+    },
+    "Spaceballers": {
+        "esl_team_id": "12352462",
+        "esl_team_page": "https://play.eslgaming.com/team/12352462",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Fahrenuf",
+                    "grumpiestbroom",
+                    "speedy_v"
+                ]
+            }
+        }
+    },
+    "Sanic": {
+        "esl_team_id": "12327782",
+        "esl_team_page": "https://play.eslgaming.com/team/12327782",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12327000/12327782_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12327000/12327782_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12327000/12327782_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Magicmann50",
+                    "SolidShot"
+                ]
+            }
+        }
+    },
+    "Grumpy's Old Men": {
+        "esl_team_id": "12298668",
+        "esl_team_page": "https://play.eslgaming.com/team/12298668",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12298000/12298668_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12298000/12298668_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12298000/12298668_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "grumpiestbroom",
+                    "pikes-",
+                    "speedy_v"
+                ]
+            }
+        }
+    },
+    "Cool Name Pending": {
+        "esl_team_id": "12429384",
+        "esl_team_page": "https://play.eslgaming.com/team/12429384",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Paronym"
+                ]
+            }
+        }
+    },
+    "Hubba bubba Bubblegum": {
+        "esl_team_id": "12446805",
+        "esl_team_page": "https://play.eslgaming.com/team/12446805",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12446000/12446805_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12446000/12446805_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12446000/12446805_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "V00D0025"
+                ]
+            }
+        }
+    },
+    "-Wings-": {
+        "esl_team_id": "12454181",
+        "esl_team_page": "https://play.eslgaming.com/team/12454181",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12454000/12454181_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12454000/12454181_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12454000/12454181_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "AlteredDroid",
+                    "lazyatkins"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "AlteredDroid",
+                    "lazyatkins"
+                ]
+            }
+        }
+    },
+    "The Drunken Dunkers": {
+        "esl_team_id": "11731221",
+        "esl_team_page": "https://play.eslgaming.com/team/11731221",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11731000/11731221_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11731000/11731221_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11731000/11731221_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "fifty shad3s",
+                    "swspringsteen"
+                ]
+            }
+        }
+    },
+    "Frozen Space": {
+        "esl_team_id": "11868762",
+        "esl_team_page": "https://play.eslgaming.com/team/11868762",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11868000/11868762_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11868000/11868762_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11868000/11868762_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Fin-",
+                    "mateuszdrwal",
+                    "Viatrex",
+                    "Cea",
+                    "Matti_123"
+                ]
+            }
+        }
+    },
+    "Smash Dash": {
+        "esl_team_id": "11808346",
+        "esl_team_page": "https://play.eslgaming.com/team/11808346",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11808000/11808346_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11808000/11808346_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11808000/11808346_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Cea",
+                    "JorgenSF",
+                    "SendoTarget",
+                    "Rybak08"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "Cea",
+                    "JorgenSF",
+                    "SendoTarget",
+                    "Rybak08"
+                ]
+            },
+            "vrl_s3": {
+                "roster": [
+                    "Cea",
+                    "JorgenSF",
+                    "SendoTarget",
+                    "Rybak08"
+                ]
+            }
+        }
+    },
+    "Team Flux VR": {
+        "esl_team_id": "11684004",
+        "esl_team_page": "https://play.eslgaming.com/team/11684004",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11684000/11684004_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11684000/11684004_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11684000/11684004_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Cyanister",
+                    "MrScottishGuy",
+                    "Yawning Soldier"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "Cyanister",
+                    "MrScottishGuy",
+                    "Yawning Soldier"
+                ]
+            }
+        }
+    },
+    "BOUNCE": {
+        "esl_team_id": "11949442",
+        "esl_team_page": "https://play.eslgaming.com/team/11949442",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11949000/11949442_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11949000/11949442_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11949000/11949442_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "StreetBoo"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "StreetBoo"
+                ]
+            }
+        }
+    },
+    "DING!": {
+        "esl_team_id": "11684005",
+        "esl_team_page": "https://play.eslgaming.com/team/11684005",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11684000/11684005_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11684000/11684005_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11684000/11684005_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Matti_123",
+                    "tehNileZ"
+                ]
+            }
+        }
+    },
+    "Techtik-al Issues": {
+        "esl_team_id": "11673541",
+        "esl_team_page": "https://play.eslgaming.com/team/11673541",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11673000/11673541_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11673000/11673541_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11673000/11673541_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Gobshite_mcgobshite",
+                    "MiddleMan82",
+                    "Techtik"
+                ]
+            }
+        }
+    },
+    "Spinderella": {
+        "esl_team_id": "11717826",
+        "esl_team_page": "https://play.eslgaming.com/team/11717826",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11717000/11717826_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11717000/11717826_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11717000/11717826_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "to3x",
+                    "Mr.Creepy",
+                    "Redetheric"
+                ]
+            }
+        }
+    },
+    "Broken": {
+        "esl_team_id": "11923862",
+        "esl_team_page": "https://play.eslgaming.com/team/11923862",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11923000/11923862_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11923000/11923862_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11923000/11923862_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Daktor77",
+                    "Garf68",
+                    "Lord_of_war687"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "Daktor77",
+                    "Garf68",
+                    "Lord_of_war687"
+                ]
+            }
+        }
+    },
+    "Help": {
+        "esl_team_id": "11837586",
+        "esl_team_page": "https://play.eslgaming.com/team/11837586",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11837000/11837586_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11837000/11837586_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11837000/11837586_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Altharrion",
+                    "ockynut"
+                ]
+            }
+        }
+    },
+    "Tri-hard": {
+        "esl_team_id": "11949437",
+        "esl_team_page": "https://play.eslgaming.com/team/11949437",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11949000/11949437_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11949000/11949437_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11949000/11949437_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "na_da",
+                    "Ravel"
+                ]
+            }
+        }
+    },
+    "Jacks": {
+        "esl_team_id": "11658940",
+        "esl_team_page": "https://play.eslgaming.com/team/11658940",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11658000/11658940_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11658000/11658940_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11658000/11658940_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Affenterror",
+                    "Boop90",
+                    "Slin"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "Affenterror",
+                    "Boop90",
+                    "Slin"
+                ]
+            }
+        }
+    },
+    "TeamGravity": {
+        "esl_team_id": "11680583",
+        "esl_team_page": "https://play.eslgaming.com/team/11680583",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11680000/11680583_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11680000/11680583_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11680000/11680583_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "VRJersey",
+                    "Affenterror",
+                    "Viatrex"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "VRJersey",
+                    "Affenterror",
+                    "Viatrex"
+                ]
+            }
+        }
+    },
+    "Oculbots": {
+        "esl_team_id": "12002886",
+        "esl_team_page": "https://play.eslgaming.com/team/12002886",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12002000/12002886_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12002000/12002886_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12002000/12002886_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Oculallen",
+                    "Xander"
+                ]
+            }
+        }
+    },
+    "Release": {
+        "esl_team_id": "12242761",
+        "esl_team_page": "https://play.eslgaming.com/team/12242761",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12242000/12242761_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12242000/12242761_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12242000/12242761_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "MrScottishGuy"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "MrScottishGuy"
+                ]
+            }
+        }
+    },
+    "Substreme": {
+        "esl_team_id": "12396353",
+        "esl_team_page": "https://play.eslgaming.com/team/12396353",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12396000/12396353_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12396000/12396353_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12396000/12396353_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Dhage",
+                    "na_da"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "Dhage",
+                    "na_da"
+                ]
+            }
+        }
+    },
+    "Subzero": {
+        "esl_team_id": "12396362",
+        "esl_team_page": "https://play.eslgaming.com/team/12396362",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12396000/12396362_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12396000/12396362_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12396000/12396362_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "MaxWJM",
+                    "na_da",
+                    "Wadu_Hek"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "MaxWJM",
+                    "na_da",
+                    "Wadu_Hek"
+                ]
+            }
+        }
+    },
+    "Das Beer Boot": {
+        "esl_team_id": "12413119",
+        "esl_team_page": "https://play.eslgaming.com/team/12413119",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12413000/12413119_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12413000/12413119_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12413000/12413119_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "CG_Elias",
+                    "Dhage",
+                    "smelmadingdong"
+                ]
+            }
+        }
+    },
+    "Subsonic": {
+        "esl_team_id": "12376694",
+        "esl_team_page": "https://play.eslgaming.com/team/12376694",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12376000/12376694_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12376000/12376694_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12376000/12376694_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "gun4045",
+                    "ockynut",
+                    "Tharnvar"
+                ]
+            }
+        }
+    },
+    "3 points only": {
+        "esl_team_id": "12179243",
+        "esl_team_page": "https://play.eslgaming.com/team/12179243",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12179000/12179243_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12179000/12179243_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12179000/12179243_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Boop90",
+                    "LoneGecko",
+                    "N e x O s"
+                ]
+            }
+        }
+    },
+    "Riot": {
+        "esl_team_id": "12198618",
+        "esl_team_page": "https://play.eslgaming.com/team/12198618",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12198000/12198618_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12198000/12198618_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12198000/12198618_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "damuss"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "damuss"
+                ]
+            }
+        }
+    },
+    "Team Num Num": {
+        "esl_team_id": "12271103",
+        "esl_team_page": "https://play.eslgaming.com/team/12271103",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12271000/12271103_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12271000/12271103_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12271000/12271103_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "RiftNinja",
+                    "RoscoVR"
+                ]
+            }
+        }
+    },
+    "Dong!": {
+        "esl_team_id": "12330896",
+        "esl_team_page": "https://play.eslgaming.com/team/12330896",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Alppuccino",
+                    "Matti_123"
+                ]
+            }
+        }
+    },
+    "Kitty": {
+        "esl_team_id": "11890270",
+        "esl_team_page": "https://play.eslgaming.com/team/11890270",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11890000/11890270_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11890000/11890270_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/11890000/11890270_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "B-Cut"
+                ]
+            }
+        }
+    },
+    "Magia": {
+        "esl_team_id": "11671659",
+        "esl_team_page": "https://play.eslgaming.com/team/11671659",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Dirvel",
+                    "Flushgogo",
+                    "Yawning Soldier"
+                ]
+            }
+        }
+    },
+    "Pizza Spaghetti e Mandolino": {
+        "esl_team_id": "12042385",
+        "esl_team_page": "https://play.eslgaming.com/team/12042385",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12042000/12042385_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12042000/12042385_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12042000/12042385_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Dan108",
+                    "raffy90",
+                    "paddicchio"
+                ]
+            }
+        }
+    },
+    "team random": {
+        "esl_team_id": "12124485",
+        "esl_team_page": "https://play.eslgaming.com/team/12124485",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12124000/12124485_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12124000/12124485_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12124000/12124485_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Fin-",
+                    "LoneGecko"
+                ]
+            }
+        }
+    },
+    "Helix": {
+        "esl_team_id": "12011919",
+        "esl_team_page": "https://play.eslgaming.com/team/12011919",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12011000/12011919_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12011000/12011919_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12011000/12011919_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Cyanister",
+                    "chrjen"
+                ]
+            }
+        }
+    },
+    "ImagineWagons": {
+        "esl_team_id": "12323769",
+        "esl_team_page": "https://play.eslgaming.com/team/12323769",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12323000/12323769_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12323000/12323769_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12323000/12323769_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Dhage",
+                    "OLEYO",
+                    "smelmadingdong"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "Dhage",
+                    "OLEYO",
+                    "smelmadingdong"
+                ]
+            }
+        }
+    },
+    "That team": {
+        "esl_team_id": "12326306",
+        "esl_team_page": "https://play.eslgaming.com/team/12326306",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12326000/12326306_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12326000/12326306_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12326000/12326306_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "LoneGecko",
+                    "Ravel"
+                ]
+            }
+        }
+    },
+    "CHICKEN DINNER": {
+        "esl_team_id": "12019373",
+        "esl_team_page": "https://play.eslgaming.com/team/12019373",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12019000/12019373_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12019000/12019373_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12019000/12019373_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Blurp2x1",
+                    "Cyanide",
+                    "Its not Fate"
+                ]
+            }
+        }
+    },
+    "Xmas Team 1": {
+        "esl_team_id": "12021505",
+        "esl_team_page": "https://play.eslgaming.com/team/12021505",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12021000/12021505_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12021000/12021505_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12021000/12021505_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Ravel",
+                    "Slin"
+                ]
+            }
+        }
+    },
+    "Xmas team 5": {
+        "esl_team_id": "12020990",
+        "esl_team_page": "https://play.eslgaming.com/team/12020990",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12020000/12020990_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12020000/12020990_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12020000/12020990_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Gobshite_mcgobshite",
+                    "SendoTarget"
+                ]
+            }
+        }
+    },
+    "The Lord Of The Pings": {
+        "esl_team_id": "12021104",
+        "esl_team_page": "https://play.eslgaming.com/team/12021104",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12021000/12021104_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12021000/12021104_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12021000/12021104_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "MartinThe3rd",
+                    "na_da",
+                    "Rybak08"
+                ]
+            }
+        }
+    },
+    "Death by Snowball": {
+        "esl_team_id": "12021789",
+        "esl_team_page": "https://play.eslgaming.com/team/12021789",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12021000/12021789_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12021000/12021789_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12021000/12021789_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "pikes-",
+                    "speedy_v"
+                ]
+            }
+        }
+    },
+    "Fluffy": {
+        "esl_team_id": "12006387",
+        "esl_team_page": "https://play.eslgaming.com/team/12006387",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12006000/12006387_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12006000/12006387_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12006000/12006387_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Quantumboredom",
+                    "sie_"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "Quantumboredom",
+                    "sie_"
+                ]
+            }
+        }
+    },
+    "Epuckalipse": {
+        "esl_team_id": "12020790",
+        "esl_team_page": "https://play.eslgaming.com/team/12020790",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12020000/12020790_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12020000/12020790_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12020000/12020790_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "AGr",
+                    "Palidore"
+                ]
+            }
+        }
+    },
+    "Gamma": {
+        "esl_team_id": "12446128",
+        "esl_team_page": "https://play.eslgaming.com/team/12446128",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12446000/12446128_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12446000/12446128_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12446000/12446128_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "am3ient",
+                    "Vanisher55"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "am3ient",
+                    "Vanisher55"
+                ]
+            }
+        }
+    },
+    "Wildcard": {
+        "esl_team_id": "12444632",
+        "esl_team_page": "https://play.eslgaming.com/team/12444632",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12444000/12444632_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12444000/12444632_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12444000/12444632_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Knutsi",
+                    "F-A-N-G-O-R-N"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "Knutsi",
+                    "F-A-N-G-O-R-N"
+                ]
+            }
+        }
+    },
+    "Unicorn": {
+        "esl_team_id": "12432368",
+        "esl_team_page": "https://play.eslgaming.com/team/12432368",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12432000/12432368_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12432000/12432368_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12432000/12432368_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Matti_123",
+                    "infiltr8"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "Matti_123",
+                    "infiltr8"
+                ]
+            }
+        }
+    },
+    "Subspace": {
+        "esl_team_id": "12446201",
+        "esl_team_page": "https://play.eslgaming.com/team/12446201",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "ironyman",
+                    "J0LLYGG"
+                ]
+            }
+        }
+    },
+    "Giggles & Screams": {
+        "esl_team_id": "12444468",
+        "esl_team_page": "https://play.eslgaming.com/team/12444468",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12444000/12444468_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12444000/12444468_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12444000/12444468_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "na_da",
+                    "sie_",
+                    "Asylinc",
+                    "Quantumboredom"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "na_da",
+                    "sie_",
+                    "Asylinc",
+                    "Quantumboredom"
+                ]
+            }
+        }
+    },
+    "EvaC": {
+        "esl_team_id": "12460501",
+        "esl_team_page": "https://play.eslgaming.com/team/12460501",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12460000/12460501_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12460000/12460501_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12460000/12460501_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Dellingrr",
+                    "MusicCrow",
+                    "Syntex101"
+                ]
+            }
+        }
+    },
+    "Subtastic": {
+        "esl_team_id": "12376688",
+        "esl_team_page": "https://play.eslgaming.com/team/12376688",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12376000/12376688_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12376000/12376688_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12376000/12376688_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "MrTHEtesters",
+                    "na_da",
+                    "tancho",
+                    "Tobi33e"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "MrTHEtesters",
+                    "na_da",
+                    "tancho",
+                    "Tobi33e"
+                ]
+            }
+        }
+    },
+    "Two and a Half Men": {
+        "esl_team_id": "12427903",
+        "esl_team_page": "https://play.eslgaming.com/team/12427903",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12427000/12427903_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12427000/12427903_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12427000/12427903_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Ravel",
+                    "SendoTarget",
+                    "Slin"
+                ]
+            }
+        }
+    },
+    "Garblers": {
+        "esl_team_id": "12394777",
+        "esl_team_page": "https://play.eslgaming.com/team/12394777",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12394000/12394777_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12394000/12394777_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12394000/12394777_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Ravel"
+                ]
+            }
+        }
+    },
+    "PuntCuncher": {
+        "esl_team_id": "11933987",
+        "esl_team_page": "https://play.eslgaming.com/team/11933987",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "ptrix",
+                    "stephan nagler",
+                    "Tangonation"
+                ]
+            }
+        }
+    },
+    "Sublicious": {
+        "esl_team_id": "12396348",
+        "esl_team_page": "https://play.eslgaming.com/team/12396348",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12396000/12396348_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12396000/12396348_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12396000/12396348_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "na_da"
+                ]
+            }
+        }
+    },
+    "ROAR": {
+        "esl_team_id": "12459615",
+        "esl_team_page": "https://play.eslgaming.com/team/12459615",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12459000/12459615_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12459000/12459615_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12459000/12459615_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Asylinc",
+                    "MartinThe3rd",
+                    "Quantumboredom",
+                    "gun4045"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "Asylinc",
+                    "MartinThe3rd",
+                    "Quantumboredom",
+                    "gun4045"
+                ]
+            }
+        }
+    },
+    "Enigma": {
+        "esl_team_id": "12295378",
+        "esl_team_page": "https://play.eslgaming.com/team/12295378",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12295000/12295378_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12295000/12295378_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12295000/12295378_medium.jpg",
+        "series": {
+            "vrcl_s1": {
+                "roster": [
+                    "Raemus"
+                ]
+            },
+            "vrl_s2": {
+                "roster": [
+                    "Raemus"
+                ]
+            }
+        }
+    },
+    "Ignite": {
+        "esl_team_id": "12497409",
+        "esl_team_page": "https://play.eslgaming.com/team/12497409",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12497000/12497409_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12497000/12497409_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12497000/12497409_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "VTSxKING",
+                    "Wolf_23",
+                    "Dual-",
+                    "Far",
+                    "NtsFranz"
+                ]
+            },
+            "vrl_s3": {
+                "roster": [
+                    "VTSxKING",
+                    "Wolf_23",
+                    "Dual-",
+                    "Far",
+                    "NtsFranz"
+                ]
+            }
+        }
+    },
+    "Ne Plus Ultra": {
+        "esl_team_id": "12583525",
+        "esl_team_page": "https://play.eslgaming.com/team/12583525",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12583000/12583525_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12583000/12583525_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12583000/12583525_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "BrennanCecil",
+                    "Guygasm",
+                    "Skinny"
+                ]
+            },
+            "vrl_s3": {
+                "roster": [
+                    "BrennanCecil",
+                    "Guygasm",
+                    "Skinny"
+                ]
+            }
+        }
+    },
+    "Three Men and a Guy": {
+        "esl_team_id": "12496975",
+        "esl_team_page": "https://play.eslgaming.com/team/12496975",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12496000/12496975_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12496000/12496975_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12496000/12496975_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "Guygasm",
+                    "noob_fodder",
+                    "Vrchangel"
+                ]
+            }
+        }
+    },
+    "res": {
+        "esl_team_id": "12493788",
+        "esl_team_page": "https://play.eslgaming.com/team/12493788",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12493000/12493788_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12493000/12493788_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12493000/12493788_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "EviLorD",
+                    "guruguy",
+                    "recursiveconnectome",
+                    "Suburbanlegend0"
+                ]
+            }
+        }
+    },
+    "Lasagna": {
+        "esl_team_id": "12514018",
+        "esl_team_page": "https://play.eslgaming.com/team/12514018",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12514000/12514018_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12514000/12514018_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12514000/12514018_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "Darksp33d"
+                ]
+            }
+        }
+    },
+    "Foxtrot Bravo": {
+        "esl_team_id": "12505630",
+        "esl_team_page": "https://play.eslgaming.com/team/12505630",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12505000/12505630_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12505000/12505630_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12505000/12505630_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "phillabust",
+                    "Equinox83",
+                    "Guntherman5000",
+                    "neo60"
+                ]
+            }
+        }
+    },
+    "Foxtrot Alpha": {
+        "esl_team_id": "12475673",
+        "esl_team_page": "https://play.eslgaming.com/team/12475673",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12475000/12475673_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12475000/12475673_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12475000/12475673_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "neo60",
+                    "LoneKingWilly"
+                ]
+            }
+        }
+    },
+    "Omegators": {
+        "esl_team_id": "12512112",
+        "esl_team_page": "https://play.eslgaming.com/team/12512112",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12512000/12512112_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12512000/12512112_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12512000/12512112_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "qlyoung",
+                    "Sealablebag",
+                    "SoMuch4Subtlety"
+                ]
+            }
+        }
+    },
+    "Disc In A Box": {
+        "esl_team_id": "12518399",
+        "esl_team_page": "https://play.eslgaming.com/team/12518399",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12518000/12518399_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12518000/12518399_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12518000/12518399_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "Dano McFabulous",
+                    "Jigglebill",
+                    "CaptainCanada",
+                    "kakester",
+                    "Hasko7"
+                ]
+            },
+            "vrl_s3": {
+                "roster": [
+                    "Dano McFabulous",
+                    "Jigglebill",
+                    "CaptainCanada",
+                    "kakester",
+                    "Hasko7"
+                ]
+            }
+        }
+    },
+    "X-Force": {
+        "esl_team_id": "9926448",
+        "esl_team_page": "https://play.eslgaming.com/team/9926448",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/9926000/9926448_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/9926000/9926448_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/9926000/9926448_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "JohnVeto",
+                    "ego"
+                ]
+            }
+        }
+    },
+    "Synapse": {
+        "esl_team_id": "12614432",
+        "esl_team_page": "https://play.eslgaming.com/team/12614432",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12614000/12614432_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12614000/12614432_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12614000/12614432_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "YouTube.com",
+                    "ZachW"
+                ]
+            },
+            "vrl_s3": {
+                "roster": [
+                    "YouTube.com",
+                    "ZachW"
+                ]
+            }
+        }
+    },
+    "Dissention": {
+        "esl_team_id": "12531996",
+        "esl_team_page": "https://play.eslgaming.com/team/12531996",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12531000/12531996_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12531000/12531996_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12531000/12531996_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "CraigglesO",
+                    "Rocktor-",
+                    "TurdFurgusson"
+                ]
+            }
+        }
+    },
+    "High Level Pub Strats": {
+        "esl_team_id": "12497263",
+        "esl_team_page": "https://play.eslgaming.com/team/12497263",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "Exhibit",
+                    "Sealablebag",
+                    "SoMuch4Subtlety"
+                ]
+            }
+        }
+    },
+    "Milkeroni Pizza": {
+        "esl_team_id": "12791975",
+        "esl_team_page": "https://play.eslgaming.com/team/12791975",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12791000/12791975_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12791000/12791975_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12791000/12791975_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "Dash",
+                    "Wit"
+                ]
+            }
+        }
+    },
+    "Zeroth Law": {
+        "esl_team_id": "12556902",
+        "esl_team_page": "https://play.eslgaming.com/team/12556902",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12556000/12556902_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12556000/12556902_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12556000/12556902_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "Enderslot",
+                    "Hasko7",
+                    "SirDimwit"
+                ]
+            }
+        }
+    },
+    "DoZe Echo Arena": {
+        "esl_team_id": "12584290",
+        "esl_team_page": "https://play.eslgaming.com/team/12584290",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12584000/12584290_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12584000/12584290_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12584000/12584290_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "Braemor",
+                    "ShaunVGOD",
+                    "Torque"
+                ]
+            }
+        }
+    },
+    "AfterShock": {
+        "esl_team_id": "12492868",
+        "esl_team_page": "https://play.eslgaming.com/team/12492868",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12492000/12492868_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12492000/12492868_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12492000/12492868_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "Matti_123",
+                    "Slin"
+                ]
+            }
+        }
+    },
+    "Die Mietwagen Busters VR": {
+        "esl_team_id": "12511616",
+        "esl_team_page": "https://play.eslgaming.com/team/12511616",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12511000/12511616_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12511000/12511616_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12511000/12511616_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "SoulBlade",
+                    "KnuffelPuff"
+                ]
+            }
+        }
+    },
+    "BLAST!": {
+        "esl_team_id": "12491688",
+        "esl_team_page": "https://play.eslgaming.com/team/12491688",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12491000/12491688_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12491000/12491688_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12491000/12491688_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "Boop90",
+                    "iDyL Lego",
+                    "LoneGecko"
+                ]
+            }
+        }
+    },
+    "Juke Fluke 'em": {
+        "esl_team_id": "12496998",
+        "esl_team_page": "https://play.eslgaming.com/team/12496998",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12496000/12496998_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12496000/12496998_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12496000/12496998_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "Zedrophobia",
+                    "ironyman",
+                    "J0LLYGG"
+                ]
+            }
+        }
+    },
+    "One Hit Wonders": {
+        "esl_team_id": "12492997",
+        "esl_team_page": "https://play.eslgaming.com/team/12492997",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12492000/12492997_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12492000/12492997_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12492000/12492997_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "FlAsH-FlOoD",
+                    "joanne2608",
+                    "RoscoVR"
+                ]
+            },
+            "vrl_s3": {
+                "roster": [
+                    "FlAsH-FlOoD",
+                    "joanne2608",
+                    "RoscoVR"
+                ]
+            }
+        }
+    },
+    "Ducks Quack": {
+        "esl_team_id": "12494962",
+        "esl_team_page": "https://play.eslgaming.com/team/12494962",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12494000/12494962_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12494000/12494962_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12494000/12494962_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "Gobshite_mcgobshite",
+                    "ironyman",
+                    "MiddleMan82",
+                    "Techtik"
+                ]
+            }
+        }
+    },
+    "Ouroboros": {
+        "esl_team_id": "12647488",
+        "esl_team_page": "https://play.eslgaming.com/team/12647488",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12647000/12647488_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12647000/12647488_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12647000/12647488_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "am3ient",
+                    "Nillewick",
+                    "T_SunDance_K",
+                    "Torin"
+                ]
+            },
+            "vrl_s3": {
+                "roster": [
+                    "am3ient",
+                    "Nillewick",
+                    "T_SunDance_K",
+                    "Torin"
+                ]
+            }
+        }
+    },
+    "Boost": {
+        "esl_team_id": "12494277",
+        "esl_team_page": "https://play.eslgaming.com/team/12494277",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12494000/12494277_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12494000/12494277_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12494000/12494277_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "iDyL Lego",
+                    "Nillewick"
+                ]
+            }
+        }
+    },
+    "Gamedusters": {
+        "esl_team_id": "12496728",
+        "esl_team_page": "https://play.eslgaming.com/team/12496728",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12496000/12496728_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12496000/12496728_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12496000/12496728_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "Czeberesco",
+                    "Nicker",
+                    "Wuja_GD"
+                ]
+            }
+        }
+    },
+    "get_schwifty!!": {
+        "esl_team_id": "12498720",
+        "esl_team_page": "https://play.eslgaming.com/team/12498720",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12498000/12498720_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12498000/12498720_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12498000/12498720_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "geeteeke",
+                    "khyyy"
+                ]
+            }
+        }
+    },
+    "Toxic Units": {
+        "esl_team_id": "12606852",
+        "esl_team_page": "https://play.eslgaming.com/team/12606852",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12606000/12606852_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12606000/12606852_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12606000/12606852_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "SirDominik",
+                    "Dhage",
+                    "Felix_White",
+                    "marcel_one_",
+                    "Molle"
+                ]
+            }
+        }
+    },
+    "Karma": {
+        "esl_team_id": "12566879",
+        "esl_team_page": "https://play.eslgaming.com/team/12566879",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12566000/12566879_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12566000/12566879_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12566000/12566879_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "infiltr8",
+                    "Sanch"
+                ]
+            }
+        }
+    },
+    "KommBack": {
+        "esl_team_id": "12791320",
+        "esl_team_page": "https://play.eslgaming.com/team/12791320",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12791000/12791320_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12791000/12791320_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12791000/12791320_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "infiltr8",
+                    "Nillewick"
+                ]
+            }
+        }
+    },
+    "TeamFishTank": {
+        "esl_team_id": "12772470",
+        "esl_team_page": "https://play.eslgaming.com/team/12772470",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12772000/12772470_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12772000/12772470_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12772000/12772470_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "MartinThe3rd",
+                    "Banzoola"
+                ]
+            }
+        }
+    },
+    "Bowtie Boys": {
+        "esl_team_id": "12735509",
+        "esl_team_page": "https://play.eslgaming.com/team/12735509",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12735000/12735509_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12735000/12735509_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12735000/12735509_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "Dhage",
+                    "Grizzeli",
+                    "OLEYO"
+                ]
+            }
+        }
+    },
+    "TeamWeWin_YouLose_EzyLife": {
+        "esl_team_id": "12772362",
+        "esl_team_page": "https://play.eslgaming.com/team/12772362",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12772000/12772362_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12772000/12772362_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12772000/12772362_medium.jpg",
+        "series": {
+            "vrl_s2": {
+                "roster": [
+                    "Matti_123",
+                    "VRJersey"
+                ]
+            }
+        }
+    },
+    "Salt-Free!": {
+        "esl_team_id": "13298489",
+        "esl_team_page": "https://play.eslgaming.com/team/13298489",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13298000/13298489_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13298000/13298489_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13298000/13298489_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "DragonKing696",
+                    "SirDimwit",
+                    "White_Fox_Noobz",
+                    "Zipp"
+                ]
+            }
+        }
+    },
+    "Dysfunctional Brotherhood": {
+        "esl_team_id": "13395638",
+        "esl_team_page": "https://play.eslgaming.com/team/13395638",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13395000/13395638_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13395000/13395638_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13395000/13395638_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "Booseyatch",
+                    "DipMan",
+                    "DullerRanger",
+                    "Esend"
+                ]
+            }
+        }
+    },
+    "Odyssey": {
+        "esl_team_id": "13586591",
+        "esl_team_page": "https://play.eslgaming.com/team/13586591",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13586000/13586591_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13586000/13586591_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13586000/13586591_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "AndyW_",
+                    "TenaciousZebra"
+                ]
+            }
+        }
+    },
+    "Flare": {
+        "esl_team_id": "12936949",
+        "esl_team_page": "https://play.eslgaming.com/team/12936949",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12936000/12936949_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12936000/12936949_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12936000/12936949_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "Shepard",
+                    "b-love",
+                    "Cruisen",
+                    "recursiveconnectome",
+                    "Scyla"
+                ]
+            }
+        }
+    },
+    "SMS": {
+        "esl_team_id": "13487788",
+        "esl_team_page": "https://play.eslgaming.com/team/13487788",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13487000/13487788_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13487000/13487788_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13487000/13487788_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "mad-",
+                    "Suburbanlegend0",
+                    "Darksp33d",
+                    "IS0LAT3",
+                    "SputnikKobra"
+                ]
+            }
+        }
+    },
+    "Th3 Ch3ws": {
+        "esl_team_id": "13533923",
+        "esl_team_page": "https://play.eslgaming.com/team/13533923",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13533000/13533923_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13533000/13533923_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13533000/13533923_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "ChewBak3",
+                    "ChewFlak3",
+                    "ChewWak3"
+                ]
+            }
+        }
+    },
+    ":squid:": {
+        "esl_team_id": "13040004",
+        "esl_team_page": "https://play.eslgaming.com/team/13040004",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13040000/13040004_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13040000/13040004_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13040000/13040004_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "qlyoung",
+                    "RoxTytan",
+                    "speedy_v"
+                ]
+            }
+        }
+    },
+    "Vanquished King": {
+        "esl_team_id": "13540641",
+        "esl_team_page": "https://play.eslgaming.com/team/13540641",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/default.gif",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "DullerRanger",
+                    "Vanquish-",
+                    "VTSxKING",
+                    "Y-Perm"
+                ]
+            }
+        }
+    },
+    "Overdrive": {
+        "esl_team_id": "13636985",
+        "esl_team_page": "https://play.eslgaming.com/team/13636985",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13636000/13636985_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13636000/13636985_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13636000/13636985_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "kevicii",
+                    "X_Conamara_Chaos_X"
+                ]
+            }
+        }
+    },
+    "Ares": {
+        "esl_team_id": "13521468",
+        "esl_team_page": "https://play.eslgaming.com/team/13521468",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13521000/13521468_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13521000/13521468_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13521000/13521468_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "nayvin",
+                    "Oteku",
+                    "VTSxKING"
+                ]
+            }
+        }
+    },
+    "Pretty Pink Pwnies": {
+        "esl_team_id": "13601505",
+        "esl_team_page": "https://play.eslgaming.com/team/13601505",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13601000/13601505_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13601000/13601505_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13601000/13601505_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "DragonKing696",
+                    "SirDimwit",
+                    "White_Fox_Noobz"
+                ]
+            }
+        }
+    },
+    "Team Primate": {
+        "esl_team_id": "13317362",
+        "esl_team_page": "https://play.eslgaming.com/team/13317362",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13317000/13317362_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13317000/13317362_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13317000/13317362_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "Darksp33d",
+                    "sneakyevil",
+                    "SolidShot"
+                ]
+            }
+        }
+    },
+    "Hemroid Hellfire": {
+        "esl_team_id": "13601600",
+        "esl_team_page": "https://play.eslgaming.com/team/13601600",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13601000/13601600_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13601000/13601600_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13601000/13601600_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "Callan101",
+                    "Firebird130",
+                    "Soren",
+                    "Vanquish-"
+                ]
+            }
+        }
+    },
+    "NXT GEN": {
+        "esl_team_id": "13501504",
+        "esl_team_page": "https://play.eslgaming.com/team/13501504",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13501000/13501504_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13501000/13501504_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13501000/13501504_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "Swingly",
+                    "jok126",
+                    "Laziegoblin"
+                ]
+            }
+        }
+    },
+    "Mariachis": {
+        "esl_team_id": "13520631",
+        "esl_team_page": "https://play.eslgaming.com/team/13520631",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13520000/13520631_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13520000/13520631_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13520000/13520631_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "HeroHeinz",
+                    "MiddleMan82",
+                    "tehNileZ"
+                ]
+            }
+        }
+    },
+    "EggBoyz": {
+        "esl_team_id": "13515098",
+        "esl_team_page": "https://play.eslgaming.com/team/13515098",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13515000/13515098_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13515000/13515098_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13515000/13515098_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "Fin-",
+                    "LoneGecko",
+                    "Matti_123",
+                    "Nillewick"
+                ]
+            }
+        }
+    },
+    "Synergy": {
+        "esl_team_id": "13492914",
+        "esl_team_page": "https://play.eslgaming.com/team/13492914",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13492000/13492914_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13492000/13492914_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13492000/13492914_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "iDyL Lego",
+                    "Matti_123",
+                    "Nillewick"
+                ]
+            }
+        }
+    },
+    "\u0421\u041e\u042e\u0417": {
+        "esl_team_id": "12602016",
+        "esl_team_page": "https://play.eslgaming.com/team/12602016",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12602000/12602016_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12602000/12602016_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12602000/12602016_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "Sanch",
+                    "StreetBoo",
+                    "damuss",
+                    "MrScottishGuy"
+                ]
+            }
+        }
+    },
+    "Polaris": {
+        "esl_team_id": "13451741",
+        "esl_team_page": "https://play.eslgaming.com/team/13451741",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13451000/13451741_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13451000/13451741_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13451000/13451741_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "MartinThe3rd",
+                    "infiltr8",
+                    "Alppuccino"
+                ]
+            }
+        }
+    },
+    "Duckmans Part Timers": {
+        "esl_team_id": "13078056",
+        "esl_team_page": "https://play.eslgaming.com/team/13078056",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13078000/13078056_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13078000/13078056_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13078000/13078056_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "Gobshite_mcgobshite",
+                    "J0LLYGG",
+                    "RiftNinja",
+                    "Coach_Duckman"
+                ]
+            }
+        }
+    },
+    "InYaFaze": {
+        "esl_team_id": "12819910",
+        "esl_team_page": "https://play.eslgaming.com/team/12819910",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12819000/12819910_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12819000/12819910_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12819000/12819910_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "CG_Elias",
+                    "HeroHeinz",
+                    "marcel_one_"
+                ]
+            }
+        }
+    },
+    "Team Gravity": {
+        "esl_team_id": "13095137",
+        "esl_team_page": "https://play.eslgaming.com/team/13095137",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13095000/13095137_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13095000/13095137_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13095000/13095137_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "VRJersey",
+                    "Viatrex",
+                    "Boop90",
+                    "TutorialBot",
+                    "Affenterror"
+                ]
+            }
+        }
+    },
+    "Kicked Puppies": {
+        "esl_team_id": "13520808",
+        "esl_team_page": "https://play.eslgaming.com/team/13520808",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13520000/13520808_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13520000/13520808_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13520000/13520808_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "LewisOSF",
+                    "Slin",
+                    "Troy_Vr"
+                ]
+            }
+        }
+    },
+    "Team Laggity": {
+        "esl_team_id": "13637175",
+        "esl_team_page": "https://play.eslgaming.com/team/13637175",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13637000/13637175_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13637000/13637175_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13637000/13637175_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "Ducky156",
+                    "Ally_dArk",
+                    "iDyL Lego"
+                ]
+            }
+        }
+    },
+    "Sparkle Ducks": {
+        "esl_team_id": "13619550",
+        "esl_team_page": "https://play.eslgaming.com/team/13619550",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13619000/13619550_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13619000/13619550_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13619000/13619550_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "Felix_White",
+                    "Fin-",
+                    "HeroHeinz"
+                ]
+            }
+        }
+    },
+    "SUMMIT": {
+        "esl_team_id": "12396349",
+        "esl_team_page": "https://play.eslgaming.com/team/12396349",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12396000/12396349_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12396000/12396349_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/12396000/12396349_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "baky12345",
+                    "mrblack",
+                    "MrGreyKnight",
+                    "PRIME"
+                ]
+            }
+        }
+    },
+    "Radioactive": {
+        "esl_team_id": "13255045",
+        "esl_team_page": "https://play.eslgaming.com/team/13255045",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13255000/13255045_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13255000/13255045_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13255000/13255045_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "BadInternetBTW",
+                    "Molle",
+                    "RagnarLothbrok-",
+                    "TacoOnThursday"
+                ]
+            }
+        }
+    },
+    "WastedPotential": {
+        "esl_team_id": "13600465",
+        "esl_team_page": "https://play.eslgaming.com/team/13600465",
+        "esl_team_logo": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13600000/13600465_medium.jpg",
+        "esl_founded": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13600000/13600465_medium.jpg",
+        "esl_region": "https://cdn.eslgaming.com/play/eslgfx/gfx/logos/teams/13600000/13600465_medium.jpg",
+        "series": {
+            "vrl_s3": {
+                "roster": [
+                    "Sim3n"
+                ]
+            }
+        }
+    }
+}
