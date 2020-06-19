@@ -11,9 +11,10 @@ team_name_set = set([])
 
 
 def scrapeTeams():
-    return  # DON'T CALL THIS BECAUSE THE DATA ON THE WEBSITE IS NOW NO LONGER THERE
-    teams = {"vrml_preseason": [], "vrml_season_1": []}
-    matches = {"vrml_preseason": [], "vrml_season_1": []}
+    with open('data/teams.json', 'r') as f:
+        teams = json.load(f)
+
+    matches = {}
 
     series = [
         {
@@ -23,16 +24,25 @@ def scrapeTeams():
         {
             "name": "vrml_season_1",
             "url": "https://vrmasterleague.com/EchoArena/Standings/SnE5TUFtaWRJZnFoQitjQjFjYlBXZz090"
+        },
+        {
+            "name": "vrml_season_2",
+            "url": "https://vrmasterleague.com/EchoArena/Standings/d3JZU1F5WlVraGc90"
         }
     ]
 
     for season in series:
+        # load the series rankings
         page = pq(season['url'])
+        print(season['url'])
         for teamHTML in page('.standings_information > .vrml_table_container > .vrml_table > tbody > tr'):
             team_matches_temp = []
             team_pq = pq(teamHTML)
             team = {}
             team['team_name'] = team_pq('.team_name').text()
+            if team['team_name'] is None or team['team_name'] == '':
+                print("skipping team. No team name.")
+                continue
             team['team_page'] = baseURL + team_pq('.team_link').attr('href')
             team['team_logo'] = baseURL + team_pq('.team_logo').attr('src')
             team['division'] = team_pq('.div_cell > img').attr('title')
@@ -48,16 +58,22 @@ def scrapeTeams():
             team['points'] = team_pq('.pts_cell').text()
             team['mmr'] = team_pq('.mmr_cell').text()
 
+            # load the team page
             default_team_page = pq(team['team_page'])
+            print(team['team_page'])
 
             # go to the right season's page
             for season_option in default_team_page('.team_season_switcher > option'):
                 opt = pq(season_option)
-                if opt.attr('value') == "Pre-season - 2019 (history)" and season['name'] == "vrml_preseason":
+                if opt.text() == "Pre-season - 2019 (history)" and season['name'] == "vrml_preseason":
                     team['team_page'] = baseURL + \
                         "/EchoArena/Teams/" + opt.attr('value')
                     break
-                if opt.attr('value') == "Season 1 - 2020" and season['name'] == "vrml_season_1":
+                if opt.text() == "Season 1 - 2020 (history)" and season['name'] == "vrml_season_1":
+                    team['team_page'] = baseURL + \
+                        "/EchoArena/Teams/" + opt.attr('value')
+                    break
+                if opt.text() == "Season 2 - 2020" and season['name'] == "vrml_season_2":
                     team['team_page'] = baseURL + \
                         "/EchoArena/Teams/" + opt.attr('value')
                     break
@@ -66,15 +82,20 @@ def scrapeTeams():
             team_page = pq(team['team_page'])
 
             roster = []
-            for p in team_page('.player_name'):
+            if season['name'] == "vrml_season_2":
+                past_roster = team_page('.players_container .player_name')
+            else:
+                past_roster = team_page('.teams_roster_season_container .player_name')
+
+            for p in past_roster:
                 roster.append(pq(p).text())
             team['roster'] = roster
 
             team_name_set.add(team['team_page'])
 
-            teams[season['name']].append(team)
 
             # scrape the match history on the team page
+            season_matches = []
             for matchHTML in team_page('.teams_recent_matches_table > tbody > tr'):
                 match_pq = pq(matchHTML)
                 match = {}
@@ -107,13 +128,51 @@ def scrapeTeams():
                 match['challenge'] = match_pq(
                     '.date_recent_cell > img').hasClass('challenge_icon')
                 team_matches_temp.append(match)
-                matches[season['name']].append(match)
+
+                season_matches.append(match)
+
+            matches[season['name']] = season_matches
+
+            # start adding this stuff to teams.json
+            if team['team_name'] not in teams:
+                teams[team['team_name']] = {}
+            t = teams[team['team_name']]
+
+            team_id = str(team['team_page'].split('/')[-1])
+            # check if this team name was already used by a different team id
+            if 'vrml_team_id' in t and t['vrml_team_id'] != team_id:
+                print("Conflicting team names.")
+            t['vrml_team_id'] = team_id
+            t['vrml_team_page'] = team['team_page']
+            t['vrml_team_logo'] = team['team_logo']
+            t['vrml_region'] = team['region']
+            t['vrml_region_logo'] = team['region_logo']
+            
+            if 'series' not in t:
+                t['series'] = {}
+            if season['name'] not in t['series']:
+                t['series'][season['name']] = {}
+            teams_season = t['series'][season['name']]
+            teams_season['matches'] = season_matches
+            teams_season['division'] = team['division']
+            teams_season['division_logo'] = team['division_logo']
+            teams_season['rank'] = team['rank']
+            teams_season['games_played'] = team['games_played']
+            teams_season['wins'] = team['wins']
+            teams_season['losses'] = team['losses']
+            teams_season['points'] = team['points']
+            teams_season['mmr'] = team['mmr']
+            teams_season['roster'] = team['roster']
+            
 
             # Insert into DB
-            insertIntoDB([team], "series/"+season['name'] +
-                         '/teams', 'team_name')
-            insertIntoDB(team_matches_temp, "series/" +
-                         season['name']+'/matches', 'match_id')
+            # insertIntoDB([team], "series/"+season['name'] +
+            #              '/teams', 'team_name')
+            # insertIntoDB(team_matches_temp, "series/" +
+            #              season['name']+'/matches', 'match_id')
+
+    with open('data/teams.json', 'w') as f:
+        json.dump(teams, f)
 
 
 def scrapePlayers():
@@ -412,10 +471,10 @@ def add_players():
 
 # scrapePlayers()
 # scrapeMatches()
-# scrapeTeams()
+scrapeTeams()
 # downloadImages()
 # uploadImages()
 
 # scrapeESLCups()
 # get_esl_players_from_team_list()
-add_players()
+# add_players()
