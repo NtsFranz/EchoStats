@@ -59,11 +59,8 @@ body {
   background-color: var(--button-hover-color);
 }
 
-.team_box {
-}
-
 #page_title {
-  margin:auto;
+  margin: auto;
   width: max-content;
 }
 
@@ -129,7 +126,7 @@ body {
 }
 
 .team_logo {
-  float:right;
+  float: right;
   width: 5em;
 }
 
@@ -143,7 +140,8 @@ body {
   background-color: var(--border-color);
 }
 
-.stats_table td,th {
+.stats_table td,
+th {
   padding: 1em;
 }
 
@@ -200,4 +198,46 @@ body {
 
 .search_box:active {
   background-color: #414141;
+}
+
+.match_group_item {
+  list-style: none;
+  background-color: #4e515380;
+  padding: .5em;
+  margin: .2em;
+}
+
+.match_group_item:after {
+  content: "";
+  position: absolute;
+  display: block;
+  top: -.33em;
+  left: -.33em;
+  border-top: 1em solid #717377;
+  border-right: 1em solid transparent;
+}
+
+.match_group_item td {
+  padding: .5em;
+  position: relative;
+}
+
+.match_group_splitter {
+  height: 1em;
+  background-color: #1a1a1a;
+  cursor: grab;
+}
+
+.game_clock_duration_bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #4d4e4daa;
+  height: 100%;
+  z-index: -1;
+}
+
+.centered_content {
+  margin: 3em auto 3em auto;
+  width: max-content;
 }

@@ -79,4 +79,17 @@ app.get('/most_recent_match', (req, res) => {
     });
 });
 
+app.get('/group_recent_matches', (req, res) => {
+    const client_name = req.query.client_name;
+    const custom_id = req.query.custom_id;
+    const series_name = req.query.series_name;
+
+    res.render("group_recent_matches", {
+        client_name,
+        custom_id,
+        series_name
+    });
+});
+
+
 exports.app = functions.https.onRequest(app);

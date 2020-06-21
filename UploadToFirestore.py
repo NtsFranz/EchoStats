@@ -52,8 +52,6 @@ def upload_esl_data():
         batch.commit()
     
 
-
-
     batch = db.batch()
     for team in esl_data['teams'].items():
         teams_doc_ref = db.collection('series/esl_season_3/teams').document(str(team[0]))

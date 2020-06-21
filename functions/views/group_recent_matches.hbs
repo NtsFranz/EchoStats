@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Match Data</title>
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/7.14.3/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/7.14.3/firebase-auth.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-database.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-messaging.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-firestore.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-storage.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-analytics.js"></script>
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+  <!-- Latest Sortable -->
+  <script defer src="http://SortableJS.github.io/Sortable/Sortable.js"></script>
+
+  <script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+
+</head>
+
+<body>
+  <div class="centered_content">
+    <table>
+      <thead>
+        <tr class="match_group_item">
+          <th class="match_time">Match Time</th>
+          <th class="session_id">Session ID</th>
+          <th class="game_clock_duration">Duration (game clock)</th>
+          <th class="blue_team_score">Blue Score</th>
+          <th class="orange_team_score">Orange Score</th>
+          <th class="finish_reason">Finish Reason</th>
+        </tr>
+      </thead>
+
+      <!-- List -->
+      <tbody class="list-group" id="match_list">
+        <tr class="match_group_item list-group-item hide">
+          <td class="match_id hide"></td>
+          <td class="custom_id hide"></td>
+          <td class="match_time"></td>
+          <td class="session_id"></td>
+          <td class="game_clock_duration">
+            <div class="game_clock_duration_bar"></div>
+          </td>
+          <td class="blue_team_score"></td>
+          <td class="orange_team_score"></td>
+          <td class="finish_reason"></td>
+        </tr>
+
+        {{!-- <tr class="add_match_group_splitter hide">
+          <td colspan="15"></td>
+        </tr> --}}
+
+        <tr class="match_group_splitter">
+          <td colspan="15"></td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+
+  <!-- Add data passed in by the request -->
+  <script type="text/javascript">
+    client_name = "{{ client_name }}"; custom_id = "{{ custom_id }}"; series_name = "{{ series_name }}";
+  </script>
+
+  <!-- Load our custom Firebase stuff -->
+  <script defer src="js/group_matches.js"></script>
+
+</body>
+
+</html>

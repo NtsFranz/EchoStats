@@ -27,6 +27,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var db = firebase.firestore()
 
+    // var series_name = ""; // TODO set this from a dropdown or something
+    // var client_name = ""; // TODO set this from a dropdown or something
+    // var custom_id = ""; // TODO set this from a dropdown or something
+
     if (series_name == "") {
         series_name = "vrml_season_1";
     }
