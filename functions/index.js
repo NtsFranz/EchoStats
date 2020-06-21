@@ -71,11 +71,13 @@ app.get('/most_recent_match', (req, res) => {
     const client_name = req.query.client_name;
     const custom_id = req.query.custom_id;
     const series_name = req.query.series_name;
+    const live = req.query.live || false;
 
     res.render("match_data", {
         client_name,
         custom_id,
-        series_name
+        series_name,
+        live
     });
 });
 

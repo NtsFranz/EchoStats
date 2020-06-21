@@ -3,6 +3,7 @@
   --main-background-color: #7a7e81db;
   --border-color: #4d4e4d;
   --accent-color: #34a6a5;
+  --accent-color-green: #34b567aa;
   --buttton-border-color: white;
   --button-color: #5e6b79;
   --button-hover-color: #a9adb0;
@@ -205,6 +206,7 @@ th {
   background-color: #4e515380;
   padding: .5em;
   margin: .2em;
+  transition: transform .1s;
 }
 
 .match_group_item:after {
@@ -240,4 +242,25 @@ th {
 .centered_content {
   margin: 3em auto 3em auto;
   width: max-content;
+}
+
+.match_highlighted {
+  background-color: var(--accent-color-green);
+}
+
+.disabled_match {
+  text-decoration: line-through;
+  color: #0008;
+  background-color: #88888888;
+  transform: scaleY(.75);
+}
+
+.td_button {
+  text-align: center;
+  font-weight: bold;
+}
+
+.td_button:hover {
+  cursor: pointer;
+  background-color: #a84343;
 }

@@ -35,109 +35,96 @@ document.addEventListener('DOMContentLoaded', function () {
         series_name = "vrml_season_1";
     }
 
-    if (client_name != "" && custom_id == "") {
-        db.collection('series').doc(series_name).collection('match_stats')
-            .orderBy("match_time", "desc")
-            .where("client_name", "==", client_name)
-            .limit(1)
-            .get()
-            .then(querySnapshot => {
-                if (!querySnapshot.empty) {
-                    recent_custom_id = querySnapshot.docs[0].data().custom_id;
-                    console.log("Most recent Stats Id:");
-                    console.log(recent_custom_id);
-                    db.collection('series').doc(series_name).collection('match_stats')
-                        .orderBy("match_time", "desc")
-                        .where("custom_id", "==", recent_custom_id)
-                        .where("client_name", "==", client_name) // Probably not necessary, but possible because of sha256 collisions
-                        .get()
-                        .then(querySnapshot => {
-                            if (!querySnapshot.empty) {
-
-                                players = {}
-
-                                var playerPromises = [];
-
-                                querySnapshot.docs.forEach(match => {
-                                    playerPromises.push(
-                                        // get all players
-                                        match.ref.collection('players')
-                                        .get());
-                                });
-
-                                Promise.all(playerPromises).then(playersQueries => {
-
-                                    playersQueries.forEach(playersQuery => {
-                                        if (!playersQuery.empty) {
-                                            playersQuery.docs.forEach(player => {
-                                                if (players.hasOwnProperty(player.id)) {
-                                                    players[player.id] = mergeSum(players[player.id], player.data());
-                                                } else {
-                                                    players[player.id] = player.data();
-                                                }
-                                            });
-                                        }
-                                    });
-
-                                    console.log("Player data:");
-                                    console.log(players);
-
-                                    processData(players);
-                                });
-
-                            }
-                        });
-                }
-            });
-
-    } else if (custom_id != "") {
-        db.collection('series').doc(series_name).collection('match_stats')
-            .orderBy("match_time", "desc")
-            .where("custom_id", "==", custom_id)
-            .get()
-            .then(querySnapshot => {
-                if (!querySnapshot.empty) {
-
-                    players = {}
-
-                    var playerPromises = [];
-
-                    querySnapshot.docs.forEach(match => {
-                        playerPromises.push(
-                            // get all players
-                            match.ref.collection('players')
-                            .get());
-                    });
-
-                    Promise.all(playerPromises).then(playersQueries => {
-
-                        playersQueries.forEach(playersQuery => {
-                            if (!playersQuery.empty) {
-                                playersQuery.docs.forEach(player => {
-                                    if (players.hasOwnProperty(player.id)) {
-                                        players[player.id] = mergeSum(players[player.id], player.data());
-                                    } else {
-                                        players[player.id] = player.data();
-                                    }
-                                });
-                            }
-                        });
-
-
-                        console.log("Player data:");
-                        console.log(players);
-
-                        processData(players);
-                    });
-
-                }
-            });
+    if (live.toLowerCase() == 'true') {
+        if (client_name != "" && custom_id == "") {
+            db.collection('series').doc(series_name).collection('match_stats')
+                .orderBy("match_time", "desc")
+                .where("client_name", "==", client_name)
+                .limit(1)
+                .onSnapshot(querySnapshot => {
+                    if (!querySnapshot.empty) {
+                        recent_custom_id = querySnapshot.docs[0].data().custom_id;
+                        console.log("Most recent Stats Id:");
+                        console.log(recent_custom_id);
+                        db.collection('series').doc(series_name).collection('match_stats')
+                            .orderBy("match_time", "desc")
+                            .where("custom_id", "==", recent_custom_id)
+                            .where("client_name", "==", client_name) // Probably not necessary, but possible because of sha256 collisions
+                            .onSnapshot(querySnapshot => {
+                                processSnapshot(querySnapshot);
+                            });
+                    }
+                });
+        } else {
+            write("orangestats", "Please specify either a client_name or custom_id");
+        }
     } else {
-        write("orangestats", "Please specify either a client_name or custom_id");
+        if (client_name != "" && custom_id == "") {
+            db.collection('series').doc(series_name).collection('match_stats')
+                .orderBy("match_time", "desc")
+                .where("client_name", "==", client_name)
+                .limit(1)
+                .get()
+                .then(querySnapshot => {
+                    if (!querySnapshot.empty) {
+                        recent_custom_id = querySnapshot.docs[0].data().custom_id;
+                        console.log("Most recent Stats Id:");
+                        console.log(recent_custom_id);
+                        db.collection('series').doc(series_name).collection('match_stats')
+                            .orderBy("match_time", "desc")
+                            .where("custom_id", "==", recent_custom_id)
+                            .where("client_name", "==", client_name) // Probably not necessary, but possible because of sha256 collisions
+                            .get()
+                            .then(querySnapshot => {
+                                processSnapshot(querySnapshot);
+                            });
+                    }
+                });
+        } else {
+            write("orangestats", "Please specify either a client_name or custom_id");
+        }
     }
 
 
 });
+
+function processSnapshot(querySnapshot) {
+    if (!querySnapshot.empty) {
+
+        var players = {}
+
+        var playerPromises = [];
+
+        querySnapshot.docs.forEach(match => {
+            if (!('disabled' in match.data()) || match.data()['disabled'] == false) {
+                playerPromises.push(
+                    // get all players
+                    match.ref.collection('players')
+                    .get());
+            }
+        });
+
+        Promise.all(playerPromises).then(playersQueries => {
+
+            playersQueries.forEach(playersQuery => {
+                if (!playersQuery.empty) {
+                    playersQuery.docs.forEach(player => {
+                        if (players.hasOwnProperty(player.id)) {
+                            players[player.id] = mergeSum(players[player.id], player.data());
+                        } else {
+                            players[player.id] = player.data();
+                        }
+                    });
+                }
+            });
+
+            console.log("Player data:");
+            console.log(players);
+
+            processData(players);
+        });
+    }
+}
 
 function processData(players) {
 
@@ -230,7 +217,7 @@ function write(id, data) {
 }
 
 function teamCentage(team, total) {
-    a = Math.round(team / total * 100)
+    var a = Math.round(team / total * 100)
     if (a > 0) {
         return a;
     } else {
@@ -240,7 +227,7 @@ function teamCentage(team, total) {
 
 // adds numeric values from ob2 to ob1
 function mergeSum(ob1, ob2) {
-    sum = {}
+    var sum = {}
     Object.keys(ob1).forEach(key => {
         if (ob2.hasOwnProperty(key)) {
             if ((typeof ob2[key]) == "number") {

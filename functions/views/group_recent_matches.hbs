@@ -18,26 +18,36 @@
   <!-- initialize the SDK after all desired features are loaded -->
   <script defer src="/__/firebase/init.js"></script>
 
+  <script defer src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+  <link defer type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+
   <link rel="stylesheet" type="text/css" href="css/styles.css">
 
   <!-- Latest Sortable -->
   <script defer src="http://SortableJS.github.io/Sortable/Sortable.js"></script>
 
-  <script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+  <script defer type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
 </head>
 
 <body>
+
+  <div id="firebaseui-auth-container"></div>
+
+
   <div class="centered_content">
     <table>
       <thead>
         <tr class="match_group_item">
           <th class="match_time">Match Time</th>
           <th class="session_id">Session ID</th>
-          <th class="game_clock_duration">Duration (game clock)</th>
+          <th class="game_clock_duration">Duration (s of game clock)</th>
           <th class="blue_team_score">Blue Score</th>
           <th class="orange_team_score">Orange Score</th>
           <th class="finish_reason">Finish Reason</th>
+          <th class="remove">Remove</th>
         </tr>
       </thead>
 
@@ -54,6 +64,7 @@
           <td class="blue_team_score"></td>
           <td class="orange_team_score"></td>
           <td class="finish_reason"></td>
+          <td class="remove td_button">X</td>
         </tr>
 
         {{!-- <tr class="add_match_group_splitter hide">
