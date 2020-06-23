@@ -4,53 +4,7 @@ from string import Template
 from datetime import datetime
 
 
-#################
-# Init Wiki
-#################
-WIKI = True
-S = requests.Session()
-
-#URL = "http://localhost/mediawiki/api.php"
-URL = "http://192.168.1.128/mediawiki/api.php"
-
-# Step 1: GET request to fetch login token
-PARAMS_0 = {
-    "action": "query",
-    "meta": "tokens",
-    "type": "login",
-    "format": "json"
-}
-
-R = S.get(url=URL, params=PARAMS_0)
-DATA = R.json()
-
-LOGIN_TOKEN = DATA['query']['tokens']['logintoken']
-
-# Step 2: POST request to log in. Use of main account for login is not
-# supported. Obtain credentials via Special:BotPasswords
-# (https://www.mediawiki.org/wiki/Special:BotPasswords) for lgname & lgpassword
-PARAMS_1 = {
-    "action": "login",
-    "lgname": "vrml_scraper_bot",
-    "lgpassword": "scraper23478237489",
-    "lgtoken": LOGIN_TOKEN,
-    "format": "json"
-}
-
-R = S.post(URL, data=PARAMS_1)
-
-# Step 3: GET request to fetch CSRF token
-PARAMS_2 = {
-    "action": "query",
-    "meta": "tokens",
-    "format": "json"
-}
-
-R = S.get(url=URL, params=PARAMS_2)
-DATA = R.json()
-
-CSRF_TOKEN = DATA['query']['tokens']['csrftoken']
-################
+from WikiBotSetup import *
 
 
 table_header = '{| class="wikitable sortable"\n'
@@ -69,7 +23,7 @@ season_names = {
 
 def UploadSeasonCupsESL():
     # load the data into an object from file
-    with open('data/ESL_NA.json') as f:
+    with open('data/VRCL_S1_cups.json') as f:
         esl_data = json.load(f)
 
     esl_data['cups'] = sorted(esl_data['cups'], key=lambda i: i['date'])
@@ -103,7 +57,7 @@ def UploadSeasonCupsESL():
 # Creates pages with a list of matches for each cup
 def UploadCupMatchPagesESL():
     # load the data into an object from file
-    with open('data/ESL_cups.json') as f:
+    with open('data/VRCL_S1_cups.json') as f:
         esl_data = json.load(f)
 
     for cup in esl_data['cups']:
@@ -241,11 +195,11 @@ def createPage(pageName, pageData):
         "text": pageData
     }
 
-    R = S.post(URL, data=PARAMS_3)
+    R = S.post(URL, data=PARAMS_3, headers=headers)
     DATA = R.json()
 
     print(DATA)
 
-#UploadSeasonCupsESL()
-#UploadCupMatchPagesESL()
-UploadTeamPages()
+UploadSeasonCupsESL()
+# UploadCupMatchPagesESL()
+# UploadTeamPages()

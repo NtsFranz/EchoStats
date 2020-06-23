@@ -1,28 +1,24 @@
-html,
-body {
-	color: #F5F5F5;
-}
-
 @font-face {
 	font-family: goodtimes;
 	src: url(../fonts/goodtimes.ttf);
 }
 
-table {
+#stats_overlay_container table {
 	border-collapse: collapse;
 }
 
-td {
+#stats_overlay_container td {
 	border: none;
 }
 
-th {
+#stats_overlay_container th {
 	border: none;
 }
 
-#container {
+#stats_overlay_container {
 	width: 1920px;
 	height: 1080px;
+	color: #F5F5F5;
 }
 
 #orangeplayerhead {
@@ -46,7 +42,7 @@ th {
 	width: 724px;
 	height: 145px;
 	text-align: center;
-	border-collapse: separate;
+	border-collapse: separate !important;
 	border-spacing: 0 6px;
 	background-color: rgba(255, 150, 50, 0.7);
 	visibility: hidden;
@@ -60,7 +56,7 @@ th {
 	height: 145px;
 	background-color: rgba(50, 150, 255, 0.7);
 	text-align: center;
-	border-collapse: separate;
+	border-collapse: separate !important;
 	border-spacing: 0 6px;
 	visibility: hidden;
 }
@@ -123,8 +119,7 @@ th {
 	width: 174;
 	height: 178px;
 	background-image: linear-gradient(to top right, #7e3c37, #240407);
-
-	border-collapse: separate;
+	border-collapse: separate !important;
 	border-spacing: 0 6px;
 	border-right: 4px solid #4c4e4d;
 	border-left: 2px solid #4c4e4d;
@@ -139,7 +134,7 @@ th {
 	width: 174;
 	height: 178px;
 	background-image: linear-gradient(to top right, #4a6075, #0e0b14);
-	border-collapse: separate;
+	border-collapse: separate !important;
 	border-spacing: 0 6px;
 	border-left: 4px solid #4c4e4d;
 	border-right: 2px solid #4c4e4d;

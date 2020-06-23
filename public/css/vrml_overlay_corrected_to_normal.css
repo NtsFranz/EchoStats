@@ -1,0 +1,37 @@
+#blueplayerstable {
+	bottom: auto;
+	position: absolute;
+	top: 2em;
+}
+
+#orangeplayerstable {
+	bottom: auto;
+	position: absolute;
+	top: 2em;
+}
+
+#orangeplayerhead {
+	bottom: auto;
+	position: absolute;
+}
+
+#blueplayerhead {
+	bottom: auto;
+	position: absolute;
+}
+
+#orangestats {
+	bottom: auto;
+	position: absolute;
+}
+
+#bluestats {
+	bottom: auto;
+	position: absolute;
+}
+
+#stats_overlay_container {
+	width: auto;
+	height: 10em;
+	position: relative;
+}

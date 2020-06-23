@@ -22,6 +22,8 @@
   <link defer type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 
 
+  <link rel="stylesheet" type="text/css" href="css/vrml_overlay.css">
+  <link rel="stylesheet" type="text/css" href="css/vrml_overlay_corrected_to_normal.css">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
 
   <!-- Latest Sortable -->
@@ -35,6 +37,20 @@
 <body>
 
   <div id="firebaseui-auth-container"></div>
+
+  <div id="stats_overlay_container">
+    <table id="orangestats">
+    </table>
+
+    <table id="orangeplayerhead" class="playerhead"></table>
+    <table id="orangeplayerstable" class="playerstats"></table>
+    <table id="blueplayerhead" class="playerhead"></table>
+    <table id="blueplayerstable" class="playerstats"></table>
+
+    <table id="bluestats">
+    </table>
+
+  </div>
 
 
   <div class="centered_content">
@@ -81,11 +97,12 @@
 
   <!-- Add data passed in by the request -->
   <script type="text/javascript">
-    client_name = "{{ client_name }}"; custom_id = "{{ custom_id }}"; series_name = "{{ series_name }}";
+    client_name = "{{ client_name }}"; custom_id = "{{ custom_id }}"; series_name = "{{ series_name }}"; live = 'true';
   </script>
 
   <!-- Load our custom Firebase stuff -->
   <script defer src="js/group_matches.js"></script>
+  <script defer src="js/match_data_page.js"></script>
 
 </body>
 
