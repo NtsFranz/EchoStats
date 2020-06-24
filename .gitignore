@@ -67,3 +67,5 @@ node_modules/
 .vscode/
 keys/
 __pycache__/
+
+Echopedia/WikiBotSetup.py

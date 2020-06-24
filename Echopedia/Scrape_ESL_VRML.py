@@ -5,6 +5,8 @@ import os
 import datetime
 import json
 
+from WikiCommon import *
+
 baseURL = 'https://vrmasterleague.com'
 
 team_name_set = set([])
@@ -85,14 +87,14 @@ def scrapeTeams():
             if season['name'] == "vrml_season_2":
                 past_roster = team_page('.players_container .player_name')
             else:
-                past_roster = team_page('.teams_roster_season_container .player_name')
+                past_roster = team_page(
+                    '.teams_roster_season_container .player_name')
 
             for p in past_roster:
                 roster.append(pq(p).text())
             team['roster'] = roster
 
             team_name_set.add(team['team_page'])
-
 
             # scrape the match history on the team page
             season_matches = []
@@ -147,7 +149,7 @@ def scrapeTeams():
             t['vrml_team_logo'] = team['team_logo']
             t['vrml_region'] = team['region']
             t['vrml_region_logo'] = team['region_logo']
-            
+
             if 'series' not in t:
                 t['series'] = {}
             if season['name'] not in t['series']:
@@ -163,7 +165,6 @@ def scrapeTeams():
             teams_season['points'] = team['points']
             teams_season['mmr'] = team['mmr']
             teams_season['roster'] = team['roster']
-            
 
             # Insert into DB
             # insertIntoDB([team], "series/"+season['name'] +
@@ -222,9 +223,8 @@ def writeImage(url, filename):
             outfile.write(block)
         print(filename)
 
+
 # downloads the image urls in the firebase database and stores them in firebase storage
-
-
 def downloadImages():
     Path("images/logos/teams").mkdir(parents=True, exist_ok=True)
     Path("images/logos/users").mkdir(parents=True, exist_ok=True)
@@ -244,9 +244,8 @@ def downloadImages():
         fileName = fullPath[27:]
         writeImage(fullPath, fileName)
 
+
 # uploads images from a folder structure into firebase
-
-
 def uploadImages():
     client = storage.Client()
     bucket = client.get_bucket('ignitevr-echostats.appspot.com')
@@ -276,116 +275,137 @@ def insertIntoDB(arr_of_dict, collection_name, key_name=None):
         batch.set(doc_ref, elem)
     batch.commit()
 
-# Gets all VRCL matches from na/eu using API and returns the result as a dict
 
-
+# Gets all VRCL/VRL matches from na/eu using API and returns the result as a dict
 def scrapeESLCups():
-    esl_data = {
-        "cups": [],
-        "teams": {}
-    }
 
-    teams = {}  # unique team names
-    baseURL = "https://play.eslgaming.com"
-    URL = "https://play.eslgaming.com/echoarena/north-america/tournaments"
+    if os.path.exists('data/teams.json'):
+        with open('data/teams.json', 'r') as f:
+            teams = json.load(f)
+    else:
+        teams = {}
 
-    regionURLS_VRCL = ["https://api.eslgaming.com/play/v1/leagues?types=a_series,cup,esl_series,ladder,premiership,swiss&states=finished&tags=&path=/play/echoarena/north-america/&includeHidden=0&skill_levels=pro_qualifier,open,pro,major&limit.total=5000",
-                       "https://api.eslgaming.com/play/v1/leagues?types=a_series,cup,esl_series,ladder,premiership,swiss&states=finished&tags=&path=/play/echoarena/europe/&includeHidden=0&skill_levels=pro_qualifier,open,pro,major&limit.total=5000"]
+    for season in seasons_data.items():
+        if season[1]['api_type'] != 'esl':
+            continue
 
-    regionURLS_VRL = [
-        "https://api.eslgaming.com/play/v1/leagues?types=swiss&states=finished&tags=vrlechoarena-na-portal&path=/play/&includeHidden=0&skill_levels=major&limit.total=40000",
-        "https://api.eslgaming.com/play/v1/leagues?types=swiss&states=finished&tags=vrlechoarena-eu-portal&path=/play/&includeHidden=0&skill_levels=major&limit.total=40000"]
+        if os.path.exists(season[1]['file']):
+            with open(season[1]['file'], 'r') as f:
+                esl_data = json.load(f)
+        else:
+            esl_data = {}
 
-    for url in regionURLS_VRL:
-        r = requests.get(url)
-        cups = json.loads(r.text)
-        for cupItem in cups.items():
-            cup = cupItem[1]
+        season_teams = {}  # list of all teams in this season
 
-            if '2019-' not in cup['uri']:
-                continue
+        baseURL = "https://play.eslgaming.com"
 
-            pageURL = baseURL + cup['uri']
-            cup_data = {
-                "id": cup['id'],
-                "link": pageURL,
-                "name": cup['name']['normal'],
-                "date": cup['timeline']['inProgress']['begin'] if len(cup['timeline']) > 0 else "n/a",
-                "teams": [],
-                "matches": []
-            }
+        for url in season[1]['api_urls'].items():
+            r = requests.get(url[1])
+            cups = json.loads(r.text)
+            for cupItem in cups.items():
+                cup = cupItem[1]
 
-            # Get participating teams
-            contestantsURL = "https://api.eslgaming.com/play/v1/leagues/" + \
-                str(cup['id']) + "/contestants"
-            r = requests.get(contestantsURL)
-            print(contestantsURL)
-            contestants = json.loads(r.text)
-            for c in contestants:
-                cup_data['teams'].append({
-                    "id": c['id'],
-                    "team_name": c['name']
-                })
-                teams[c['id']] = {'team_name': c['name']}
+                if '2019-' not in cup['uri']:
+                    continue
 
-            # get matches
-            matchesURL = "https://api.eslgaming.com/play/v1/leagues/" + \
-                str(cup['id']) + "/matches"
-            r = requests.get(matchesURL)
-            print(matchesURL)
-            matches = json.loads(r.text)
-            for m in matches:
-                cup_data['matches'].append({
-                    "id": m['id'],
-                    "teams": [
-                        {
-                            "id": m['contestants'][0]['team']['id'],
-                            "team_name": m['contestants'][0]['team']['name'],
-                            "team_logo": m['contestants'][0]['team']['logo'],
-                            "score": m['result']['score'][m['contestants'][0]['team']['id'] if m['contestants'][0]['team']['id'] is not None else "0"]
-                        },
-                        {
-                            "id": m['contestants'][1]['team']['id'],
-                            "team_name": m['contestants'][1]['team']['name'],
-                            "team_logo": m['contestants'][1]['team']['logo'],
-                            "score": m['result']['score'][m['contestants'][1]['team']['id'] if m['contestants'][1]['team']['id'] is not None else "0"]
-                        }
-                    ],
-                    "match_time": m['beginAt']
-                })
+                pageURL = baseURL + cup['uri']
+                cup_data = {
+                    "id": cup['id'],
+                    "link": pageURL,
+                    "name": cup['name']['normal'],
+                    "date": cup['timeline']['inProgress']['begin'] if len(cup['timeline']) > 0 else "n/a",
+                    "teams": {},
+                    "matches": []
+                }
 
-            esl_data['cups'].append(cup_data)
-    esl_data['teams'] = teams
+                # Get participating teams
+                contestantsURL = "https://api.eslgaming.com/play/v1/leagues/" + \
+                    str(cup['id']) + "/contestants"
+                r = requests.get(contestantsURL)
+                print(contestantsURL)
+                contestants = json.loads(r.text)
+                for c in contestants:
 
-    with open('data/VRL_S3_cups.json', 'w') as outfile:
-        json.dump(esl_data, outfile)
+                    if c['name'] not in cup_data['teams']:
+                        cup_data['teams'][c['name']] = {}
+                    cup_data['teams']['id'] = c['id']
+
+                    if c['name'] not in teams:
+                        teams[c['name']] = {}
+                    teams[c['name']]['esl_team_id'] = c['id']
+
+                    if c['name'] not in season_teams:
+                        season_teams[c['name']] = {}
+                    season_teams[c['name']]['esl_team_id'] = c['id']
+
+                # get matches
+                matchesURL = "https://api.eslgaming.com/play/v1/leagues/" + \
+                    str(cup['id']) + "/matches"
+                r = requests.get(matchesURL)
+                print(matchesURL)
+                matches = json.loads(r.text)
+                for m in matches:
+                    cup_data['matches'].append({
+                        "id": m['id'],
+                        "teams": [
+                            {
+                                "id": m['contestants'][0]['team']['id'],
+                                "team_name": m['contestants'][0]['team']['name'],
+                                "team_logo": m['contestants'][0]['team']['logo'],
+                                "score": m['result']['score'][m['contestants'][0]['team']['id'] if m['contestants'][0]['team']['id'] is not None else "0"]
+                            },
+                            {
+                                "id": m['contestants'][1]['team']['id'],
+                                "team_name": m['contestants'][1]['team']['name'],
+                                "team_logo": m['contestants'][1]['team']['logo'],
+                                "score": m['result']['score'][m['contestants'][1]['team']['id'] if m['contestants'][1]['team']['id'] is not None else "0"]
+                            }
+                        ],
+                        "match_time": m['beginAt']
+                    })
+
+                esl_data['cups'].append(cup_data)
+        esl_data['teams'] = season_teams
+
+        with open(season[1]['file'], 'w') as outfile:
+            json.dump(esl_data, outfile)
+            
+    with open('data/teams.json', 'w') as f:
+        json.dump(teams, f)
+
 
 # Gets all teams and players on teams from ESL site
 # gets teams from json file, exports to json file
+def scrapeESLTeams():
 
+    with open('data/teams.json', 'r') as f:
+        teams = json.load(f)
 
-def get_esl_players_from_team_list():
-    with open('data/VRL_S3_cups.json', 'r+') as f:
-        esl_data = json.load(f)
-        f.seek(0)
+    for season in seasons_data.items():
+        if season[1]['api_type'] != 'esl':
+            continue
 
-        for teamItem in esl_data['teams'].items():
+        for teamItem in teams.items():
+            # skip teams that are not from ESL
+            if 'esl_team_id' not in teamItem[1]:
+                continue
+            
             team = teamItem[1]
-            teamPageURL = "https://play.eslgaming.com/team/" + str(teamItem[0])
+            teamPageURL = "https://play.eslgaming.com/team/" + str(team['esl_team_id'])
             teamPage = pq(teamPageURL)
             print(teamPageURL)
-            team['team_page'] = teamPageURL
+            team['esl_team_page'] = teamPageURL
             if teamPage('#team_logo_overlay_image').attr('src'):
-                team['team_logo'] = teamPage(
+                team['esl_team_logo'] = teamPage(
                     '#team_logo_overlay_image').attr('src')
             teamDataRows = teamPage('.playerprofile_stammdaten > tr')
             for row in teamDataRows.items():
                 firstcol = pq(row)('.firstcol, .lastrowfirstcol')
                 if firstcol.text() == "Registered since":
                     #team['founded'] = datetime.datetime.strptime(firstcol.next().text(), "%d/%m/%y").strftime('%Y-%m-%d %H:%M:%S')
-                    team['founded'] = firstcol.next().text()
+                    team['esl_founded'] = firstcol.next().text()
                 elif "Headquarters" in firstcol.text():
-                    team['region'] = firstcol.next()('b').text()
+                    team['esl_region'] = firstcol.next()('b').text()
             playerList = pq(teamPage('#playersheet_title').next())(
                 'tr > td > div')('a')
             players = []
@@ -397,10 +417,73 @@ def get_esl_players_from_team_list():
                         "player_page": "https://play.eslgaming.com" + pq(playerElem).attr('href')
                     }
                     players.append(p)
-            team['roster'] = players
 
-        json.dump(esl_data, f)
-        f.truncate()
+            # doing this in match scraper instead, so that don't only get current roster
+            # if 'series' not in team:
+            #     team['series'] = {}
+            # if season[0] not in team['series']:
+            #     team['series'][season[0]] = {}
+            # team['series'][season[0]]['roster'] = players
+
+
+    with open('data/teams.json', 'w') as f:
+        json.dump(teams, f)
+
+def scrapeMatchPages():
+    with open('data/teams.json', 'r') as f:
+        teams = json.load(f)
+
+    if os.path.exists('data/players.json'):
+        with open('data/players.json', 'r') as f:
+            players = json.load(f)
+    else:
+        players = {}
+
+    for season in seasons_data.items():
+        if season[1]['api_type'] != 'esl':
+            continue
+
+        with open(season[1]['file'], 'r') as f:
+            cups = json.load(f)
+
+        # loop through all the cups in this season
+        for cup in cups['cups']:
+            # loop through all the matches in this cup
+            for match in cup['matches']:
+                # get the match page
+                match['match_page'] = cup['link'] + 'match/' + match['id']
+                matchPage = pq(match['match_page'])
+                print(match['match_page'])
+
+                # scrape the match page
+                for team in teams:
+                    if matchPage('h4:contains("'+team['team_name']+'")'):
+                        team['roster'] = []
+                        players_box = matchPage('h4:contains("'+team['team_name']+'")').nextAll('.flex-container')
+                        esl_players = players_box('div')
+                        for player in esl_players:
+                            player_data = {
+                                'player_name': player.attr('title'),
+                                'esl_player_page': player('a').attr('href'),
+                                'esl_player_id': player('a').attr('href').split('/')[:-1],
+                                'esl_player_logo': player('a img').attr('src')
+                            }
+                            team['roster'].append(player_data)
+
+                            if player_data['player_name'] not in players:
+                                players[player_data['player_name']] = {}
+                            p = players[player_data'player_name']
+                            p['player_name'] = player_data['player_name']
+                            p['esl_player_page'] = player_data['esl_player_page']
+                            p['esl_player_id'] = player_data['esl_player_id']
+                            p['esl_player_logo'] = player_data['esl_player_logo']
+
+
+    with open('data/teams.json', 'w') as f:
+        json.dump(teams, f)
+
+    with open('data/players.json', 'w') as f:
+        json.dump(players, f)
 
 # reads cup json files and adds data to teams.json and players.json
 def add_players():
@@ -416,17 +499,8 @@ def add_players():
     else:
         teams = {}
 
-    files = {
-        'vrcl_s1': 'data/VRCL_S1_cups.json',
-        'vrl_s2': 'data/VRL_S2_cups.json',
-        'vrl_s3': 'data/VRL_S3_cups.json',
-        'vrml_preseason': 'data/VRML_preseason.json',
-        'vrml_s1': 'data/VRML_S1.json',
-        'vrml_s2': 'data/VRML_S2.json'
-    }
-
-    for file in files.items():
-        with open(file[1], 'r') as f:
+    for file in seasons_data.items():
+        with open(file[0]['file'], 'r') as f:
             esl_data = json.load(f)
 
         for team in esl_data['teams'].items():
@@ -460,21 +534,22 @@ def add_players():
                     t['series'] = {}
                 if file[0] not in t['series']:
                     t['series'][file[0]] = {}
-                t['series'][file[0]]['roster'] = [elem['name'] for elem in team[1]['roster']]
+                t['series'][file[0]]['roster'] = [elem['name']
+                                                  for elem in team[1]['roster']]
 
     with open('data/players.json', 'w') as f:
         json.dump(players, f)
-    
+
     with open('data/teams.json', 'w') as f:
         json.dump(teams, f)
 
 
 # scrapePlayers()
 # scrapeMatches()
-scrapeTeams()
+# scrapeTeams()
 # downloadImages()
 # uploadImages()
 
-# scrapeESLCups()
-# get_esl_players_from_team_list()
+scrapeESLCups()
+# scrapeESLTeams()
 # add_players()
