@@ -277,6 +277,7 @@ def insertIntoDB(arr_of_dict, collection_name, key_name=None):
 
 
 # Gets all VRCL/VRL matches from na/eu using API and returns the result as a dict
+# resets data added to cup json files
 def scrapeESLCups():
 
     if os.path.exists('data/teams.json'):
@@ -305,7 +306,12 @@ def scrapeESLCups():
             for cupItem in cups.items():
                 cup = cupItem[1]
 
-                if '2019-' not in cup['uri']:
+                # skip s3 in s2
+                if '2019-' in cup['uri'] and season[0] == 'vrl_s2':
+                    continue
+
+                # skip s2 in s3
+                if '2019-' not in cup['uri'] and season[0] == 'vrl_s3':
                     continue
 
                 pageURL = baseURL + cup['uri']
@@ -328,7 +334,7 @@ def scrapeESLCups():
 
                     if c['name'] not in cup_data['teams']:
                         cup_data['teams'][c['name']] = {}
-                    cup_data['teams']['id'] = c['id']
+                    cup_data['teams'][c['name']]['id'] = c['id']
 
                     if c['name'] not in teams:
                         teams[c['name']] = {}
@@ -364,12 +370,15 @@ def scrapeESLCups():
                         "match_time": m['beginAt']
                     })
 
+                if 'cups' not in esl_data:
+                    esl_data['cups'] = []
                 esl_data['cups'].append(cup_data)
+
         esl_data['teams'] = season_teams
 
         with open(season[1]['file'], 'w') as outfile:
             json.dump(esl_data, outfile)
-            
+
     with open('data/teams.json', 'w') as f:
         json.dump(teams, f)
 
@@ -381,57 +390,45 @@ def scrapeESLTeams():
     with open('data/teams.json', 'r') as f:
         teams = json.load(f)
 
-    for season in seasons_data.items():
-        if season[1]['api_type'] != 'esl':
+    for teamItem in teams.items():
+        # skip teams that are not from ESL
+        if 'esl_team_id' not in teamItem[1]:
             continue
 
-        for teamItem in teams.items():
-            # skip teams that are not from ESL
-            if 'esl_team_id' not in teamItem[1]:
-                continue
-            
-            team = teamItem[1]
-            teamPageURL = "https://play.eslgaming.com/team/" + str(team['esl_team_id'])
-            teamPage = pq(teamPageURL)
-            print(teamPageURL)
-            team['esl_team_page'] = teamPageURL
-            if teamPage('#team_logo_overlay_image').attr('src'):
-                team['esl_team_logo'] = teamPage(
-                    '#team_logo_overlay_image').attr('src')
-            teamDataRows = teamPage('.playerprofile_stammdaten > tr')
-            for row in teamDataRows.items():
-                firstcol = pq(row)('.firstcol, .lastrowfirstcol')
-                if firstcol.text() == "Registered since":
-                    #team['founded'] = datetime.datetime.strptime(firstcol.next().text(), "%d/%m/%y").strftime('%Y-%m-%d %H:%M:%S')
-                    team['esl_founded'] = firstcol.next().text()
-                elif "Headquarters" in firstcol.text():
-                    team['esl_region'] = firstcol.next()('b').text()
-            playerList = pq(teamPage('#playersheet_title').next())(
-                'tr > td > div')('a')
-            players = []
-            for playerElem in playerList:
-                if playerElem.text is not None and "Show all matches" not in playerElem.text:
-                    p = {
-                        "id": pq(playerElem).attr('href').split('/')[2],
-                        "name": playerElem.text,
-                        "player_page": "https://play.eslgaming.com" + pq(playerElem).attr('href')
-                    }
-                    players.append(p)
-
-            # doing this in match scraper instead, so that don't only get current roster
-            # if 'series' not in team:
-            #     team['series'] = {}
-            # if season[0] not in team['series']:
-            #     team['series'][season[0]] = {}
-            # team['series'][season[0]]['roster'] = players
-
+        team = teamItem[1]
+        teamPageURL = "https://play.eslgaming.com/team/" + \
+            str(team['esl_team_id'])
+        teamPage = pq(teamPageURL)
+        print(teamPageURL)
+        team['esl_team_page'] = teamPageURL
+        if teamPage('#team_logo_overlay_image').attr('src'):
+            team['esl_team_logo'] = teamPage(
+                '#team_logo_overlay_image').attr('src')
+        teamDataRows = teamPage('.playerprofile_stammdaten > tr')
+        for row in teamDataRows.items():
+            firstcol = pq(row)('.firstcol, .lastrowfirstcol')
+            if firstcol.text() == "Registered since":
+                #team['founded'] = datetime.datetime.strptime(firstcol.next().text(), "%d/%m/%y").strftime('%Y-%m-%d %H:%M:%S')
+                team['esl_founded'] = firstcol.next().text()
+            elif "Headquarters" in firstcol.text():
+                team['esl_region'] = firstcol.next()('b').text()
+        playerList = pq(teamPage('#playersheet_title').next())(
+            'tr > td > div')('a')
+        players = []
+        for playerElem in playerList:
+            if playerElem.text is not None and "Show all matches" not in playerElem.text:
+                p = {
+                    "id": pq(playerElem).attr('href').split('/')[2],
+                    "name": playerElem.text,
+                    "player_page": "https://play.eslgaming.com" + pq(playerElem).attr('href')
+                }
+                players.append(p)
 
     with open('data/teams.json', 'w') as f:
         json.dump(teams, f)
 
+
 def scrapeMatchPages():
-    with open('data/teams.json', 'r') as f:
-        teams = json.load(f)
 
     if os.path.exists('data/players.json'):
         with open('data/players.json', 'r') as f:
@@ -451,39 +448,55 @@ def scrapeMatchPages():
             # loop through all the matches in this cup
             for match in cup['matches']:
                 # get the match page
-                match['match_page'] = cup['link'] + 'match/' + match['id']
+                match['match_page'] = cup['link'] + 'match/' + str(match['id'])
                 matchPage = pq(match['match_page'])
                 print(match['match_page'])
 
                 # scrape the match page
-                for team in teams:
+                # loop through the two teams in the match
+                for team in match['teams']:
+                    # ignore completely deleted teams
+                    if team['id'] is None:
+                        continue
+
+                    # get the team name even for deleted teams
+                    team['team_page'] = cup['link'] + 'team/' + str(team['id'])
+                    new_team_name = matchPage(
+                        'a[href*="' + 'team/' + str(team['id']) + '"]').text()
+                    if new_team_name != team['team_name'] and team['team_name'] != "Deleted account":
+                        print("Different team name")
+                    team['team_name'] = new_team_name
+
+                    # find the player list part of the page
                     if matchPage('h4:contains("'+team['team_name']+'")'):
                         team['roster'] = []
-                        players_box = matchPage('h4:contains("'+team['team_name']+'")').nextAll('.flex-container')
-                        esl_players = players_box('div')
+                        players_box = matchPage(
+                            'h4:contains("'+team['team_name']+'")').nextAll('.flex-container').eq(0)
+                        esl_players = players_box.children()
                         for player in esl_players:
+                            player = pq(player)
                             player_data = {
-                                'player_name': player.attr('title'),
-                                'esl_player_page': player('a').attr('href'),
-                                'esl_player_id': player('a').attr('href').split('/')[:-1],
+                                'player_name': player('a').eq(0).text(),
+                                'esl_player_page': baseURL + player('a').attr('href'),
+                                'esl_player_id': int(player('a').attr('href').split('/')[-2]),
                                 'esl_player_logo': player('a img').attr('src')
                             }
                             team['roster'].append(player_data)
 
                             if player_data['player_name'] not in players:
                                 players[player_data['player_name']] = {}
-                            p = players[player_data'player_name']
+                            p = players[player_data['player_name']]
                             p['player_name'] = player_data['player_name']
                             p['esl_player_page'] = player_data['esl_player_page']
                             p['esl_player_id'] = player_data['esl_player_id']
                             p['esl_player_logo'] = player_data['esl_player_logo']
 
-
-    with open('data/teams.json', 'w') as f:
-        json.dump(teams, f)
+        with open(season[1]['file'], 'w') as f:
+            json.dump(cups, f)
 
     with open('data/players.json', 'w') as f:
         json.dump(players, f)
+
 
 # reads cup json files and adds data to teams.json and players.json
 def add_players():
@@ -552,4 +565,4 @@ def add_players():
 
 scrapeESLCups()
 # scrapeESLTeams()
-# add_players()
+# scrapeMatchPages()
