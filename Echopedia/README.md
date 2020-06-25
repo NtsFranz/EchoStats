@@ -8,3 +8,5 @@ Scripts to scrape the ESL and VRML sites and upload the data to the Wiki or to a
    - scrapes each team page on the esl website and adds more info to teams.json
  - `Scrape_ESL_VRML.py` -> `scrapeMatchPages()`
    - scrapes each match page and gets info about which players played and sets it to teams.json and players.json
+ - `Scrape_ESL_VRML.py` -> `add_players_matches()`
+   - reads cup json files and adds data to matches.json, teams.json, and players.json
