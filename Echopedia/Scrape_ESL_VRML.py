@@ -8,11 +8,12 @@ import json
 from WikiCommon import *
 
 baseURL = 'https://vrmasterleague.com'
+baseURLESL = 'https://play.eslgaming.com'
 
 team_name_set = set([])
 
 
-def scrapeTeams():
+def scrapeVRMLTeams():
     with open('data/teams.json', 'r') as f:
         teams = json.load(f)
 
@@ -176,7 +177,7 @@ def scrapeTeams():
         json.dump(teams, f)
 
 
-def scrapePlayers():
+def scrapeVRMLPlayers():
     return  # DON'T CALL THIS BECAUSE THE DATA ON THE WEBSITE IS NOW NO LONGER THERE
     players = []
     VRML_URL = "https://vrmasterleague.com/EchoArena/Players/List/"
@@ -428,7 +429,7 @@ def scrapeESLTeams():
         json.dump(teams, f)
 
 
-def scrapeMatchPages():
+def scrapeESLMatchPages():
 
     if os.path.exists('data/players.json'):
         with open('data/players.json', 'r') as f:
@@ -477,7 +478,7 @@ def scrapeMatchPages():
                             player = pq(player)
                             player_data = {
                                 'player_name': player('a').eq(0).text(),
-                                'esl_player_page': baseURL + player('a').attr('href'),
+                                'esl_player_page': baseURLESL + player('a').attr('href'),
                                 'esl_player_id': int(player('a').attr('href').split('/')[-2]),
                                 'esl_player_logo': player('a img').attr('src')
                             }
@@ -576,15 +577,17 @@ def add_players_matches():
                             t['series'][file[0]] = {}
                         if 'roster' not in t['series'][file[0]]:
                             t['series'][file[0]]['roster'] = {}
-                        if 'matches' not in t['series'][file[0]]:
-                            t['series'][file[0]]['matches'] = {}
+                        if 'matches' not in t['series'][file[0]] or isinstance(t['series'][file[0]]['matches'], dict):
+                            t['series'][file[0]]['matches'] = []
 
                         # this overwrites any old match data
-                        t['series'][file[0]]['matches'][match['id']] = match
+                        if match['id'] not in t['series'][file[0]]['matches']:
+                            t['series'][file[0]]['matches'].append(match['id'])
 
                         if 'roster' in team:
                             new_roster = team['roster']  # the roster for this match
                             season_roster = t['series'][file[0]]['roster']  # the historical roster for this season
+                            # loop through the players
                             for p in new_roster:
                                 if p['player_name'] not in season_roster:
                                     season_roster[p['player_name']] = {
@@ -596,22 +599,43 @@ def add_players_matches():
                                 else:
                                     season_roster[p['player_name']]['game_count'] += 1
 
-                                # add the match to the match history for this player
+
+
                                 if p['player_name'] not in players:
                                     print("player doesn't exist. problem")
                                     return
-                                if 'matches' not in players[p['player_name']]:
-                                    players[p['player_name']]['matches'] = {}
-                                players[p['player_name']]['matches'][match['id']] = match
+                                playa = players[p['player_name']]
+
+                                if 'series' not in playa:
+                                    playa['series'] = {}
+                                if file[0] not in playa['series']:
+                                    playa['series'][file[0]] = {
+                                        'teams': {},
+                                        'matches': []
+                                    }
+                                # add the match to the match history for this player
+                                if 'matches' in playa:
+                                    del playa['matches']
+                                if match['id'] not in playa['series'][file[0]]['matches']:
+                                    playa['series'][file[0]]['matches'].append(match['id'])
+                                
+                                
+                                # add the team to the team history for the player
+                                if team['id'] not in playa['series'][file[0]]['teams']:
+                                    playa['series'][file[0]]['teams'][team['id']] = {
+                                        'game_count': 1
+                                    }
+                                else:
+                                    playa['series'][file[0]]['teams'][team['id']]['game_count'] += 1
 
     with open('data/players.json', 'w') as f:
-        json.dump(players, f)
+        json.dump(players, f, indent=4)
 
     with open('data/teams.json', 'w') as f:
-        json.dump(teams, f)
+        json.dump(teams, f, indent=4)
 
     with open('data/matches.json', 'w') as f:
-        json.dump(matches, f)
+        json.dump(matches, f, indent=4)
 
 
 # scrapePlayers()
@@ -622,5 +646,5 @@ def add_players_matches():
 
 # scrapeESLCups()
 # scrapeESLTeams()
-# scrapeMatchPages()
+# scrapeESLMatchPages()
 add_players_matches()
