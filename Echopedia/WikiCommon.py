@@ -33,18 +33,24 @@ seasons_data = {
         'name': 'VR Master League Pre-season',
         'wiki_page': 'VR Master League (VRML) Pre-season 2019',
         'file': 'data/vrml_preseason.json',
-        'api_type': 'vrml'
+        'api_type': 'vrml',
+        'standings_url': 'https://vrmasterleague.com/EchoArena/Standings/SnE5TUFtaWRJZnJNSzVPMG9XcTlLdz090',
+        'players_url': 'https://vrmasterleague.com/EchoArena/Players/List/U3ZUS2g0NkdkZjg90'
     },
     'vrml_season_1': {
         'name': 'VR Challenger League Season 1',
         'wiki_page': 'VR Master League (VRML) Season 1 2020',
         'file': 'data/vrml_s1.json',
-        'api_type': 'vrml'
+        'api_type': 'vrml',
+        'standings_url': 'https://vrmasterleague.com/EchoArena/Standings/SnE5TUFtaWRJZnFoQitjQjFjYlBXZz090',
+        'players_url': 'https://vrmasterleague.com/EchoArena/Players/List/c2VkWExsOERkSmc90'
     },
     'vrml_season_2': {
         'name': 'VR Challenger League Season 2',
         'wiki_page': 'VR Master League (VRML) Season 2 2020',
         'file': 'data/vrml_s2.json',
-        'api_type': 'vrml'
+        'api_type': 'vrml',
+        'standings_url': 'https://vrmasterleague.com/EchoArena/Standings/d3JZU1F5WlVraGc90',
+        'players_url': 'https://vrmasterleague.com/EchoArena/Players/List/bnpWeFFsakNtTjA90'
     }
 }

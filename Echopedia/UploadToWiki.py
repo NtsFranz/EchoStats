@@ -122,6 +122,9 @@ def UploadTeamPages():
     with open('data/matches.json') as f:
         matches = json.load(f)
 
+    with open('data/players.json') as f:
+        players = json.load(f)
+
     for teamItem in teams.items():
         if teamItem[0] == "Deleted account":
             continue
@@ -169,21 +172,23 @@ def UploadTeamPages():
             for series in team['series'].items():
                 page += '=== ' + seasons_data[series[0]]['name'] + ' ===\n'
                 page += table_header
-                page += '! Player Logo !! Player Name !! Games Played\n'
-                # page += '! Player Name\n'
-                for p in series[1]['roster'].items():
-                    page += table_row
-                    # VRML pages
-                    if 'vrml' in series[0]:
-                        row = Template('| $player_logo || [[$player_name]] || $game_count\n')
+
+                # VRML pages
+                if 'vrml' in series[0]:
+                    page += '! Player Logo !! Player Name\n'
+                    for p in series[1]['roster']:
+                        page += table_row
+                        row = Template('| $player_logo || [[$player_name]]\n')
                         # row = Template('| [[$player_name]]\n')
                         page += row.substitute({
-                            "player_name": p[0],
-                            "game_count": p[1]['game_count'],
-                            "player_logo": p[1]['vrml_player_logo']
+                            "player_name": p,
+                            "player_logo": players[p]['vrml_player_logo']
                         })
-                    # ESL pages
-                    else:
+                # ESL pages
+                else:
+                    page += '! Player Logo !! Player Name !! Games Played\n'
+                    for p in series[1]['roster'].items():
+                        page += table_row
                         row = Template('| $player_logo || [[$player_name]] || $game_count\n')
                         # row = Template('| [[$player_name]]\n')
                         page += row.substitute({
@@ -206,8 +211,16 @@ def UploadTeamPages():
                         for match in series[1]['matches']:
                             page += table_row
                             row = Template(
-                                '| $time || [$match_page VRML Match Page] || [[$home_team_name]] || $home_team_score || $away_team_score || [[$away_team_name]] || [$video_url Video Link]\n')
-                            page += row.substitute(match)
+                                '| $match_time || [$match_page VRML Match Page] || [[$home_team_name]] || $home_team_score || $away_team_score || [[$away_team_name]] || [$video_url Video Link]\n')
+                            page += row.substitute({
+                                "match_time": match["match_time"],
+                                "match_page": match['match_page'],
+                                "home_team_name": match['teams'][0]['team_name'],
+                                "home_team_score": match['teams'][0]['score'],
+                                "away_team_score": match['teams'][1]['score'],
+                                "away_team_name": match['teams'][1]['team_name'],
+                                "video_url": match['video_url']
+                            })
                     
                     # ESL pages
                     else:
@@ -215,10 +228,10 @@ def UploadTeamPages():
                         for match in series[1]['matches']:
                             page += table_row
                             row = Template(
-                                '| $time || [$match_page ESL Match Page] || [[$home_team_name]] || $home_team_score || $away_team_score || [[$away_team_name]]\n')
+                                '| $match_time || [$match_page ESL Match Page] || [[$home_team_name]] || $home_team_score || $away_team_score || [[$away_team_name]]\n')
                             m = matches[str(match)]
                             page += row.substitute({
-                                "time": m["match_time"],
+                                "match_time": m["match_time"],
                                 "match_page": m['match_page'],
                                 "home_team_name": m['teams'][0]['team_name'],
                                 "home_team_score": m['teams'][0]['score'],
@@ -252,12 +265,13 @@ def UploadPlayerPages():
         page += "== Profile ==\n"
 
         # add VRML profile data
-        if 'vrml_player_id' in player:
+        if 'vrml_player_page' in player:
             page += "=== VRML ===\n"
             page += player['vrml_player_logo'] + '\n\n'
             page += "[" + player['vrml_player_page'] + " VRML Player Page]\n\n"
-            page += "Region: " + player['vrml_region']
-            page += " " + player['vrml_region_logo'] + "\n\n"
+            if player['vrml_nationality'] is not None:
+                page += "Region: " + player['vrml_nationality'] + "\n\n"
+                # page += " " + player['vrml_nationality_logo'] + "\n\n"
 
         # add ESL profile data
         if "esl_player_id" in player:
@@ -354,12 +368,16 @@ def getTeamById(teams_dict, idstr):
     if len(idstr) == 8 or len(idstr) == 7:
         id = int(idstr)
         for name, data in teams_dict.items():
-            if data['esl_team_id'] == id or data['esl_team_id'] == idstr:
+            if 'esl_team_id' in data and (data['esl_team_id'] == id or data['esl_team_id'] == idstr):
                 return name, data
 
         return [None,None]
     # VMRL
     else:
+        for name, data in teams_dict.items():
+            if 'vrml_team_id' in data and data['vrml_team_id'] == idstr:
+                return name, data
+
         return [None,None]
 
 
@@ -382,5 +400,5 @@ def createPage(pageName, pageData):
 
 # UploadSeasonCupsESL()
 # UploadCupMatchPagesESL()
-UploadTeamPages()
+# UploadTeamPages()
 UploadPlayerPages()
