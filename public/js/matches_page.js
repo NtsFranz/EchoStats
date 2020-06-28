@@ -25,6 +25,15 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     // Subsequent queries will use persistence, if it was enabled successfully
 
+
+    firebase.auth().signInAnonymously().catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        console.log("failed auth");
+    });
+
     var db = firebase.firestore()
 
     firebase.analytics();
@@ -37,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // loop through season names
 
-    db.collection('series').doc('vrml_season_1').collection('matches').get().then((querySnapshot) => {
+    db.collection('series').doc('vrml_season_2').collection('matches').get().then((querySnapshot) => {
         querySnapshot.docs.map((doc) => {
             var rowNode = matchRow.cloneNode(true);
             rowNode.classList.remove('hide');

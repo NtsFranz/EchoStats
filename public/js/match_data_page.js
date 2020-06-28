@@ -28,6 +28,14 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log("Persistence already running");
     }
 
+    firebase.auth().signInAnonymously().catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        console.log("failed auth");
+    });
+
     var db = firebase.firestore()
 
     // var series_name = ""; // TODO set this from a dropdown or something
@@ -35,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // var custom_id = ""; // TODO set this from a dropdown or something
 
     if (series_name == "") {
-        series_name = "vrml_season_1";
+        series_name = "vrml_season_2";
     }
 
     if (live.toLowerCase() == 'true') {
@@ -43,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
             db.collection('series').doc(series_name).collection('match_stats')
                 .orderBy("match_time", "desc")
                 .where("client_name", "==", client_name)
+                .where("disabled", "==", false)
                 .limit(1)
                 .onSnapshot(querySnapshot => {
                     if (!querySnapshot.empty) {
@@ -52,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         db.collection('series').doc(series_name).collection('match_stats')
                             .orderBy("match_time", "desc")
                             .where("custom_id", "==", recent_custom_id)
+                            .where("disabled", "==", false)
                             .where("client_name", "==", client_name) // Probably not necessary, but possible because of sha256 collisions
                             .onSnapshot(querySnapshot => {
                                 processSnapshot(querySnapshot);
@@ -66,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
             db.collection('series').doc(series_name).collection('match_stats')
                 .orderBy("match_time", "desc")
                 .where("client_name", "==", client_name)
+                .where("disabled", "==", false)
                 .limit(1)
                 .get()
                 .then(querySnapshot => {
@@ -76,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         db.collection('series').doc(series_name).collection('match_stats')
                             .orderBy("match_time", "desc")
                             .where("custom_id", "==", recent_custom_id)
+                            .where("disabled", "==", false)
                             .where("client_name", "==", client_name) // Probably not necessary, but possible because of sha256 collisions
                             .get()
                             .then(querySnapshot => {

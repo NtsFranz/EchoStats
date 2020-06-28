@@ -642,6 +642,80 @@ def add_players_matches():
         json.dump(matches, f, indent=4)
 
 
+# adds vrml teams played for, matches casted, and matches cammed to players.json
+def add_teams_to_players_vrml():
+    with open('data/teams.json', 'r') as f:
+        teams = json.load(f)
+
+    with open('data/matches.json', 'r') as f:
+        matches = json.load(f)
+
+    with open('data/players.json', 'r') as f:
+        players = json.load(f)
+
+    # add teams played for to player
+    for team_name, team in teams.items():
+        if 'series' in team:
+            for season_name, season in team['series'].items():
+                if 'vrml' in season_name:
+                    for player in season['roster']:
+                        if player not in players:
+                            print('player not found: problem: ' + caster)
+                        else:
+                            p = players[player]
+                            if 'series' not in p:
+                                p['series'] = {}
+                            if season_name not in p['series']:
+                                p['series'][season_name] = {}
+                            if 'teams' not in p['series'][season_name]:
+                                p['series'][season_name]['teams'] = []
+                            if team_name not in p['series'][season_name]['teams']:
+                                p['series'][season_name]['teams'].append(team_name)
+
+    # add matches casted by player
+    for season_name, season in seasons_data.items():
+        if season_name in matches:
+            for match_id, match in matches[season_name].items():
+                if 'casters' in match:
+                    for caster in match['casters']:
+                        if caster not in players:
+                            players[caster] = {}
+                            players[caster]['player_name'] = caster
+                        p = players[caster]
+                        if 'series' not in p:
+                            p['series'] = {}
+                        if season_name not in p['series']:
+                            p['series'][season_name] = {}
+                        if 'matches_casted' not in p['series'][season_name]:
+                            p['series'][season_name]['matches_casted'] = []
+                        if match_id not in p['series'][season_name]['matches_casted']:
+                            p['series'][season_name]['matches_casted'].append(match_id)
+
+    # add matches camera-manned by player
+    for season_name, season in seasons_data.items():
+        if season_name in matches:
+            for match_id, match in matches[season_name].items():
+                if 'cameramen' in match:
+                    for cammer in match['cameramen']:
+                        if cammer not in players:
+                            players[cammer] = {}
+                            players[cammer]['player_name'] = cammer
+                        p = players[cammer]
+                        if 'series' not in p:
+                            p['series'] = {}
+                        if season_name not in p['series']:
+                            p['series'][season_name] = {}
+                        if 'matches_cammed' not in p['series'][season_name]:
+                            p['series'][season_name]['matches_cammed'] = []
+                        if match_id not in p['series'][season_name]['matches_cammed']:
+                            p['series'][season_name]['matches_cammed'].append(match_id)
+
+    
+    with open('data/players.json', 'w') as f:
+        json.dump(players, f, indent=4)
+
+                
+
 # scrapePlayers()
 # scrapeMatches()
 # scrapeTeams()
@@ -652,7 +726,9 @@ def add_players_matches():
 # scrapeESLTeams()
 # scrapeESLMatchPages()
 
+# add_players_matches()
+add_teams_to_players_vrml()
+
 # scrapeVRMLTeams()
 # scrapeVRMLPlayers()
 
-add_players_matches()

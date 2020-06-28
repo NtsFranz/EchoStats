@@ -38,7 +38,7 @@ seasons_data = {
         'players_url': 'https://vrmasterleague.com/EchoArena/Players/List/U3ZUS2g0NkdkZjg90'
     },
     'vrml_season_1': {
-        'name': 'VR Challenger League Season 1',
+        'name': 'VR Master League Season 1',
         'wiki_page': 'VR Master League (VRML) Season 1 2020',
         'file': 'data/vrml_s1.json',
         'api_type': 'vrml',
@@ -46,7 +46,7 @@ seasons_data = {
         'players_url': 'https://vrmasterleague.com/EchoArena/Players/List/c2VkWExsOERkSmc90'
     },
     'vrml_season_2': {
-        'name': 'VR Challenger League Season 2',
+        'name': 'VR Master League Season 2',
         'wiki_page': 'VR Master League (VRML) Season 2 2020',
         'file': 'data/vrml_s2.json',
         'api_type': 'vrml',

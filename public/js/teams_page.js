@@ -25,13 +25,21 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     // Subsequent queries will use persistence, if it was enabled successfully
 
+    firebase.auth().signInAnonymously().catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        console.log("failed auth");
+    });
+
     var db = firebase.firestore();
 
     teamsDiv = document.getElementById('teams');
     teamDivTemplate = document.getElementsByClassName('team_box')[0];
     playerRow = document.getElementsByClassName('team_player_stats_row')[0];
 
-    db.collection('series').doc('vrml_season_1').collection('teams').get().then((querySnapshot) => {
+    db.collection('series').doc('vrml_season_2').collection('teams').get().then((querySnapshot) => {
         var tempDoc = querySnapshot.docs.map((doc) => {
             var node = teamDivTemplate.cloneNode(true);
             node.classList.remove('hide');

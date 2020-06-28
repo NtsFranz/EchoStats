@@ -288,78 +288,148 @@ def UploadPlayerPages():
         if 'series' in player:
             # add roster info
             page += "== Teams ==\n"
-            for series in player['series'].items():
-                page += '=== ' + seasons_data[series[0]]['name'] + ' ===\n'
-                page += table_header
-                page += '! Team Logo !! Team Name !! Games Played\n'
-                # page += '! Player Name\n'
-                for t in series[1]['teams'].items():
-                    teamname, teamdata = getTeamById(teams, t[0])
-                    if teamname is None:
-                        continue
+            for season_name, season in seasons_data.items():
+                if season_name not in player['series']:
+                    continue
 
-                    page += table_row
-                    # VRML pages
-                    if 'vrml' in series[0]:
-                        row = Template('| $team_logo || [[$team_name]] || $game_count\n')
-                        # row = Template('| [[$team_name]]\n')
-                        page += row.substitute({
-                            "team_name": teamname,
-                            "game_count": t[1]['game_count'],
-                            "team_logo": teamdata['vrml_team_logo']
-                        })
-                    # ESL pages
+                if 'teams' in player['series'][season_name]:
+                    page += '=== ' + season['name'] + ' ===\n'
+                    page += table_header
+                    if isinstance(player['series'][season_name]['teams'], list):
+                        page += '! Team Logo !! Team Name\n'
+                        for teamname in player['series'][season_name]['teams']:
+                            if teamname is None or teamname not in teams:
+                                continue
+                            teamdata = teams[teamname]
+
+                            page += table_row
+
+                            # VRML pages
+                            if 'vrml' not in season_name:
+                                print("this should be a vrml series. problem")
+                                return
+
+                            row = Template('| $team_logo || [[$team_name]]\n')
+                            # row = Template('| [[$team_name]]\n')
+                            page += row.substitute({
+                                "team_name": teamname,
+                                "team_logo": teamdata['vrml_team_logo']
+                            })
+                        page += table_footer
                     else:
-                        row = Template('| $team_logo || [[$team_name]] || $game_count\n')
-                        # row = Template('| [[$team_name]]\n')
-                        if 'esl_team_logo' in teamdata:
-                            page += row.substitute({
-                                "team_name": teamname,
-                                "game_count": t[1]['game_count'],
-                                "team_logo": teamdata['esl_team_logo']
-                            })
-                        else:
-                            page += row.substitute({
-                                "team_name": teamname,
-                                "game_count": t[1]['game_count'],
-                                "team_logo": "no logo"
-                            })
+                        page += '! Team Logo !! Team Name !! Games Played\n'
+                        for t in player['series'][season_name]['teams'].items():
+                            teamname, teamdata = getTeamById(teams, t[0])
+                            if teamname is None:
+                                continue
 
-                page += table_footer
+                            page += table_row
+                            
+                            # ESL pages
+                            row = Template('| $team_logo || [[$team_name]] || $game_count\n')
+                            # row = Template('| [[$team_name]]\n')
+                            if 'esl_team_logo' in teamdata:
+                                page += row.substitute({
+                                    "team_name": teamname,
+                                    "game_count": t[1]['game_count'],
+                                    "team_logo": teamdata['esl_team_logo']
+                                })
+                            else:
+                                page += row.substitute({
+                                    "team_name": teamname,
+                                    "game_count": t[1]['game_count'],
+                                    "team_logo": "no logo"
+                                })
+                        page += table_footer
 
             page += "== Match History ==\n"
             for series in player['series'].items():
-                if 'matches' in series[1]:
+                if 'matches' in series[1] or 'matches_casted' in series[1] or 'matches_cammed' in series[1]:
                     page += '=== ' + seasons_data[series[0]]['name'] + ' ===\n'
-                    page += table_header
                     
                     # VRML pages
                     if 'vrml' in series[0]:
-                        page += '! Time !! External Match Page !! Home Team !! Home Team Score !! Away Team Score !! Away Team !! Video URL\n'
-                        for match in series[1]['matches']:
-                            page += table_row
-                            row = Template(
-                                '| $time || [$match_page VRML Match Page] || [[$home_team_name]] || $home_team_score || $away_team_score || [[$away_team_name]] || [$video_url Video Link]\n')
-                            page += row.substitute(match)
+                        # add matches played (shouldn't exist yet)
+                        if 'matches' in series[1]:
+                            page += "==== Matches Played ====\n"
+                            page += table_header
+                            page += '! Time !! External Match Page !! Home Team !! Home Team Score !! Away Team Score !! Away Team !! Video URL\n'
+                            for match in series[1]['matches']:
+                                page += table_row
+                                row = Template(
+                                    '| $time || [$match_page VRML Match Page] || [[$home_team_name]] || $home_team_score || $away_team_score || [[$away_team_name]] || [$video_url Video Link]\n')
+                                m = matches[series[0]][match]
+                                page += row.substitute({
+                                    "time": m["match_time"],
+                                    "match_page": m['match_page'],
+                                    "home_team_name": m['teams'][0]['team_name'],
+                                    "home_team_score": m['teams'][0]['score'],
+                                    "away_team_score": m['teams'][1]['score'],
+                                    "away_team_name": m['teams'][1]['team_name']
+                                })
+                            page += table_footer
+
+                        # add matches casted
+                        if 'matches_casted' in series[1]:
+                            page += "==== Matches Casted ====\n"
+                            page += table_header
+                            page += '! Time !! External Match Page !! Home Team !! Home Team Score !! Away Team Score !! Away Team !! Video URL\n'
+                            for match in series[1]['matches_casted']:
+                                page += table_row
+                                row = Template(
+                                    '| $time || [$match_page VRML Match Page] || [[$home_team_name]] || $home_team_score || $away_team_score || [[$away_team_name]] || [$video_url Video Link]\n')
+                                m = matches[series[0]][match]
+                                page += row.substitute({
+                                    "time": m["match_time"],
+                                    "match_page": m['match_page'],
+                                    "home_team_name": m['teams'][0]['team_name'],
+                                    "home_team_score": m['teams'][0]['score'],
+                                    "away_team_score": m['teams'][1]['score'],
+                                    "away_team_name": m['teams'][1]['team_name'],
+                                    "video_url": m['video_url']
+                                })
+                            page += table_footer
+                        
+                        # add matches cammed
+                        if 'matches_cammed' in series[1]:
+                            page += "==== Matches as Cameraman ====\n"
+                            page += table_header
+                            page += '! Time !! External Match Page !! Home Team !! Home Team Score !! Away Team Score !! Away Team !! Video URL\n'
+                            for match in series[1]['matches_cammed']:
+                                page += table_row
+                                row = Template(
+                                    '| $time || [$match_page VRML Match Page] || [[$home_team_name]] || $home_team_score || $away_team_score || [[$away_team_name]] || [$video_url Video Link]\n')
+                                m = matches[series[0]][match]
+                                page += row.substitute({
+                                    "time": m["match_time"],
+                                    "match_page": m['match_page'],
+                                    "home_team_name": m['teams'][0]['team_name'],
+                                    "home_team_score": m['teams'][0]['score'],
+                                    "away_team_score": m['teams'][1]['score'],
+                                    "away_team_name": m['teams'][1]['team_name'],
+                                    "video_url": m['video_url']
+                                })
+                            page += table_footer
                     
                     # ESL pages
                     else:
-                        page += '! Time !! External Match Page !! Home Team !! Home Team Score !! Away Team Score !! Away Team\n'
-                        for match in series[1]['matches']:
-                            page += table_row
-                            row = Template(
-                                '| $time || [$match_page ESL Match Page] || [[$home_team_name]] || $home_team_score || $away_team_score || [[$away_team_name]]\n')
-                            m = matches[str(match)]
-                            page += row.substitute({
-                                "time": m["match_time"],
-                                "match_page": m['match_page'],
-                                "home_team_name": m['teams'][0]['team_name'],
-                                "home_team_score": m['teams'][0]['score'],
-                                "away_team_score": m['teams'][1]['score'],
-                                "away_team_name": m['teams'][1]['team_name']
-                            })
-
-                    page += table_footer
+                        if 'matches' in series[1]:
+                            page += table_header
+                            page += '! Time !! External Match Page !! Home Team !! Home Team Score !! Away Team Score !! Away Team\n'
+                            for match in series[1]['matches']:
+                                page += table_row
+                                row = Template(
+                                    '| $time || [$match_page ESL Match Page] || [[$home_team_name]] || $home_team_score || $away_team_score || [[$away_team_name]]\n')
+                                m = matches[str(match)]
+                                page += row.substitute({
+                                    "time": m["match_time"],
+                                    "match_page": m['match_page'],
+                                    "home_team_name": m['teams'][0]['team_name'],
+                                    "home_team_score": m['teams'][0]['score'],
+                                    "away_team_score": m['teams'][1]['score'],
+                                    "away_team_name": m['teams'][1]['team_name']
+                                })
+                            page += table_footer
 
         createPage(playerItem[0], page)
 
@@ -401,4 +471,4 @@ def createPage(pageName, pageData):
 # UploadSeasonCupsESL()
 # UploadCupMatchPagesESL()
 # UploadTeamPages()
-UploadPlayerPages()
+# UploadPlayerPages()

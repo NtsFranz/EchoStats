@@ -22,10 +22,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Multiple tabs open, persistence can only be enabled
                 // in one tab at a a time.
                 // ...
+                console.log("failed precondition for persistence");
             } else if (err.code == 'unimplemented') {
                 // The current browser does not support all of the
                 // features required to enable persistence
                 // ...
+                console.log("browser doesn't support persistence");
             }
         });
     // Subsequent queries will use persistence, if it was enabled successfully
@@ -40,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var errorCode = error.code;
         var errorMessage = error.message;
         // ...
+        console.log("failed auth");
     });
 
 
@@ -51,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // get season names
     if (series_name == "") {
-        series_name = "vrml_season_1";
+        series_name = "vrml_season_2";
     }
 
     // loop through matches

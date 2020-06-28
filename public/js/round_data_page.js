@@ -25,9 +25,19 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     // Subsequent queries will use persistence, if it was enabled successfully
 
+
+    firebase.auth().signInAnonymously().catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        console.log("failed auth");
+    });
+
+
     var db = firebase.firestore()
 
-    db.collection('series').doc('vrml_season_1').collection('match_stats')
+    db.collection('series').doc('vrml_season_2').collection('match_stats')
         .orderBy("match_time", "desc")
         .where("client_name", "==", client_name)
         .limit(1)
