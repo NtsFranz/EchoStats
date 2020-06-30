@@ -109,13 +109,24 @@ function processSnapshot(querySnapshot) {
         var players = {}
 
         var playerPromises = [];
+        var first = true;
 
         querySnapshot.docs.forEach(match => {
             if (!('disabled' in match.data()) || match.data()['disabled'] == false) {
-                playerPromises.push(
-                    // get all players
-                    match.ref.collection('players')
-                    .get());
+
+                // don't add matches that were *just* added if there is a previous match anyway
+                var match_time = Date.parse(match.data()['match_time']) - (new Date()).getTimezoneOffset() * 60000
+                if (first && (Date.now() - match_time) < 60000) {
+                    // skip
+                    console.log("last match was very recent, skipping it in the overlay");
+                } else {
+                    playerPromises.push(
+                        // get all players
+                        match.ref.collection('players')
+                        .get());
+                }
+
+                first = false;
             }
         });
 
@@ -124,10 +135,12 @@ function processSnapshot(querySnapshot) {
             playersQueries.forEach(playersQuery => {
                 if (!playersQuery.empty) {
                     playersQuery.docs.forEach(player => {
-                        if (players.hasOwnProperty(player.id)) {
-                            players[player.id] = mergeSum(players[player.id], player.data());
-                        } else {
-                            players[player.id] = player.data();
+                        if (player.id != client_name) { // TODO remove true
+                            if (players.hasOwnProperty(player.id)) {
+                                players[player.id] = mergeSum(players[player.id], player.data());
+                            } else {
+                                players[player.id] = player.data();
+                            }
                         }
                     });
                 }

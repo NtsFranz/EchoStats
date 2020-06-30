@@ -1,5 +1,6 @@
 const functions = require('firebase-functions');
 const express = require('express');
+const https = require('https');
 
 // firestore
 const admin = require('firebase-admin');
@@ -90,6 +91,39 @@ app.get('/group_recent_matches', (req, res) => {
         client_name,
         custom_id,
         series_name
+    });
+});
+
+app.get('/match_setup', (req, res) => {
+    const client_name = req.query.client_name;
+    const custom_id = req.query.custom_id;
+    const series_name = req.query.series_name;
+
+
+
+    res.render("match_setup", {
+        client_name,
+        custom_id,
+        series_name
+    });
+});
+
+app.get('/get_upcoming_matches', (req, res) => {
+    https.get("https://vrmasterleague.com/Services.asmx/GetMatchesThisWeek?game=echoarena&max=100", (resp) => {
+        let data = '';
+
+        // A chunk of data has been recieved.
+        resp.on('data', (chunk) => {
+            data += chunk;
+        });
+
+        // The whole response has been received. Print out the result.
+        resp.on('end', () => {
+            res.send(JSON.parse(data));
+        });
+
+    }).on("error", (err) => {
+        console.log("Error: " + err.message);
     });
 });
 

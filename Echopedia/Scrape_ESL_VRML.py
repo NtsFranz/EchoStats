@@ -714,7 +714,7 @@ def add_teams_to_players_vrml():
     with open('data/players.json', 'w') as f:
         json.dump(players, f, indent=4)
 
-                
+
 
 # scrapePlayers()
 # scrapeMatches()

@@ -15,12 +15,12 @@ from pyquery import PyQuery as pq
 FIREBASE = False
 project_id="ignitevr-echostats"
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="ignitevr-echostats-firebase-adminsdk-nzhes-c287edff87.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="keys/ignitevr-echostats-firebase-adminsdk-nzhes-c287edff87.json"
 
 # Use the application default credentials
 #cred = credentials.Certificate("ignitevr-echostats-firebase-adminsdk-nzhes-c287edff87.json")
 #cred = credentials.Certificate("ignitevr-echostats-9e1d8f70c8a0.json")
-cred = credentials.Certificate("ignitevr-echostats-firebase-adminsdk-nzhes-1424f20b2b.json")
+cred = credentials.Certificate("keys/ignitevr-echostats-firebase-adminsdk-nzhes-1424f20b2b.json")
 firebase_admin.initialize_app(cred, { 'projectId': project_id })
 #firebase_admin.get_app()
 
@@ -66,4 +66,19 @@ def upload_esl_data():
     batch.commit()
 
 
-upload_esl_data()
+# get upcoming matches
+def get_upcoming_matches():
+    url = "https://vrmasterleague.com/Services.asmx/GetMatchesThisWeek"
+    params = {
+        "game": "echoarena",
+        "max": 100
+    }
+    r = requests.get(url, params=params)
+    if r.status_code != 200:
+        return "Failed"
+    
+    matches = json.loads(r.text)
+    print(matches)
+
+get_upcoming_matches()
+# upload_esl_data()

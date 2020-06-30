@@ -264,3 +264,8 @@ th {
   cursor: pointer;
   background-color: #a84343;
 }
+
+.match_group_item img {
+  height: 4em;
+  margin: -.4em;
+}

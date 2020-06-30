@@ -1,6 +1,6 @@
 ## How to use the IgniteBot for stats when casting
 
-![IgniteBot main window](img/main_window_blank.png)
+![IgniteBot main window](img/main_window_pub.png)
 
 ![Stats overlay preview](img/overlay_preview.png)
 
