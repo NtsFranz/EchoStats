@@ -124,6 +124,7 @@ app.get('/get_upcoming_matches', (req, res) => {
 
     }).on("error", (err) => {
         console.log("Error: " + err.message);
+        res.send(err.message);
     });
 });
 
