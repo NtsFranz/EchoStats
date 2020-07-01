@@ -55,12 +55,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 .limit(1)
                 .onSnapshot(querySnapshot => {
                     if (!querySnapshot.empty) {
-                        recent_custom_id = querySnapshot.docs[0].data().custom_id;
-                        console.log("Most recent Stats Id:");
-                        console.log(recent_custom_id);
+                        var recent_custom_id = querySnapshot.docs[0].data().custom_id;
+                        var recent_session_id = querySnapshot.docs[0].data().session_id;
+                        console.log("Most recent Stats Id: " + recent_custom_id);
+                        console.log("Most recent Session Id: " + recent_custom_id);
                         db.collection('series').doc(series_name).collection('match_stats')
                             .orderBy("match_time", "desc")
                             .where("custom_id", "==", recent_custom_id)
+                            .where("session_id", "==", recent_session_id)
                             .where("disabled", "==", false)
                             .where("client_name", "==", client_name) // Probably not necessary, but possible because of sha256 collisions
                             .onSnapshot(querySnapshot => {
@@ -81,12 +83,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 .get()
                 .then(querySnapshot => {
                     if (!querySnapshot.empty) {
-                        recent_custom_id = querySnapshot.docs[0].data().custom_id;
+                        var recent_custom_id = querySnapshot.docs[0].data().custom_id;
+                        var recent_session_id = querySnapshot.docs[0].data().session_id;
                         console.log("Most recent Stats Id:");
                         console.log(recent_custom_id);
                         db.collection('series').doc(series_name).collection('match_stats')
                             .orderBy("match_time", "desc")
                             .where("custom_id", "==", recent_custom_id)
+                            .where("session_id", "==", recent_session_id)
                             .where("disabled", "==", false)
                             .where("client_name", "==", client_name) // Probably not necessary, but possible because of sha256 collisions
                             .get()

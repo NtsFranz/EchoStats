@@ -55,7 +55,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // get upcoming matches
 function get_upcoming_matches() {
-    var url = "/get_upcoming_matches"
+    // var url = "/get_upcoming_matches"
+    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_upcoming_matches"
     httpGetAsync(url, showUpcomingMatches);
 }
 

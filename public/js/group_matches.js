@@ -66,11 +66,13 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(querySnapshot => {
             if (!querySnapshot.empty) {
                 var custom_id = querySnapshot.docs[0].data()['custom_id'];
+                var session_id = querySnapshot.docs[0].data()['session_id'];
                 var splitter_count = 0;
                 var valid_row_count = 0;
                 querySnapshot.docs.forEach(doc => {
                     var new_custom_id = doc.data()['custom_id'];
-                    if (custom_id != new_custom_id) {
+                    var new_session_id = doc.data()['session_id'];
+                    if (custom_id != new_custom_id || session_id != new_session_id) {
                         addSplitter();
                         splitter_count++;
                         if (valid_row_count == 0) {
@@ -78,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     }
                     custom_id = new_custom_id;
+                    session_id = new_session_id;
 
                     valid_row_count += addMatch(doc, splitter_count < 1);
                 });
@@ -154,6 +157,7 @@ function splitMatches() {
 
     // loop through all the matches
     var last_custom_id = "";
+    var last_session_id = "";
     var last_elem_was_split = true;
     var splitting = false; // true when setting new custom_ids until a splitter is found
     var new_custom_id = "";
@@ -183,7 +187,9 @@ function splitMatches() {
                 }
 
                 var custom_id_elem = elem.getElementsByClassName('custom_id')[0];
+                var session_id_elem = elem.getElementsByClassName('session_id')[0];
                 var custom_id = custom_id_elem.innerText;
+                var session_id = session_id_elem.innerText;
 
                 if (splitter_count <= 1) {
                     elem.classList.add('match_highlighted');
@@ -195,7 +201,6 @@ function splitMatches() {
                 if (last_elem_was_split) {
                     // if the current match ids are the same
                     if (custom_id == last_custom_id) {
-
                         // we need to change the custom id here, since there is a split, but the same custom id
                         var match_id = elem.getElementsByClassName('match_id')[0].innerText;
                         new_custom_id = sha256(Date.now().toString()).toUpperCase();
