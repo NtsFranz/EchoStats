@@ -41,61 +41,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // var client_name = ""; // TODO set this from a dropdown or something
     // var custom_id = ""; // TODO set this from a dropdown or something
     buildpregame(db);
-    if (series_name == "") {
-        series_name = "vrml_season_2";
-    }
-
-    if (live.toLowerCase() == 'true') {
-        if (client_name != "" && custom_id == "") {
-            db.collection('series').doc(series_name).collection('match_stats')
-                .orderBy("match_time", "desc")
-                .where("client_name", "==", client_name)
-                .limit(1)
-                .onSnapshot(querySnapshot => {
-                    if (!querySnapshot.empty) {
-                        recent_custom_id = querySnapshot.docs[0].data().custom_id;
-                        console.log("Most recent Stats Id:");
-                        console.log(recent_custom_id);
-                        db.collection('series').doc(series_name).collection('match_stats')
-                            .orderBy("match_time", "desc")
-                            .where("custom_id", "==", recent_custom_id)
-                            .where("client_name", "==", client_name) // Probably not necessary, but possible because of sha256 collisions
-                            .onSnapshot(querySnapshot => {
-                                processSnapshot(querySnapshot);
-                            });
-                    }
-                });
-        } else {
-            write("orangestats", "Please specify either a client_name or custom_id");
-        }
-    } else {
-        if (client_name != "" && custom_id == "") {
-            db.collection('series').doc(series_name).collection('match_stats')
-                .orderBy("match_time", "desc")
-                .where("client_name", "==", client_name)
-                .limit(1)
-                .get()
-                .then(querySnapshot => {
-                    if (!querySnapshot.empty) {
-                        recent_custom_id = querySnapshot.docs[0].data().custom_id;
-                        console.log("Most recent Stats Id:");
-                        console.log(recent_custom_id);
-                        db.collection('series').doc(series_name).collection('match_stats')
-                            .orderBy("match_time", "desc")
-                            .where("custom_id", "==", recent_custom_id)
-                            .where("client_name", "==", client_name) // Probably not necessary, but possible because of sha256 collisions
-                            .get()
-                            .then(querySnapshot => {
-                                processSnapshot(querySnapshot, db);
-                            });
-                    }
-                });
-        } else {
-            write("orangestats", "Please specify either a client_name or custom_id");
-        }
-    }
-
-
 });
 
 function processSnapshot(querySnapshot, db) {
