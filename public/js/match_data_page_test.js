@@ -42,13 +42,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // var custom_id = ""; // TODO set this from a dropdown or something
     buildpregame(db);
     if (series_name == "") {
-        series_name = "vrml_season_1";
+        series_name = "vrml_season_2";
     }
-    table = "";
-    table +=
-        "<tr><th>" + "VTSxKING" + "</th></tr>";
-    write("homeroster", table);
-/*
+
     if (live.toLowerCase() == 'true') {
         if (client_name != "" && custom_id == "") {
             db.collection('series').doc(series_name).collection('match_stats')
@@ -98,7 +94,6 @@ document.addEventListener('DOMContentLoaded', function () {
             write("orangestats", "Please specify either a client_name or custom_id");
         }
     }
-*/
 
 
 });
@@ -148,12 +143,13 @@ function buildpregame(db) {
             setImage("homelogo", doc.data()['home_logo']);
             setImage("awaylogo", doc.data()['away_logo']);
             // get home team data via firestore...
-            db.collection("series").doc("vrml_season_1").collection("teams").doc(doc.data()['home_team']).onSnapshot(function(team) {
+
+            db.collection("series").doc("vrml_season_2").collection("teams").doc(doc.data()['home_team']).get().then(function(team) {
                 if (team.exists) {
                     // set division...
                     setImage("homerank", team.data()['division_logo']);
                     // set home mmr
-                    write("homemmr", "MMR: " + team.data()['mmr']);
+                    write("homemmr", "MMR: " + team.data()['mmr'] + " (" + team.data()['wins'] + " - "+ team.data()['losses'] + ")");
                     // add home roster...
                     entry = "";
                     Object.keys(team.data()['roster']).forEach(key => {
@@ -163,14 +159,14 @@ function buildpregame(db) {
                 }
                 else
                 {
-                    setImage("homerank", "https://vrmasterleague.com/images/div_bronze_40.png?vrml.2.1.7");
-                    write("homemmr", "MMR: ");
+                    setImage("homerank", "");
+                    write("homemmr", " ");
                     write("homeroster", " ");
                 }
             });
             // get away team data via firestore...
             // get home team data via firestore...
-            db.collection("series").doc("vrml_season_1").collection("teams").doc(doc.data()['away_team']).onSnapshot(function(team) {
+            db.collection("series").doc("vrml_season_2").collection("teams").doc(doc.data()['away_team']).get().then(function(team) {
                 if (team.exists) {
                     // set division...
                     setImage("awayrank", team.data()['division_logo']);
@@ -185,8 +181,8 @@ function buildpregame(db) {
                 }
                 else
                 {
-                    setImage("awayrank", "https://vrmasterleague.com/images/div_bronze_40.png?vrml.2.1.7");
-                    write("awaymmr", "MMR: ");
+                    setImage("awayrank", "");
+                    write("awaymmr", " ");
                     write("awayroster", " ");
                 }
             });
@@ -282,6 +278,28 @@ function processData(players) {
     write("blueplayerstable", bluePlayersTable);
     write("orangeplayerhead", "<tr><td>PLAYER</td><td>POINTS</td><td>ASSISTS</td><td>SAVES</td><td>STEALS</td><td>STUNS</td></tr>");
     write("orangeplayerstable", orangePlayersTable);
+}
+
+// get upcoming matches
+function get_team_stats(team_name) {
+    // var url = "/get_upcoming_matches"
+    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_team_stats?team_name=" + team_name;
+    httpGetAsync(url, showTeamStates);
+}
+
+function showTeamStates(data) {
+    data = JSON.parse(data);
+    console.log(data);
+}
+
+function httpGetAsync(theUrl, callback) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function () {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send(null);
 }
 
 function write(id, data) {
