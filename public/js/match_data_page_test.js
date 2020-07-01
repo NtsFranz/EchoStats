@@ -40,10 +40,14 @@ document.addEventListener('DOMContentLoaded', function () {
     // var series_name = ""; // TODO set this from a dropdown or something
     // var client_name = ""; // TODO set this from a dropdown or something
     // var custom_id = ""; // TODO set this from a dropdown or something
-
+    buildpregame(db);
     if (series_name == "") {
         series_name = "vrml_season_1";
     }
+    table = "";
+    table +=
+        "<tr><th>" + "VTSxKING" + "</th></tr>";
+    write("homeroster", table);
 /*
     if (live.toLowerCase() == 'true') {
         if (client_name != "" && custom_id == "") {
@@ -140,6 +144,52 @@ function processSnapshot(querySnapshot, db) {
 function buildpregame(db) {
     db.collection("caster_preferences").doc(client_name).onSnapshot(function(doc) {
         if (doc.exists) {
+            // set logos
+            setImage("homelogo", doc.data()['home_logo']);
+            setImage("awaylogo", doc.data()['away_logo']);
+            // get home team data via firestore...
+            db.collection("series").doc("vrml_season_1").collection("teams").doc(doc.data()['home_team']).onSnapshot(function(team) {
+                if (team.exists) {
+                    // set division...
+                    setImage("homerank", team.data()['division_logo']);
+                    // set home mmr
+                    write("homemmr", "MMR: " + team.data()['mmr']);
+                    // add home roster...
+                    entry = "";
+                    Object.keys(team.data()['roster']).forEach(key => {
+                        entry += "<tr><th>" + team.data()['roster'][key] + "</th></tr>";
+                    });
+                    write("homeroster", entry);
+                }
+                else
+                {
+                    setImage("homerank", "https://vrmasterleague.com/images/div_bronze_40.png?vrml.2.1.7");
+                    write("homemmr", "MMR: ");
+                    write("homeroster", " ");
+                }
+            });
+            // get away team data via firestore...
+            // get home team data via firestore...
+            db.collection("series").doc("vrml_season_1").collection("teams").doc(doc.data()['away_team']).onSnapshot(function(team) {
+                if (team.exists) {
+                    // set division...
+                    setImage("awayrank", team.data()['division_logo']);
+                    // set home mmr
+                    write("awaymmr", "MMR: " + team.data()['mmr']);
+                    // add home roster...
+                    entry = "";
+                    Object.keys(team.data()['roster']).forEach(key => {
+                        entry += "<tr><th>" + team.data()['roster'][key] + "</th></tr>";
+                    });
+                    write("awayroster", entry);
+                }
+                else
+                {
+                    setImage("awayrank", "https://vrmasterleague.com/images/div_bronze_40.png?vrml.2.1.7");
+                    write("awaymmr", "MMR: ");
+                    write("awayroster", " ");
+                }
+            });
         }
     });
 }
@@ -237,6 +287,12 @@ function processData(players) {
 function write(id, data) {
     var element = document.getElementById(id);
     element.innerHTML = data;
+    element.style.visibility = 'visible';
+}
+
+function setImage(id, src_) {
+    var element = document.getElementById(id);
+    element.src = src_;
     element.style.visibility = 'visible';
 }
 

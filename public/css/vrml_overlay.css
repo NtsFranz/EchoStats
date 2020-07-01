@@ -26,13 +26,17 @@
 }
 
 #homelogo {
-	width: 280px;
-	height: 280px;
+	position: relative;
+	width: 240px;
+	height: 240px;
+	left: 32px;
 }
 
 #awaylogo {
-	width: 280px;
-	height: 280px;
+	position: relative;
+	width: 240px;
+	height: 240px;
+	left: 32px;
 }
 
 #home_background_container {
@@ -83,6 +87,28 @@
 	font-family: goodtimes;
 	left: 100;
 	font-size: larger;
+}
+
+#homeroster {
+	position: fixed;
+	top: 450px;
+	width: 304px;
+	text-align: center;
+	color: white;
+	font-size: x-large;
+	border-spacing: 0 25px;
+	font-family: goodtimes;
+}
+
+#awayroster {
+	position: fixed;
+	top: 450px;
+	width: 304px;
+	text-align: center;
+	color: white;
+	font-size: x-large;
+	border-spacing: 0 25px;
+	font-family: goodtimes;
 }
 
 #stats_overlay_container table {
