@@ -67,6 +67,19 @@ app.get('/get_team_name_from_list', async (req, res) => {
     });
 });
 */
+app.get('/most_recent_match_2', (req, res) => {
+    const client_name = req.query.client_name;
+    const custom_id = req.query.custom_id;
+    const series_name = req.query.series_name;
+    const live = req.query.live || false;
+
+    res.render("match_data_2", {
+        client_name,
+        custom_id,
+        series_name,
+        live
+    });
+});
 
 app.get('/most_recent_match', (req, res) => {
     const client_name = req.query.client_name;
@@ -126,6 +139,5 @@ app.get('/get_upcoming_matches', (req, res) => {
         console.log("Error: " + err.message);
     });
 });
-
 
 exports.app = functions.https.onRequest(app);

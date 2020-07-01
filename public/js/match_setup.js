@@ -49,7 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
     matchRowSplitter = document.getElementsByClassName('match_group_splitter')[0];
     sortableList = document.getElementById('match_list');
 
-
     get_upcoming_matches();
 
 });
@@ -90,6 +89,25 @@ function addMatch(data) {
     rowNode.getElementsByClassName('away_team_name')[0].innerText = data['AwayTeam'];
     rowNode.getElementsByClassName('away_team_logo')[0].getElementsByTagName("img")[0].src = data['AwayTeamLogo'];
     rowNode.getElementsByClassName('casters')[0].innerText = data['CasterName'];
+    
+    if (client_name != "") {
+        var createClickHandler = function(row) {
+            return function() {
+                console.log("clicked: " + data['HomeTeam'] + " vs " + data['AwayTeam']);
+                db.collection("caster_preferences").doc(client_name).update({
+                    home_team: data['HomeTeam'],
+                    home_logo: data['HomeTeamLogo'],
+                    away_logo: data['AwayTeamLogo'],
+                    away_team: data['AwayTeam']
+                })
+                .catch(function(error) {
+                    // The document probably doesn't exist.
+                    console.error("Error updating document: ", error);
+                });
+            };
+        };
 
+        rowNode.onclick = createClickHandler(rowNode);
+    }
     sortableList.appendChild(rowNode);
 }
