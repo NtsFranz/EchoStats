@@ -23,28 +23,7 @@
 </head>
 
 <body>
-  <div id="background_container" class="backgroundcontainer">
-    <div id="home_background_container">
-      <div id="homebox">
-        <img id="homelogo" src="https://vrmasterleague.com/images/team_logo_120.png">
-        <img id="homerank" src="https://vrmasterleague.com/images/div_bronze_40.png?vrml.2.1.7">
-        <p id="homemmr">MMR: </p>
-        <table id="homeroster">
-        </table>
-      </div>
-    </div>
-    <div id="away_background_container">
-      <div id="awaybox">
-        <img id="awaylogo" src="https://vrmasterleague.com/images/team_logo_120.png">
-        <img id="awayrank" src="https://vrmasterleague.com/images/div_bronze_40.png?vrml.2.1.7">
-        <p id="awaymmr">MMR: </p>
-        <table id="awayroster">
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <div id="stats_overlay_container">
+  <div id="container">
     <table id="orangestats">
     </table>
 
@@ -58,13 +37,9 @@
 
   </div>
 
-  <!-- Add data passed in by the request -->
-  <script type="text/javascript">
-    client_name = "{{ client_name }}"; custom_id = "{{ custom_id }}"; series_name = "{{ series_name }}"; live = "{{ live }}";
-  </script>
 
   <!-- Load our custom Firebase stuff -->
-  <script defer src="js/match_data_page_test.js"></script>
+  <script defer src="js/match_data_prematch.js"></script>
 
 </body>
 
