@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // ...
         console.log("failed auth");
     });
-    
+
     var db = firebase.firestore()
 
     // var series_name = ""; // TODO set this from a dropdown or something
@@ -82,28 +82,28 @@ function processSnapshot(querySnapshot, db) {
 }
 
 function buildpregame(db) {
-    db.collection("caster_preferences").doc(client_name).onSnapshot(function(doc) {
+    db.collection("caster_preferences").doc(client_name).onSnapshot(function (doc) {
         if (doc.exists) {
             // set logos
             setImage("homelogo", doc.data()['home_logo']);
             setImage("awaylogo", doc.data()['away_logo']);
             // get home team data via firestore...
 
-            db.collection("series").doc("vrml_season_2").collection("teams").doc(doc.data()['home_team']).get().then(function(team) {
+            document.getElementById("match_title").innerHTML = doc.data()['home_team'] + " vs " + doc.data()['away_team']
+
+            db.collection("series").doc("vrml_season_2").collection("teams").doc(doc.data()['home_team']).get().then(function (team) {
                 if (team.exists) {
                     // set division...
                     setImage("homerank", team.data()['division_logo']);
                     // set home mmr
-                    write("homemmr", "MMR: " + team.data()['mmr'] + " (" + team.data()['wins'] + " - "+ team.data()['losses'] + ")");
+                    write("homemmr", "MMR: " + team.data()['mmr'] + " (" + team.data()['wins'] + " - " + team.data()['losses'] + ")");
                     // add home roster...
                     entry = "";
                     Object.keys(team.data()['roster']).forEach(key => {
                         entry += "<tr><th>" + team.data()['roster'][key] + "</th></tr>";
                     });
                     write("homeroster", entry);
-                }
-                else
-                {
+                } else {
                     setImage("homerank", "");
                     write("homemmr", " ");
                     write("homeroster", " ");
@@ -111,26 +111,28 @@ function buildpregame(db) {
             });
             // get away team data via firestore...
             // get home team data via firestore...
-            db.collection("series").doc("vrml_season_2").collection("teams").doc(doc.data()['away_team']).get().then(function(team) {
+            db.collection("series").doc("vrml_season_2").collection("teams").doc(doc.data()['away_team']).get().then(function (team) {
                 if (team.exists) {
                     // set division...
                     setImage("awayrank", team.data()['division_logo']);
                     // set home mmr
-                    write("awaymmr", "MMR: " + team.data()['mmr']);
+                    write("awaymmr", "MMR: " + team.data()['mmr'] + " (" + team.data()['wins'] + " - " + team.data()['losses'] + ")");
                     // add home roster...
                     entry = "";
                     Object.keys(team.data()['roster']).forEach(key => {
                         entry += "<tr><th>" + team.data()['roster'][key] + "</th></tr>";
                     });
                     write("awayroster", entry);
-                }
-                else
-                {
+                } else {
                     setImage("awayrank", "");
                     write("awaymmr", " ");
                     write("awayroster", " ");
                 }
+
+
+                document.getElementById("background_container").style.opacity = 1;
             });
+            
         }
     });
 }

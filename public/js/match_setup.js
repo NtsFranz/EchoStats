@@ -49,13 +49,19 @@ document.addEventListener('DOMContentLoaded', function () {
     matchRowSplitter = document.getElementsByClassName('match_group_splitter')[0];
     sortableList = document.getElementById('match_list');
 
+    currentCaster = document.getElementById('current-caster-name');
+    if (client_name != "") {
+        currentCaster.innerText = "Setting overlay for: " + client_name;
+    } else {
+        currentCaster.innerText = "Overlay user not set.";
+    }
+
     get_upcoming_matches();
 
 });
 
 // get upcoming matches
 function get_upcoming_matches() {
-    // var url = "/get_upcoming_matches"
     var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_upcoming_matches"
     httpGetAsync(url, showUpcomingMatches);
 }
@@ -65,6 +71,19 @@ function showUpcomingMatches(data) {
     console.log(data);
     data.forEach(match => {
         addMatch(match);
+    });
+
+    // get the match that is currently set
+    db.collection("caster_preferences").doc(client_name).get().then(doc => {
+        if (!doc.empty) {
+            Array.from(sortableList.getElementsByTagName('tr')).forEach(r => {
+                if (r.getElementsByClassName('home_team_name')[0].innerText == doc.data()['home_team'] &&
+                    r.getElementsByClassName('away_team_name')[0].innerText == doc.data()['away_team']) {
+                    r.classList.add('match-selected');
+                    return;
+                }
+            });
+        }
     });
 }
 
@@ -89,22 +108,36 @@ function addMatch(data) {
     rowNode.getElementsByClassName('home_team_name')[0].innerText = data['HomeTeam'];
     rowNode.getElementsByClassName('away_team_name')[0].innerText = data['AwayTeam'];
     rowNode.getElementsByClassName('away_team_logo')[0].getElementsByTagName("img")[0].src = data['AwayTeamLogo'];
-    rowNode.getElementsByClassName('casters')[0].innerText = data['CasterName'];
-    
+    var castersString = data['CasterName'];
+    if (data['CoCasterName'] != "") {
+        castersString += ", " + data['CoCasterName'];
+    }
+    rowNode.getElementsByClassName('casters')[0].innerText = castersString;
+
     if (client_name != "") {
-        var createClickHandler = function(row) {
-            return function() {
-                console.log("clicked: " + data['HomeTeam'] + " vs " + data['AwayTeam']);
-                db.collection("caster_preferences").doc(client_name).update({
-                    home_team: data['HomeTeam'],
-                    home_logo: data['HomeTeamLogo'],
-                    away_logo: data['AwayTeamLogo'],
-                    away_team: data['AwayTeam']
-                })
-                .catch(function(error) {
-                    // The document probably doesn't exist.
-                    console.error("Error updating document: ", error);
+        var createClickHandler = function (row) {
+            return function () {
+                db.collection("caster_preferences").doc(client_name).set({
+                        home_team: data['HomeTeam'],
+                        home_logo: data['HomeTeamLogo'],
+                        away_logo: data['AwayTeamLogo'],
+                        away_team: data['AwayTeam']
+                    }, {
+                        merge: true
+                    })
+                    .catch(function (error) {
+                        // The document probably doesn't exist.
+                        console.error("Error updating document: ", error);
+                    });
+
+                // unselect all the other rows
+                Array.from(sortableList.getElementsByTagName('tr')).forEach(r => {
+                    r.classList.remove('match-selected');
                 });
+                // select the correct row
+                row.classList.add('match-selected');
+
+                console.log("set: " + data['HomeTeam'] + " vs " + data['AwayTeam']);
             };
         };
 
