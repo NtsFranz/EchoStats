@@ -1,3 +1,6 @@
+var left_side;
+var right_side;
+
 document.addEventListener('DOMContentLoaded', function () {
     // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
     // // The Firebase SDK is initialized and available here!
@@ -84,12 +87,22 @@ function processSnapshot(querySnapshot, db) {
 function buildpregame(db) {
     db.collection("caster_preferences").doc(client_name).onSnapshot(function(doc) {
         if (doc.exists) {
+            if (doc.data()['toggle_sides']) {
+                left_side = "away";
+                right_side = "home";
+            }
+            else {
+                left_side = "home";
+                right_side = "away"
+            }
             // set logos
-            setImage("homelogo", doc.data()['home_logo']);
-            setImage("awaylogo", doc.data()['away_logo']);
+            setImage(left_side+"logo", doc.data()['home_logo']);
+            setImage(right_side+"logo", doc.data()['away_logo']);
             // get home team data via firestore...
 
-            db.collection("series").doc("vrml_season_2").collection("teams").doc(doc.data()['home_team']).get().then(function(team) {
+            document.getElementById("match_title").innerHTML = doc.data()[left_side+'_team'] + " vs " + doc.data()[right_side+'_team']
+
+            db.collection("series").doc("vrml_season_2").collection("teams").doc(doc.data()[left_side+'_team']).get().then(function (team) {
                 if (team.exists) {
                     // set division...
                     setImage("homerank", team.data()['division_logo']);
@@ -111,7 +124,7 @@ function buildpregame(db) {
             });
             // get away team data via firestore...
             // get home team data via firestore...
-            db.collection("series").doc("vrml_season_2").collection("teams").doc(doc.data()['away_team']).get().then(function(team) {
+            db.collection("series").doc("vrml_season_2").collection("teams").doc(doc.data()[right_side+'_team']).get().then(function (team) {
                 if (team.exists) {
                     // set division...
                     setImage("awayrank", team.data()['division_logo']);

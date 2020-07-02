@@ -2,6 +2,7 @@ var matchRow;
 var matchRowAddSplitter;
 var sortableList;
 var db;
+var side_bool;
 
 document.addEventListener('DOMContentLoaded', function () {
     // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
@@ -66,6 +67,20 @@ function showUpcomingMatches(data) {
     data.forEach(match => {
         addMatch(match);
     });
+
+    // get the match that is currently set
+    db.collection("caster_preferences").doc(client_name).get().then(doc => {
+        if (!doc.empty) {
+            side_bool = doc.data()['toggle_sides'];
+            Array.from(sortableList.getElementsByTagName('tr')).forEach(r => {
+                if (r.getElementsByClassName('home_team_name')[0].innerText == doc.data()['home_team'] &&
+                    r.getElementsByClassName('away_team_name')[0].innerText == doc.data()['away_team']) {
+                    r.classList.add('match-selected');
+                    return;
+                }
+            });
+        }
+    });
 }
 
 function httpGetAsync(theUrl, callback) {
@@ -76,6 +91,21 @@ function httpGetAsync(theUrl, callback) {
     }
     xmlHttp.open("GET", theUrl, true); // true for asynchronous 
     xmlHttp.send(null);
+}
+
+function toggleSides() {
+    if (client_name != "") {
+        db.collection("caster_preferences").doc(client_name).set({
+            toggle_sides: !(side_bool)
+        }, {
+            merge: true
+        })
+        .catch(function (error) {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+        });
+        side_bool = !side_bool;
+    }
 }
 
 // adds a row to the end of the table

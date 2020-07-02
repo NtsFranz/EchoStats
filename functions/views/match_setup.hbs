@@ -37,6 +37,16 @@
 <body>
 
   <div class="centered_content">
+
+    <form id="player-search-box" method="get"
+      style="margin:1em auto;max-width:300px;color:black;display:flex;">
+      <input autocomplete="off" type="text" id="player_search" placeholder="Enter Oculus name" name="client_name">
+      <button type="submit" id="player_search_button">&gt;</button>
+    </form>
+    <button onclick="toggleSides()">Toggle</button>
+
+    <div id="current-caster-name"></div>
+
     <table>
       <thead>
         <tr class="match_group_item">

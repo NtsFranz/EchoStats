@@ -13,7 +13,18 @@
 	top: 134px;
 	width: 304px;
 	height: 316px;
-	background: #00000040;
+	background: #00000023;
+}
+
+#match_title {
+	text-shadow: none;
+	width: 1920px;
+	margin-top: 40px;
+	text-align: center;
+	font-size: 40px;
+	text-transform: uppercase;
+	text-shadow: 0 0 3px black;
+	transform: scaleY(.9);
 }
 
 #awaybox {
@@ -22,7 +33,7 @@
 	top: 134px;
 	width: 304px;
 	height: 316px;
-	background: #00000040;
+	background: #00000023;
 }
 
 #homelogo {
@@ -43,7 +54,7 @@
 	position: fixed;
 	left: 36px;
 	top: 134px;
-	background: #00000040;
+	background: #00000023;
 	height: 660px;
 	width: 304px;
 }
@@ -52,7 +63,7 @@
 	position: fixed;
 	left: 1575px;
 	top: 134px;
-	background: #00000040;
+	background: #00000023;
 	height: 660px;
 	width: 304px;
 }
