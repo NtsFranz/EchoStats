@@ -66,6 +66,27 @@ def upload_esl_data():
     batch.commit()
 
 
+# upload player rosters to firebase
+def upload_team_rosters():
+    with open('data/teams.json') as f:
+        teams = json.load(f)
+    
+    batch = db.batch()
+    for team_name, team in teams.items():
+        if 'series' in team:
+            for season_name, season in team['series'].items():
+                if 'vrml' in season_name:
+                    if team_name == "Ignite":
+                        print("HERE")
+                    team_doc_ref = db.collection('series').document(season_name).collection('teams').document(team_name)
+
+                    if 'matches' in season:
+                        del season['matches']
+                    batch.set(team_doc_ref, season)
+
+    batch.commit()
+
+
 # get upcoming matches
 def get_upcoming_matches():
     url = "https://vrmasterleague.com/Services.asmx/GetMatchesThisWeek"
@@ -80,5 +101,6 @@ def get_upcoming_matches():
     matches = json.loads(r.text)
     print(matches)
 
-get_upcoming_matches()
+# get_upcoming_matches()
 # upload_esl_data()
+upload_team_rosters()

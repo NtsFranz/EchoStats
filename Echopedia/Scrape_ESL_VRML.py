@@ -49,7 +49,7 @@ def scrapeVRMLTeams():
 
             # load the team page
             default_team_page = pq(team['team_page'])
-            print(team['team_page'])
+            print(team['team_page'] + "\t" + team['team_name'])
 
             # go to the right season's page
             for season_option in default_team_page('.team_season_switcher > option'):
@@ -134,7 +134,8 @@ def scrapeVRMLTeams():
             team_id = str(team['team_page'].split('/')[-1])
             # check if this team name was already used by a different team id
             if 'vrml_team_id' in t and t['vrml_team_id'] != team_id:
-                print("Conflicting team names.")
+                # this is due to different seasons having different team ids
+                print("Conflicting team names: " + team['team_name'])
             t['vrml_team_id'] = team_id
             t['vrml_team_page'] = team['team_page']
             t['vrml_team_logo'] = team['team_logo']
@@ -199,7 +200,8 @@ def scrapeVRMLPlayers():
                     player_pq('.player_cell > a').attr('href')
                 player['vrml_player_logo'] = baseURL + \
                     player_pq('.player_cell > a > img').attr('src')
-                player['vrml_team_name'] = player_pq('.team_cell > a > span').text()
+                player['vrml_team_name'] = player_pq(
+                    '.team_cell > a > span').text()
                 player['vrml_team_page'] = baseURL + \
                     player_pq('.team_cell > a').attr('href')
                 player['vrml_team_logo'] = baseURL + \
@@ -207,16 +209,139 @@ def scrapeVRMLPlayers():
                 nat_img_cell = player_pq('.nationality_cell > img')
                 if nat_img_cell:
                     player['vrml_nationality'] = nat_img_cell.attr('title')
-                    player['vrml_nationality_logo'] = baseURL + nat_img_cell.attr('src')
+                    player['vrml_nationality_logo'] = baseURL + \
+                        nat_img_cell.attr('src')
                 else:
                     player['vrml_nationality'] = None
                     player['vrml_nationality_logo'] = None
 
     # Insert into DB
     # insertIntoDB(players, 'players', 'player_name')
-    
+
     with open('data/players.json', 'w') as f:
         json.dump(players, f)
+
+
+# only gets stats and rosters for the current season. This is faster than getting full stats
+def scrapeCurrentSeasonTeamStats(season_name):
+    with open('data/teams.json', 'r') as f:
+        teams = json.load(f)
+
+    with open('data/players.json', 'r') as f:
+        players = json.load(f)
+
+    # loop through the players and get their teams
+    page = pq(seasons_data[season_name]['players_url'])
+    print(seasons_data[season_name]['players_url'])
+
+    if season_name == 'vrml_season_2':
+        numPlayers = int(page('.players-list-header-count').text()[20:23])
+    else:
+        numPlayers = int(page('.players-list-header-count').text()[0:4])
+
+
+    # load the team standing page
+    another_page = True
+    page_num = 0
+
+    while another_page:
+        page = pq(seasons_data[season_name]['standings_url']+"?rankMin="+str(page_num*100+1))
+        print(seasons_data[season_name]['standings_url']+"?rankMin="+str(page_num*100+1))
+        page_num += 1
+        another_page = False
+        for teamHTML in page('.standings_information > .vrml_table_container > .vrml_table > tbody > tr'):
+            team_pq = pq(teamHTML)
+            team_name = team_pq('.team_name').text()
+
+            if team_name is None or team_name == '':
+                if team_pq('.glyphicon-menu-down'):
+                    another_page = True
+                else:
+                    print("skipping team. No team name.")
+                continue
+
+            if team_name not in teams:
+                teams[team_name] = {}
+
+            team = teams[team_name]
+
+            if 'series' not in team:
+                team['series'] = {}
+            if season_name not in team['series']:
+                team['series'][season_name] = {}
+            season_team = team['series'][season_name]
+            
+            team['vrml_team_page'] = baseURL + team_pq('.team_link').attr('href')   # this may not be necessary here. There are also team pages for 
+            season_team['vrml_team_page'] = baseURL + team_pq('.team_link').attr('href')
+            team['vrml_team_logo'] = baseURL + team_pq('.team_logo').attr('src')
+            season_team['division'] = team_pq('.div_cell > img').attr('title')
+            season_team['division_logo'] = baseURL + \
+                team_pq('.div_cell > img').attr('src')
+            season_team['rank'] = team_pq('.pos_cell').text()
+            team['region'] = team_pq('.group_cell > img').attr('title')
+            team['region_logo'] = baseURL + \
+                team_pq('.group_cell > img').attr('src')
+            season_team['games_played'] = team_pq('.gp_cell').text()
+            season_team['wins'] = team_pq('.win_cell').text()
+            season_team['losses'] = team_pq('.loss_cell').text()
+            season_team['points'] = team_pq('.pts_cell').text()
+            season_team['mmr'] = team_pq('.mmr_cell').text()
+
+
+
+    for i in range(0, int(numPlayers/100)+1):
+        page = pq(seasons_data[season_name]
+                  ['players_url']+"?posMin="+str(i*100+1))
+        print(seasons_data[season_name]['players_url']+"?posMin="+str(i*100+1))
+
+        for playerHTML in page('.vrml_table_row'):
+            player_pq = pq(playerHTML)
+            pname = player_pq('.player_cell > a > span').text()
+
+            if pname not in players:
+                players[pname] = {}
+            player = players[pname]
+
+            player['player_name'] = pname
+            player['vrml_player_page'] = baseURL + \
+                player_pq('.player_cell > a').attr('href')
+            player['vrml_player_logo'] = baseURL + \
+                player_pq('.player_cell > a > img').attr('src')
+            player['vrml_team_name'] = player_pq(
+                '.team_cell > a > span').text()
+            player['vrml_team_page'] = baseURL + \
+                player_pq('.team_cell > a').attr('href')
+            player['vrml_team_logo'] = baseURL + \
+                player_pq('.team_cell > a > img').attr('src')
+            nat_img_cell = player_pq('.nationality_cell > img')
+            if nat_img_cell:
+                player['vrml_nationality'] = nat_img_cell.attr('title')
+                player['vrml_nationality_logo'] = baseURL + \
+                    nat_img_cell.attr('src')
+            else:
+                player['vrml_nationality'] = None
+                player['vrml_nationality_logo'] = None
+
+
+            # add this player to the team roster as well
+            if player['vrml_team_name'] not in teams:
+                print("Team doesn't exist in teams")
+                return
+            if 'series' not in teams[player['vrml_team_name']]:
+                teams[player['vrml_team_name']]['series'] = {}
+            if season_name not in teams[player['vrml_team_name']]['series']:
+                teams[player['vrml_team_name']]['series'][season_name] = {}
+            if 'roster' not in teams[player['vrml_team_name']]['series'][season_name]:
+                teams[player['vrml_team_name']]['series'][season_name]['roster'] = []
+            if player['player_name'] not in teams[player['vrml_team_name']]['series'][season_name]['roster']:
+                teams[player['vrml_team_name']]['series'][season_name]['roster'].append(player['player_name'])
+
+
+    with open('data/teams.json', 'w') as f:
+        json.dump(teams, f, indent=4)
+
+    with open('data/players.json', 'w') as f:
+        json.dump(players, f, indent=4)
 
 
 def writeImage(url, filename):
@@ -518,8 +643,6 @@ def add_players_matches():
     else:
         matches = {}
 
-    
-
     # loop through all the season files
     for file in seasons_data.items():
         if os.path.exists(file[1]['file']):
@@ -533,7 +656,7 @@ def add_players_matches():
             #     # loop through the players on that team
             #     if 'roster' in team[1]:
             #         for player in team[1]['roster']:
-                        
+
             #             if player['name'] not in players:
             #                 players[player['name']] = {}
             #             p = players[player['name']]
@@ -559,7 +682,7 @@ def add_players_matches():
                 for match in cup['matches']:
                     # this overwrites any old match data
                     matches[match['id']] = match
-                    
+
                     # loop through the 2 teams in this match
                     for team in match['teams']:
                         if team['team_name'] is None:
@@ -589,8 +712,10 @@ def add_players_matches():
                             t['series'][file[0]]['matches'].append(match['id'])
 
                         if 'roster' in team:
-                            new_roster = team['roster']  # the roster for this match
-                            season_roster = t['series'][file[0]]['roster']  # the historical roster for this season
+                            # the roster for this match
+                            new_roster = team['roster']
+                            # the historical roster for this season
+                            season_roster = t['series'][file[0]]['roster']
                             # loop through the players
                             for p in new_roster:
                                 if p['player_name'] not in season_roster:
@@ -601,9 +726,8 @@ def add_players_matches():
                                         'esl_player_page': p['esl_player_page']
                                     }
                                 else:
-                                    season_roster[p['player_name']]['game_count'] += 1
-
-
+                                    season_roster[p['player_name']
+                                                  ]['game_count'] += 1
 
                                 if p['player_name'] not in players:
                                     print("player doesn't exist. problem")
@@ -621,16 +745,17 @@ def add_players_matches():
                                 if 'matches' in playa:
                                     del playa['matches']
                                 if match['id'] not in playa['series'][file[0]]['matches']:
-                                    playa['series'][file[0]]['matches'].append(match['id'])
-                                
-                                
+                                    playa['series'][file[0]]['matches'].append(
+                                        match['id'])
+
                                 # add the team to the team history for the player
                                 if team['id'] not in playa['series'][file[0]]['teams']:
                                     playa['series'][file[0]]['teams'][team['id']] = {
                                         'game_count': 1
                                     }
                                 else:
-                                    playa['series'][file[0]]['teams'][team['id']]['game_count'] += 1
+                                    playa['series'][file[0]
+                                                    ]['teams'][team['id']]['game_count'] += 1
 
     with open('data/players.json', 'w') as f:
         json.dump(players, f, indent=4)
@@ -670,7 +795,8 @@ def add_teams_to_players_vrml():
                             if 'teams' not in p['series'][season_name]:
                                 p['series'][season_name]['teams'] = []
                             if team_name not in p['series'][season_name]['teams']:
-                                p['series'][season_name]['teams'].append(team_name)
+                                p['series'][season_name]['teams'].append(
+                                    team_name)
 
     # add matches casted by player
     for season_name, season in seasons_data.items():
@@ -689,7 +815,8 @@ def add_teams_to_players_vrml():
                         if 'matches_casted' not in p['series'][season_name]:
                             p['series'][season_name]['matches_casted'] = []
                         if match_id not in p['series'][season_name]['matches_casted']:
-                            p['series'][season_name]['matches_casted'].append(match_id)
+                            p['series'][season_name]['matches_casted'].append(
+                                match_id)
 
     # add matches camera-manned by player
     for season_name, season in seasons_data.items():
@@ -708,12 +835,11 @@ def add_teams_to_players_vrml():
                         if 'matches_cammed' not in p['series'][season_name]:
                             p['series'][season_name]['matches_cammed'] = []
                         if match_id not in p['series'][season_name]['matches_cammed']:
-                            p['series'][season_name]['matches_cammed'].append(match_id)
+                            p['series'][season_name]['matches_cammed'].append(
+                                match_id)
 
-    
     with open('data/players.json', 'w') as f:
         json.dump(players, f, indent=4)
-
 
 
 # scrapePlayers()
@@ -727,8 +853,9 @@ def add_teams_to_players_vrml():
 # scrapeESLMatchPages()
 
 # add_players_matches()
-add_teams_to_players_vrml()
-
+# add_teams_to_players_vrml()
 # scrapeVRMLTeams()
 # scrapeVRMLPlayers()
 
+
+scrapeCurrentSeasonTeamStats("vrml_season_2")
