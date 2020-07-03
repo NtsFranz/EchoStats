@@ -22,41 +22,21 @@
   <link rel="stylesheet" type="text/css" href="css/vrml_overlay.css">
 </head>
 
-<body>
-  <div id="background_container" class="sidebars_layout" style="opacity: 0;">
-    <div id="match_title"></div>
-    <div id="home_background_container">
-      <div id="homebox">
-        <img id="homelogo" src="https://vrmasterleague.com/images/team_logo_120.png">
-        <img id="homerank" src="https://vrmasterleague.com/images/div_bronze_40.png?vrml.2.1.7">
-        <p id="homemmr">MMR: </p>
-        <table id="homeroster">
-        </table>
-      </div>
+<body style="margin: 0;">
+  <div id="background_container" class="midmatch_layout">
+    <div id="home_team_box">
+      <div id="home_team_name"></div>
+      <div id="homemmr"></div>
+      <img id="homelogo" src="https://vrmasterleague.com/images/team_logo_120.png">
+      <img id="homerank" src="">
     </div>
-    <div id="away_background_container">
-      <div id="awaybox">
-        <img id="awaylogo" src="https://vrmasterleague.com/images/team_logo_120.png">
-        <img id="awayrank" src="https://vrmasterleague.com/images/div_bronze_40.png?vrml.2.1.7">
-        <p id="awaymmr">MMR: </p>
-        <table id="awayroster">
-        </table>
-      </div>
+
+    <div id="away_team_box">
+      <div id="away_team_name"></div>
+      <div id="awaymmr"></div>
+      <img id="awaylogo" src="https://vrmasterleague.com/images/team_logo_120.png">
+      <img id="awayrank" src="">
     </div>
-  </div>
-
-  <div id="stats_overlay_container">
-    <table id="orangestats">
-    </table>
-
-    <table id="orangeplayerhead" class="playerhead"></table>
-    <table id="orangeplayerstable" class="playerstats"></table>
-    <table id="blueplayerhead" class="playerhead"></table>
-    <table id="blueplayerstable" class="playerstats"></table>
-
-    <table id="bluestats">
-    </table>
-
   </div>
 
   <!-- Add data passed in by the request -->

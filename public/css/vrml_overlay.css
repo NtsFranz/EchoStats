@@ -9,9 +9,13 @@
 	text-shadow: 0 0 2px black;
 	color: #ccc;
 	font-family: goodtimes;
+	top: 0;
+	left: 0;
+	width: 1920px;
+	height: 1080px;
 }
 
-#homebox {
+.sidebars_layout #homebox {
 	position: fixed;
 	left: 36px;
 	top: 134px;
@@ -20,18 +24,7 @@
 	background: #00000015;
 }
 
-#match_title {
-	text-shadow: none;
-	width: 1920px;
-	margin-top: 40px;
-	text-align: center;
-	font-size: 40px;
-	text-transform: uppercase;
-	text-shadow: 0 0 3px black;
-	transform: scaleY(.9);
-}
-
-#match_title {
+.sidebars_layout #match_title {
 	text-shadow: none;
 	width: 1920px;
 	margin-top: 36px;
@@ -42,7 +35,7 @@
 	transform: scaleY(.9);
 }
 
-#awaybox {
+.sidebars_layout #awaybox {
 	position: fixed;
 	left: 1575px;
 	top: 134px;
@@ -51,7 +44,7 @@
 	background: #00000015;
 }
 
-#homelogo {
+.sidebars_layout #homelogo {
 	position: relative;
 	width: 240px;
 	height: 240px;
@@ -59,7 +52,7 @@
 	margin-top: 16px;
 }
 
-#awaylogo {
+.sidebars_layout #awaylogo {
 	position: relative;
 	width: 240px;
 	height: 240px;
@@ -67,7 +60,7 @@
 	margin-top: 16px;
 }
 
-#home_background_container {
+.sidebars_layout #home_background_container {
 	position: fixed;
 	left: 36px;
 	top: 134px;
@@ -76,7 +69,7 @@
 	width: 304px;
 }
 
-#away_background_container {
+.sidebars_layout #away_background_container {
 	position: fixed;
 	left: 1575px;
 	top: 134px;
@@ -85,19 +78,19 @@
 	width: 304px;
 }
 
-#homerank {
+.sidebars_layout #homerank {
 	position: fixed;
 	left: 66px;
 	top: 400px;
 }
 
-#awayrank {
+.sidebars_layout #awayrank {
 	position: fixed;
 	left: 1602px;
 	top: 400px;
 }
 
-#homemmr {
+.sidebars_layout #homemmr {
 	position: fixed;
 	left: 115px;
 	top: 390px;
@@ -105,7 +98,7 @@
 	font-size: larger;
 }
 
-#awaymmr {
+.sidebars_layout #awaymmr {
 	position: fixed;
 	left: 1655px;
 	top: 390px;
@@ -113,7 +106,7 @@
 	font-size: larger;
 }
 
-#homeroster {
+.sidebars_layout #homeroster {
 	position: fixed;
 	top: 450px;
 	width: 304px;
@@ -122,7 +115,7 @@
 	border-spacing: 0 25px;
 }
 
-#awayroster {
+.sidebars_layout #awayroster {
 	position: fixed;
 	top: 450px;
 	width: 304px;
@@ -353,4 +346,105 @@
 
 #swap_sides_button:after {
 	border-top: 1em solid #9c9fa1;
+}
+
+
+
+/* Prematch 2 overlay */
+
+.prematch_2_layout #home_team_name {
+	font-size: 60px;
+	position: absolute;
+	left: 120px;
+	bottom: 70px;
+	width: 800px;
+	text-align: center;
+}
+
+.prematch_2_layout #homelogo {
+	position: absolute;
+	left: 24px;
+	bottom: 40px;
+	width: 120px;
+	height: 120px;
+}
+
+.prematch_2_layout #homemmr {
+	position: absolute;
+	left: 15px;
+	bottom: 210px;
+}
+
+.prematch_2_layout #homerank {
+	position: absolute;
+	left: 10px;
+	bottom: 150px;
+}
+
+.prematch_2_layout #away_team_name {
+	font-size: 60px;
+	position: absolute;
+	right: 120px;
+	bottom: 70px;
+	width: 800px;
+	text-align: center;
+}
+
+.prematch_2_layout #awaylogo {
+	position: absolute;
+	right: 24px;
+	bottom: 40px;
+	width: 120px;
+	height: 120px;
+}
+
+.prematch_2_layout #awaymmr {
+	position: absolute;
+	right: 15px;
+	bottom: 210px;
+}
+
+.prematch_2_layout #awayrank {
+	position: absolute;
+	right: 10px;
+	bottom: 150px;
+}
+
+
+
+
+/* Midmatch overlay */
+
+.midmatch_layout #home_team_name {
+	font-size: 40px;
+	position: absolute;
+	left: 100px;
+	top: 10px;
+	width: 500px;
+	text-align: center;
+}
+
+.midmatch_layout #homelogo {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 90px;
+	height: 90px;
+}
+
+.midmatch_layout #away_team_name {
+	font-size: 40px;
+	position: absolute;
+	right: 100px;
+	top: 10px;
+	width: 500px;
+	text-align: center;
+}
+
+.midmatch_layout #awaylogo {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 90px;
+	height: 90px;
 }
