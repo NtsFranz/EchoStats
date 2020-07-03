@@ -32247,7 +32247,7 @@
         "vrml_player_logo": "https://vrmasterleague.com/images/player_logo_40.png",
         "vrml_team_name": "Ambush",
         "vrml_team_page": "https://vrmasterleague.com/EchoArena/Teams/TVlHNUdDUGVrNnM90",
-        "vrml_team_logo": "https://vrmasterleague.com/images/logos/teams/fb9ef067-22fd-47d4-a44d-8298ab89d636.png",
+        "vrml_team_logo": "https://vrmasterleague.com/images/logos/teams/d23fc986-faff-4fbd-ae36-e812d2cb52f3.jpg",
         "vrml_nationality": null,
         "vrml_nationality_logo": null,
         "series": {
@@ -32515,7 +32515,7 @@
         "vrml_player_logo": "https://vrmasterleague.com/images/player_logo_40.png",
         "vrml_team_name": "Ambush",
         "vrml_team_page": "https://vrmasterleague.com/EchoArena/Teams/TVlHNUdDUGVrNnM90",
-        "vrml_team_logo": "https://vrmasterleague.com/images/logos/teams/fb9ef067-22fd-47d4-a44d-8298ab89d636.png",
+        "vrml_team_logo": "https://vrmasterleague.com/images/logos/teams/d23fc986-faff-4fbd-ae36-e812d2cb52f3.jpg",
         "vrml_nationality": null,
         "vrml_nationality_logo": null,
         "series": {
@@ -33050,7 +33050,7 @@
         "vrml_player_logo": "https://vrmasterleague.com/images/player_logo_40.png",
         "vrml_team_name": "Ambush",
         "vrml_team_page": "https://vrmasterleague.com/EchoArena/Teams/TVlHNUdDUGVrNnM90",
-        "vrml_team_logo": "https://vrmasterleague.com/images/logos/teams/fb9ef067-22fd-47d4-a44d-8298ab89d636.png",
+        "vrml_team_logo": "https://vrmasterleague.com/images/logos/teams/d23fc986-faff-4fbd-ae36-e812d2cb52f3.jpg",
         "vrml_nationality": "US",
         "vrml_nationality_logo": "https://vrmasterleague.com/images/flags/4x3/us.svg",
         "series": {
@@ -35974,7 +35974,7 @@
         "vrml_player_logo": "https://vrmasterleague.com/images/logos/users/4c5998b8-93f6-4c75-adf4-a2c51cf75d9a.jpg",
         "vrml_team_name": "Ambush",
         "vrml_team_page": "https://vrmasterleague.com/EchoArena/Teams/TVlHNUdDUGVrNnM90",
-        "vrml_team_logo": "https://vrmasterleague.com/images/logos/teams/fb9ef067-22fd-47d4-a44d-8298ab89d636.png",
+        "vrml_team_logo": "https://vrmasterleague.com/images/logos/teams/d23fc986-faff-4fbd-ae36-e812d2cb52f3.jpg",
         "vrml_nationality": "CA",
         "vrml_nationality_logo": "https://vrmasterleague.com/images/flags/4x3/ca.svg",
         "series": {
@@ -36241,7 +36241,7 @@
         "vrml_player_logo": "https://vrmasterleague.com/images/logos/users/16c4a100-6567-47ed-873e-57613e713f7a.jpg",
         "vrml_team_name": "Ambush",
         "vrml_team_page": "https://vrmasterleague.com/EchoArena/Teams/TVlHNUdDUGVrNnM90",
-        "vrml_team_logo": "https://vrmasterleague.com/images/logos/teams/fb9ef067-22fd-47d4-a44d-8298ab89d636.png",
+        "vrml_team_logo": "https://vrmasterleague.com/images/logos/teams/d23fc986-faff-4fbd-ae36-e812d2cb52f3.jpg",
         "vrml_nationality": null,
         "vrml_nationality_logo": null,
         "series": {
@@ -36424,7 +36424,7 @@
         "vrml_player_logo": "https://vrmasterleague.com/images/player_logo_40.png",
         "vrml_team_name": "Ambush",
         "vrml_team_page": "https://vrmasterleague.com/EchoArena/Teams/TVlHNUdDUGVrNnM90",
-        "vrml_team_logo": "https://vrmasterleague.com/images/logos/teams/fb9ef067-22fd-47d4-a44d-8298ab89d636.png",
+        "vrml_team_logo": "https://vrmasterleague.com/images/logos/teams/d23fc986-faff-4fbd-ae36-e812d2cb52f3.jpg",
         "vrml_nationality": "US",
         "vrml_nationality_logo": "https://vrmasterleague.com/images/flags/4x3/us.svg",
         "series": {
@@ -40777,5 +40777,15 @@
         "vrml_team_logo": "https://vrmasterleague.com/images/logos/teams/7d6dc256-266f-4ec9-a435-0ca64bff7e7d.jpeg",
         "vrml_nationality": "GB",
         "vrml_nationality_logo": "https://vrmasterleague.com/images/flags/4x3/gb.svg"
+    },
+    "RAG3_": {
+        "player_name": "RAG3_",
+        "vrml_player_page": "https://vrmasterleague.com/EchoArena/Players/Q2QwUkJCdUc1cGc90",
+        "vrml_player_logo": "https://vrmasterleague.com/images/logos/users/b08ffb3c-c3a9-49dd-b76c-e8609ab663ff.jpeg",
+        "vrml_team_name": "Phoenix",
+        "vrml_team_page": "https://vrmasterleague.com/EchoArena/Teams/Q0d0N0lKYUZGaTA90",
+        "vrml_team_logo": "https://vrmasterleague.com/images/logos/teams/7bd68cc9-b530-45c7-a349-73635e51c1d5.jpeg",
+        "vrml_nationality": "US",
+        "vrml_nationality_logo": "https://vrmasterleague.com/images/flags/4x3/us.svg"
     }
 }
