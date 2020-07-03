@@ -43,7 +43,13 @@ document.addEventListener('DOMContentLoaded', function () {
     // var series_name = ""; // TODO set this from a dropdown or something
     // var client_name = ""; // TODO set this from a dropdown or something
     // var custom_id = ""; // TODO set this from a dropdown or something
-    buildpregame(db);
+
+    if (client_name == "") {
+        console.log("No client_name");
+        document.body.innerHTML = "<div style='color:black;'>Must specify a client_name. ex: <a href=\'/prematch_overlay?client_name=NtsFranz\'>prematch_overlay?client_name=NtsFranz</a></div>";
+    } else {
+        buildpregame(db);
+    }
 });
 
 function processSnapshot(querySnapshot, db) {
@@ -87,63 +93,67 @@ function processSnapshot(querySnapshot, db) {
 function buildpregame(db) {
     db.collection("caster_preferences").doc(client_name).onSnapshot(function (doc) {
         if (doc.exists) {
-            if (doc.data()['toggle_sides']) {
+            console.log(doc.data()['swap_sides']);
+            if (doc.data()['swap_sides']) {
                 left_side = "away";
                 right_side = "home";
-            }
-            else {
+            } else {
                 left_side = "home";
                 right_side = "away"
             }
             // set logos
-            setImage(left_side+"logo", doc.data()['home_logo']);
-            setImage(right_side+"logo", doc.data()['away_logo']);
+            setImage(left_side + "logo", doc.data()['home_logo']);
+            setImage(right_side + "logo", doc.data()['away_logo']);
             // get home team data via firestore...
 
-            document.getElementById("match_title").innerHTML = doc.data()[left_side+'_team'] + " vs " + doc.data()[right_side+'_team']
+            document.getElementById("match_title").innerHTML = doc.data()[left_side + '_team'] + " vs " + doc.data()[right_side + '_team']
 
-            db.collection("series").doc("vrml_season_2").collection("teams").doc(doc.data()[left_side+'_team']).get().then(function (team) {
-                if (team.exists) {
-                    // set division...
-                    setImage("homerank", team.data()['division_logo']);
-                    // set home mmr
-                    write("homemmr", "MMR: " + team.data()['mmr'] + " (" + team.data()['wins'] + " - " + team.data()['losses'] + ")");
-                    // add home roster...
-                    entry = "";
-                    Object.keys(team.data()['roster']).forEach(key => {
-                        entry += "<tr><th>" + team.data()['roster'][key] + "</th></tr>";
-                    });
-                    write("homeroster", entry);
-                } else {
-                    setImage("homerank", "");
-                    write("homemmr", " ");
-                    write("homeroster", " ");
-                }
-            });
+            // get home team data via firestore...
+            db.collection("series").doc("vrml_season_2").collection("teams").doc(doc.data()[left_side + '_team'])
+                .get()
+                .then(function (team) {
+                    if (team.exists) {
+                        // set division...
+                        setImage("homerank", team.data()['division_logo']);
+                        // set home mmr
+                        write("homemmr", "MMR: " + team.data()['mmr'] + " (" + team.data()['wins'] + " - " + team.data()['losses'] + ")");
+                        // add home roster...
+                        entry = "";
+                        Object.keys(team.data()['roster']).forEach(key => {
+                            entry += "<tr><th>" + team.data()['roster'][key] + "</th></tr>";
+                        });
+                        write("homeroster", entry);
+                    } else {
+                        setImage("homerank", "");
+                        write("homemmr", " ");
+                        write("homeroster", " ");
+                    }
+                });
             // get away team data via firestore...
-            // get home team data via firestore...
-            db.collection("series").doc("vrml_season_2").collection("teams").doc(doc.data()[right_side+'_team']).get().then(function (team) {
-                if (team.exists) {
-                    // set division...
-                    setImage("awayrank", team.data()['division_logo']);
-                    // set home mmr
-                    write("awaymmr", "MMR: " + team.data()['mmr'] + " (" + team.data()['wins'] + " - " + team.data()['losses'] + ")");
-                    // add home roster...
-                    entry = "";
-                    Object.keys(team.data()['roster']).forEach(key => {
-                        entry += "<tr><th>" + team.data()['roster'][key] + "</th></tr>";
-                    });
-                    write("awayroster", entry);
-                } else {
-                    setImage("awayrank", "");
-                    write("awaymmr", " ");
-                    write("awayroster", " ");
-                }
+            db.collection("series").doc("vrml_season_2").collection("teams").doc(doc.data()[right_side + '_team'])
+                .get()
+                .then(function (team) {
+                    if (team.exists) {
+                        // set division...
+                        setImage("awayrank", team.data()['division_logo']);
+                        // set home mmr
+                        write("awaymmr", "MMR: " + team.data()['mmr'] + " (" + team.data()['wins'] + " - " + team.data()['losses'] + ")");
+                        // add home roster...
+                        entry = "";
+                        Object.keys(team.data()['roster']).forEach(key => {
+                            entry += "<tr><th>" + team.data()['roster'][key] + "</th></tr>";
+                        });
+                        write("awayroster", entry);
+                    } else {
+                        setImage("awayrank", "");
+                        write("awaymmr", " ");
+                        write("awayroster", " ");
+                    }
 
 
-                document.getElementById("background_container").style.opacity = 1;
-            });
-            
+                    document.getElementById("background_container").style.opacity = 1;
+                });
+
         }
     });
 }

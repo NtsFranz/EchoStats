@@ -17,7 +17,7 @@
 	top: 134px;
 	width: 304px;
 	height: 316px;
-	background: #00000023;
+	background: #00000015;
 }
 
 #match_title {
@@ -34,7 +34,7 @@
 #match_title {
 	text-shadow: none;
 	width: 1920px;
-	margin-top: 30px;
+	margin-top: 36px;
 	text-align: center;
 	font-size: 40px;
 	text-transform: uppercase;
@@ -48,7 +48,7 @@
 	top: 134px;
 	width: 304px;
 	height: 316px;
-	background: #00000023;
+	background: #00000015;
 }
 
 #homelogo {
@@ -71,7 +71,7 @@
 	position: fixed;
 	left: 36px;
 	top: 134px;
-	background: #00000023;
+	background: #00000015;
 	height: 660px;
 	width: 304px;
 }
@@ -80,7 +80,7 @@
 	position: fixed;
 	left: 1575px;
 	top: 134px;
-	background: #00000023;
+	background: #00000015;
 	height: 660px;
 	width: 304px;
 }
@@ -298,9 +298,9 @@
 }
 
 .match-hoverable:hover {
-	background-color: #858b8e;
-	transform: scale(1.01);
-	box-shadow: black 0 0 0.3em;
+	background-color: var(--button-color);
+	transform: scale(1.005);
+	box-shadow: #fffa 0 0 .5em;
 	cursor: pointer;
 }
 
@@ -341,4 +341,16 @@
 	text-align: center;
 	margin: 1em;
 	font-size: 1.2em;
+}
+
+#swap_sides_button {
+	color: white;
+	padding: 1em;
+	width: 13em;
+	text-align: center;
+	cursor: pointer;
+}
+
+#swap_sides_button:after {
+	border-top: 1em solid #9c9fa1;
 }

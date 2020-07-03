@@ -48,9 +48,46 @@ def UploadSeasonCupsESL():
     with open('data/out.txt', 'w') as out:
         out.write(table_str)
 
+
+def GenerateSeasonPagesVRML():
+    # load the data into an object from file
+    with open('data/matches.json') as f:
+        matches = json.load(f)
+
+    for season_name, season in seasons_data.items():
+        if season_name in matches:
+
+            page = ""
+
+            page += "=== Matches ===\n"
+
+            page += table_header
+            page += table_row
+            page += '! Time !! External Match Page !! Home Team !! Home Team Score !! Away Team Score !! Away Team !! Video URL\n'
+
+            matches_list = sorted(matches[season_name].items(), key=lambda i: i[1]['match_time'])
+            for matchobj in matches_list:
+                match = matchobj[1]
+                page += table_row
+                row = Template(
+                    '| $time || [$match_page VRML Match Page] || [[$home_team_name]] || $home_team_score || $away_team_score || [[$away_team_name]] || [$video_url Video Link]\n')
+                page += row.substitute({
+                    "time": match["match_time"],
+                    "match_page": match['match_page'],
+                    "home_team_name": match['teams'][0]['team_name'],
+                    "home_team_score": match['teams'][0]['score'],
+                    "away_team_score": match['teams'][1]['score'],
+                    "away_team_name": match['teams'][1]['team_name'],
+                    "video_url": match['video_url']
+                })
+
+            page = page.replace("[None Video Link]", "No Video")
+            page += table_footer
+
+            createPage(season['wiki_page'], page)
+
+
 # Creates pages with a list of matches for each cup
-
-
 def UploadCupMatchPagesESL():
     for season in seasons_data.items():
         # load the data into an object from file
@@ -118,7 +155,7 @@ def UploadTeamPages():
     # load the data into an object from file
     with open('data/teams.json') as f:
         teams = json.load(f)
-    
+
     with open('data/matches.json') as f:
         matches = json.load(f)
 
@@ -129,7 +166,6 @@ def UploadTeamPages():
         if teamItem[0] == "Deleted account":
             continue
         team = teamItem[1]
-        
 
         page = ""
         page += "[[Category:Team]]\n"
@@ -146,7 +182,8 @@ def UploadTeamPages():
             # add season summary stats
             for series in team['series'].items():
                 if 'vrml' in series[0]:
-                    page += "==== " + seasons_data[series[0]]['name'] + " ====\n"
+                    page += "==== " + \
+                        seasons_data[series[0]]['name'] + " ====\n"
                     page += table_header_nonsortable
                     page += '! Division !! Rank !! Games Played !! Wins !! Losses !! Points !! MMR\n'
                     page += table_row
@@ -189,7 +226,8 @@ def UploadTeamPages():
                     page += '! Player Logo !! Player Name !! Games Played\n'
                     for p in series[1]['roster'].items():
                         page += table_row
-                        row = Template('| $player_logo || [[$player_name]] || $game_count\n')
+                        row = Template(
+                            '| $player_logo || [[$player_name]] || $game_count\n')
                         # row = Template('| [[$player_name]]\n')
                         page += row.substitute({
                             "player_name": p[0],
@@ -204,7 +242,7 @@ def UploadTeamPages():
                 if 'matches' in series[1]:
                     page += '=== ' + seasons_data[series[0]]['name'] + ' ===\n'
                     page += table_header
-                    
+
                     # VRML pages
                     if 'vrml' in series[0]:
                         page += '! Time !! External Match Page !! Home Team !! Home Team Score !! Away Team Score !! Away Team !! Video URL\n'
@@ -221,7 +259,7 @@ def UploadTeamPages():
                                 "away_team_name": match['teams'][1]['team_name'],
                                 "video_url": match['video_url']
                             })
-                    
+
                     # ESL pages
                     else:
                         page += '! Time !! External Match Page !! Home Team !! Home Team Score !! Away Team Score !! Away Team\n'
@@ -247,7 +285,7 @@ def UploadTeamPages():
 def UploadPlayerPages():
     with open('data/players.json', 'r') as f:
         players = json.load(f)
-    
+
     with open('data/matches.json') as f:
         matches = json.load(f)
 
@@ -258,7 +296,6 @@ def UploadPlayerPages():
         if playerItem[0] == "Deleted account":
             continue
         player = playerItem[1]
-        
 
         page = ""
         page += "[[Category:Player]]\n"
@@ -278,7 +315,8 @@ def UploadPlayerPages():
             page += "=== ESL ===\n"
             if 'esl_player_logo' in player:
                 page += player['esl_player_logo'] + "\n\n"
-            player['esl_player_page'] = player['esl_player_page'].replace("https://vrmasterleague.com", "https://play.eslgaming.com")
+            player['esl_player_page'] = player['esl_player_page'].replace(
+                "https://vrmasterleague.com", "https://play.eslgaming.com")
             page += "[" + player['esl_player_page'] + " ESL Player Page]\n\n"
             if "esl_founded" in player:
                 page += "Founded: " + player['esl_founded'] + "\n\n"
@@ -324,9 +362,10 @@ def UploadPlayerPages():
                                 continue
 
                             page += table_row
-                            
+
                             # ESL pages
-                            row = Template('| $team_logo || [[$team_name]] || $game_count\n')
+                            row = Template(
+                                '| $team_logo || [[$team_name]] || $game_count\n')
                             # row = Template('| [[$team_name]]\n')
                             if 'esl_team_logo' in teamdata:
                                 page += row.substitute({
@@ -346,7 +385,7 @@ def UploadPlayerPages():
             for series in player['series'].items():
                 if 'matches' in series[1] or 'matches_casted' in series[1] or 'matches_cammed' in series[1]:
                     page += '=== ' + seasons_data[series[0]]['name'] + ' ===\n'
-                    
+
                     # VRML pages
                     if 'vrml' in series[0]:
                         # add matches played (shouldn't exist yet)
@@ -389,7 +428,7 @@ def UploadPlayerPages():
                                     "video_url": m['video_url']
                                 })
                             page += table_footer
-                        
+
                         # add matches cammed
                         if 'matches_cammed' in series[1]:
                             page += "==== Matches as Cameraman ====\n"
@@ -410,7 +449,7 @@ def UploadPlayerPages():
                                     "video_url": m['video_url']
                                 })
                             page += table_footer
-                    
+
                     # ESL pages
                     else:
                         if 'matches' in series[1]:
@@ -433,6 +472,7 @@ def UploadPlayerPages():
 
         createPage(playerItem[0], page)
 
+
 def getTeamById(teams_dict, idstr):
     # ESL
     if len(idstr) == 8 or len(idstr) == 7:
@@ -441,15 +481,14 @@ def getTeamById(teams_dict, idstr):
             if 'esl_team_id' in data and (data['esl_team_id'] == id or data['esl_team_id'] == idstr):
                 return name, data
 
-        return [None,None]
+        return [None, None]
     # VMRL
     else:
         for name, data in teams_dict.items():
             if 'vrml_team_id' in data and data['vrml_team_id'] == idstr:
                 return name, data
 
-        return [None,None]
-
+        return [None, None]
 
 
 def createPage(pageName, pageData):
@@ -472,3 +511,4 @@ def createPage(pageName, pageData):
 # UploadCupMatchPagesESL()
 # UploadTeamPages()
 # UploadPlayerPages()
+GenerateSeasonPagesVRML()

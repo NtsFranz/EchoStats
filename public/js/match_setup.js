@@ -1,6 +1,7 @@
 var matchRow;
 var matchRowAddSplitter;
 var sortableList;
+var swapSidesButton;
 var db;
 var side_bool;
 
@@ -49,12 +50,14 @@ document.addEventListener('DOMContentLoaded', function () {
     matchRow = document.getElementsByClassName('list-group-item')[0];
     matchRowSplitter = document.getElementsByClassName('match_group_splitter')[0];
     sortableList = document.getElementById('match_list');
+    swapSidesButton = document.getElementById('swap_sides_button');
+    swapSidesButton.onclick = toggleSides;
 
     currentCaster = document.getElementById('current-caster-name');
     if (client_name != "") {
         currentCaster.innerText = "Setting overlay for: " + client_name;
     } else {
-        currentCaster.innerText = "Overlay user not set.";
+        currentCaster.innerHTML = "<span style='font-weight:900; color: #900;'>Overlay user not set.</span>";
     }
 
     get_upcoming_matches();
@@ -77,7 +80,14 @@ function showUpcomingMatches(data) {
     // get the match that is currently set
     db.collection("caster_preferences").doc(client_name).get().then(doc => {
         if (!doc.empty) {
-            side_bool = doc.data()['toggle_sides'];
+            side_bool = doc.data()['swap_sides'];
+            if (side_bool) {
+                swapSidesButton.classList.add("sides_swapped");
+                swapSidesButton.innerHTML = "Home/Away is swapped";
+            } else {
+                swapSidesButton.classList.remove("sides_swapped");
+                swapSidesButton.innerHTML = "Home/Away is <em>not</em> swapped";
+            }
             Array.from(sortableList.getElementsByTagName('tr')).forEach(r => {
                 if (r.getElementsByClassName('home_team_name')[0].innerText == doc.data()['home_team'] &&
                     r.getElementsByClassName('away_team_name')[0].innerText == doc.data()['away_team']) {
@@ -102,15 +112,23 @@ function httpGetAsync(theUrl, callback) {
 function toggleSides() {
     if (client_name != "") {
         db.collection("caster_preferences").doc(client_name).set({
-            toggle_sides: !(side_bool)
-        }, {
-            merge: true
-        })
-        .catch(function (error) {
-            // The document probably doesn't exist.
-            console.error("Error updating document: ", error);
-        });
+                swap_sides: !side_bool
+            }, {
+                merge: true
+            })
+            .catch(function (error) {
+                // The document probably doesn't exist.
+                console.error("Error updating document: ", error);
+            });
         side_bool = !side_bool;
+
+        if (side_bool) {
+            swapSidesButton.classList.add("sides_swapped");
+            swapSidesButton.innerHTML = "Home/Away is swapped";
+        } else {
+            swapSidesButton.classList.remove("sides_swapped");
+            swapSidesButton.innerHTML = "Home/Away is <em>not</em> swapped";
+        }
     }
 }
 
