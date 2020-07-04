@@ -416,7 +416,7 @@
 /* Midmatch overlay */
 
 .midmatch_layout #home_team_name {
-	font-size: 40px;
+	font-size: 36px;
 	position: absolute;
 	left: 100px;
 	top: 10px;
@@ -433,7 +433,7 @@
 }
 
 .midmatch_layout #away_team_name {
-	font-size: 40px;
+	font-size: 36px;
 	position: absolute;
 	right: 100px;
 	top: 10px;

@@ -26,16 +26,12 @@
   <div id="background_container" class="midmatch_layout">
     <div id="home_team_box">
       <div id="home_team_name"></div>
-      <div id="homemmr"></div>
       <img id="homelogo" src="https://vrmasterleague.com/images/team_logo_120.png">
-      <img id="homerank" src="">
     </div>
 
     <div id="away_team_box">
       <div id="away_team_name"></div>
-      <div id="awaymmr"></div>
       <img id="awaylogo" src="https://vrmasterleague.com/images/team_logo_120.png">
-      <img id="awayrank" src="">
     </div>
   </div>
 
@@ -45,7 +41,12 @@
   </script>
 
   <!-- Load our custom Firebase stuff -->
-  <script defer src="js/match_data_prematch.js"></script>
+  <script src="js/get_team_data.js"></script>
+  <script src="js/fitty.min.js"></script>
+  <script>
+    fitty('#home_team_name');
+    fitty('#away_team_name');
+  </script>
 
 </body>
 
