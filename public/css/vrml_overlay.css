@@ -353,20 +353,16 @@
 /* Prematch 2 overlay */
 
 .prematch_2_layout #home_team_name {
-	font-size: 60px;
-	position: absolute;
-	left: 120px;
-	bottom: 70px;
-	width: 800px;
 	text-align: center;
+	height: 50px;
 }
 
 .prematch_2_layout #homelogo {
 	position: absolute;
-	left: 24px;
-	bottom: 40px;
-	width: 120px;
-	height: 120px;
+	left: 18px;
+	bottom: 34px;
+	width: 150px;
+	height: 150px;
 }
 
 .prematch_2_layout #homemmr {
@@ -382,20 +378,16 @@
 }
 
 .prematch_2_layout #away_team_name {
-	font-size: 60px;
-	position: absolute;
-	right: 120px;
-	bottom: 70px;
-	width: 800px;
 	text-align: center;
+	height: 50px;
 }
 
 .prematch_2_layout #awaylogo {
 	position: absolute;
-	right: 24px;
-	bottom: 40px;
-	width: 120px;
-	height: 120px;
+	right: 18px;
+	bottom: 34px;
+	width: 150px;
+	height: 150px;
 }
 
 .prematch_2_layout #awaymmr {
@@ -410,17 +402,35 @@
 	bottom: 150px;
 }
 
+.prematch_2_layout #home_team_name_box {
+	position: absolute;
+	width: 720px;
+	height: 220px;
+	left: 175px;
+	bottom: 0px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.prematch_2_layout #away_team_name_box {
+	position: absolute;
+	width: 720px;
+	height: 220px;
+	right: 175px;
+	bottom: 0px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 
 
 
 /* Midmatch overlay */
 
 .midmatch_layout #home_team_name {
-	font-size: 36px;
-	position: absolute;
-	left: 100px;
-	top: 10px;
-	width: 500px;
+	height: 50px;
 	text-align: center;
 }
 
@@ -428,16 +438,12 @@
 	position: absolute;
 	left: 0px;
 	top: 0px;
-	width: 90px;
-	height: 90px;
+	width: 75px;
+	height: 75px;
 }
 
 .midmatch_layout #away_team_name {
-	font-size: 36px;
-	position: absolute;
-	right: 100px;
-	top: 10px;
-	width: 500px;
+	height: 50px;
 	text-align: center;
 }
 
@@ -445,6 +451,28 @@
 	position: absolute;
 	right: 0;
 	top: 0;
-	width: 90px;
-	height: 90px;
+	width: 75px;
+	height: 75px;
+}
+
+.midmatch_layout #home_team_name_box {
+	position: absolute;
+	width: 580px;
+	height: 60px;
+	left: 90px;
+	top: 0px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.midmatch_layout #away_team_name_box {
+	position: absolute;
+	width: 580px;
+	height: 60px;
+	right: 90px;
+	top: 0px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

@@ -25,12 +25,16 @@
 <body style="margin: 0;">
   <div id="background_container" class="midmatch_layout">
     <div id="home_team_box">
-      <div id="home_team_name"></div>
+      <div id="home_team_name_box">
+        <div id="home_team_name"></div>
+      </div>
       <img id="homelogo" src="https://vrmasterleague.com/images/team_logo_120.png">
     </div>
 
     <div id="away_team_box">
-      <div id="away_team_name"></div>
+      <div id="away_team_name_box">
+        <div id="away_team_name"></div>
+      </div>
       <img id="awaylogo" src="https://vrmasterleague.com/images/team_logo_120.png">
     </div>
   </div>
@@ -44,8 +48,16 @@
   <script src="js/get_team_data.js"></script>
   <script src="js/fitty.min.js"></script>
   <script>
-    fitty('#home_team_name');
-    fitty('#away_team_name');
+    fitty('#home_team_name', {
+      minSize: 12,
+      maxSize: 40,
+      multiLine: false
+    });
+    fitty('#away_team_name', {
+      minSize: 12,
+      maxSize: 40,
+      multiLine: false
+    });
   </script>
 
 </body>
