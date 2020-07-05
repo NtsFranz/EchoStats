@@ -455,9 +455,9 @@
 .midmatch_layout #homelogo {
 	position: absolute;
 	left: 0px;
-	top: 10px;
-	width: 75px;
-	height: 75px;
+	top: 6px;
+	width: 80px;
+	height: 80px;
 }
 
 .midmatch_layout #away_team_name {
@@ -467,9 +467,9 @@
 .midmatch_layout #awaylogo {
 	position: absolute;
 	right: 0;
-	top: 10;
-	width: 75px;
-	height: 75px;
+	top: 6px;
+	width: 80px;
+	height: 80px;
 }
 
 .midmatch_layout #home_team_name_box {
