@@ -54,8 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function buildpregame(db) {
     db.collection("caster_preferences").doc(client_name)
-        .get()
-        .then(doc => {
+        .onSnapshot(doc => {
             if (doc.exists) {
                 console.log(doc.data()['swap_sides']);
                 if (doc.data()['swap_sides']) {

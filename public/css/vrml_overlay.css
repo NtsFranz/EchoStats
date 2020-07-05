@@ -370,8 +370,8 @@
 
 .prematch_2_layout #homelogo {
 	position: absolute;
-	left: 18px;
-	bottom: 34px;
+	left: 10px;
+	bottom: 30px;
 	width: 150px;
 	height: 150px;
 }
@@ -402,8 +402,8 @@
 
 .prematch_2_layout #awaylogo {
 	position: absolute;
-	right: 18px;
-	bottom: 34px;
+	right: 10px;
+	bottom: 30px;
 	width: 150px;
 	height: 150px;
 }
@@ -455,7 +455,7 @@
 .midmatch_layout #homelogo {
 	position: absolute;
 	left: 0px;
-	top: 0px;
+	top: 10px;
 	width: 75px;
 	height: 75px;
 }
@@ -467,7 +467,7 @@
 .midmatch_layout #awaylogo {
 	position: absolute;
 	right: 0;
-	top: 0;
+	top: 10;
 	width: 75px;
 	height: 75px;
 }
@@ -481,9 +481,10 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background: -webkit-linear-gradient(#eee, #aaa);
+
+	/* background: -webkit-linear-gradient(#eee, #aaa);
 	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
+	-webkit-text-fill-color: transparent; */
 }
 
 .midmatch_layout #away_team_name_box {
@@ -495,7 +496,8 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+/* 	
 	background: -webkit-linear-gradient(#eee, #aaa);
 	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
+	-webkit-text-fill-color: transparent; */
 }
