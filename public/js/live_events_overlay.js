@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log("failed auth");
     });
 
-    var db = firebase.firestore()
+    var db = firebase.firestore();
 
     if (client_name == "") {
         console.log("No client_name");

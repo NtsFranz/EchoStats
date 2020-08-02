@@ -38,11 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log("failed auth");
     });
 
-    var db = firebase.firestore()
-
-    // var series_name = ""; // TODO set this from a dropdown or something
-    // var client_name = ""; // TODO set this from a dropdown or something
-    // var custom_id = ""; // TODO set this from a dropdown or something
+    var db = firebase.firestore();
 
     if (client_name == "") {
         console.log("No client_name");
@@ -56,7 +52,6 @@ function buildpregame(db) {
     db.collection("caster_preferences").doc(client_name)
         .onSnapshot(doc => {
             if (doc.exists) {
-                console.log(doc.data()['swap_sides']);
                 if (doc.data()['swap_sides']) {
                     left_side = "away";
                     right_side = "home";

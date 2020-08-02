@@ -207,6 +207,7 @@ th {
   padding: .5em;
   margin: .2em;
   transition: transform .1s;
+  animation: fade_in .5s;
 }
 
 .match_group_item:after {
@@ -275,4 +276,13 @@ th {
   padding: 0.5em;
   border: 1px solid white;
   color: black;
+}
+
+@keyframes fade_in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
