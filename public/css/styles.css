@@ -269,3 +269,10 @@ th {
   height: 4em;
   margin: -.4em;
 }
+
+#match_list input {
+  background-color: #9a9d9f;
+  padding: 0.5em;
+  border: 1px solid white;
+  color: black;
+}

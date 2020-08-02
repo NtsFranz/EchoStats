@@ -60,6 +60,33 @@ document.addEventListener('DOMContentLoaded', function () {
         currentCaster.innerHTML = "<span style='font-weight:900; color: #900;'>Overlay user not set.</span>";
     }
 
+    var manualClickHandler = function (row) {
+        return function () {
+            db.collection("caster_preferences").doc(client_name).set({
+                    home_team: row.getElementsByClassName('home_team_name')[0].value,
+                    home_logo: row.getElementsByClassName('home_team_logo')[0].value,
+                    away_logo: row.getElementsByClassName('away_team_logo')[0].value,
+                    away_team: row.getElementsByClassName('away_team_name')[0].value
+                }, {
+                    merge: true
+                })
+                .catch(function (error) {
+                    // The document probably doesn't exist.
+                    console.error("Error updating document: ", error);
+                });
+
+            // unselect all the other rows
+            Array.from(sortableList.getElementsByTagName('tr')).forEach(r => {
+                r.classList.remove('match-selected');
+            });
+            // select the correct row
+            row.classList.add('match-selected');
+        };
+    };
+
+    rowNode = document.getElementById('manual_input');
+    rowNode.onclick = manualClickHandler(rowNode);
+
     get_upcoming_matches();
 
 });

@@ -31,7 +31,7 @@
 	font-size: 40px;
 	text-transform: uppercase;
 	transform: scaleY(.9);
-	
+
 	/* text gradient */
 	background: -webkit-linear-gradient(#eee, #aaa);
 	-webkit-background-clip: text;
@@ -47,7 +47,7 @@
 	background: #00000015;
 }
 
-.sidebars_layout #homelogo {
+.sidebars_layout .sidebar_logo {
 	position: relative;
 	width: 240px;
 	height: 240px;
@@ -55,30 +55,21 @@
 	margin-top: 16px;
 }
 
-.sidebars_layout #awaylogo {
-	position: relative;
-	width: 240px;
-	height: 240px;
-	left: 32px;
-	margin-top: 16px;
+.sidebars_layout .sidebar_container {
+	position: fixed;
+	top: 134px;
+	background: #00000015;
+	height: 660px;
+	width: 304px;
+	color: #d8d8d8;
 }
 
 .sidebars_layout #home_background_container {
-	position: fixed;
 	left: 36px;
-	top: 134px;
-	background: #00000015;
-	height: 660px;
-	width: 304px;
 }
 
 .sidebars_layout #away_background_container {
-	position: fixed;
 	left: 1575px;
-	top: 134px;
-	background: #00000015;
-	height: 660px;
-	width: 304px;
 }
 
 .sidebars_layout #homerank {
@@ -93,33 +84,23 @@
 	top: 400px;
 }
 
-.sidebars_layout #homemmr {
+.sidebars_layout .sidebar_mmr {
 	position: fixed;
-	left: 115px;
 	top: 390px;
 	left: 100;
 	font-size: larger;
+	-webkit-text-stroke: .7px black;
+}
+
+.sidebars_layout #homemmr {
+	left: 115px;
 }
 
 .sidebars_layout #awaymmr {
-	position: fixed;
 	left: 1655px;
-	top: 390px;
-	left: 100;
-	font-size: larger;
 }
 
-.sidebars_layout #homeroster {
-	position: relative;
-	top: 57px;
-	width: 304px;
-	text-align: center;
-	font-size: larger;
-	border-spacing: 0 25px;
-	-webkit-text-stroke: 0.01px black;
-}
-
-.sidebars_layout #awayroster {
+.sidebars_layout .roster_table {
 	position: relative;
 	top: 57px;
 	width: 304px;
@@ -359,9 +340,9 @@
 
 .prematch_2_layout #home_team_name {
 	text-align: center;
-	
+
 	-webkit-text-stroke: 2px black;
-	
+
 	/* text gradient */
 	background: -webkit-linear-gradient(#eee, #777);
 	-webkit-background-clip: text;
@@ -379,7 +360,7 @@
 .prematch_2_layout #homemmr {
 	position: absolute;
 	left: 15px;
-	bottom: 210px;
+	bottom: 211px;
 	-webkit-text-stroke: .5px black;
 }
 
@@ -393,7 +374,7 @@
 	text-align: center;
 
 	-webkit-text-stroke: 2px black;
-	
+
 	/* text gradient */
 	background: -webkit-linear-gradient(#eee, #777);
 	-webkit-background-clip: text;
@@ -411,7 +392,7 @@
 .prematch_2_layout #awaymmr {
 	position: absolute;
 	right: 15px;
-	bottom: 210px;
+	bottom: 211px;
 	-webkit-text-stroke: .5px black;
 }
 
@@ -496,8 +477,125 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-/* 	
+	/* 	
 	background: -webkit-linear-gradient(#eee, #aaa);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent; */
+}
+
+
+/* JOUST SPEEDS */
+.midmatch_layout .joust_stats {
+	-webkit-text-stroke: 0;
+}
+
+/* #joust_stats_orange and #joust_stats_blue */
+.joust_stats > div {
+	width: 210px;
+	position: absolute;
+	top:64px;
+	overflow: hidden;
+	/* opacity: 0; */
+}
+
+.joust_stats .joust_stats_data {
+	width:160px;
+	padding: 10px;
+	text-align: center;
+	position: relative;
+	margin: 0 auto;
+	opacity: 0;
+}
+
+.joust_stats .joust_stats_background {
+	position: absolute;
+	width:160px;
+	height:92%;
+	background-color: #0007;
+	
+	border-left: 1px solid #fff5;
+	border-right: 1px solid #fff5;
+	border-top: 2px solid white;
+	border-bottom: 2px solid white;
+
+	transform: perspective(10px) rotateX(-2deg);
+	top: -120px;
+	left: 25px;
+}
+
+.joust_stats .number {
+	font-family: 'Courier New', Courier, monospace;
+	font-weight: 900;
+	font-size: 1.2em;
+	margin: 5px;
+}
+
+.joust_stats > div.visible {
+	/* opacity: 1; */
+}
+
+.joust_stats > div.visible > .joust_stats_background {
+	animation: show_joust_stats_background 8s;
+}
+
+.joust_stats > div.visible > .joust_stats_data {
+	animation: show_joust_stats_data 8s;
+}
+
+@keyframes fade_in {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes show_joust_stats_background {
+	from {
+		top: -120px;
+	}
+
+	10% {
+		top: 14px;
+	}
+
+	90% {
+		top: 14px;
+	}
+
+	to {
+		top: -120px;
+	}
+}
+
+@keyframes show_joust_stats_data {
+	8% {
+		opacity: 0;
+		transform: rotateY(50deg);
+	}
+
+	15% {
+		opacity: 1;
+		transform: rotateY(0deg);
+	}
+
+	85% {
+		opacity: 1;
+		transform: rotateY(0deg);
+	}
+
+	90% {
+		opacity: 0;
+		transform: rotateY(50deg);
+	}
+}
+
+.joust_stats #joust_stats_orange {
+	left:540px;
+}
+
+.joust_stats #joust_stats_blue {
+	right:540px;
 }

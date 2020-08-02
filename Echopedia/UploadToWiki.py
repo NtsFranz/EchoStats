@@ -207,35 +207,36 @@ def UploadTeamPages():
             # add roster info
             page += "== Roster ==\n"
             for series in team['series'].items():
-                page += '=== ' + seasons_data[series[0]]['name'] + ' ===\n'
-                page += table_header
+                if 'roster' in series[1] and len(series[1]['roster']) > 0:
+                    page += '=== ' + seasons_data[series[0]]['name'] + ' ===\n'
+                    page += table_header
 
-                # VRML pages
-                if 'vrml' in series[0]:
-                    page += '! Player Logo !! Player Name\n'
-                    for p in series[1]['roster']:
-                        page += table_row
-                        row = Template('| $player_logo || [[$player_name]]\n')
-                        # row = Template('| [[$player_name]]\n')
-                        page += row.substitute({
-                            "player_name": p,
-                            "player_logo": players[p]['vrml_player_logo']
-                        })
-                # ESL pages
-                else:
-                    page += '! Player Logo !! Player Name !! Games Played\n'
-                    for p in series[1]['roster'].items():
-                        page += table_row
-                        row = Template(
-                            '| $player_logo || [[$player_name]] || $game_count\n')
-                        # row = Template('| [[$player_name]]\n')
-                        page += row.substitute({
-                            "player_name": p[0],
-                            "game_count": p[1]['game_count'],
-                            "player_logo": p[1]['esl_player_logo']
-                        })
+                    # VRML pages
+                    if 'vrml' in series[0]:
+                        page += '! Player Logo !! Player Name\n'
+                        for p in series[1]['roster']:
+                            page += table_row
+                            row = Template('| $player_logo || [[$player_name]]\n')
+                            # row = Template('| [[$player_name]]\n')
+                            page += row.substitute({
+                                "player_name": p,
+                                "player_logo": players[p]['vrml_player_logo']
+                            })
+                    # ESL pages
+                    else:
+                        page += '! Player Logo !! Player Name !! Games Played\n'
+                        for p in series[1]['roster'].items():
+                            page += table_row
+                            row = Template(
+                                '| $player_logo || [[$player_name]] || $game_count\n')
+                            # row = Template('| [[$player_name]]\n')
+                            page += row.substitute({
+                                "player_name": p[0],
+                                "game_count": p[1]['game_count'],
+                                "player_logo": p[1]['esl_player_logo']
+                            })
 
-                page += table_footer
+                    page += table_footer
 
             page += "== Match History ==\n"
             for series in team['series'].items():
@@ -279,7 +280,7 @@ def UploadTeamPages():
 
                     page += table_footer
 
-        createPage(teamItem[0], page)
+        updatePage(teamItem[0], page)
 
 
 def UploadPlayerPages():
@@ -491,7 +492,28 @@ def getTeamById(teams_dict, idstr):
         return [None, None]
 
 
+def getPage(pageName):
+        # Get the previous page
+    params = {
+        "action": "parse",
+        "prop": "wikitext",
+        "page": pageName,
+        "format": "json",
+        "formatversion": 2
+    }
+
+    r = S.get(URL, params=params, headers=headers)
+    if r.status_code != 200:
+        return None
+    jsondata = json.loads(r.text)
+    if 'error' in jsondata:
+        return None
+    data = jsondata['parse']['wikitext']
+    return data
+
+
 def createPage(pageName, pageData):
+
     # Step 4: POST request to edit a page
     PARAMS_3 = {
         "action": "edit",
@@ -506,9 +528,31 @@ def createPage(pageName, pageData):
 
     print(DATA)
 
+def updatePage(pageName, pageData):
+    old_page = getPage(pageName)
+    if old_page is None:
+        createPage(pageName, pageData)
+        return
+
+    if ezCompare(old_page, pageData):
+        createPage(pageName, pageData)
+    else:
+        print("Pages are the same, not updating.")
+
+    
+# compare without whitespaces
+def ezCompare(str1, str2):
+    str1 = str1.replace(' ', '')
+    str1 = str1.replace('\\n', '')
+
+    str2 = str2.replace(' ', '')
+    str2 = str2.replace('\\n', '')
+
+    return str1 == str2
+
 
 # UploadSeasonCupsESL()
 # UploadCupMatchPagesESL()
-# UploadTeamPages()
+UploadTeamPages()
 # UploadPlayerPages()
-GenerateSeasonPagesVRML()
+# GenerateSeasonPagesVRML()

@@ -158,6 +158,15 @@ function processSnapshot(querySnapshot) {
     }
 }
 
+function sumOfStats(playerData) {
+    return playerData.points +
+        playerData.assists +
+        playerData.saves +
+        playerData.steals +
+        playerData.stuns +
+        playerData.play_time;
+}
+
 function processData(players) {
 
     bluePlayersTable = "";
@@ -190,33 +199,40 @@ function processData(players) {
     };
     // loop through all players
     Object.keys(players).forEach(key => {
-        const p = players[key];
-        table = "";
-        table +=
-            "<tr><td>" + p.player_name +
-            "</td><td>" + p.points +
-            "</td><td>" + p.assists +
-            "</td><td>" + p.saves +
-            "</td><td>" + p.steals +
-            "</td><td>" + p.stuns +
-            "</td></tr>";
 
-        if (p.team_color == "blue") {
-            bluePlayersTable += table;
-            teamStats.blue.possession_time += p.possession_time;
-            teamStats.blue.shots_taken += p.shots_taken;
-            teamStats.blue.assists += p.assists;
-            teamStats.blue.saves += p.saves;
-            teamStats.blue.steals += p.steals;
-            teamStats.blue.stuns += p.stuns;
-        } else if (p.team_color == "orange") {
-            orangePlayersTable += table;
-            teamStats.orange.possession_time += p.possession_time;
-            teamStats.orange.shots_taken += p.shots_taken;
-            teamStats.orange.assists += p.assists;
-            teamStats.orange.saves += p.saves;
-            teamStats.orange.steals += p.steals;
-            teamStats.orange.stuns += p.stuns;
+        const p = players[key];
+
+        // skip players who were never in the match
+        if (sumOfStats(p) == 0) {
+            console.log("skipping player");
+        } else {
+            table = "";
+            table +=
+                "<tr><td>" + p.player_name +
+                "</td><td>" + p.points +
+                "</td><td>" + p.assists +
+                "</td><td>" + p.saves +
+                "</td><td>" + p.steals +
+                "</td><td>" + p.stuns +
+                "</td></tr>";
+
+            if (p.team_color == "blue") {
+                bluePlayersTable += table;
+                teamStats.blue.possession_time += p.possession_time;
+                teamStats.blue.shots_taken += p.shots_taken;
+                teamStats.blue.assists += p.assists;
+                teamStats.blue.saves += p.saves;
+                teamStats.blue.steals += p.steals;
+                teamStats.blue.stuns += p.stuns;
+            } else if (p.team_color == "orange") {
+                orangePlayersTable += table;
+                teamStats.orange.possession_time += p.possession_time;
+                teamStats.orange.shots_taken += p.shots_taken;
+                teamStats.orange.assists += p.assists;
+                teamStats.orange.saves += p.saves;
+                teamStats.orange.steals += p.steals;
+                teamStats.orange.stuns += p.stuns;
+            }
         }
     });
     var totalStats = mergeSum(teamStats.blue, teamStats.orange);
