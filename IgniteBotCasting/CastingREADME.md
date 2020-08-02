@@ -27,3 +27,13 @@
  - While stats update as a round progresses, some updates still require a refresh, so refresh to be sure of what it will look like.
 
 ![Demo of grouping page](img/demo.gif)
+
+
+## Overlay sources for team stats:
+
+ - Setup / Choose match
+   - https://ignitevr-echostats.web.app/match_setup?client_name=NtsFranz  
+   Click on a match to set all the overlays to use that match. If the team are on the wrong side, click the button at the top to switch them.
+ - https://ignitevr-echostats.web.app/prematch_overlay?client_name=NtsFranz
+ - https://ignitevr-echostats.web.app/prematch_overlay_2?client_name=NtsFranz
+ - https://ignitevr-echostats.web.app/midmatch_overlay?client_name=NtsFranz
