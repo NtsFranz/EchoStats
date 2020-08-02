@@ -74,7 +74,7 @@ function buildpregame(db) {
                 write(right_side + "_team_name", doc.data()['away_team']);
 
                 // write "vs" title
-                write("match_title", doc.data()['home_team'] + " vs " + doc.data()['away_team']);
+                write("match_title", doc.data()[left_side + '_team'] + " vs " + doc.data()[right_side + '_team']);
 
                 // get home team data via firestore...
                 db.collection("series").doc("vrml_season_2").collection("teams").doc(doc.data()[left_side + '_team'])
