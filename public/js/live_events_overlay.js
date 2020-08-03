@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 var completedEvents = {};
-var freshPage = true;
+var freshPage = !show_on_load;
 
 function setupEventsOverlay(db) {
     db.collection('series').doc(series_name).collection('match_stats')

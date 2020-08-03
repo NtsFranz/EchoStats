@@ -26,46 +26,18 @@
   <div id="background_container" class="midmatch_layout">
     <div id="home_team_box">
       <div id="home_team_name_box">
-        <div id="home_team_name"></div>
+        <div id="home_team_name" class="hide"></div>
       </div>
-      <img id="homelogo" src="https://vrmasterleague.com/images/team_logo_120.png">
+      <img id="homelogo" class="hide">
     </div>
 
-    <div id="away_team_box">
+    <div id="away_team_box hide">
       <div id="away_team_name_box">
-        <div id="away_team_name"></div>
+        <div id="away_team_name" class="hide"></div>
       </div>
-      <img id="awaylogo" src="https://vrmasterleague.com/images/team_logo_120.png">
+      <img id="awaylogo" class="hide">
     </div>
 
-    <div class="joust_stats">
-      <div id="joust_stats_orange">
-
-        <div class="joust_stats_background"></div>
-
-        <div class="joust_stats_data">
-          <div class="joust_speed_title">Joust Speed</div>
-          <div id="joust_speed_orange" class="number"></div>
-          {{!-- <hr> --}}
-          <div class="joust_time_title">Joust Time</div>
-          <div id="joust_time_orange" class="number"></div>
-        </div>
-
-      </div>
-      <div id="joust_stats_blue">
-
-        <div class="joust_stats_background"></div>
-
-        <div class="joust_stats_data">
-          <div class="joust_speed_title">Joust Speed</div>
-          <div id="joust_speed_blue" class="number"></div>
-          {{!-- <hr> --}}
-          <div class="joust_time_title">Joust Time</div>
-          <div id="joust_time_blue" class="number"></div>
-        </div>
-        
-      </div>
-    </div>
   </div>
 
   <!-- Add data passed in by the request -->
@@ -75,7 +47,6 @@
 
   <!-- Load our custom Firebase stuff -->
   <script src="js/get_team_data.js"></script>
-  <script src="js/live_events_overlay.js"></script>
   <script src="js/fitty.min.js"></script>
   <script>
     fitty('#home_team_name', {
