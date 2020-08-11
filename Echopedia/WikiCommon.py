@@ -54,3 +54,19 @@ seasons_data = {
         'players_url': 'https://vrmasterleague.com/EchoArena/Players/List/bnpWeFFsakNtTjA90'
     }
 }
+
+import os
+import json
+
+def loadJSON(filename: str) -> dict:
+    path = os.path.join(os.path.dirname(__file__), 'data/'+filename+'.json')
+    if os.path.exists(path):
+        with open(path, 'r') as f:
+            return json.load(f)
+    else:
+        return {}
+
+def dumpJSON(filename: str, data: dict):
+    path = os.path.join(os.path.dirname(__file__), 'data/'+filename+'.json')
+    with open(path, 'w') as f:
+        json.dump(data, f, indent=4)

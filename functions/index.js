@@ -152,13 +152,31 @@ app.get('/group_recent_matches', (req, res) => {
     });
 });
 
+app.get('/all_recent_matches', (req, res) => {
+    const series_name = req.query.series_name;
+    const live = req.query.live || false;
+
+    res.render("all_recent_matches", {
+        series_name,
+        live
+    });
+});
+
+app.get('/fastest_jousts', (req, res) => {
+    const series_name = req.query.series_name;
+    const live = req.query.live || false;
+
+    res.render("fastest_jousts", {
+        series_name,
+        live
+    });
+});
+
 app.get('/match_setup', (req, res) => {
     const client_name = req.query.client_name;
     const custom_id = req.query.custom_id;
     const series_name = req.query.series_name;
-
-
-
+    
     res.render("match_setup", {
         client_name,
         custom_id,
