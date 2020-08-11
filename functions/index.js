@@ -86,12 +86,14 @@ app.get('/midmatch_overlay', (req, res) => {
     const custom_id = req.query.custom_id;
     const series_name = req.query.series_name;
     const live = req.query.live || false;
+    const show_on_load = req.query.show_on_load || false;
 
     res.render("midmatch_overlay", {
         client_name,
         custom_id,
         series_name,
-        live
+        live,
+        show_on_load
     });
 });
 

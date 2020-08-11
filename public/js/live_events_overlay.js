@@ -49,16 +49,24 @@ var completedEvents = {};
 var freshPage = !show_on_load;
 
 function setupEventsOverlay(db) {
+    if (series_name == "") {
+        series_name = "vrml_season_2";
+    }
     db.collection('series').doc(series_name).collection('match_stats')
         .orderBy("match_time", "desc")
         .where("client_name", "==", client_name)
         .limit(1)
         .onSnapshot(querySnapshot => {
             if (!querySnapshot.empty) {
+
+                var version = querySnapshot.docs[0].data()['version'];
+                console.log(version);
+
                 querySnapshot.docs[0].ref.collection('events')
                     .where("event_type", "==", "joust_speed")
                     .onSnapshot(eventsSnapshot => {
-                        if (!eventsSnapshot.empty) {
+                        if (!eventsSnapshot.empty) 
+                        {
                             // loop through all the events for this match
                             eventsSnapshot.docs.forEach(e => {
                                 // if we haven't already used this event
@@ -66,11 +74,16 @@ function setupEventsOverlay(db) {
                                     completedEvents[e.id] = "";
                                     if (!freshPage) {
                                         var d = e.data();
-                                        console.log("Joust time: " + (d['other_player_id'] / 1000.0) + " s, Final speed: " + magnitude(d['x2'], d['y2'], d['z2']) + " m/s")
-                                        if (d['other_player_id'] < 10000) {
+                                        if (d['other_player_id'] < 15000) {
                                             var color = d['other_player_name'];
                                             write('joust_time_' + color, round(d['other_player_id'] / 1000.0, 2) + " s");
-                                            write('joust_speed_' + color, round(magnitude(d['x2'], d['y2'], d['z2']), 1) + " m/s");
+                                            if (version == "1.8.5") {
+                                                console.log("Joust time: " + (d['other_player_id'] / 1000.0) + " s, Max speed: " + magnitude(d['x2'], d['y2'], d['z2']) + " m/s")
+                                                write('joust_speed_' + color, round(magnitude(d['x2'], d['y2'], d['z2']), 1) + " m/s");
+                                            } else {
+                                                console.log("Joust time: " + (d['other_player_id'] / 1000.0) + " s, Max speed: " + d['x2'] + " m/s, Tube Exit Speed: " + d['y2'] + " m/s")
+                                                write('joust_speed_' + color, round(d['x2'], 1) + " m/s");
+                                            }
 
                                             var joustStatsElem = document.getElementById('joust_stats_' + color);
                                             joustStatsElem.classList.add('visible');
@@ -81,6 +94,7 @@ function setupEventsOverlay(db) {
                                 }
                             });
                             freshPage = false;
+
                         }
                     });
             }
