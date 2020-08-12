@@ -10,11 +10,11 @@
   <script defer src="/__/firebase/7.14.3/firebase-app.js"></script>
   <!-- include only the Firebase features as you need -->
   <script defer src="/__/firebase/7.14.3/firebase-auth.js"></script>
-  <script defer src="/__/firebase/7.14.3/firebase-database.js"></script>
-  <script defer src="/__/firebase/7.14.3/firebase-messaging.js"></script>
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-database.js"></script> --}}
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-messaging.js"></script> --}}
   <script defer src="/__/firebase/7.14.3/firebase-firestore.js"></script>
-  <script defer src="/__/firebase/7.14.3/firebase-storage.js"></script>
-  <script defer src="/__/firebase/7.14.3/firebase-analytics.js"></script>
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-storage.js"></script> --}}
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-analytics.js"></script> --}}
   <!-- initialize the SDK after all desired features are loaded -->
   <script defer src="/__/firebase/init.js"></script>
 
@@ -51,19 +51,33 @@
       <img class="sidebar_logo home_logo">
       <img class="home_rank">
       <p class="sidebar_mmr home_mmr"></p>
-      <table class="roster_table home_roster">
+      <table class="roster_table home_roster"></table>
+      <table class="recent_matches_table">
+        <tr>
+          <th>Recent Matches</th>
+        </tr>
+        <tbody class="home_recent_matches"></tbody>
       </table>
     </div>
 
     {{!-- Center Column --}}
     <div class="center_container">
-      <div class="prev_head2head"></div>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th colspan="4">Previous Matchups</th>
+            </tr>
+          </thead>
+          <tbody class="prev_head2head"></tbody>
+        </table>
+      </div>
       <div class="team_percentages">
         <table>
           <tr>
-            <th class="home_team_name"></th>
-            <th></th>
-            <th class="away_team_name"></th>
+            <th class="home_team_name" colspan="2" </th>
+            <th>Team Stats</th>
+            <th class="away_team_name" colspan="2"></th>
           </tr>
           <tr>
             <td class="home_team_possession_time_perc"></td>
@@ -111,6 +125,7 @@
       </div>
       <div class="statsboard">
         <table>
+          <thead>
           <tr>
             <th>Player</th>
             <th>Points</th>
@@ -121,9 +136,11 @@
             <th>Possession</th>
             <th>Shots</th>
           </tr>
+          </thead>
           <tbody class="orange_player_stats_board"></tbody>
         </table>
         <table>
+          <thead>
           <tr>
             <th>Player</th>
             <th>Points</th>
@@ -134,6 +151,7 @@
             <th>Possession</th>
             <th>Shots</th>
           </tr>
+          </thead>
           <tbody class="blue_player_stats_board"></tbody>
         </table>
       </div>
@@ -158,7 +176,12 @@
       <img class="sidebar_logo away_logo">
       <img class="away_rank">
       <p class="sidebar_mmr away_mmr"></p>
-      <table class="roster_table away_roster">
+      <table class="roster_table away_roster"></table>
+      <table class="recent_matches_table">
+        <tr>
+          <th>Recent Matches</th>
+        </tr>
+        <tbody class="away_recent_matches"></tbody>
       </table>
     </div>
   </div>

@@ -571,6 +571,33 @@
 	padding: 1em;
 }
 
+.casterdesk_container .team_percentages table {
+	width: 100%;
+}
+
+.casterdesk_container table {
+	text-align: center;
+	border-collapse: collapse;
+}
+
+.casterdesk_container table th {
+	background-color: #0001;
+}
+
+.casterdesk_container table td,th {
+	padding: .5em;
+	border: 1px solid black;
+}
+
+.casterdesk_container .roster_table {
+	margin: 0 auto;
+}
+
+.casterdesk_container .roster_table td,th {
+	padding: .5em;
+	border: none;
+}
+
 @keyframes fade_in {
 	from {
 		opacity: 0;

@@ -12,7 +12,7 @@ function Start(db) {
         currentCaster.innerHTML = "<span style='font-weight:900; color: #900;'>User not set.</span>";
     }
 
-    buildpregame(db);
+    buildpregame(db, true);
 
     getCurrentMatchStats(db);
 }

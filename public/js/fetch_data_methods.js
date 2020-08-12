@@ -1,4 +1,4 @@
-function buildpregame(db) {
+function buildpregame(db, getPrevMatches) {
 
     db.collection("caster_preferences").doc(client_name)
         .get()
@@ -36,6 +36,14 @@ function buildpregame(db) {
                 httpGetAsync(url, function (data) {
                     buildTeamVRMLStats(data, "away");
                 });
+
+                if (getPrevMatches) {
+                    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_matches_recaps_vrml";
+                    httpGetAsync(url, function (data) {
+                        getPreviousMatches(data, home_team_name, "home");
+                        getPreviousMatches(data, away_team_name, "away");
+                    });
+                }
             }
         });
 }
@@ -43,9 +51,9 @@ function buildpregame(db) {
 function buildTeamVRMLStats(data, side) {
     table = "";
     data = JSON.parse(data);
-    
-    setImage(side+"_rank", data.DivisionLogo);
-    write(side+"_mmr", "MMR: " + data.MMR + " (" + data.W + " - " + data.L + ")");
+
+    setImage(side + "_rank", data.DivisionLogo);
+    write(side + "_mmr", "MMR: " + data.MMR + " (" + data.W + " - " + data.L + ")");
 }
 
 function buildRosterTable(data, team_name, side) {
@@ -54,11 +62,40 @@ function buildRosterTable(data, team_name, side) {
     data["TeamPlayers"].forEach(team => {
         if (team.Name == team_name) {
             team.Players.forEach(p => {
-                table += "<tr><th>" + p.Name + "</th></tr>";
+                table += "<tr><td>" + p.Name + "</td></tr>";
             })
         }
     })
     write(side + "_roster", table);
+}
+
+function getPreviousMatches(data, team_name, side) {
+    table = "";
+    data = JSON.parse(data);
+    data.forEach(match => {
+        if (match.HomeTeam == team_name) {
+            table += genPreviousMatch(match, team_name);
+        } else if (match.AwayTeam == team_name) {
+            table += genPreviousMatch(match, team_name);
+        }
+    })
+    write(side + "_recent_matches", table);
+}
+
+function genPreviousMatch(match, team_name, side) {
+    var out = "<tr><td>";
+    if (match.WinningTeam == team_name) {
+        out += "+ ";
+    } else {
+        out += "- ";
+    }
+    if (match.HomeTeam != team_name) {
+        out += match.HomeTeam + " (" + match.AwayScore + "-" + match.HomeScore + ")";
+    } else {
+        out += match.AwayTeam + " (" + match.HomeScore + "-" + match.AwayScore + ")";
+    }
+    out += "</td></tr>";
+    return out;
 }
 
 // adds a row to the end of the table
