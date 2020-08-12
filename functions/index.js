@@ -172,6 +172,18 @@ app.get('/fastest_jousts', (req, res) => {
     });
 });
 
+app.get('/casterdesk', (req, res) => {
+    const client_name = req.query.client_name;
+    const series_name = req.query.series_name;
+    const live = req.query.live || true;   // live by default
+
+    res.render("casterdesk", {
+        client_name,
+        series_name,
+        live
+    });
+});
+
 app.get('/match_setup', (req, res) => {
     const client_name = req.query.client_name;
     const custom_id = req.query.custom_id;

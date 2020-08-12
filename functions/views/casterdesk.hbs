@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Caster Desk</title>
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/7.14.3/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/7.14.3/firebase-auth.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-database.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-messaging.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-firestore.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-storage.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-analytics.js"></script>
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+
+  <script defer src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+  <link defer type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+
+  <link rel="stylesheet" type="text/css" href="css/vrml_overlay.css">
+  <link rel="stylesheet" type="text/css" href="css/vrml_overlay_corrected_to_normal.css">
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+  <script defer type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+
+</head>
+
+<body>
+
+  <div id="firebaseui-auth-container"></div>
+
+  {{!-- Top Content --}}
+  <form id="player-search-box" method="get" style="margin:1em auto;max-width:300px;color:black;display:flex;">
+    <input autocomplete="off" type="text" id="player_search" placeholder="Enter Oculus name" name="client_name">
+    <button type="submit" id="player_search_button">&gt;</button>
+  </form>
+
+  <div id="current-caster-name"></div>
+
+
+  <div class="casterdesk_container">
+    {{!-- Left Column --}}
+    <div class="sidebar_container home">
+      <h2 class="home_team_name"></h2>
+      <img class="sidebar_logo home_logo">
+      <img class="home_rank">
+      <p class="sidebar_mmr home_mmr"></p>
+      <table class="roster_table home_roster">
+      </table>
+    </div>
+
+    {{!-- Center Column --}}
+    <div class="center_container">
+      <div class="prev_head2head"></div>
+      <div class="team_percentages">
+        <table>
+          <tr>
+            <th class="home_team_name"></th>
+            <th></th>
+            <th class="away_team_name"></th>
+          </tr>
+          <tr>
+            <td class="home_team_possession_time_perc"></td>
+            <td class="home_team_possession_time"></td>
+            <td>Possession</td>
+            <td class="away_team_possession_time"></td>
+            <td class="away_team_possession_time_perc"></td>
+          </tr>
+          <tr>
+            <td class="home_team_shots_taken_perc"></td>
+            <td class="home_team_shots_taken"></td>
+            <td>Shots Taken</td>
+            <td class="away_team_shots_taken"></td>
+            <td class="away_team_shots_taken_perc"></td>
+          </tr>
+          <tr>
+            <td class="home_team_assists_perc"></td>
+            <td class="home_team_assists"></td>
+            <td>Assists</td>
+            <td class="away_team_assists"></td>
+            <td class="away_team_assists_perc"></td>
+          </tr>
+          <tr>
+            <td class="home_team_saves_perc"></td>
+            <td class="home_team_saves"></td>
+            <td>Saves</td>
+            <td class="away_team_saves"></td>
+            <td class="away_team_saves_perc"></td>
+          </tr>
+          <tr>
+            <td class="home_team_steals_perc"></td>
+            <td class="home_team_steals"></td>
+            <td>Steals</td>
+            <td class="away_team_steals"></td>
+            <td class="away_team_steals_perc"></td>
+          </tr>
+          <tr>
+            <td class="home_team_stuns_perc"></td>
+            <td class="home_team_stuns"></td>
+            <td>Stuns</td>
+            <td class="away_team_stuns"></td>
+            <td class="away_team_stuns_perc"></td>
+          </tr>
+        </table>
+      </div>
+      <div class="statsboard">
+        <table>
+          <tr>
+            <th>Player</th>
+            <th>Points</th>
+            <th>Assists</th>
+            <th>Saves</th>
+            <th>Steals</th>
+            <th>Stuns</th>
+            <th>Possession</th>
+            <th>Shots</th>
+          </tr>
+          <tbody class="orange_player_stats_board"></tbody>
+        </table>
+        <table>
+          <tr>
+            <th>Player</th>
+            <th>Points</th>
+            <th>Assists</th>
+            <th>Saves</th>
+            <th>Steals</th>
+            <th>Stuns</th>
+            <th>Possession</th>
+            <th>Shots</th>
+          </tr>
+          <tbody class="blue_player_stats_board"></tbody>
+        </table>
+      </div>
+      <div class="jousts">
+        <table>
+          <tr>
+            <th>Jousts</th>
+          </tr>
+        </table>
+      </div>
+      <div class="goals">
+        <table>
+          <tr>Goals</tr>
+        </table>
+      </div>
+    </div>
+
+
+    {{!-- Right Column --}}
+    <div class="sidebar_container away">
+      <h2 class="away_team_name"></h2>
+      <img class="sidebar_logo away_logo">
+      <img class="away_rank">
+      <p class="sidebar_mmr away_mmr"></p>
+      <table class="roster_table away_roster">
+      </table>
+    </div>
+  </div>
+
+
+  <!-- Add data passed in by the request -->
+  <script type="text/javascript">
+    client_name = "{{ client_name }}"; series_name = "{{ series_name }}"; live = "{{ live }}";
+  </script>
+
+  <!-- Load our custom Firebase stuff -->
+  <script defer src="js/util.js"></script>
+  <script defer src="js/firebase_setup.js"></script>
+  <script defer src="js/fetch_data_methods.js"></script>
+
+  <script defer src="js/casterdesk.js"></script>
+
+</body>
+
+</html>

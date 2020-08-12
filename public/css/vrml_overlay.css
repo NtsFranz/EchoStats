@@ -561,6 +561,16 @@
 	clip-path: polygon(97% 0%, 4% 0%, 0% 100%, 100% 100%, 97% 50%);
 }
 
+.casterdesk_container {
+	display: flex;
+}
+
+.casterdesk_container div {
+	background-color: #0001;
+	margin: 1em;
+	padding: 1em;
+}
+
 @keyframes fade_in {
 	from {
 		opacity: 0;

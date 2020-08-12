@@ -39,12 +39,13 @@
     <table>
       <thead>
         <tr class="match_group_item">
-          <th class="match_time_elapsed">Elapsed</th>
+          <th class="match_time_elapsed">Time Since<br>Match Start</th>
           <th class="match_time">Match Time</th>
           <th class="session_id hide">Session ID</th>
           <th class="client_name">Client Name</th>
-          <th class="orange_team_score">Orange Score</th>
-          <th class="blue_team_score">Blue Score</th>
+          <th class="version">Version</th>
+          <th class="orange_team_score">Orange</th>
+          <th class="blue_team_score">Blue</th>
           <th class="finish_reason">Finish Reason</th>
         </tr>
       </thead>
@@ -58,6 +59,7 @@
           <td class="match_time"></td>
           <td class="session_id hide"></td>
           <td class="client_name"></td>
+          <td class="version"></td>
           <td class="orange_team_score"></td>
           <td class="blue_team_score"></td>
           <td class="finish_reason"></td>
@@ -74,6 +76,7 @@
 
   <!-- Load our custom Firebase stuff -->
   <script defer src="js/util.js"></script>
+  <script defer src="js/fetch_data_methods.js"></script>
   <script defer src="js/all_matches.js"></script>
 
 </body>

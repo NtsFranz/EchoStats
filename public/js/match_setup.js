@@ -126,16 +126,6 @@ function showUpcomingMatches(data) {
     });
 }
 
-function httpGetAsync(theUrl, callback) {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function () {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText);
-    }
-    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
-    xmlHttp.send(null);
-}
-
 function toggleSides() {
     if (client_name != "") {
         db.collection("caster_preferences").doc(client_name).set({

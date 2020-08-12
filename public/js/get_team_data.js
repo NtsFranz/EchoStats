@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (client_name == "") {
         console.log("No client_name");
-        document.body.innerHTML = "<div style='color:black;'>Must specify a client_name. ex: <a href=\'/prematch_overlay?client_name=NtsFranz\'>prematch_overlay?client_name=NtsFranz</a></div>";
+        // document.body.innerHTML = "<div style='color:black;'>Must specify a client_name. ex: <a href=\'/prematch_overlay?client_name=NtsFranz\'>prematch_overlay?client_name=NtsFranz</a></div>";
     } else {
         buildpregame(db);
     }
@@ -129,18 +129,3 @@ function buildpregame(db) {
         });
 }
 
-function write(id, data) {
-    var element = document.getElementById(id);
-    if (element) {
-        element.innerHTML = data;
-        element.style.visibility = 'visible';
-    }
-}
-
-function setImage(id, src_) {
-    var element = document.getElementById(id);
-    if (element) {
-        element.src = src_;
-        element.style.visibility = 'visible';
-    }
-}

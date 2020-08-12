@@ -1,8 +1,3 @@
-var matchRow;
-var list;
-var db;
-var matches = [];
-
 document.addEventListener('DOMContentLoaded', function () {
     // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
     // // The Firebase SDK is initialized and available here!
@@ -13,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
     //
     // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
 
 
     firebase.firestore().enablePersistence()
@@ -45,32 +39,10 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log("failed auth");
     });
 
-
-
-
-    matchRow = document.getElementsByClassName('list-group-item')[0];
-    list = document.getElementById('match_list');
-
     // get season names
     if (series_name == "") {
         series_name = "vrml_season_2";
     }
 
-    // loop through matches
-    db.collection('series').doc(series_name).collection('match_stats')
-        .orderBy("match_time", "desc")
-        .limit(30)
-        .onSnapshot(querySnapshot => {
-            if (!querySnapshot.empty) {
-                matches.forEach(m => {
-                    list.removeChild(m);
-                })
-                querySnapshot.docs.forEach(doc => {
-                    addMatchOverview(doc, matchRow, list, matches);
-                });
-            }
-        });
+    Start(db);
 });
-
-
-

@@ -37,3 +37,73 @@ function timeSince(date) {
     }
     return Math.floor(seconds) + " seconds";
 }
+
+function write(className, data) {
+    var elements = document.getElementsByClassName(className);
+    Array.from(elements).forEach(e => {
+        e.innerHTML = data;
+        e.style.visibility = 'visible';
+    });
+}
+
+function setImage(className, src_) {
+    var elements = document.getElementsByClassName(className);
+    Array.from(elements).forEach(e => {
+        e.src = src_;
+        e.style.visibility = 'visible';
+    });
+}
+
+function sumOfStats(playerData) {
+    return playerData.points +
+        playerData.assists +
+        playerData.saves +
+        playerData.steals +
+        playerData.stuns +
+        playerData.play_time;
+}
+
+// returns a pretty percentation of param1 to param2
+function teamCentage(team, total) {
+    var a = Math.round(team / total * 100)
+    if (a > 0) {
+        return a;
+    } else {
+        return '0';
+    }
+}
+
+// adds numeric values from ob2 to ob1
+function mergeSum(ob1, ob2) {
+    var sum = {}
+    Object.keys(ob1).forEach(key => {
+        if (ob2.hasOwnProperty(key)) {
+            if ((typeof ob2[key]) == "number") {
+                sum[key] = ob1[key] + ob2[key]
+            } else {
+                sum[key] = ob1[key];
+            }
+        }
+    })
+    return sum;
+}
+
+function httpGetAsync(theUrl, callback) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function () {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send(null);
+}
+
+function toMinutesString(seconds) {
+    var mins = seconds / 60;
+    var secs = Math.round(seconds % 60);
+    if (secs < 10) {
+        secs = "0" + secs;
+    }
+
+    return Math.floor(mins) + ":" + secs;
+}
