@@ -18,78 +18,47 @@ function buildpregame(db) {
                 // set team names
                 var home_team_name = doc.data()[left_side + '_team'];
                 var away_team_name = doc.data()[right_side + '_team'];
-                write("home_team_name", home_team_name, "home_roster");
-                write("away_team_name", away_team_name, "away_roster");
+                write("home_team_name", home_team_name);
+                write("away_team_name", away_team_name);
 
                 var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_all_players_vrml";
                 httpGetAsync(url, function (data) {
-                    buildRosterTable(data, home_team_name);
-                    buildRosterTable(data, away_team_name);
+                    buildRosterTable(data, home_team_name, "home");
+                    buildRosterTable(data, away_team_name, "away");
                 });
 
-                // get home team data via firestore...
-                db.collection("series").doc("vrml_season_2").collection("teams").doc(doc.data()[left_side + '_team'])
-                    .get()
-                    .then(function (team) {
-                        if (team.exists) {
-                            // set division...
-                            setImage("home_rank", team.data()['division_logo']);
+                var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_team_stats?team_name=" + home_team_name;
+                httpGetAsync(url, function (data) {
+                    buildTeamVRMLStats(data, "home");
+                });
 
-                            // set home mmr
-                            write("home_mmr", "MMR: " + team.data()['mmr'] + " (" + team.data()['wins'] + " - " + team.data()['losses'] + ")");
-
-                            // add home roster...
-                            entry = "";
-                            Object.keys(team.data()['roster']).forEach(key => {
-                                entry += "<tr><th>" + team.data()['roster'][key] + "</th></tr>";
-                            });
-                            write("home_roster", entry);
-
-                        } else {
-                            setImage("home_rank", "");
-                            write("home_mmr", " ");
-                            write("home_roster", " ");
-                        }
-                    });
-                // get away team data via firestore...
-                db.collection("series").doc("vrml_season_2").collection("teams").doc(doc.data()[right_side + '_team'])
-                    .get()
-                    .then(function (team) {
-                        if (team.exists) {
-                            // set division...
-                            setImage("away_rank", team.data()['division_logo']);
-
-                            // set away mmr
-                            write("away_mmr", "MMR: " + team.data()['mmr'] + " (" + team.data()['wins'] + " - " + team.data()['losses'] + ")");
-
-                            // add away roster...
-                            entry = "";
-                            Object.keys(team.data()['roster']).forEach(key => {
-                                entry += "<tr><th>" + team.data()['roster'][key] + "</th></tr>";
-                            });
-                            write("away_roster", entry);
-
-                        } else {
-                            setImage("away_rank", "");
-                            write("away_mmr", " ");
-                            write("away_roster", " ");
-                        }
-                    });
+                var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_team_stats?team_name=" + away_team_name;
+                httpGetAsync(url, function (data) {
+                    buildTeamVRMLStats(data, "away");
+                });
             }
         });
 }
 
-function buildRosterTable(data, team_name, write_to) {
+function buildTeamVRMLStats(data, side) {
+    table = "";
+    data = JSON.parse(data);
+    
+    setImage(side+"_rank", data.DivisionLogo);
+    write(side+"_mmr", "MMR: " + data.MMR + " (" + data.W + " - " + data.L + ")");
+}
+
+function buildRosterTable(data, team_name, side) {
     table = "";
     data = JSON.parse(data);
     data["TeamPlayers"].forEach(team => {
         if (team.Name == team_name) {
             team.Players.forEach(p => {
-               table += "<tr><th>" + p.Name + "</th></tr>";
+                table += "<tr><th>" + p.Name + "</th></tr>";
             })
         }
     })
-    write(write_to, table);
+    write(side + "_roster", table);
 }
 
 // adds a row to the end of the table
