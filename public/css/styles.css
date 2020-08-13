@@ -21,43 +21,50 @@ body {
 }
 
 .echobutton {
-  background-color: var(--button-color);
-  border: .2em solid var(--buttton-border-color);
-  position: relative;
-  width: 8em;
+  width: 14em;
+  height: 1em;
   display: block;
+  color: white;
+  text-align: center;
   margin: 1em auto 0 auto;
+  padding: 2em;
+  cursor: pointer;
 }
 
 .echobutton:before {
   content: "";
   position: absolute;
   display: block;
-  top: -.18em;
-  left: -.18em;
-  border-top: 1em solid var(--buttton-border-color);
-  border-right: 1em solid transparent;
+  background-color: var(--buttton-border-color);
+  width: 14em;
+  height: 4em;
+  z-index: -2;
+  transform: scale(1.1);
+  clip-path: polygon(8% 0%, 100% 0%, 100% 75%, 92% 100%, 0% 100%, 0% 25%);
+  margin-top: -1.42em;
 }
 
 .echobutton:after {
   content: "";
   position: absolute;
   display: block;
-  top: -.33em;
-  left: -.33em;
-  border-top: 1em solid #717377;
-  border-right: 1em solid transparent;
+  background-color: var(--button-color);
+  width: 13.5em;
+  height: 3.5em;
+  z-index: -1;
+  transform: scale(1.1);
+  clip-path: polygon(8% 0%, 100% 0%, 100% 75%, 92% 100%, 0% 100%, 0% 25%);
+  margin-top: -2.3em;
+  margin-left: 0.25em;
 }
 
 .echobutton a {
   text-decoration: none;
   display: block;
   color: var(--main-color);
-  padding: .7em;
-  text-align: center;
 }
 
-.echobutton:hover {
+.echobutton:hover::after {
   background-color: var(--button-hover-color);
 }
 
@@ -283,6 +290,7 @@ th {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }

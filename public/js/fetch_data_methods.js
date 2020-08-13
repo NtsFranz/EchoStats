@@ -1,4 +1,4 @@
-function buildpregame(db, getPrevMatches) {
+function buildpregame(db, previousMatches = true, teamStats = true, roster = true) {
     if (client_name == "") return;
     db.collection("caster_preferences").doc(client_name)
         .get()
@@ -21,29 +21,42 @@ function buildpregame(db, getPrevMatches) {
                 write("home_team_name", home_team_name);
                 write("away_team_name", away_team_name);
 
-                var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_all_players_vrml";
-                httpGetAsync(url, function (data) {
-                    buildRosterTable(data, home_team_name, "home");
-                    buildRosterTable(data, away_team_name, "away");
-                });
+                // write "vs" title
+                write("match_title", doc.data()[left_side + '_team'] + " vs " + doc.data()[right_side + '_team']);
 
-                var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_team_stats?team_name=" + home_team_name;
-                httpGetAsync(url, function (data) {
-                    buildTeamVRMLStats(data, "home");
-                });
+                if (roster) {
+                    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_all_players_vrml";
+                    httpGetAsync(url, function (data) {
+                        buildRosterTable(data, home_team_name, "home");
+                        buildRosterTable(data, away_team_name, "away");
 
-                var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_team_stats?team_name=" + away_team_name;
-                httpGetAsync(url, function (data) {
-                    buildTeamVRMLStats(data, "away");
-                });
+                        Array.from(document.getElementsByClassName("fade_in_when_done")).forEach(e => {
+                            e.style.opacity = "1";
+                        });
+                    });
+                }
 
-                if (getPrevMatches) {
-                    // var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_matches_recaps_vrml";
-                    // httpGetAsync(url, function (data) {
-                    //     getPreviousMatches(data, home_team_name, "home");
-                    //     getPreviousMatches(data, away_team_name, "away");
-                    // });
+                if (teamStats) {
+                    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_team_stats?team_name=" + home_team_name;
+                    httpGetAsync(url, function (data) {
+                        buildTeamVRMLStats(data, "home");
 
+                        Array.from(document.getElementsByClassName("fade_in_when_done")).forEach(e => {
+                            e.style.opacity = "1";
+                        });
+                    });
+
+                    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_team_stats?team_name=" + away_team_name;
+                    httpGetAsync(url, function (data) {
+                        buildTeamVRMLStats(data, "away");
+
+                        Array.from(document.getElementsByClassName("fade_in_when_done")).forEach(e => {
+                            e.style.opacity = "1";
+                        });
+                    });
+                }
+
+                if (previousMatches) {
                     // get the home team's page
                     db.collection('series').doc(series_name).collection('teams').doc(home_team_name)
                         .get().then(doc => {
@@ -74,15 +87,38 @@ function buildpregame(db, getPrevMatches) {
                                 });
                             }
                         });
-
-                    // var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_matches_recaps_vrml";
-                    // httpGetAsync(url, function (data) {
-                    //     getPreviousMatches(data, home_team_name, "home");
-                    //     getPreviousMatches(data, away_team_name, "away");
-                    // });
                 }
             }
         });
+}
+
+function getTeamNameLogo(db) {
+    if (client_name == "") return;
+    db.collection("caster_preferences").doc(client_name)
+        .onSnapshot(doc => {
+            if (doc.exists) {
+                if (doc.data()['swap_sides']) {
+                    left_side = "away";
+                    right_side = "home";
+                } else {
+                    left_side = "home";
+                    right_side = "away"
+                }
+
+                // set logos
+                setImage(left_side + "_logo", doc.data().home_logo);
+                setImage(right_side + "_logo", doc.data().away_logo);
+
+                // set team names
+                write(left_side + "_team_name", doc.data().home_team);
+                write(right_side + "_team_name", doc.data().away_team);
+            }
+        });
+
+
+    Array.from(document.getElementsByClassName("fade_in_when_done")).forEach(e => {
+        e.style.opacity = "1";
+    });
 }
 
 function getPreviousMatchesVRMLPage(data, team_name, side) {
@@ -416,7 +452,56 @@ function autocompleteCasters(input, db) {
                 querySnapshot.forEach(doc => {
                     names.push(doc.id);
                 });
-                autocomplete(input, names);
+                autocomplete(input, names, 0);
+            }
+        });
+}
+
+function setupEventsOverlay(db) {
+    db.collection('series').doc(series_name).collection('match_stats')
+        .orderBy("match_time", "desc")
+        .where("client_name", "==", client_name)
+        .limit(1)
+        .onSnapshot(querySnapshot => {
+            if (!querySnapshot.empty) {
+
+                var version = querySnapshot.docs[0].data()['version'];
+                console.log(version);
+
+                querySnapshot.docs[0].ref.collection('events')
+                    .where("event_type", "==", "joust_speed")
+                    .onSnapshot(eventsSnapshot => {
+                        if (!eventsSnapshot.empty) {
+                            // loop through all the events for this match
+                            eventsSnapshot.docs.forEach(e => {
+                                // if we haven't already used this event
+                                if (!completedEvents.hasOwnProperty(e.id)) {
+                                    completedEvents[e.id] = "";
+                                    if (!freshPage) {
+                                        var d = e.data();
+                                        if (d['other_player_id'] < 15000) {
+                                            var color = d['other_player_name'];
+                                            write('joust_time_' + color, round(d['other_player_id'] / 1000.0, 2) + " s");
+                                            if (version == "1.8.5") {
+                                                console.log("Joust time: " + (d['other_player_id'] / 1000.0) + " s, Max speed: " + magnitude(d['x2'], d['y2'], d['z2']) + " m/s")
+                                                write('joust_speed_' + color, round(magnitude(d['x2'], d['y2'], d['z2']), 1) + " m/s");
+                                            } else {
+                                                console.log("Joust time: " + (d['other_player_id'] / 1000.0) + " s, Max speed: " + d['x2'] + " m/s, Tube Exit Speed: " + d['y2'] + " m/s")
+                                                write('joust_speed_' + color, round(d['x2'], 1) + " m/s");
+                                            }
+
+                                            var joustStatsElem = document.getElementById('joust_stats_' + color);
+                                            joustStatsElem.classList.add('visible');
+                                            var clonedNode = joustStatsElem.cloneNode(true);
+                                            joustStatsElem.parentNode.replaceChild(clonedNode, joustStatsElem);
+                                        }
+                                    }
+                                }
+                            });
+                            freshPage = false;
+
+                        }
+                    });
             }
         });
 }

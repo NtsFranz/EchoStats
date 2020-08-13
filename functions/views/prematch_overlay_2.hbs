@@ -10,11 +10,11 @@
   <script defer src="/__/firebase/7.14.3/firebase-app.js"></script>
   <!-- include only the Firebase features as you need -->
   <script defer src="/__/firebase/7.14.3/firebase-auth.js"></script>
-  <script defer src="/__/firebase/7.14.3/firebase-database.js"></script>
-  <script defer src="/__/firebase/7.14.3/firebase-messaging.js"></script>
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-database.js"></script> --}}
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-messaging.js"></script> --}}
   <script defer src="/__/firebase/7.14.3/firebase-firestore.js"></script>
-  <script defer src="/__/firebase/7.14.3/firebase-storage.js"></script>
-  <script defer src="/__/firebase/7.14.3/firebase-analytics.js"></script>
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-storage.js"></script> --}}
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-analytics.js"></script> --}}
   <!-- initialize the SDK after all desired features are loaded -->
   <script defer src="/__/firebase/init.js"></script>
 
@@ -23,23 +23,23 @@
 </head>
 
 <body style="margin: 0;">
-  <div id="background_container" class="prematch_2_layout">
+  <div id="background_container" class="prematch_2_layout fade_in_when_done">
     <div id="home_team_box">
       <div id="home_team_name_box">
-        <div id="home_team_name"></div>
+        <div class="home_team_name"></div>
       </div>
-      <div id="homemmr">MMR: </div>
-      <img id="homelogo" src="https://vrmasterleague.com/images/team_logo_120.png">
-      <img id="homerank" src="">
+      <div class="home_mmr">MMR: </div>
+      <img class="home_logo">
+      <img class="home_rank" src="">
     </div>
 
     <div id="away_team_box">
       <div id="away_team_name_box">
-        <div id="away_team_name"></div>
+        <div class="away_team_name"></div>
       </div>
-      <div id="awaymmr">MMR: </div>
-      <img id="awaylogo" src="https://vrmasterleague.com/images/team_logo_120.png">
-      <img id="awayrank" src="">
+      <div class="away_mmr">MMR: </div>
+      <img class="away_logo">
+      <img class="away_rank" src="">
     </div>
   </div>
 
@@ -49,15 +49,20 @@
   </script>
 
   <!-- Load our custom Firebase stuff -->
-  <script src="js/get_team_data.js"></script>
+  <script defer src="js/util.js"></script>
+  <script defer src="js/firebase_setup.js"></script>
+  <script defer src="js/fetch_data_methods.js"></script>
+
+  <script src="js/prematch_overlay_2.js"></script>
+
   <script src="js/fitty.min.js"></script>
   <script>
-    fitty('#home_team_name', {
+    fitty('.home_team_name', {
       minSize: 12,
       maxSize: 60,
       multiLine: false
     });
-    fitty('#away_team_name', {
+    fitty('.away_team_name', {
       minSize: 12,
       maxSize: 60,
       multiLine: false

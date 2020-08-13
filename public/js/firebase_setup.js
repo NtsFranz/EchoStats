@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
     db = firebase.firestore();
 
     // Initialize the FirebaseUI Widget using Firebase.
-    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    // var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
     firebase.auth().signInAnonymously().catch(function (error) {
         // Handle Errors here.

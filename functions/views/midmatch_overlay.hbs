@@ -10,11 +10,11 @@
   <script defer src="/__/firebase/7.14.3/firebase-app.js"></script>
   <!-- include only the Firebase features as you need -->
   <script defer src="/__/firebase/7.14.3/firebase-auth.js"></script>
-  <script defer src="/__/firebase/7.14.3/firebase-database.js"></script>
-  <script defer src="/__/firebase/7.14.3/firebase-messaging.js"></script>
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-database.js"></script> --}}
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-messaging.js"></script> --}}
   <script defer src="/__/firebase/7.14.3/firebase-firestore.js"></script>
-  <script defer src="/__/firebase/7.14.3/firebase-storage.js"></script>
-  <script defer src="/__/firebase/7.14.3/firebase-analytics.js"></script>
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-storage.js"></script> --}}
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-analytics.js"></script> --}}
   <!-- initialize the SDK after all desired features are loaded -->
   <script defer src="/__/firebase/init.js"></script>
 
@@ -26,16 +26,16 @@
   <div id="background_container" class="midmatch_layout">
     <div id="home_team_box">
       <div id="home_team_name_box">
-        <div id="home_team_name" class="hide"></div>
+        <div class="home_team_name hide"></div>
       </div>
-      <img id="homelogo" class="hide">
+      <img class="home_logo hide">
     </div>
 
     <div id="away_team_box hide">
       <div id="away_team_name_box">
-        <div id="away_team_name" class="hide"></div>
+        <div class="away_team_name hide"></div>
       </div>
-      <img id="awaylogo" class="hide">
+      <img class="away_logo hide">
     </div>
 
     <div class="joust_stats">
@@ -45,10 +45,10 @@
 
         <div class="joust_stats_data">
           <div class="joust_speed_title">Joust Speed</div>
-          <div id="joust_speed_orange" class="number"></div>
+          <div class="joust_speed_orange number"></div>
           {{!-- <hr> --}}
           <div class="joust_time_title">Joust Time</div>
-          <div id="joust_time_orange" class="number"></div>
+          <div class="joust_time_orange number"></div>
         </div>
 
       </div>
@@ -58,10 +58,10 @@
 
         <div class="joust_stats_data">
           <div class="joust_speed_title">Joust Speed</div>
-          <div id="joust_speed_blue" class="number"></div>
+          <div class="joust_speed_blue number"></div>
           {{!-- <hr> --}}
           <div class="joust_time_title">Joust Time</div>
-          <div id="joust_time_blue" class="number"></div>
+          <div class="joust_time_blue number"></div>
         </div>
 
       </div>
@@ -79,16 +79,19 @@
   </script>
 
   <!-- Load our custom Firebase stuff -->
-  <script src="js/get_team_data.js"></script>
-  <script src="js/live_events_overlay.js"></script>
+  <script defer src="js/util.js"></script>
+  <script defer src="js/firebase_setup.js"></script>
+  <script defer src="js/fetch_data_methods.js"></script>
+
+  <script src="js/midmatch_overlay.js"></script>
   <script src="js/fitty.min.js"></script>
   <script>
-    fitty('#home_team_name', {
+    fitty('.home_team_name', {
       minSize: 12,
       maxSize: 40,
       multiLine: false
     });
-    fitty('#away_team_name', {
+    fitty('.away_team_name', {
       minSize: 12,
       maxSize: 40,
       multiLine: false

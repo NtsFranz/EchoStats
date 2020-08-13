@@ -10,11 +10,11 @@
   <script defer src="/__/firebase/7.14.3/firebase-app.js"></script>
   <!-- include only the Firebase features as you need -->
   <script defer src="/__/firebase/7.14.3/firebase-auth.js"></script>
-  <script defer src="/__/firebase/7.14.3/firebase-database.js"></script>
-  <script defer src="/__/firebase/7.14.3/firebase-messaging.js"></script>
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-database.js"></script> --}}
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-messaging.js"></script> --}}
   <script defer src="/__/firebase/7.14.3/firebase-firestore.js"></script>
-  <script defer src="/__/firebase/7.14.3/firebase-storage.js"></script>
-  <script defer src="/__/firebase/7.14.3/firebase-analytics.js"></script>
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-storage.js"></script> --}}
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-analytics.js"></script> --}}
   <!-- initialize the SDK after all desired features are loaded -->
   <script defer src="/__/firebase/init.js"></script>
 
@@ -23,24 +23,26 @@
 </head>
 
 <body>
-  <div id="background_container" class="sidebars_layout" style="opacity: 0;">
-    <div id="match_title"></div>
-    <div id="home_background_container" class="sidebar_container">
-      <div id="homebox">
-        <img id="homelogo" class="sidebar_logo" src="https://vrmasterleague.com/images/team_logo_120.png">
-        <img id="homerank" src="https://vrmasterleague.com/images/div_bronze_40.png?vrml.2.1.7">
-        <p id="homemmr" class="sidebar_mmr"></p>
-        <table id="homeroster" class="roster_table">
-        </table>
+  <div id="background_container" class="sidebars_layout">
+    <div class="match_title"></div>
+    <div class="fade_in_when_done" style="opacity: 0;">
+      <div id="home_background_container" class="sidebar_container">
+        <div id="homebox">
+          <img class="home_logo sidebar_logo">
+          <img class="home_rank">
+          <p class="home_mmr sidebar_mmr"></p>
+          <table class="home_roster roster_table">
+          </table>
+        </div>
       </div>
-    </div>
-    <div id="away_background_container" class="sidebar_container">
-      <div id="awaybox">
-        <img id="awaylogo" class="sidebar_logo" src="https://vrmasterleague.com/images/team_logo_120.png">
-        <img id="awayrank" src="https://vrmasterleague.com/images/div_bronze_40.png?vrml.2.1.7">
-        <p id="awaymmr" class="sidebar_mmr"></p>
-        <table id="awayroster" class="roster_table">
-        </table>
+      <div id="away_background_container" class="sidebar_container">
+        <div id="awaybox">
+          <img class="away_logo sidebar_logo">
+          <img class="away_rank">
+          <p class="away_mmr sidebar_mmr"></p>
+          <table class="away_roster roster_table">
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -65,7 +67,11 @@
   </script>
 
   <!-- Load our custom Firebase stuff -->
-  <script defer src="js/get_team_data.js"></script>
+  <script defer src="js/util.js"></script>
+  <script defer src="js/firebase_setup.js"></script>
+  <script defer src="js/fetch_data_methods.js"></script>
+
+  <script src="js/prematch_overlay.js"></script>
 
 </body>
 

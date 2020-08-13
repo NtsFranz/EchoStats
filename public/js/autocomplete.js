@@ -1,6 +1,6 @@
 var maxElems = 10
 
-function autocomplete(inp, arr) {
+function autocomplete(inp, arr, minletters=2) {
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
   var currentFocus;
@@ -9,7 +9,7 @@ function autocomplete(inp, arr) {
     var a, b, i, val = this.value;
     /*close any already open lists of autocompleted values*/
     closeAllLists();
-    if (!val || val.length < 2) { return false; }
+    if (!val || val.length < minletters) { return false; }
     currentFocus = -1;
     /*create a DIV element that will contain the items (values):*/
     a = document.createElement("DIV");

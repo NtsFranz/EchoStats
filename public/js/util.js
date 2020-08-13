@@ -42,7 +42,7 @@ function write(className, data) {
     var elements = document.getElementsByClassName(className);
     Array.from(elements).forEach(e => {
         e.innerHTML = data;
-        e.style.visibility = 'visible';
+        e.style.opacity = "1";
     });
 }
 
@@ -50,7 +50,7 @@ function setImage(className, src_) {
     var elements = document.getElementsByClassName(className);
     Array.from(elements).forEach(e => {
         e.src = src_;
-        e.style.visibility = 'visible';
+        e.style.opacity = "1";
     });
 }
 

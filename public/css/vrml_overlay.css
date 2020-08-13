@@ -15,6 +15,11 @@
 	height: 1080px;
 }
 
+.fade_in_when_done {
+	transition: opacity .5s;
+	opacity: 0;
+}
+
 .sidebars_layout #homebox {
 	position: fixed;
 	left: 36px;
@@ -24,7 +29,7 @@
 	background: #00000015;
 }
 
-.sidebars_layout #match_title {
+.sidebars_layout .match_title {
 	width: 1920px;
 	margin-top: 36px;
 	text-align: center;
@@ -72,13 +77,13 @@
 	left: 1575px;
 }
 
-.sidebars_layout #homerank {
+.sidebars_layout .home_rank {
 	position: fixed;
 	left: 66px;
 	top: 400px;
 }
 
-.sidebars_layout #awayrank {
+.sidebars_layout .away_rank {
 	position: fixed;
 	left: 1602px;
 	top: 400px;
@@ -92,11 +97,11 @@
 	-webkit-text-stroke: .7px black;
 }
 
-.sidebars_layout #homemmr {
+.sidebars_layout .home_mmr {
 	left: 115px;
 }
 
-.sidebars_layout #awaymmr {
+.sidebars_layout .away_mmr {
 	left: 1655px;
 }
 
@@ -108,6 +113,7 @@
 	font-size: larger;
 	border-spacing: 0 25px;
 	-webkit-text-stroke: 0.01px black;
+	font-weight: 700;
 }
 
 #stats_overlay_container table {
@@ -325,22 +331,17 @@
 }
 
 #swap_sides_button {
-	color: white;
-	padding: 1em;
-	width: 13em;
-	text-align: center;
-	cursor: pointer;
 }
 
 #swap_sides_button:after {
-	border-top: 1em solid #9c9fa1;
+	/* border-top: 1em solid #9c9fa1; */
 }
 
 
 
 /* Prematch 2 overlay */
 
-.prematch_2_layout #home_team_name {
+.prematch_2_layout .home_team_name {
 	text-align: center;
 
 	-webkit-text-stroke: 2px black;
@@ -351,7 +352,7 @@
 	-webkit-text-fill-color: transparent;
 }
 
-.prematch_2_layout #homelogo {
+.prematch_2_layout .home_logo {
 	position: absolute;
 	left: 10px;
 	bottom: 30px;
@@ -359,20 +360,20 @@
 	height: 150px;
 }
 
-.prematch_2_layout #homemmr {
+.prematch_2_layout .home_mmr {
 	position: absolute;
 	left: 15px;
 	bottom: 211px;
 	-webkit-text-stroke: .5px black;
 }
 
-.prematch_2_layout #homerank {
+.prematch_2_layout .home_rank {
 	position: absolute;
 	left: 10px;
 	bottom: 150px;
 }
 
-.prematch_2_layout #away_team_name {
+.prematch_2_layout .away_team_name {
 	text-align: center;
 
 	-webkit-text-stroke: 2px black;
@@ -383,7 +384,7 @@
 	-webkit-text-fill-color: transparent;
 }
 
-.prematch_2_layout #awaylogo {
+.prematch_2_layout .away_logo {
 	position: absolute;
 	right: 10px;
 	bottom: 30px;
@@ -391,14 +392,14 @@
 	height: 150px;
 }
 
-.prematch_2_layout #awaymmr {
+.prematch_2_layout .away_mmr {
 	position: absolute;
 	right: 15px;
 	bottom: 211px;
 	-webkit-text-stroke: .5px black;
 }
 
-.prematch_2_layout #awayrank {
+.prematch_2_layout .away_rank {
 	position: absolute;
 	right: 10px;
 	bottom: 150px;
@@ -431,11 +432,11 @@
 
 /* Midmatch overlay */
 
-.midmatch_layout #home_team_name {
+.midmatch_layout .home_team_name {
 	text-align: center;
 }
 
-.midmatch_layout #homelogo {
+.midmatch_layout .home_logo {
 	position: absolute;
 	left: 0px;
 	top: 6px;
@@ -443,11 +444,11 @@
 	height: 80px;
 }
 
-.midmatch_layout #away_team_name {
+.midmatch_layout .away_team_name {
 	text-align: center;
 }
 
-.midmatch_layout #awaylogo {
+.midmatch_layout .away_logo {
 	position: absolute;
 	right: 0;
 	top: 6px;
