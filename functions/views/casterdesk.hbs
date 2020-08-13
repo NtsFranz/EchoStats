@@ -21,22 +21,32 @@
   <script defer src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
   <link defer type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 
-
+  <link rel="stylesheet" type="text/css" href="css/icofont.min.css">
   <link rel="stylesheet" type="text/css" href="css/vrml_overlay.css">
   <link rel="stylesheet" type="text/css" href="css/vrml_overlay_corrected_to_normal.css">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <link rel="stylesheet" type="text/css" href="css/autocomplete_styles.css">
 
   <script defer type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+  <script type="text/javascript" src="js/autocomplete.js"></script>
 
 </head>
 
 <body>
 
   <div id="firebaseui-auth-container"></div>
+  
+
+  <div class="echobutton" style="position: absolute; top: 1em; left: 1em;">
+    <a href="/match_setup">
+      Match Setup
+    </a>
+  </div>
 
   {{!-- Top Content --}}
-  <form id="player-search-box" method="get" style="margin:1em auto;max-width:300px;color:black;display:flex;">
+  <form id="player-search-box" method="get"
+    style="margin:1em auto;max-width:300px;color:black;display:flex;position:relative;">
     <input autocomplete="off" type="text" id="player_search" placeholder="Enter Oculus name" name="client_name">
     <button type="submit" id="player_search_button">&gt;</button>
   </form>
@@ -47,14 +57,17 @@
   <div class="casterdesk_container">
     {{!-- Left Column --}}
     <div class="sidebar_container home">
-      <h2 class="home_team_name"></h2>
+      <a class="home_team_page">
+        <h2 class="home_team_name"></h2>
+      </a>
       <img class="sidebar_logo home_logo">
+      <br>
       <img class="home_rank">
       <p class="sidebar_mmr home_mmr"></p>
       <table class="roster_table home_roster"></table>
       <table class="recent_matches_table">
         <tr>
-          <th>Recent Matches</th>
+          <th colspan="3">Match History</th>
         </tr>
         <tbody class="home_recent_matches"></tbody>
       </table>
@@ -66,7 +79,7 @@
         <table>
           <thead>
             <tr>
-              <th colspan="4">Previous Matchups</th>
+              <th colspan="7">Previous Matchups</th>
             </tr>
           </thead>
           <tbody class="prev_head2head"></tbody>
@@ -126,45 +139,60 @@
       <div class="statsboard">
         <table>
           <thead>
-          <tr>
-            <th>Player</th>
-            <th>Points</th>
-            <th>Assists</th>
-            <th>Saves</th>
-            <th>Steals</th>
-            <th>Stuns</th>
-            <th>Possession</th>
-            <th>Shots</th>
-          </tr>
+            <tr>
+              <th colspan="8" class="home_team_name"></th>
+            </tr>
+            <tr>
+              <th>Player</th>
+              <th>Points</th>
+              <th>Assists</th>
+              <th>Saves</th>
+              <th>Steals</th>
+              <th>Stuns</th>
+              <th>Possession</th>
+              <th>Shots</th>
+            </tr>
           </thead>
           <tbody class="orange_player_stats_board"></tbody>
         </table>
+        <br>
         <table>
           <thead>
-          <tr>
-            <th>Player</th>
-            <th>Points</th>
-            <th>Assists</th>
-            <th>Saves</th>
-            <th>Steals</th>
-            <th>Stuns</th>
-            <th>Possession</th>
-            <th>Shots</th>
-          </tr>
+            <tr>
+              <th colspan="8" class="away_team_name"></th>
+            </tr>
+            <tr>
+              <th>Player</th>
+              <th>Points</th>
+              <th>Assists</th>
+              <th>Saves</th>
+              <th>Steals</th>
+              <th>Stuns</th>
+              <th>Possession</th>
+              <th>Shots</th>
+            </tr>
           </thead>
           <tbody class="blue_player_stats_board"></tbody>
         </table>
       </div>
       <div class="jousts">
         <table>
-          <tr>
-            <th>Jousts</th>
-          </tr>
+          <thead>
+            <tr>
+              <th>Jousts</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
         </table>
       </div>
       <div class="goals">
         <table>
-          <tr>Goals</tr>
+          <thead>
+            <tr>
+              <th>Goals</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
         </table>
       </div>
     </div>
@@ -172,14 +200,17 @@
 
     {{!-- Right Column --}}
     <div class="sidebar_container away">
-      <h2 class="away_team_name"></h2>
+      <a class="away_team_page">
+        <h2 class="away_team_name"></h2>
+      </a>
       <img class="sidebar_logo away_logo">
+      <br>
       <img class="away_rank">
       <p class="sidebar_mmr away_mmr"></p>
       <table class="roster_table away_roster"></table>
       <table class="recent_matches_table">
         <tr>
-          <th>Recent Matches</th>
+          <th colspan="3">Match History</th>
         </tr>
         <tbody class="away_recent_matches"></tbody>
       </table>

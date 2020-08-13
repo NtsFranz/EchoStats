@@ -15,4 +15,6 @@ function Start(db) {
     buildpregame(db, true);
 
     getCurrentMatchStats(db);
+
+    autocompleteCasters(document.getElementById("player_search"), db);
 }

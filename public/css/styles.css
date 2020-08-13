@@ -54,6 +54,7 @@ body {
   display: block;
   color: var(--main-color);
   padding: .7em;
+  text-align: center;
 }
 
 .echobutton:hover {

@@ -1,5 +1,5 @@
 function buildpregame(db, getPrevMatches) {
-
+    if (client_name == "") return;
     db.collection("caster_preferences").doc(client_name)
         .get()
         .then(doc => {
@@ -38,14 +38,76 @@ function buildpregame(db, getPrevMatches) {
                 });
 
                 if (getPrevMatches) {
-                    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_matches_recaps_vrml";
-                    httpGetAsync(url, function (data) {
-                        getPreviousMatches(data, home_team_name, "home");
-                        getPreviousMatches(data, away_team_name, "away");
-                    });
+                    // var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_matches_recaps_vrml";
+                    // httpGetAsync(url, function (data) {
+                    //     getPreviousMatches(data, home_team_name, "home");
+                    //     getPreviousMatches(data, away_team_name, "away");
+                    // });
+
+                    // get the home team's page
+                    db.collection('series').doc(series_name).collection('teams').doc(home_team_name)
+                        .get().then(doc => {
+                            if (!doc.empty) {
+                                var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_vrml_match_history_direct?team_page=" + doc.data()['vrml_team_page'];
+                                httpGetAsync(url, function (data) {
+                                    getPreviousMatchesVRMLPage(data, home_team_name, "home");
+                                    getPreviousHead2HeadMatchesVRMLPage(data, home_team_name, away_team_name);
+                                });
+
+                                Array.from(document.getElementsByClassName("home_team_page")).forEach(e => {
+                                    e.href = doc.data()['vrml_team_page'];
+                                });
+                            }
+                        });
+
+                    // get the away team's page
+                    db.collection('series').doc(series_name).collection('teams').doc(away_team_name)
+                        .get().then(doc => {
+                            if (!doc.empty) {
+                                var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_vrml_match_history_direct?team_page=" + doc.data()['vrml_team_page'];
+                                httpGetAsync(url, function (data) {
+                                    getPreviousMatchesVRMLPage(data, away_team_name, "away");
+                                });
+
+                                Array.from(document.getElementsByClassName("away_team_page")).forEach(e => {
+                                    e.href = doc.data()['vrml_team_page'];
+                                });
+                            }
+                        });
+
+                    // var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_matches_recaps_vrml";
+                    // httpGetAsync(url, function (data) {
+                    //     getPreviousMatches(data, home_team_name, "home");
+                    //     getPreviousMatches(data, away_team_name, "away");
+                    // });
                 }
             }
         });
+}
+
+function getPreviousMatchesVRMLPage(data, team_name, side) {
+    table = "";
+    var matches = JSON.parse(data).matches;
+    matches.forEach(m => {
+        if (m.match_time.length > 0) {
+            table += genPreviousMatchVRMLPage(m, team_name);
+        }
+    });
+    write(side + "_recent_matches", table);
+}
+
+function getPreviousHead2HeadMatchesVRMLPage(data, home_team_name, away_team_name) {
+    table = "";
+    var matches = JSON.parse(data).matches;
+    matches.forEach(m => {
+        if (m.match_time.length > 0) {
+            if ((m.home_team == home_team_name || m.away_team == home_team_name) &&
+                (m.home_team == away_team_name || m.away_team == away_team_name)) {
+                table += genPreviousHead2HeadMatchVRMLPage(m, home_team_name, away_team_name);
+            }
+        }
+    });
+    write("prev_head2head", table);
 }
 
 function buildTeamVRMLStats(data, side) {
@@ -74,27 +136,82 @@ function getPreviousMatches(data, team_name, side) {
     data = JSON.parse(data);
     data.forEach(match => {
         if (match.HomeTeam == team_name) {
-            table += genPreviousMatch(match, team_name);
+            table += genPreviousMatchVRMLAPI(match, team_name);
         } else if (match.AwayTeam == team_name) {
-            table += genPreviousMatch(match, team_name);
+            table += genPreviousMatchVRMLAPI(match, team_name);
         }
     })
     write(side + "_recent_matches", table);
 }
 
-function genPreviousMatch(match, team_name, side) {
+function genPreviousMatchVRMLAPI(match, team_name, side) {
     var out = "<tr><td>";
     if (match.WinningTeam == team_name) {
-        out += "+ ";
+        out += '<i class="icofont-arrow-up" style="color: green;"></i></td><td>';
     } else {
-        out += "- ";
+        out += '<i class="icofont-arrow-down" style="color: red;"></i></i></td><td>';
     }
     if (match.HomeTeam != team_name) {
-        out += match.HomeTeam + " (" + match.AwayScore + "-" + match.HomeScore + ")";
+        out += match.HomeTeam + "</td><td>(" + match.AwayScore + "-" + match.HomeScore + ")";
     } else {
-        out += match.AwayTeam + " (" + match.HomeScore + "-" + match.AwayScore + ")";
+        out += match.AwayTeam + "</td><td>(" + match.HomeScore + "-" + match.AwayScore + ")";
     }
     out += "</td></tr>";
+    return out;
+}
+
+function genPreviousMatchVRMLPage(match, team_name) {
+    var out = "<tr>";
+    if (match.winning_team == team_name) {
+        out += '<td><i class="icofont-arrow-up" style="color: green;"></i></td>';
+    } else {
+        out += '<td><i class="icofont-arrow-down" style="color: red;"></i></td>';
+    }
+    if (match.home_team != team_name) {
+        out += '<td><a href="' + match.match_page + '" target="blank">' + match.home_team + "</a></td><td>" + match.away_team_score + " - " + match.home_team_score + "</td>";
+    } else {
+        out += '<td><a href="' + match.match_page + '" target="blank">' + match.away_team + "</a></td><td>" + match.home_team_score + " - " + match.away_team_score + "</td>";
+    }
+    out += "</tr>";
+    return out;
+}
+
+function genPreviousHead2HeadMatchVRMLPage(match, home_team_name, away_team_name) {
+    var out = "<tr>";
+
+    out += "<td>" + match.match_time + "</td>";
+
+    var side = "away"
+    if (match.home_team == home_team_name) {
+        side = "home";
+    }
+
+    // home team
+    if (match[side + "_team_won"]) {
+        out += '<td><i class="icofont-arrow-up" style="color: green;"></i></td>';
+    } else {
+        out += '<td><i class="icofont-arrow-down" style="color: red;"></i></td>';
+    }
+    out += "<td>" + match[side + "_team"] + "</td>"
+    out += "<td>" + match[side + "_team_score"] + " - ";
+
+    // swap sides
+    if (side == "home") {
+        side = "away";
+    } else {
+        side = "home";
+    }
+
+    // away team
+    out += match[side + "_team_score"] + "</td>";
+    out += "<td>" + match[side + "_team"] + "</td>"
+    if (match[side + "_team_won"]) {
+        out += '<td><i class="icofont-arrow-up" style="color: green;"></i></td>';
+    } else {
+        out += '<td><i class="icofont-arrow-down" style="color: red;"></i></td>';
+    }
+
+    out += "</tr>";
     return out;
 }
 
@@ -288,4 +405,18 @@ function setPlayerMatchStats(players) {
 
         write(color + "_player_stats_board", playerTables[color]);
     });
+}
+
+function autocompleteCasters(input, db) {
+    db.collection('caster_preferences')
+        .get()
+        .then(querySnapshot => {
+            if (!querySnapshot.empty) {
+                var names = [];
+                querySnapshot.forEach(doc => {
+                    names.push(doc.id);
+                });
+                autocomplete(input, names);
+            }
+        });
 }

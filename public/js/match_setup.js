@@ -62,14 +62,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var manualClickHandler = function (row) {
         return function () {
+            if (client_name == "") return;
             db.collection("caster_preferences").doc(client_name).set({
-                    home_team: row.getElementsByClassName('home_team_name')[0].value,
-                    home_logo: row.getElementsByClassName('home_team_logo')[0].value,
-                    away_logo: row.getElementsByClassName('away_team_logo')[0].value,
-                    away_team: row.getElementsByClassName('away_team_name')[0].value
-                }, {
-                    merge: true
-                })
+                home_team: row.getElementsByClassName('home_team_name')[0].value,
+                home_logo: row.getElementsByClassName('home_team_logo')[0].value,
+                away_logo: row.getElementsByClassName('away_team_logo')[0].value,
+                away_team: row.getElementsByClassName('away_team_name')[0].value
+            }, {
+                merge: true
+            })
                 .catch(function (error) {
                     // The document probably doesn't exist.
                     console.error("Error updating document: ", error);
@@ -89,6 +90,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     get_upcoming_matches();
 
+    autocompleteCasters(document.getElementById("player_search"), db);
+
 });
 
 // get upcoming matches
@@ -98,6 +101,9 @@ function get_upcoming_matches() {
 }
 
 function showUpcomingMatches(data) {
+
+    if (client_name == "") return;
+
     data = JSON.parse(data);
     console.log(data);
     data.forEach(match => {
@@ -129,10 +135,10 @@ function showUpcomingMatches(data) {
 function toggleSides() {
     if (client_name != "") {
         db.collection("caster_preferences").doc(client_name).set({
-                swap_sides: !side_bool
-            }, {
-                merge: true
-            })
+            swap_sides: !side_bool
+        }, {
+            merge: true
+        })
             .catch(function (error) {
                 // The document probably doesn't exist.
                 console.error("Error updating document: ", error);
@@ -170,13 +176,13 @@ function addMatch(data) {
         var createClickHandler = function (row) {
             return function () {
                 db.collection("caster_preferences").doc(client_name).set({
-                        home_team: data['HomeTeam'],
-                        home_logo: data['HomeTeamLogo'],
-                        away_logo: data['AwayTeamLogo'],
-                        away_team: data['AwayTeam']
-                    }, {
-                        merge: true
-                    })
+                    home_team: data['HomeTeam'],
+                    home_logo: data['HomeTeamLogo'],
+                    away_logo: data['AwayTeamLogo'],
+                    away_team: data['AwayTeam']
+                }, {
+                    merge: true
+                })
                     .catch(function (error) {
                         // The document probably doesn't exist.
                         console.error("Error updating document: ", error);

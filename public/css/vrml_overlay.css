@@ -308,8 +308,9 @@
 }
 
 #player_search_button {
-	position: relative;
-	left: -37px;
+	position: absolute;
+	right: 12px;
+	top: 14px;
 	font-weight: 900;
 	color: var(--accent-color);
 	border: none;
@@ -563,12 +564,15 @@
 
 .casterdesk_container {
 	display: flex;
+	width:max-content;
+	margin: 0 auto;
 }
 
 .casterdesk_container div {
 	background-color: #0001;
 	margin: 1em;
 	padding: 1em;
+	width: initial;
 }
 
 .casterdesk_container .team_percentages table {
@@ -578,10 +582,12 @@
 .casterdesk_container table {
 	text-align: center;
 	border-collapse: collapse;
+	width: 100%;
 }
 
 .casterdesk_container table th {
 	background-color: #0001;
+	border: 1px solid black;
 }
 
 .casterdesk_container table td,th {
@@ -596,6 +602,15 @@
 .casterdesk_container .roster_table td,th {
 	padding: .5em;
 	border: none;
+}
+
+.casterdesk_container .sidebar_container a {
+	text-align: center;
+	text-decoration: none;
+	color: black;
+}
+.casterdesk_container .sidebar_container a:hover {
+	color: #444;
 }
 
 @keyframes fade_in {

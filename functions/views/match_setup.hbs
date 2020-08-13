@@ -25,20 +25,29 @@
   <link rel="stylesheet" type="text/css" href="css/vrml_overlay.css">
   <link rel="stylesheet" type="text/css" href="css/vrml_overlay_corrected_to_normal.css">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <link rel="stylesheet" type="text/css" href="css/autocomplete_styles.css">
 
   <!-- Latest Sortable -->
   <script defer src="https://SortableJS.github.io/Sortable/Sortable.js"></script>
 
   <script defer type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+  <script type="text/javascript" src="js/autocomplete.js"></script>
 
 </head>
 
 <body>
 
+  <div class="echobutton" style="position: absolute; top: 1em; left: 1em;">
+    <a href="/casterdesk">
+      Caster Desk
+    </a>
+  </div>
+
   <div class="centered_content">
 
-    <form id="player-search-box" method="get" style="margin:1em auto;max-width:300px;color:black;display:flex;">
+    <form id="player-search-box" method="get"
+      style="margin:1em auto;max-width:300px;color:black;display:flex;position:relative;">
       <input autocomplete="off" type="text" id="player_search" placeholder="Enter Oculus name" name="client_name">
       <button type="submit" id="player_search_button">&gt;</button>
     </form>
@@ -96,6 +105,8 @@
   </script>
 
   <!-- Load our custom Firebase stuff -->
+  <script defer src="js/util.js"></script>
+  <script defer src="js/fetch_data_methods.js"></script>
   <script defer src="js/match_setup.js"></script>
 
 </body>
