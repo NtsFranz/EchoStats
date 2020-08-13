@@ -30,9 +30,7 @@ function buildpregame(db, previousMatches = true, teamStats = true, roster = tru
                         buildRosterTable(data, home_team_name, "home");
                         buildRosterTable(data, away_team_name, "away");
 
-                        Array.from(document.getElementsByClassName("fade_in_when_done")).forEach(e => {
-                            e.style.opacity = "1";
-                        });
+                        fadeInWhenDone();
                     });
                 }
 
@@ -41,18 +39,14 @@ function buildpregame(db, previousMatches = true, teamStats = true, roster = tru
                     httpGetAsync(url, function (data) {
                         buildTeamVRMLStats(data, "home");
 
-                        Array.from(document.getElementsByClassName("fade_in_when_done")).forEach(e => {
-                            e.style.opacity = "1";
-                        });
+                        fadeInWhenDone();
                     });
 
                     var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_team_stats?team_name=" + away_team_name;
                     httpGetAsync(url, function (data) {
                         buildTeamVRMLStats(data, "away");
 
-                        Array.from(document.getElementsByClassName("fade_in_when_done")).forEach(e => {
-                            e.style.opacity = "1";
-                        });
+                        fadeInWhenDone();
                     });
                 }
 
@@ -92,6 +86,12 @@ function buildpregame(db, previousMatches = true, teamStats = true, roster = tru
         });
 }
 
+function fadeInWhenDone() {
+    Array.from(document.getElementsByClassName("fade_in_when_done")).forEach(e => {
+        e.style.opacity = "1";
+    });
+}
+
 function getTeamNameLogo(db) {
     if (client_name == "") return;
     db.collection("caster_preferences").doc(client_name)
@@ -115,10 +115,7 @@ function getTeamNameLogo(db) {
             }
         });
 
-
-    Array.from(document.getElementsByClassName("fade_in_when_done")).forEach(e => {
-        e.style.opacity = "1";
-    });
+    fadeInWhenDone();
 }
 
 function getPreviousMatchesVRMLPage(data, team_name, side) {
@@ -277,7 +274,7 @@ function addMatchOverview(doc, matchRow, list, matches) {
 }
 
 
-function getCurrentMatchStats(db) {
+function getCurrentMatchStats(db, long=false) {
     db.collection('series').doc(series_name).collection('match_stats')
         .orderBy("match_time", "desc")
         .where("client_name", "==", client_name)
@@ -295,17 +292,17 @@ function getCurrentMatchStats(db) {
                     .where("custom_id", "==", recent_custom_id)
                     .where("session_id", "==", recent_session_id)
                     .where("disabled", "==", false)
-                    .where("client_name", "==", client_name) // Probably not necessary, but possible because of sha256 collisions
+                    .where("client_name", "==", client_name) // Probably not necessary, but possible because of sha256 collisions on custom_id
                     .get()
                     .then(querySnapshot => {
-                        processMatchStatsSnapshot(querySnapshot);
+                        processMatchStatsSnapshot(querySnapshot, long);
                     });
             }
         });
 }
 
 // gets the match stats for each player in the match
-function processMatchStatsSnapshot(querySnapshot) {
+function processMatchStatsSnapshot(querySnapshot, long=false) {
     if (!querySnapshot.empty) {
 
         var players = {}
@@ -324,8 +321,8 @@ function processMatchStatsSnapshot(querySnapshot) {
                 } else {
                     playerPromises.push(
                         // get all players
-                        match.ref.collection('players')
-                            .get());
+                        match.ref.collection('players').get()
+                    );
                 }
 
                 first = false;
@@ -351,12 +348,12 @@ function processMatchStatsSnapshot(querySnapshot) {
             console.log("Player data:");
             console.log(players);
 
-            setPlayerMatchStats(players);
+            setPlayerMatchStats(players, long);
         });
     }
 }
 
-function setPlayerMatchStats(players) {
+function setPlayerMatchStats(players, long=false) {
 
     // which stats to include in the tables
     var statList = [
@@ -403,10 +400,14 @@ function setPlayerMatchStats(players) {
                 "</td><td>" + p.assists +
                 "</td><td>" + p.saves +
                 "</td><td>" + p.steals +
-                "</td><td>" + p.stuns +
-                "</td><td>" + toMinutesString(p.possession_time) +
-                "</td><td>" + p.shots_taken +
-                "</td></tr>";
+                "</td><td>" + p.stuns;
+            if (long) {
+                playerTables[p.team_color] +=
+                    "</td><td>" + toMinutesString(p.possession_time) +
+                    "</td><td>" + p.shots_taken
+            }
+            playerTables[p.team_color] += "</td></tr>";
+
             teamStats[p.team_color].possession_time += p.possession_time;
             teamStats[p.team_color].shots_taken += p.shots_taken;
             teamStats[p.team_color].assists += p.assists;
@@ -441,6 +442,8 @@ function setPlayerMatchStats(players) {
 
         write(color + "_player_stats_board", playerTables[color]);
     });
+
+    fadeInWhenDone();
 }
 
 function autocompleteCasters(input, db) {
@@ -504,4 +507,11 @@ function setupEventsOverlay(db) {
                     });
             }
         });
+}
+
+
+// get upcoming matches
+function get_upcoming_matches() {
+    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_upcoming_matches"
+    httpGetAsync(url, showUpcomingMatches);
 }

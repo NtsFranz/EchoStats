@@ -18,26 +18,11 @@
   <!-- initialize the SDK after all desired features are loaded -->
   <script defer src="/__/firebase/init.js"></script>
 
-  <script defer src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
-  <link defer type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-
-
+  <!-- <link rel="stylesheet" type="text/css" href="css/styles.css"> -->
   <link rel="stylesheet" type="text/css" href="css/vrml_overlay.css">
-  <link rel="stylesheet" type="text/css" href="css/vrml_overlay_corrected_to_normal.css">
-  <link rel="stylesheet" type="text/css" href="css/styles.css">
-
-  <!-- Latest Sortable -->
-  <script defer src="https://SortableJS.github.io/Sortable/Sortable.js"></script>
-
-  <script defer type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
-
 </head>
 
 <body>
-
-  <div id="firebaseui-auth-container"></div>
-
   <div class="stats_overlay_container fade_in_when_done">
     <table class="orangestats">
       <tr>
@@ -126,51 +111,9 @@
 
   </div>
 
-  <div class="centered_content">
-    <table>
-      <thead>
-        <tr class="match_group_item">
-          <th class="match_time">Match Time</th>
-          <th class="session_id">Session ID</th>
-          <th class="game_clock_duration">Duration (s of game clock)</th>
-          <th class="orange_team_score">Orange Score</th>
-          <th class="blue_team_score">Blue Score</th>
-          <th class="finish_reason">Finish Reason</th>
-          <th class="remove">Remove</th>
-        </tr>
-      </thead>
-
-      <!-- List -->
-      <tbody class="list-group" id="match_list">
-        <tr class="match_group_item list-group-item hide">
-          <td class="match_id hide"></td>
-          <td class="custom_id hide"></td>
-          <td class="match_time"></td>
-          <td class="session_id"></td>
-          <td class="game_clock_duration">
-            <div class="game_clock_duration_bar"></div>
-          </td>
-          <td class="orange_team_score"></td>
-          <td class="blue_team_score"></td>
-          <td class="finish_reason"></td>
-          <td class="remove td_button">X</td>
-        </tr>
-
-        {{!-- <tr class="add_match_group_splitter hide">
-          <td colspan="15"></td>
-        </tr> --}}
-
-        <tr class="match_group_splitter">
-          <td colspan="15"></td>
-        </tr>
-      </tbody>
-
-    </table>
-  </div>
-
   <!-- Add data passed in by the request -->
   <script type="text/javascript">
-    client_name = "{{ client_name }}"; custom_id = "{{ custom_id }}"; series_name = "{{ series_name }}"; live = 'true';
+    client_name = "{{ client_name }}"; custom_id = "{{ custom_id }}"; series_name = "{{ series_name }}"; live = "{{ live }}";
   </script>
 
   <!-- Load our custom Firebase stuff -->
@@ -178,7 +121,7 @@
   <script defer src="js/firebase_setup.js"></script>
   <script defer src="js/fetch_data_methods.js"></script>
 
-  <script defer src="js/group_recent_matches.js"></script>
+  <script defer src="js/most_recent_match.js"></script>
 
 </body>
 

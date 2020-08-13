@@ -2,39 +2,39 @@
 	background-color: gray;
 }
 
-#blueplayerstable {
+.stats_overlay_container .blue_player_stats_board {
 	bottom: auto;
 	position: absolute;
 	top: 2em;
 }
 
-#orangeplayerstable {
+.stats_overlay_container .orange_player_stats_board {
 	bottom: auto;
 	position: absolute;
 	top: 2em;
 }
 
-#orangeplayerhead {
+.stats_overlay_container .orangeplayerhead {
 	bottom: auto;
 	position: absolute;
 }
 
-#blueplayerhead {
+.stats_overlay_container .blueplayerhead {
 	bottom: auto;
 	position: absolute;
 }
 
-#orangestats {
+.stats_overlay_container .orangestats {
 	bottom: auto;
 	position: absolute;
 }
 
-#bluestats {
+.stats_overlay_container .bluestats {
 	bottom: auto;
 	position: absolute;
 }
 
-#stats_overlay_container {
+.stats_overlay_container {
 	width: auto;
 	height: 10em;
 	position: relative;

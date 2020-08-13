@@ -5,47 +5,8 @@ var swapSidesButton;
 var db;
 var side_bool;
 
-document.addEventListener('DOMContentLoaded', function () {
-    // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-    // // The Firebase SDK is initialized and available here!
-    //
-    // firebase.auth().onAuthStateChanged(user => { });
-    // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-    // firebase.messaging().requestPermission().then(() => { });
-    // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-    //
-    // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
-
-
-    firebase.firestore().enablePersistence()
-        .catch(function (err) {
-            if (err.code == 'failed-precondition') {
-                // Multiple tabs open, persistence can only be enabled
-                // in one tab at a a time.
-                // ...
-                console.log("failed precondition for persistence");
-            } else if (err.code == 'unimplemented') {
-                // The current browser does not support all of the
-                // features required to enable persistence
-                // ...
-                console.log("browser doesn't support persistence");
-            }
-        });
-    // Subsequent queries will use persistence, if it was enabled successfully
-
-    db = firebase.firestore();
-
-    // Initialize the FirebaseUI Widget using Firebase.
-    var ui = new firebaseui.auth.AuthUI(firebase.auth());
-
-    firebase.auth().signInAnonymously().catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // ...
-        console.log("failed auth");
-    });
+function Start(db) {
 
     matchRow = document.getElementsByClassName('list-group-item')[0];
     matchRowSplitter = document.getElementsByClassName('match_group_splitter')[0];
@@ -92,13 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     autocompleteCasters(document.getElementById("player_search"), db);
 
-});
-
-// get upcoming matches
-function get_upcoming_matches() {
-    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_upcoming_matches"
-    httpGetAsync(url, showUpcomingMatches);
 }
+
 
 function showUpcomingMatches(data) {
 
@@ -107,7 +63,7 @@ function showUpcomingMatches(data) {
     data = JSON.parse(data);
     console.log(data);
     data.forEach(match => {
-        addMatch(match);
+        addMatchUpcoming(match);
     });
 
     // get the match that is currently set
@@ -156,7 +112,7 @@ function toggleSides() {
 }
 
 // adds a row to the end of the table
-function addMatch(data) {
+function addMatchUpcoming(data) {
     var rowNode = matchRow.cloneNode(true);
     rowNode.classList.remove('hide');
 

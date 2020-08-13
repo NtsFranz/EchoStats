@@ -65,7 +65,7 @@ app.get('/most_recent_match', (req, res) => {
     const series_name = req.query.series_name;
     const live = req.query.live || false;
 
-    res.render("match_data", {
+    res.render("most_recent_match", {
         client_name,
         custom_id,
         series_name,
