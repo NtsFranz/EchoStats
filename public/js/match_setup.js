@@ -57,14 +57,15 @@ function Start(db) {
 
 
 function showUpcomingMatches(data) {
-
-    if (client_name == "") return;
-
+    
+    
     data = JSON.parse(data);
     console.log(data);
     data.forEach(match => {
         addMatchUpcoming(match);
     });
+    
+    if (client_name == "") return;
 
     // get the match that is currently set
     db.collection("caster_preferences").doc(client_name).get().then(doc => {

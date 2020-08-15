@@ -1,8 +1,7 @@
-function buildpregame(db, previousMatches = true, teamStats = true, roster = true) {
+function buildpregame(db, previousMatches = true, teamStats = true, roster = true, live = true) {
     if (client_name == "") return;
     db.collection("caster_preferences").doc(client_name)
-        .get()
-        .then(doc => {
+        .onSnapshot(doc => {
             if (doc.exists) {
                 if (doc.data()['swap_sides']) {
                     left_side = "away";
@@ -52,7 +51,7 @@ function buildpregame(db, previousMatches = true, teamStats = true, roster = tru
 
                 if (previousMatches) {
                     // get the home team's page
-                    db.collection('series').doc(series_name).collection('teams').doc(home_team_name)
+                    db.collection('series').doc(default_season).collection('teams').doc(home_team_name)
                         .get().then(doc => {
                             if (!doc.empty) {
                                 var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_vrml_match_history_direct?team_page=" + doc.data()['vrml_team_page'];
@@ -68,7 +67,7 @@ function buildpregame(db, previousMatches = true, teamStats = true, roster = tru
                         });
 
                     // get the away team's page
-                    db.collection('series').doc(series_name).collection('teams').doc(away_team_name)
+                    db.collection('series').doc(default_season).collection('teams').doc(away_team_name)
                         .get().then(doc => {
                             if (!doc.empty) {
                                 var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_vrml_match_history_direct?team_page=" + doc.data()['vrml_team_page'];
@@ -120,7 +119,13 @@ function getTeamNameLogo(db) {
 
 function getPreviousMatchesVRMLPage(data, team_name, side) {
     table = "";
-    var matches = JSON.parse(data).matches;
+    var matches;
+    try {
+        matches = JSON.parse(data).matches;
+    } catch (e) {
+        console.error("Can't parse json response: " + data)
+        return;
+    }
     matches.forEach(m => {
         if (m.match_time.length > 0) {
             table += genPreviousMatchVRMLPage(m, team_name);
@@ -131,7 +136,13 @@ function getPreviousMatchesVRMLPage(data, team_name, side) {
 
 function getPreviousHead2HeadMatchesVRMLPage(data, home_team_name, away_team_name) {
     table = "";
-    var matches = JSON.parse(data).matches;
+    var matches;
+    try {
+        matches = JSON.parse(data).matches;
+    } catch (e) {
+        console.error("Can't parse json response: " + data)
+        return;
+    }
     matches.forEach(m => {
         if (m.match_time.length > 0) {
             if ((m.home_team == home_team_name || m.away_team == home_team_name) &&
@@ -182,7 +193,7 @@ function genPreviousMatchVRMLAPI(match, team_name, side) {
     if (match.WinningTeam == team_name) {
         out += '<i class="icofont-arrow-up" style="color: green;"></i></td><td>';
     } else {
-        out += '<i class="icofont-arrow-down" style="color: red;"></i></i></td><td>';
+        out += '<i class="icofont-arrow-down" style="color: #b50a0a;"></i></i></td><td>';
     }
     if (match.HomeTeam != team_name) {
         out += match.HomeTeam + "</td><td>(" + match.AwayScore + "-" + match.HomeScore + ")";
@@ -198,7 +209,7 @@ function genPreviousMatchVRMLPage(match, team_name) {
     if (match.winning_team == team_name) {
         out += '<td><i class="icofont-arrow-up" style="color: green;"></i></td>';
     } else {
-        out += '<td><i class="icofont-arrow-down" style="color: red;"></i></td>';
+        out += '<td><i class="icofont-arrow-down" style="color: #b50a0a;"></i></td>';
     }
     if (match.home_team != team_name) {
         out += '<td><a href="' + match.match_page + '" target="blank">' + match.home_team + "</a></td><td>" + match.away_team_score + " - " + match.home_team_score + "</td>";
@@ -223,7 +234,7 @@ function genPreviousHead2HeadMatchVRMLPage(match, home_team_name, away_team_name
     if (match[side + "_team_won"]) {
         out += '<td><i class="icofont-arrow-up" style="color: green;"></i></td>';
     } else {
-        out += '<td><i class="icofont-arrow-down" style="color: red;"></i></td>';
+        out += '<td><i class="icofont-arrow-down" style="color: #b50a0a;"></i></td>';
     }
     out += "<td>" + match[side + "_team"] + "</td>"
     out += "<td>" + match[side + "_team_score"] + " - ";
@@ -241,7 +252,7 @@ function genPreviousHead2HeadMatchVRMLPage(match, home_team_name, away_team_name
     if (match[side + "_team_won"]) {
         out += '<td><i class="icofont-arrow-up" style="color: green;"></i></td>';
     } else {
-        out += '<td><i class="icofont-arrow-down" style="color: red;"></i></td>';
+        out += '<td><i class="icofont-arrow-down" style="color: #b50a0a;"></i></td>';
     }
 
     out += "</tr>";
@@ -274,35 +285,63 @@ function addMatchOverview(doc, matchRow, list, matches) {
 }
 
 
-function getCurrentMatchStats(db, long=false) {
-    db.collection('series').doc(series_name).collection('match_stats')
-        .orderBy("match_time", "desc")
-        .where("client_name", "==", client_name)
-        .where("disabled", "==", false)
-        .limit(1)
-        .get()
-        .then(querySnapshot => {
-            if (!querySnapshot.empty) {
-                var recent_custom_id = querySnapshot.docs[0].data().custom_id;
-                var recent_session_id = querySnapshot.docs[0].data().session_id;
-                console.log("Most recent Stats Id:");
-                console.log(recent_custom_id);
-                db.collection('series').doc(series_name).collection('match_stats')
-                    .orderBy("match_time", "desc")
-                    .where("custom_id", "==", recent_custom_id)
-                    .where("session_id", "==", recent_session_id)
-                    .where("disabled", "==", false)
-                    .where("client_name", "==", client_name) // Probably not necessary, but possible because of sha256 collisions on custom_id
-                    .get()
-                    .then(querySnapshot => {
-                        processMatchStatsSnapshot(querySnapshot, long);
-                    });
-            }
-        });
+function getCurrentMatchStats(db, long = false, live = false) {
+
+    if (live) {
+        db.collection('series').doc(series_name).collection('match_stats')
+            .orderBy("match_time", "desc")
+            .where("client_name", "==", client_name)
+            .where("disabled", "==", false)
+            .limit(1)
+            .onSnapshot(querySnapshot => {
+                if (!querySnapshot.empty) {
+                    var recent_custom_id = querySnapshot.docs[0].data().custom_id;
+                    var recent_session_id = querySnapshot.docs[0].data().session_id;
+                    console.log("Most recent Stats Id:");
+                    console.log(recent_custom_id);
+                    db.collection('series').doc(series_name).collection('match_stats')
+                        .orderBy("match_time", "desc")
+                        .where("custom_id", "==", recent_custom_id)
+                        .where("session_id", "==", recent_session_id)
+                        .where("disabled", "==", false)
+                        .where("client_name", "==", client_name) // Probably not necessary, but possible because of sha256 collisions on custom_id
+                        .get()
+                        .then(querySnapshot => {
+                            processMatchStatsSnapshot(querySnapshot, long);
+                        });
+                }
+            });
+    } else {
+        db.collection('series').doc(series_name).collection('match_stats')
+            .orderBy("match_time", "desc")
+            .where("client_name", "==", client_name)
+            .where("disabled", "==", false)
+            .limit(1)
+            .get()
+            .then(querySnapshot => {
+                if (!querySnapshot.empty) {
+                    var recent_custom_id = querySnapshot.docs[0].data().custom_id;
+                    var recent_session_id = querySnapshot.docs[0].data().session_id;
+                    console.log("Most recent Stats Id:");
+                    console.log(recent_custom_id);
+                    db.collection('series').doc(series_name).collection('match_stats')
+                        .orderBy("match_time", "desc")
+                        .where("custom_id", "==", recent_custom_id)
+                        .where("session_id", "==", recent_session_id)
+                        .where("disabled", "==", false)
+                        .where("client_name", "==", client_name) // Probably not necessary, but possible because of sha256 collisions on custom_id
+                        .get()
+                        .then(querySnapshot => {
+                            processMatchStatsSnapshot(querySnapshot, long);
+                        });
+                }
+            });
+    }
+
 }
 
 // gets the match stats for each player in the match
-function processMatchStatsSnapshot(querySnapshot, long=false) {
+function processMatchStatsSnapshot(querySnapshot, long = false) {
     if (!querySnapshot.empty) {
 
         var players = {}
@@ -315,7 +354,7 @@ function processMatchStatsSnapshot(querySnapshot, long=false) {
 
                 // don't add matches that were *just* added if there is a previous match anyway
                 var match_time = Date.parse(match.data()['match_time']) - (new Date()).getTimezoneOffset() * 60000
-                if (first && (Date.now() - match_time) < 60000) {
+                if (querySnapshot.docs.length > 1 && (Date.now() - match_time) < 60000) {
                     // skip
                     console.log("last match was very recent, skipping it in the overlay");
                 } else {
@@ -353,7 +392,7 @@ function processMatchStatsSnapshot(querySnapshot, long=false) {
     }
 }
 
-function setPlayerMatchStats(players, long=false) {
+function setPlayerMatchStats(players, long = false) {
 
     // which stats to include in the tables
     var statList = [

@@ -289,43 +289,6 @@
 	background-color: #666 !important;
 }
 
-#player_search {
-	position: relative;
-	padding: 15px 40px 15px 20px;
-	width: 300px;
-	color: #bfbfbf;
-	background-color: #353535;
-	font-size: 16px;
-	font-weight: 100;
-	letter-spacing: 2px;
-	border: none;
-	border-radius: 5px;
-	transition: width, background-color 0.4s ease;
-	outline: none;
-}
-
-#player_search:hover {
-	background-color: #555;
-	color: white;
-}
-
-#player_search_button {
-	position: absolute;
-	right: 12px;
-	top: 14px;
-	font-weight: 900;
-	color: var(--accent-color);
-	border: none;
-	background: none;
-}
-
-#current-caster-name {
-	text-align: center;
-	margin: 1em;
-	font-size: 1.2em;
-	height: 2em;
-}
-
 #swap_sides_button {
 }
 
@@ -557,57 +520,6 @@
 .joust_stats #joust_stats_blue {
 	right:70px;
 	clip-path: polygon(97% 0%, 4% 0%, 0% 100%, 100% 100%, 97% 50%);
-}
-
-.casterdesk_container {
-	display: flex;
-	width:max-content;
-	margin: 0 auto;
-}
-
-.casterdesk_container div {
-	background-color: #0001;
-	margin: 1em;
-	padding: 1em;
-	width: initial;
-}
-
-.casterdesk_container .team_percentages table {
-	width: 100%;
-}
-
-.casterdesk_container table {
-	text-align: center;
-	border-collapse: collapse;
-	width: 100%;
-}
-
-.casterdesk_container table th {
-	background-color: #0001;
-	border: 1px solid black;
-}
-
-.casterdesk_container table td,th {
-	padding: .5em;
-	border: 1px solid black;
-}
-
-.casterdesk_container .roster_table {
-	margin: 0 auto;
-}
-
-.casterdesk_container .roster_table td,th {
-	padding: .5em;
-	border: none;
-}
-
-.casterdesk_container .sidebar_container a {
-	text-align: center;
-	text-decoration: none;
-	color: black;
-}
-.casterdesk_container .sidebar_container a:hover {
-	color: #444;
 }
 
 @keyframes fade_in {

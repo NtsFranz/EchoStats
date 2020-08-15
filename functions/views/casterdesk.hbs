@@ -46,25 +46,30 @@
 
   {{!-- Top Content --}}
   <form id="player-search-box" method="get"
-    style="margin:1em auto;max-width:300px;color:black;display:flex;position:relative;">
+    style="margin:1em auto;max-width:300px;color:black;display:flex;position:relative;" class="header_with_background">
+    <div></div>
     <input autocomplete="off" type="text" id="player_search" placeholder="Enter Oculus name" name="client_name">
-    <button type="submit" id="player_search_button">&gt;</button>
+    {{!-- <button type="submit" id="player_search_button"><i class="icofont-arrow-right"></i></button> --}}
   </form>
 
   <div id="current-caster-name"></div>
+
+  <hr class="echo_hr" style="width: 40em;">
 
 
   <div class="casterdesk_container">
     {{!-- Left Column --}}
     <div class="sidebar_container home">
       <a class="home_team_page">
-        <h2 class="home_team_name"></h2>
+        <h2 class="home_team_name fade_in_when_done"></h2>
       </a>
-      <img class="sidebar_logo home_logo">
-      <br>
-      <img class="home_rank">
-      <p class="sidebar_mmr home_mmr"></p>
+      <img class="sidebar_logo home_logo fade_in_when_done">
+      <p class="center">
+        <img class="sidebar_rank home_rank">
+        <span class="sidebar_mmr home_mmr"></span>
+      </p>
       <table class="roster_table home_roster"></table>
+      <br>
       <table class="recent_matches_table">
         <tr>
           <th colspan="3">Match History</th>
@@ -88,7 +93,7 @@
       <div class="team_percentages">
         <table>
           <tr>
-            <th class="home_team_name" colspan="2" ></th>
+            <th class="home_team_name" colspan="2"></th>
             <th>Team Stats</th>
             <th class="away_team_name" colspan="2"></th>
           </tr>
@@ -140,7 +145,7 @@
         <table>
           <thead>
             <tr>
-              <th colspan="8" class="home_team_name"></th>
+              <th colspan="8" class="home_team_name fade_in_when_done"></th>
             </tr>
             <tr>
               <th>Player</th>
@@ -159,7 +164,7 @@
         <table>
           <thead>
             <tr>
-              <th colspan="8" class="away_team_name"></th>
+              <th colspan="8" class="away_team_name fade_in_when_done"></th>
             </tr>
             <tr>
               <th>Player</th>
@@ -201,13 +206,15 @@
     {{!-- Right Column --}}
     <div class="sidebar_container away">
       <a class="away_team_page">
-        <h2 class="away_team_name"></h2>
+        <h2 class="away_team_name fade_in_when_done"></h2>
       </a>
-      <img class="sidebar_logo away_logo">
-      <br>
-      <img class="away_rank">
-      <p class="sidebar_mmr away_mmr"></p>
+      <img class="sidebar_logo away_logo fade_in_when_done">
+      <p class="center">
+        <img class="sidebar_rank away_rank">
+        <span class="sidebar_mmr away_mmr"></span>
+      </p>
       <table class="roster_table away_roster"></table>
+      <br>
       <table class="recent_matches_table">
         <tr>
           <th colspan="3">Match History</th>

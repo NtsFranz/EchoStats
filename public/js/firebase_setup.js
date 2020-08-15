@@ -1,3 +1,5 @@
+var default_season = "vrml_season_2"
+
 document.addEventListener('DOMContentLoaded', function () {
     // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
     // // The Firebase SDK is initialized and available here!
@@ -41,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // get season names
     if (series_name == "") {
-        series_name = "vrml_season_2";
+        series_name = default_season;
     }
 
     Start(db);
