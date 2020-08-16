@@ -314,18 +314,22 @@ function createMatchRowHTML(doc) {
     return row;
 }
 
-
 function getCurrentMatchStats(db, long = false, live = false, onlyaftercasterprefs = false) {
-
     if (onlyaftercasterprefs) {
         db.collection("caster_preferences").doc(client_name)
             .onSnapshot(doc => {
                 if (doc.exists) {
                     lastCasterTime = doc.data()['last_modified'];
+                    doGetCurrentMatchStats(db, long, live, lastCasterTime);
                 }
             });
+    } else {
+        doGetCurrentMatchStats(db, long, live, onlyaftercasterprefs);
     }
+}
 
+
+function doGetCurrentMatchStats(db, long = false, live = false, lastCasterTime = null) {
     if (live) {
         db.collection('series').doc(series_name).collection('match_stats')
             .orderBy("match_time", "desc")
@@ -344,7 +348,7 @@ function getCurrentMatchStats(db, long = false, live = false, onlyaftercasterpre
                         .where("client_name", "==", client_name) // Probably not necessary, but possible because of sha256 collisions on custom_id
                         .get()
                         .then(querySnapshot => {
-                            processMatchStatsSnapshot(querySnapshot, long, onlyaftercasterprefs);
+                            processMatchStatsSnapshot(querySnapshot, long, lastCasterTime);
                         });
                 }
             });
@@ -367,7 +371,7 @@ function getCurrentMatchStats(db, long = false, live = false, onlyaftercasterpre
                         .where("client_name", "==", client_name) // Probably not necessary, but possible because of sha256 collisions on custom_id
                         .get()
                         .then(querySnapshot => {
-                            processMatchStatsSnapshot(querySnapshot, long, onlyaftercasterprefs);
+                            processMatchStatsSnapshot(querySnapshot, long, lastCasterTime);
                         });
                 }
             });
@@ -376,7 +380,7 @@ function getCurrentMatchStats(db, long = false, live = false, onlyaftercasterpre
 }
 
 // gets the match stats for each player in the match
-function processMatchStatsSnapshot(querySnapshot, long = false, onlyaftercasterprefs = false) {
+function processMatchStatsSnapshot(querySnapshot, long = false, lastCasterTime = null) {
     if (!querySnapshot.empty) {
 
         var players = {}
@@ -397,8 +401,7 @@ function processMatchStatsSnapshot(querySnapshot, long = false, onlyaftercasterp
                     // skip
                     console.log("last match was very recent, skipping it in the overlay");
                 } else {
-
-                    if (onlyaftercasterprefs && match_time < lastCasterTime.seconds) {
+                    if (lastCasterTime != null && match_time / 1000 < lastCasterTime.seconds) {
                         // skip
                         console.log("round was before last caster prefs switch, skipping it in the overlay");
                     } else {
