@@ -3,6 +3,8 @@ var list;
 var db;
 var matches = [];
 
+var lastCasterTime;
+
 function Start(db) {
 
     currentCaster = document.getElementById('current-caster-name');
@@ -14,7 +16,7 @@ function Start(db) {
 
     buildpregame(db, true, true, true);
 
-    getCurrentMatchStats(db, true, true);
+    getCurrentMatchStats(db, true, true, true);
 
     autocompleteCasters(document.getElementById("player_search"), db);
 }

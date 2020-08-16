@@ -28,7 +28,8 @@ function Start(db) {
                 home_team: row.getElementsByClassName('home_team_name')[0].value,
                 home_logo: row.getElementsByClassName('home_team_logo')[0].value,
                 away_logo: row.getElementsByClassName('away_team_logo')[0].value,
-                away_team: row.getElementsByClassName('away_team_name')[0].value
+                away_team: row.getElementsByClassName('away_team_name')[0].value,
+                last_modified: firebase.firestore.FieldValue.serverTimestamp()
             }, {
                 merge: true
             })
@@ -57,14 +58,14 @@ function Start(db) {
 
 
 function showUpcomingMatches(data) {
-    
-    
+
+
     data = JSON.parse(data);
     console.log(data);
     data.forEach(match => {
         addMatchUpcoming(match);
     });
-    
+
     if (client_name == "") return;
 
     // get the match that is currently set
@@ -92,7 +93,8 @@ function showUpcomingMatches(data) {
 function toggleSides() {
     if (client_name != "") {
         db.collection("caster_preferences").doc(client_name).set({
-            swap_sides: !side_bool
+            swap_sides: !side_bool,
+            last_modified: firebase.firestore.FieldValue.serverTimestamp()
         }, {
             merge: true
         })
@@ -136,7 +138,8 @@ function addMatchUpcoming(data) {
                     home_team: data['HomeTeam'],
                     home_logo: data['HomeTeamLogo'],
                     away_logo: data['AwayTeamLogo'],
-                    away_team: data['AwayTeam']
+                    away_team: data['AwayTeam'],
+                    last_modified: firebase.firestore.FieldValue.serverTimestamp()
                 }, {
                     merge: true
                 })

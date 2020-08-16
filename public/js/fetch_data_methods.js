@@ -53,7 +53,7 @@ function buildpregame(db, previousMatches = true, teamStats = true, roster = tru
                     // get the home team's page
                     db.collection('series').doc(default_season).collection('teams').doc(home_team_name)
                         .get().then(doc => {
-                            if (!doc.empty) {
+                            if (doc.exists) {
                                 var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_vrml_match_history_direct?team_page=" + doc.data()['vrml_team_page'];
                                 httpGetAsync(url, function (data) {
                                     getPreviousMatchesVRMLPage(data, home_team_name, "home");
@@ -69,7 +69,7 @@ function buildpregame(db, previousMatches = true, teamStats = true, roster = tru
                     // get the away team's page
                     db.collection('series').doc(default_season).collection('teams').doc(away_team_name)
                         .get().then(doc => {
-                            if (!doc.empty) {
+                            if (doc.exists) {
                                 var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_vrml_match_history_direct?team_page=" + doc.data()['vrml_team_page'];
                                 httpGetAsync(url, function (data) {
                                     getPreviousMatchesVRMLPage(data, away_team_name, "away");
@@ -315,7 +315,16 @@ function createMatchRowHTML(doc) {
 }
 
 
-function getCurrentMatchStats(db, long = false, live = false) {
+function getCurrentMatchStats(db, long = false, live = false, onlyaftercasterprefs = false) {
+
+    if (onlyaftercasterprefs) {
+        db.collection("caster_preferences").doc(client_name)
+            .onSnapshot(doc => {
+                if (doc.exists) {
+                    lastCasterTime = doc.data()['last_modified'];
+                }
+            });
+    }
 
     if (live) {
         db.collection('series').doc(series_name).collection('match_stats')
@@ -327,8 +336,6 @@ function getCurrentMatchStats(db, long = false, live = false) {
                 if (!querySnapshot.empty) {
                     var recent_custom_id = querySnapshot.docs[0].data().custom_id;
                     var recent_session_id = querySnapshot.docs[0].data().session_id;
-                    console.log("Most recent Stats Id:");
-                    console.log(recent_custom_id);
                     db.collection('series').doc(series_name).collection('match_stats')
                         .orderBy("match_time", "desc")
                         .where("custom_id", "==", recent_custom_id)
@@ -337,7 +344,7 @@ function getCurrentMatchStats(db, long = false, live = false) {
                         .where("client_name", "==", client_name) // Probably not necessary, but possible because of sha256 collisions on custom_id
                         .get()
                         .then(querySnapshot => {
-                            processMatchStatsSnapshot(querySnapshot, long);
+                            processMatchStatsSnapshot(querySnapshot, long, onlyaftercasterprefs);
                         });
                 }
             });
@@ -352,8 +359,6 @@ function getCurrentMatchStats(db, long = false, live = false) {
                 if (!querySnapshot.empty) {
                     var recent_custom_id = querySnapshot.docs[0].data().custom_id;
                     var recent_session_id = querySnapshot.docs[0].data().session_id;
-                    console.log("Most recent Stats Id:");
-                    console.log(recent_custom_id);
                     db.collection('series').doc(series_name).collection('match_stats')
                         .orderBy("match_time", "desc")
                         .where("custom_id", "==", recent_custom_id)
@@ -362,7 +367,7 @@ function getCurrentMatchStats(db, long = false, live = false) {
                         .where("client_name", "==", client_name) // Probably not necessary, but possible because of sha256 collisions on custom_id
                         .get()
                         .then(querySnapshot => {
-                            processMatchStatsSnapshot(querySnapshot, long);
+                            processMatchStatsSnapshot(querySnapshot, long, onlyaftercasterprefs);
                         });
                 }
             });
@@ -371,7 +376,7 @@ function getCurrentMatchStats(db, long = false, live = false) {
 }
 
 // gets the match stats for each player in the match
-function processMatchStatsSnapshot(querySnapshot, long = false) {
+function processMatchStatsSnapshot(querySnapshot, long = false, onlyaftercasterprefs = false) {
     if (!querySnapshot.empty) {
 
         var players = {}
@@ -392,13 +397,20 @@ function processMatchStatsSnapshot(querySnapshot, long = false) {
                     // skip
                     console.log("last match was very recent, skipping it in the overlay");
                 } else {
-                    playerPromises.push(
-                        // get all players
-                        match.ref.collection('players').get()
-                    );
 
-                    // add matches to a round history
-                    matchRows += createMatchRowHTML(match);
+                    if (onlyaftercasterprefs && match_time < lastCasterTime.seconds) {
+                        // skip
+                        console.log("round was before last caster prefs switch, skipping it in the overlay");
+                    } else {
+
+                        playerPromises.push(
+                            // get all players
+                            match.ref.collection('players').get()
+                        );
+
+                        // add matches to a round history
+                        matchRows += createMatchRowHTML(match);
+                    }
                 }
 
                 // add atlas links
