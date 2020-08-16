@@ -61,6 +61,24 @@ body {
 	margin-left: -0.35em;
 }
 
+.echobutton.small {
+	margin-top: 0em;
+}
+
+.echobutton.small:before {
+	height: 34px;
+	margin-top: -7px;
+	clip-path: polygon(8% 0%, 100% 0%, 100% 55%, 92% 100%, 0% 100%, 0% 45%);
+}
+
+.echobutton.small:after {
+	height: 30px;
+	margin-top: -23px;
+	margin-left: -8px;
+	width: 240px;
+	clip-path: polygon(8% 0%, 100% 0%, 100% 50%, 92% 100%, 0% 100%, 0% 50%);
+}
+
 .echobutton a {
 	text-decoration: none;
 	display: block;
@@ -363,9 +381,12 @@ th {
 }
 
 .casterdesk_container div {
-	background-color: #0001;
 	margin: 1em;
 	padding: 1em;
+}
+
+.casterdesk_container>div {
+	background-color: #0001;
 }
 
 .casterdesk_container>div {
@@ -485,6 +506,26 @@ th {
 
 .casterdesk_container .sidebar_mmr {
 	font-weight: bold;
+}
+
+.casterdesk_container .atlas_buttons {
+	width: max-content;
+	margin: auto;
+}
+
+.atlas_header {
+	text-align: center;
+	font-family: 'Courier New', Courier, monospace;
+	font-weight: bold;
+	font-size: 1.3em;
+	margin: 0;
+}
+
+.fade_hide {
+	opacity: 0;
+	visibility: hidden;
+	display: none;
+	transition: opacity 1s;
 }
 
 .center {

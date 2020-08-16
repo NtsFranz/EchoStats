@@ -91,6 +91,12 @@ function fadeInWhenDone() {
     });
 }
 
+function vrmlTeamNamesSame(team1, team2) {
+    return (team1 == team2 ||
+        (team1.includes("aka") && team1.includes(team2)) ||
+        (team2.includes("aka") && team2.includes(team1)));
+}
+
 function getTeamNameLogo(db) {
     if (client_name == "") return;
     db.collection("caster_preferences").doc(client_name)
@@ -151,7 +157,7 @@ function getPreviousHead2HeadMatchesVRMLPage(data, home_team_name, away_team_nam
             }
         }
     });
-    write("prev_head2head", table);
+    write("prev_head2head", table, "previous_matchups");
 }
 
 function buildTeamVRMLStats(data, side) {
@@ -166,7 +172,7 @@ function buildRosterTable(data, team_name, side) {
     table = "";
     data = JSON.parse(data);
     data["TeamPlayers"].forEach(team => {
-        if (team.Name == team_name) {
+        if (vrmlTeamNamesSame(team.Name, team_name)) {
             team.Players.forEach(p => {
                 table += "<tr><td>" + p.Name + "</td></tr>";
             })
@@ -179,9 +185,9 @@ function getPreviousMatches(data, team_name, side) {
     table = "";
     data = JSON.parse(data);
     data.forEach(match => {
-        if (match.HomeTeam == team_name) {
+        if (vrmlTeamNamesSame(match.HomeTeam, team_name)) {
             table += genPreviousMatchVRMLAPI(match, team_name);
-        } else if (match.AwayTeam == team_name) {
+        } else if (vrmlTeamNamesSame(match.AwayTeam, team_name)) {
             table += genPreviousMatchVRMLAPI(match, team_name);
         }
     })
@@ -190,15 +196,15 @@ function getPreviousMatches(data, team_name, side) {
 
 function genPreviousMatchVRMLAPI(match, team_name, side) {
     var out = "<tr><td>";
-    if (match.WinningTeam == team_name) {
+    if (vrmlTeamNamesSame(match.WinningTeam, team_name)) {
         out += '<i class="icofont-arrow-up" style="color: green;"></i></td><td>';
     } else {
         out += '<i class="icofont-arrow-down" style="color: #b50a0a;"></i></i></td><td>';
     }
-    if (match.HomeTeam != team_name) {
-        out += match.HomeTeam + "</td><td>(" + match.AwayScore + "-" + match.HomeScore + ")";
-    } else {
+    if (vrmlTeamNamesSame(match.HomeTeam, team_name)) {
         out += match.AwayTeam + "</td><td>(" + match.HomeScore + "-" + match.AwayScore + ")";
+    } else {
+        out += match.HomeTeam + "</td><td>(" + match.AwayScore + "-" + match.HomeScore + ")";
     }
     out += "</td></tr>";
     return out;
@@ -206,15 +212,19 @@ function genPreviousMatchVRMLAPI(match, team_name, side) {
 
 function genPreviousMatchVRMLPage(match, team_name) {
     var out = "<tr>";
-    if (match.winning_team == team_name) {
+
+    // whether this team won or not
+    if (vrmlTeamNamesSame(match.winning_team, team_name)) {
         out += '<td><i class="icofont-arrow-up" style="color: green;"></i></td>';
     } else {
         out += '<td><i class="icofont-arrow-down" style="color: #b50a0a;"></i></td>';
     }
-    if (match.home_team != team_name) {
-        out += '<td><a href="' + match.match_page + '" target="blank">' + match.home_team + "</a></td><td>" + match.away_team_score + " - " + match.home_team_score + "</td>";
-    } else {
+
+    // what is the other team's name and write the scores in the correct order
+    if (vrmlTeamNamesSame(match.home_team, team_name)) {
         out += '<td><a href="' + match.match_page + '" target="blank">' + match.away_team + "</a></td><td>" + match.home_team_score + " - " + match.away_team_score + "</td>";
+    } else {
+        out += '<td><a href="' + match.match_page + '" target="blank">' + match.home_team + "</a></td><td>" + match.away_team_score + " - " + match.home_team_score + "</td>";
     }
     out += "</tr>";
     return out;
@@ -285,6 +295,26 @@ function addMatchOverview(doc, matchRow, list, matches) {
 }
 
 
+// adds a row to the end of the table
+function createMatchRowHTML(doc) {
+    var row = "<tr>";
+
+    var dateStr = doc.data()['match_time'];
+    dateStr = dateStr.replace(" ", "T");
+    dateStr += "Z";
+    row += "<td>" + timeSince(new Date(dateStr)) + "</td>";
+    row += "<td>" + doc.data()['version'] + "</td>";
+    row += "<td>" + doc.data()['orange_team_score'] + "</td>";
+    row += "<td>" + doc.data()['blue_team_score'] + "</td>";
+    row += "<td>" + doc.data()['finish_reason'] + "</td>";
+
+
+    row += "</tr>";
+
+    return row;
+}
+
+
 function getCurrentMatchStats(db, long = false, live = false) {
 
     if (live) {
@@ -349,12 +379,16 @@ function processMatchStatsSnapshot(querySnapshot, long = false) {
         var playerPromises = [];
         var first = true;
 
+        var matchRows = "";
+
         querySnapshot.docs.forEach(match => {
             if (!('disabled' in match.data()) || match.data()['disabled'] == false) {
 
                 // don't add matches that were *just* added if there is a previous match anyway
                 var match_time = Date.parse(match.data()['match_time']) - (new Date()).getTimezoneOffset() * 60000
-                if (querySnapshot.docs.length > 1 && (Date.now() - match_time) < 60000) {
+                if (querySnapshot.docs.length > 1 &&    // if there are other rounds available anyway
+                    (Date.now() - match_time) < 60000   // if the round wasn't started less than a minute ago
+                ) {
                     // skip
                     console.log("last match was very recent, skipping it in the overlay");
                 } else {
@@ -362,11 +396,20 @@ function processMatchStatsSnapshot(querySnapshot, long = false) {
                         // get all players
                         match.ref.collection('players').get()
                     );
+
+                    // add matches to a round history
+                    matchRows += createMatchRowHTML(match);
                 }
+
+                // add atlas links
+                writeHREF("atlas_player_join", "atlas://j/" + match.data()['session_id'], "atlas_buttons");
+                writeHREF("atlas_spectator_join", "atlas://s/" + match.data()['session_id'], "atlas_buttons");
 
                 first = false;
             }
         });
+
+        write("prev_round_scores", matchRows, "round_scores");
 
         Promise.all(playerPromises).then(playersQueries => {
 

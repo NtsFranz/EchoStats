@@ -38,7 +38,7 @@
   <div id="firebaseui-auth-container"></div>
 
 
-  <a href="/match_setup">
+  <a href="/match_setup?client_name={{client_name}}">
     <div class="echobutton" style="position: absolute; top: 1em; left: 1em;">
       Match Setup
     </div>
@@ -58,6 +58,7 @@
 
 
   <div class="casterdesk_container">
+
     {{!-- Left Column --}}
     <div class="sidebar_container home">
       <a class="home_team_page">
@@ -80,7 +81,18 @@
 
     {{!-- Center Column --}}
     <div class="center_container">
-      <div>
+
+      <div class="atlas_buttons fade_hide">
+        <p class="atlas_header">ATLAS</p>
+        <a style="float:left; text-decoration: none;" class="atlas_player_join">
+          <div class="echobutton small">Join as Player</div>
+        </a>
+        <a style="float:left; text-decoration: none;" class="atlas_spectator_join">
+          <div class="echobutton small">Join as Spectator</div>
+        </a>
+      </div>
+
+      <div class="previous_matchups fade_hide">
         <table>
           <thead>
             <tr>
@@ -90,6 +102,25 @@
           <tbody class="prev_head2head"></tbody>
         </table>
       </div>
+
+      <div class="round_scores fade_hide">
+        <table>
+          <thead>
+            <tr>
+              <th colspan="5">Rounds</th>
+            </tr>
+            <tr>
+              <th>Time Since<br>Round Start</th>
+              <th>IgniteBot Version</th>
+              <th>Orange Score</th>
+              <th>Blue Score</th>
+              <th>Finished</th>
+            </tr>
+          </thead>
+          <tbody class="prev_round_scores"></tbody>
+        </table>
+      </div>
+
       <div class="team_percentages">
         <table>
           <tr>
@@ -145,7 +176,7 @@
         <table>
           <thead>
             <tr>
-              <th colspan="8" class="home_team_name fade_in_when_done"></th>
+              <th colspan="8" class="home_team_name">Home Team</th>
             </tr>
             <tr>
               <th>Player</th>
@@ -164,7 +195,7 @@
         <table>
           <thead>
             <tr>
-              <th colspan="8" class="away_team_name fade_in_when_done"></th>
+              <th colspan="8" class="away_team_name">Away Team</th>
             </tr>
             <tr>
               <th>Player</th>
@@ -180,7 +211,7 @@
           <tbody class="blue_player_stats_board"></tbody>
         </table>
       </div>
-      <div class="jousts">
+      <div class="jousts fade_hide">
         <table>
           <thead>
             <tr>
@@ -190,7 +221,7 @@
           <tbody></tbody>
         </table>
       </div>
-      <div class="goals">
+      <div class="goals fade_hide">
         <table>
           <thead>
             <tr>

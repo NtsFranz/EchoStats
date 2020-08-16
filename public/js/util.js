@@ -38,12 +38,38 @@ function timeSince(date) {
     return Math.floor(seconds) + " seconds";
 }
 
-function write(className, data) {
+function write(className, data, parentFade = null) {
     var elements = document.getElementsByClassName(className);
     Array.from(elements).forEach(e => {
         e.innerHTML = data;
         e.style.opacity = "1";
     });
+
+    if (parentFade != null) {
+        var elements = document.getElementsByClassName(parentFade);
+        Array.from(elements).forEach(e => {
+            e.style.opacity = "1";
+            e.style.visibility = "visible";
+            e.style.display = "block";
+        });
+    }
+}
+
+function writeHREF(className, data, parentFade = null) {
+    var elements = document.getElementsByClassName(className);
+    Array.from(elements).forEach(e => {
+        e.href = data;
+        e.style.opacity = "1";
+    });
+
+    if (parentFade != null) {
+        var elements = document.getElementsByClassName(parentFade);
+        Array.from(elements).forEach(e => {
+            e.style.opacity = "1";
+            e.style.visibility = "visible";
+            e.style.display = "block";
+        });
+    }
 }
 
 function setImage(className, src_) {
