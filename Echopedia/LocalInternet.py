@@ -9,6 +9,8 @@ from WikiCommon import *
 
 local_internet = {}
 
+print_urls = False
+
 def load():
     global local_internet
     local_internet = loadJSON('local_internet')
@@ -18,6 +20,10 @@ def save():
     dumpJSON('local_internet', local_internet)
 
 def get(url: str, force: bool = False):
+
+    if print_urls:
+        print(url)
+
     global local_internet
     if url not in local_internet or force:
         r = requests.get(url)

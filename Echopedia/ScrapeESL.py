@@ -10,9 +10,11 @@ baseURLESL = 'https://play.eslgaming.com'
 
 LocalInternet.load()
 
-# Gets all VRCL/VRL matches from na/eu using API and returns the result as a dict
+# Gets all VRCL/VRL matches from na/eu using API and saves the result
 # resets data added to cup json files
 def scrapeESLCups():
+    print("scrapeESLCups")
+
     teams = loadJSON('teams')
 
     for season_name, season in seasons_data.items():
@@ -26,7 +28,6 @@ def scrapeESLCups():
         baseURL = "https://play.eslgaming.com"
 
         for url_region, url in season['api_urls'].items():
-            print(url)
             result = LocalInternet.get(url)
             cups = json.loads(result)
             for cup_name, cup in cups.items():
@@ -52,14 +53,14 @@ def scrapeESLCups():
                 # Get participating teams
                 contestantsURL = "https://api.eslgaming.com/play/v1/leagues/" + \
                     str(cup['id']) + "/contestants"
-                print(contestantsURL)
                 result = LocalInternet.get(contestantsURL)
                 contestants = json.loads(result)
                 for c in contestants:
-
-                    if c['name'] not in cup_data['teams']:
-                        cup_data['teams'][c['name']] = {}
-                    cup_data['teams'][c['name']]['id'] = c['id']
+                    
+                    if c['id'] not in cup_data['teams']:
+                        cup_data['teams'][c['id']] = {}
+                    cup_data['teams'][c['id']]['team_name'] = c['name']
+                    cup_data['teams'][c['id']]['region'] = c['region']
 
                     if c['name'] not in teams:
                         teams[c['name']] = {}
@@ -69,10 +70,12 @@ def scrapeESLCups():
                         season_teams[c['name']] = {}
                     season_teams[c['name']]['esl_team_id'] = c['id']
 
+                # get full count of teams
+                cup_data['team_count'] = len(contestants)
+
                 # get matches
                 matchesURL = "https://api.eslgaming.com/play/v1/leagues/" + \
                     str(cup['id']) + "/matches"
-                print(matchesURL)
                 result = LocalInternet.get(matchesURL)
                 matches = json.loads(result)
                 for m in matches:
@@ -111,6 +114,7 @@ def scrapeESLCups():
 # Gets all teams and players on teams from ESL site
 # gets teams from json file, exports to json file
 def scrapeESLTeams():
+    print("scrapeESLTeams")
 
     teams = loadJSON('teams')
 
@@ -122,7 +126,6 @@ def scrapeESLTeams():
         teamPageURL = "https://play.eslgaming.com/team/" + \
             str(team['esl_team_id'])
         teamPage = LocalInternet.local_pq(teamPageURL)
-        print(teamPageURL)
         team['esl_team_page'] = teamPageURL
         if teamPage('#team_logo_overlay_image').attr('src'):
             team['esl_team_logo'] = teamPage(
@@ -135,6 +138,8 @@ def scrapeESLTeams():
                 team['esl_founded'] = firstcol.next().text()
             elif "Headquarters" in firstcol.text():
                 team['esl_region'] = firstcol.next()('b').text()
+
+        # PLAYERS ARE NOT USED FROM HERE, RATHER FROM INDIVIDUAL MATCHES
         playerList = pq(teamPage('#playersheet_title').next())(
             'tr > td > div')('a')
         players = []
@@ -153,6 +158,7 @@ def scrapeESLTeams():
 
 
 def scrapeESLMatchPages():
+    print("scrapeESLMatchPages")
 
     players = loadJSON('players')
 
@@ -169,11 +175,11 @@ def scrapeESLMatchPages():
                 # get the match page
                 match['match_page'] = cup['link'] + 'match/' + str(match['id'])
                 matchPage = LocalInternet.local_pq(match['match_page'])
-                print(match['match_page'])
 
                 # scrape the match page
                 # loop through the two teams in the match
                 for team in match['teams']:
+
                     # ignore completely deleted teams
                     if team['id'] is None:
                         continue
@@ -183,7 +189,7 @@ def scrapeESLMatchPages():
                     new_team_name = matchPage(
                         'a[href*="' + 'team/' + str(team['id']) + '"]').text()
                     if new_team_name != team['team_name'] and team['team_name'] != "Deleted account":
-                        print("Different team name")
+                        print("Different team name: " + new_team_name + " != " + team['team_name'])
                     team['team_name'] = new_team_name
 
                     # find the player list part of the page
@@ -206,7 +212,7 @@ def scrapeESLMatchPages():
                                 players[player_data['player_name']] = {}
                             p = players[player_data['player_name']]
                             p['player_name'] = player_data['player_name']
-                            p['esl_player_page'] = player_data['esl_player_page']
+                            p['esl_player_page'] = baseURLESL + "/echoarena/player/" + str(player_data['esl_player_id'])
                             p['esl_player_id'] = player_data['esl_player_id']
                             p['esl_player_logo'] = player_data['esl_player_logo']
 
