@@ -8,6 +8,7 @@ baseURL = 'https://vrmasterleague.com'
 def scrapeVRMLTeams():
     print("scrapeVRMLTeams")
 
+    players = loadJSON('players')
     teams = loadJSON('teams')
     matches = loadJSON('matches')
 
@@ -37,12 +38,8 @@ def scrapeVRMLTeams():
             if ' (aka ' in team['team_name']:
                 if 'old_team_names' not in team:
                     team['old_team_names'] = []
-                old_team_name = team['team_name'].split(' (aka ')[0]
-                if old_team_name not in team['old_team_names']:
-                    team['old_team_names'].append(old_team_name)
+                team['old_team_name'] = team['team_name'].split(' (aka ')[0]
                 team['team_name'] = team['team_name'].split(' (aka ')[1][:-1]
-                print('old name: ' + old_team_name)
-                print('new name: ' + team['team_name'])
 
 
             team['team_page'] = baseURL + team_pq('.team_link').attr('href')
@@ -100,6 +97,26 @@ def scrapeVRMLTeams():
             for p in past_roster:
                 roster.append(pq(p).text())
             team['roster'] = roster
+
+
+            # look through the ex-members and add them to the general player list if they aren't already
+            all_players = team_page('.player_container')
+            for general_player in all_players:
+                player_elem = pq(general_player)
+                gen_pname = player_elem('.player_container_name').text()
+                if gen_pname not in players:
+                    players[gen_pname] = {
+                        "player_name": gen_pname,
+                        "vrml_player_page": baseURL + player_elem('a').attr('href'),
+                        'vrml_player_logo': baseURL + player_elem('.player_logo').attr('src')
+                    }
+                    nat_img_cell = player_elem('.flag')
+                    if nat_img_cell:
+                        players[gen_pname]['vrml_nationality'] = nat_img_cell.attr('title')
+                        players[gen_pname]['vrml_nationality_logo'] = baseURL + nat_img_cell.attr('src')
+                    else:
+                        players[gen_pname]['vrml_nationality'] = None
+                        players[gen_pname]['vrml_nationality_logo'] = None
 
 
             # get team bio and discord
@@ -206,6 +223,7 @@ def scrapeVRMLTeams():
             teams_season['mmr'] = team['mmr']
             teams_season['roster'] = team['roster']
 
+    dumpJSON('players', players)
     dumpJSON('teams', teams)
     dumpJSON('matches', matches)
 
@@ -221,7 +239,7 @@ def scrapeVRMLPlayers():
 
         page = LocalInternet.local_pq(season['players_url'])
         if season_id == 'vrml_season_2':
-            numPlayers = int(page('.players-list-header-count').text()[20:23])
+            numPlayers = int(page('.players-list-header-count').text()[20:24])
         else:
             numPlayers = int(page('.players-list-header-count').text()[0:4])
 

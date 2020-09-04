@@ -16,12 +16,15 @@ def scrapeESLCups():
     print("scrapeESLCups")
 
     teams = loadJSON('teams')
+    matches = loadJSON('matches')
 
     for season_name, season in seasons_data.items():
         if season['api_type'] != 'esl':
             continue
-
-        esl_data = loadJSON(season_name)
+        
+        if season_name not in matches:
+            matches[season_name] = {}
+        esl_data = matches[season_name]
         
         season_teams = {}  # list of all teams in this season
 
@@ -77,8 +80,8 @@ def scrapeESLCups():
                 matchesURL = "https://api.eslgaming.com/play/v1/leagues/" + \
                     str(cup['id']) + "/matches"
                 result = LocalInternet.get(matchesURL)
-                matches = json.loads(result)
-                for m in matches:
+                local_matches = json.loads(result)
+                for m in local_matches:
                     cup_data['matches'].append({
                         "id": m['id'],
                         "teams": [
@@ -104,8 +107,8 @@ def scrapeESLCups():
 
         esl_data['teams'] = season_teams
 
-        dumpJSON(season_name, esl_data)
         
+    dumpJSON('matches', matches)
     dumpJSON('teams', teams)
 
     LocalInternet.save()
@@ -161,12 +164,14 @@ def scrapeESLMatchPages():
     print("scrapeESLMatchPages")
 
     players = loadJSON('players')
+    teams = loadJSON('teams')
+    matches = loadJSON('matches')
 
     for season_name, season in seasons_data.items():
         if season['api_type'] != 'esl':
             continue
         
-        cups = loadJSON(season_name)
+        cups = matches[season_name]
 
         # loop through all the cups in this season
         for cup in cups['cups']:
@@ -216,8 +221,80 @@ def scrapeESLMatchPages():
                             p['esl_player_id'] = player_data['esl_player_id']
                             p['esl_player_logo'] = player_data['esl_player_logo']
 
-        dumpJSON(season_name, cups)
 
+                    
+                    # add the match to teams.json for the team
+                    # if the team doesn't exist, create it
+                    if team['team_name'] not in teams:
+                        teams[team['team_name']] = {
+                            "esl_team_id": team['id'],
+                            "esl_team_page": team['team_page'],
+                            "esl_team_logo": team['team_logo']
+                        }
+
+                    # add the roster to the current season for each team
+                    t = teams[team['team_name']]
+                    if 'series' not in t:
+                        t['series'] = {}
+                    if season_name not in t['series']:
+                        t['series'][season_name] = {}
+                    if 'roster' not in t['series'][season_name]:
+                        t['series'][season_name]['roster'] = {}
+                    if 'matches' not in t['series'][season_name] or isinstance(t['series'][season_name]['matches'], dict):
+                        t['series'][season_name]['matches'] = []
+
+                    # this overwrites any old match data
+                    if match['id'] not in t['series'][season_name]['matches']:
+                        t['series'][season_name]['matches'].append(match['id'])
+
+                    if 'roster' in team:
+                        # the roster for this match
+                        new_roster = team['roster']
+                        # the historical roster for this season
+                        season_roster = t['series'][season_name]['roster']
+                        # loop through the players
+                        for p in new_roster:
+                            if p['player_name'] not in season_roster:
+                                season_roster[p['player_name']] = {
+                                    'game_count': 1,
+                                    'esl_player_id': p['esl_player_id'],
+                                    'esl_player_logo': p['esl_player_logo'],
+                                    'esl_player_page': p['esl_player_page']
+                                }
+                            else:
+                                season_roster[p['player_name']]['game_count'] += 1
+
+                            if p['player_name'] not in players:
+                                print("player doesn't exist. problem")
+                                return
+                            playa = players[p['player_name']]
+
+                            if 'series' not in playa:
+                                playa['series'] = {}
+                            if season_name not in playa['series']:
+                                playa['series'][season_name] = {
+                                    'teams': {},
+                                    'matches': []
+                                }
+                            # add the match to the match history for this player
+                            if 'matches' in playa:
+                                del playa['matches']
+                            if match['id'] not in playa['series'][season_name]['matches']:
+                                playa['series'][season_name]['matches'].append(
+                                    match['id'])
+
+                            # add the team to the team history for the player
+                            if team['id'] not in playa['series'][season_name]['teams']:
+                                playa['series'][season_name]['teams'][team['id']] = {
+                                    'game_count': 1
+                                }
+                            else:
+                                playa['series'][season_name]['teams'][team['id']]['game_count'] += 1
+
+
+
+    dumpJSON('matches', matches)
     dumpJSON('players', players)
+    dumpJSON('teams', teams)
 
     LocalInternet.save()

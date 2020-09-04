@@ -21,16 +21,17 @@ def save():
 
 def get(url: str, force: bool = False):
 
-    if print_urls:
-        print(url)
 
     global local_internet
     if url not in local_internet or force:
+        print(url)
         r = requests.get(url)
         local_internet[url] = r.text
         save()
         return r.text
     else:
+        if print_urls:
+            print(url)
         return local_internet[url]
 
 def local_pq(url):
