@@ -97,8 +97,7 @@ function showUpcomingMatches(data) {
 function toggleSides() {
     if (client_name != "") {
         db.collection("caster_preferences").doc(client_name).set({
-            swap_sides: !side_bool,
-            last_modified: firebase.firestore.FieldValue.serverTimestamp()
+            swap_sides: !side_bool
         }, {
             merge: true
         })

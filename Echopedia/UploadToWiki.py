@@ -13,52 +13,83 @@ table_row = '|-\n'
 table_footer = '|}\n'
 
 
+# verified 8/31/20
+# updates the 3 cup pages
 def UploadSeasonCupsESL():
-    # load the data into an object from file
-    with open('data/VRCL_S1_cups.json') as f:
-        esl_data = json.load(f)
+    
+    # loop through all the season files
+    for season_name, season in seasons_data.items():
 
-    esl_data['cups'] = sorted(esl_data['cups'], key=lambda i: i['date'])
+        if season['api_type'] != 'esl':
+            continue
 
-    # Create the table string
-    table_str = table_header
-    table_str += table_row
-    table_str += '! Date !! Cup Name !! External Cup Page !! Number of Teams\n'
+        # load the data into an object from file
+        esl_data = loadJSON(season_name)
 
-    # add rows to the table string
-    for cup in esl_data['cups']:
-        table_str += table_row
-        row = Template(
-            '| $date || [[$match_page|$name]] || [$link ESL Cup Page] || $num_teams\n')
-        # date = datetime.strptime(cup['date'], '%Y-%m-%dT%H:%M:s'
-        date = datetime.fromisoformat(cup['date']).strftime(
-            '%Y-%m-%d %H:%M') if cup['date'] != 'n/a' else 'n/a'
-        row = row.substitute({
-            "date": date,
-            # "date": cup['date'],
-            "name": cup['name'],
-            "match_page": cup['name'].replace(' ', '_').replace('#', ''),
-            "link": cup['link'],
-            "num_teams": len(cup['teams'])
-        })
-        table_str += row
-    table_str += table_footer
+        esl_data['cups'] = sorted(esl_data['cups'], key=lambda i: i['date'])
+        
+        # Create the table string
+        table_str = {
+            "na": table_header,
+            "eu": table_header
+        }
+        table_str['na'] += table_row
+        table_str['eu'] += table_row
+        table_str['na'] += '! Date !! Cup Name !! External Cup Page !! Number of Teams\n'
+        table_str['eu'] += '! Date !! Cup Name !! External Cup Page !! Number of Teams\n'
 
-    # write the table result to an outfile
-    with open('data/out.txt', 'w') as out:
-        out.write(table_str)
+        # add rows to the table string
+        for cup in esl_data['cups']:
+            if 'north-america' in cup['link']:
+                region = 'na'
+            elif 'europe' in cup['link']:
+                region = 'eu'
+            else:
+                print("EREREEREOR")
+            table_str[region] += table_row
+            row = Template(
+                '| $date || [[$match_page|$name]] || [$link ESL Cup Page] || $num_teams\n')
+            # date = datetime.strptime(cup['date'], '%Y-%m-%dT%H:%M:s'
+            date = datetime.fromisoformat(cup['date']).strftime(
+                '%Y-%m-%d %H:%M') if cup['date'] != 'n/a' else 'n/a'
+            row = row.substitute({
+                "date": date,
+                # "date": cup['date'],
+                "name": cup['name'],
+                "match_page": cup['name'].replace(' ', '_').replace('#', ''),
+                "link": cup['link'],
+                "num_teams": cup['team_count']
+            })
+            table_str[region] += row
+        table_str['na'] += table_footer
+        table_str['eu'] += table_footer
 
 
+        page = "[[Category:Series]]\n"
+        page += "=== North America ===\n"
+        page += table_str['na']
+        page += "\n=== Europe ===\n"
+        page += table_str['eu']
+
+        # write the table result to an outfile
+        path = os.path.join(os.path.dirname(__file__), 'data/'+season_name+'_cups_page.txt')
+        with open(path, 'w') as f:
+            f.write(page)
+
+        # upload to the wiki
+        updatePage(season['wiki_page'], page)
+
+# verified 8/31/20
+# updates the 3 season pages
 def GenerateSeasonPagesVRML():
     # load the data into an object from file
-    with open('data/matches.json') as f:
-        matches = json.load(f)
+    matches = loadJSON('matches')
 
     for season_name, season in seasons_data.items():
         if season_name in matches:
 
             page = ""
-
+            page = "[[Category:Series]]\n"
             page += "=== Matches ===\n"
 
             page += table_header
@@ -74,29 +105,32 @@ def GenerateSeasonPagesVRML():
                 page += row.substitute({
                     "time": match["match_time"],
                     "match_page": match['match_page'],
-                    "home_team_name": match['teams'][0]['team_name'],
+                    "home_team_name": EscapePageLink(OnlyAKA(match['teams'][0]['team_name'])),
                     "home_team_score": match['teams'][0]['score'],
                     "away_team_score": match['teams'][1]['score'],
-                    "away_team_name": match['teams'][1]['team_name'],
+                    "away_team_name": EscapePageLink(OnlyAKA(match['teams'][1]['team_name'])),
                     "video_url": match['video_url']
                 })
 
             page = page.replace("[None Video Link]", "No Video")
             page += table_footer
 
-            createPage(season['wiki_page'], page)
+            updatePage(season['wiki_page'], page)
 
 
+# verified 8/31/20
 # Creates pages with a list of matches for each cup
 def UploadCupMatchPagesESL():
-    for season in seasons_data.items():
+    for season_name, season in seasons_data.items():
+        if season['api_type'] != 'esl':
+            continue
+
         # load the data into an object from file
-        with open(season[1]['file']) as f:
-            esl_data = json.load(f)
+        esl_data = loadJSON(season_name)
 
         for cup in esl_data['cups']:
             page = "This cup is a part of the VR Challenger League. See the [[" + \
-                season[1]['wiki_page']+"|full list of cups]].\n\n"
+                season['wiki_page']+"|full list of cups]] for this season.\n\n"
 
             page += "[" + cup['link'] + " ESL Cup Page]\n\n"
 
@@ -109,14 +143,11 @@ def UploadCupMatchPagesESL():
                 page += table_header
                 page += table_row
                 page += '! Time !! External Match Page !! Home Team !! Home Team Score !! Away Team Score !! Away Team\n'
-                cup['matches'] = sorted(
-                    cup['matches'], key=lambda i: i['match_time'])
+                cup['matches'] = sorted(cup['matches'], key=lambda i: i['match_time'])
                 for m in cup['matches']:
                     page += table_row
-                    row = Template(
-                        '| $match_time || [$esl_match_page ESL Match Page] ||[[$home_team_name]] || $home_score || $away_score || [[$away_team_name]]\n')
-                    date = datetime.fromisoformat(m['match_time']).strftime(
-                        '%Y-%m-%d %H:%M') if m['match_time'] != 'n/a' else 'n/a'
+                    row = Template('| $match_time || [$esl_match_page ESL Match Page] ||[[$home_team_name]] || $home_score || $away_score || [[$away_team_name]]\n')
+                    date = datetime.fromisoformat(m['match_time']).strftime('%Y-%m-%d %H:%M') if m['match_time'] != 'n/a' else 'n/a'
                     row = row.substitute({
                         "match_time": date,
                         "esl_match_page": cup['link'] + '/match/' + str(m['id']),
@@ -125,47 +156,42 @@ def UploadCupMatchPagesESL():
                         "home_score": m['teams'][1]['score'],
                         "away_score": m['teams'][0]['score']
                     })
+                    row = row.replace("[[None]]", "Deleted Team")
                     page += row
                 page += table_footer
 
             page += "=== List of Teams ===\n"
             page += "Number of teams in this cup: " + \
-                str(len(cup['teams'])) + "\n"
+                str(cup['team_count']) + "\n"
 
             # Create the table string
             page += table_header
             page += table_row
             page += '! Team Logo !! Team Name !! External Team Page\n'
-            for t in cup['teams']:
+            for team_id, team in cup['teams'].items():
                 page += table_row
-                row = Template(
-                    '| $team_logo || [[$team_name]] || [$esl_team_page ESL Team Page]\n')
+                row = Template('| $team_logo || [[$team_name]] || [$esl_team_page ESL Team Page]\n')
                 row = row.substitute({
                     "team_logo": "",
-                    "team_name": t['team_name'],
-                    "esl_team_page": cup['link'] + '/team/' + str(t['id'])
+                    "team_name": team['team_name'],
+                    "esl_team_page": cup['link'] + 'team/' + str(team_id)
                 })
                 page += row
             page += table_footer
 
-            createPage(cup['name'].replace('#', ''), page)
+            updatePage(cup['name'].replace('#', ''), page)
 
 
 def UploadTeamPages():
+
     # load the data into an object from file
-    with open('data/teams.json') as f:
-        teams = json.load(f)
+    teams = loadJSON('teams')
+    matches = loadJSON('matches')
+    players = loadJSON('players')
 
-    with open('data/matches.json') as f:
-        matches = json.load(f)
-
-    with open('data/players.json') as f:
-        players = json.load(f)
-
-    for teamItem in teams.items():
-        if teamItem[0] == "Deleted account":
+    for team_name, team in teams.items():
+        if team_name == "Deleted account":
             continue
-        team = teamItem[1]
 
         page = ""
         page += "[[Category:Team]]\n"
@@ -180,16 +206,16 @@ def UploadTeamPages():
             page += " " + team['vrml_region_logo'] + "\n\n"
 
             # add season summary stats
-            for series in team['series'].items():
-                if 'vrml' in series[0]:
+            for series_name, series in team['series'].items():
+                if 'vrml' in series_name:
                     page += "==== " + \
-                        seasons_data[series[0]]['name'] + " ====\n"
+                        seasons_data[series_name]['name'] + " ====\n"
                     page += table_header_nonsortable
                     page += '! Division !! Rank !! Games Played !! Wins !! Losses !! Points !! MMR\n'
                     page += table_row
                     row = Template(
                         '| $division || $rank || $games_played || $wins || $losses || $points || $mmr\n')
-                    page += row.substitute(series[1])
+                    page += row.substitute(series)
                     page += table_footer
 
         # add ESL profile data
@@ -206,15 +232,15 @@ def UploadTeamPages():
         if 'series' in team:
             # add roster info
             page += "== Roster ==\n"
-            for series in team['series'].items():
-                if 'roster' in series[1] and len(series[1]['roster']) > 0:
-                    page += '=== ' + seasons_data[series[0]]['name'] + ' ===\n'
+            for series_name, series in team['series'].items():
+                if 'roster' in series and len(series['roster']) > 0:
+                    page += '=== ' + seasons_data[series_name]['name'] + ' ===\n'
                     page += table_header
 
                     # VRML pages
-                    if 'vrml' in series[0]:
+                    if 'vrml' in series_name:
                         page += '! Player Logo !! Player Name\n'
-                        for p in series[1]['roster']:
+                        for p in series['roster']:
                             page += table_row
                             row = Template('| $player_logo || [[$player_name]]\n')
                             # row = Template('| [[$player_name]]\n')
@@ -225,29 +251,29 @@ def UploadTeamPages():
                     # ESL pages
                     else:
                         page += '! Player Logo !! Player Name !! Games Played\n'
-                        for p in series[1]['roster'].items():
+                        for player_name, player_data in series['roster'].items():
                             page += table_row
                             row = Template(
                                 '| $player_logo || [[$player_name]] || $game_count\n')
                             # row = Template('| [[$player_name]]\n')
                             page += row.substitute({
-                                "player_name": p[0],
-                                "game_count": p[1]['game_count'],
-                                "player_logo": p[1]['esl_player_logo']
+                                "player_name": player_name,
+                                "game_count": player_data['game_count'],
+                                "player_logo": player_data['esl_player_logo']
                             })
 
                     page += table_footer
 
             page += "== Match History ==\n"
-            for series in team['series'].items():
-                if 'matches' in series[1]:
-                    page += '=== ' + seasons_data[series[0]]['name'] + ' ===\n'
+            for series_name, series in team['series'].items():
+                if 'matches' in series:
+                    page += '=== ' + seasons_data[series_name]['name'] + ' ===\n'
                     page += table_header
 
                     # VRML pages
-                    if 'vrml' in series[0]:
+                    if seasons_data[series_name]["api_type"] == 'vrml':
                         page += '! Time !! External Match Page !! Home Team !! Home Team Score !! Away Team Score !! Away Team !! Video URL\n'
-                        for match in series[1]['matches']:
+                        for match in series['matches']:
                             page += table_row
                             row = Template(
                                 '| $match_time || [$match_page VRML Match Page] || [[$home_team_name]] || $home_team_score || $away_team_score || [[$away_team_name]] || [$video_url Video Link]\n')
@@ -262,13 +288,13 @@ def UploadTeamPages():
                             })
 
                     # ESL pages
-                    else:
+                    elif seasons_data[series_name]["api_type"] == 'esl':
                         page += '! Time !! External Match Page !! Home Team !! Home Team Score !! Away Team Score !! Away Team\n'
-                        for match in series[1]['matches']:
+                        for match in series['matches']:
                             page += table_row
                             row = Template(
                                 '| $match_time || [$match_page ESL Match Page] || [[$home_team_name]] || $home_team_score || $away_team_score || [[$away_team_name]]\n')
-                            m = matches[str(match)]
+                            m = matches[series_name]['matches'][str(match)]
                             page += row.substitute({
                                 "match_time": m["match_time"],
                                 "match_page": m['match_page'],
@@ -280,23 +306,23 @@ def UploadTeamPages():
 
                     page += table_footer
 
-        updatePage(teamItem[0], page)
+        
+        page = page.replace("[None Video Link]", "No Video")
+
+        updatePage(team_name, page)
 
 
 def UploadPlayerPages():
-    with open('data/players.json', 'r') as f:
-        players = json.load(f)
 
-    with open('data/matches.json') as f:
-        matches = json.load(f)
 
-    with open('data/teams.json') as f:
-        teams = json.load(f)
-
-    for playerItem in players.items():
-        if playerItem[0] == "Deleted account":
+    # load the data into an object from file
+    teams = loadJSON('teams')
+    matches = loadJSON('matches')
+    players = loadJSON('players')
+    
+    for player_name, player in players.items():
+        if player_name == "Deleted account":
             continue
-        player = playerItem[1]
 
         page = ""
         page += "[[Category:Player]]\n"
@@ -460,7 +486,7 @@ def UploadPlayerPages():
                                 page += table_row
                                 row = Template(
                                     '| $time || [$match_page ESL Match Page] || [[$home_team_name]] || $home_team_score || $away_team_score || [[$away_team_name]]\n')
-                                m = matches[str(match)]
+                                m = matches[series[0]]['matches'][str(match)]
                                 page += row.substitute({
                                     "time": m["match_time"],
                                     "match_page": m['match_page'],
@@ -471,7 +497,7 @@ def UploadPlayerPages():
                                 })
                             page += table_footer
 
-        createPage(playerItem[0], page)
+        updatePage(player_name, page)
 
 
 def getTeamById(teams_dict, idstr):
@@ -490,6 +516,15 @@ def getTeamById(teams_dict, idstr):
                 return name, data
 
         return [None, None]
+
+
+def EscapePageLink(string: str) -> str:
+    string = string.replace('[', '')
+    string = string.replace(']', '')
+    return string
+
+def OnlyAKA(string: str) -> str:
+    return string.split(' (aka ')[0]
 
 
 def getPage(pageName):
@@ -534,8 +569,19 @@ def updatePage(pageName, pageData):
         createPage(pageName, pageData)
         return
 
-    if ezCompare(old_page, pageData):
-        createPage(pageName, pageData)
+    splitter = '<!-- CONTENT IS AUTOMATED BELOW THIS LINE. MAKE CHANGES ABOVE ONLY. -->'
+
+    parts = old_page.split(splitter)
+
+    if len(parts) == 1:
+        parts = ['', old_page]
+    elif len(parts) != 2:
+        print("ERROR reading old page")
+        return
+
+    if not ezCompare(parts[1], pageData):
+        new_data = parts[0] + splitter + "\n\n" + pageData
+        createPage(pageName, new_data)
     else:
         print("Pages are the same, not updating.")
 
@@ -544,15 +590,17 @@ def updatePage(pageName, pageData):
 def ezCompare(str1, str2):
     str1 = str1.replace(' ', '')
     str1 = str1.replace('\\n', '')
+    str1 = str1.replace('\n', '')
 
     str2 = str2.replace(' ', '')
     str2 = str2.replace('\\n', '')
+    str2 = str2.replace('\n', '')
 
     return str1 == str2
 
 
 # UploadSeasonCupsESL()
-# UploadCupMatchPagesESL()
-UploadTeamPages()
-# UploadPlayerPages()
 # GenerateSeasonPagesVRML()
+# UploadCupMatchPagesESL()
+# UploadTeamPages()
+UploadPlayerPages()

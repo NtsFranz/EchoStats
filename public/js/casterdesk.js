@@ -3,8 +3,6 @@ var list;
 var db;
 var matches = [];
 
-var lastCasterTime;
-
 function Start(db) {
 
     currentCaster = document.getElementById('current-caster-name');

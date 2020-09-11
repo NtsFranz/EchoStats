@@ -76,153 +76,112 @@ def insertIntoDB(arr_of_dict, collection_name, key_name=None):
 
 # reads cup json files and adds data to teams.json and players.json
 def add_players_matches():
-    with open('data/players.json', 'r') as f:
-        players = json.load(f)
+    print('add_players_matches')
 
-    with open('data/teams.json', 'r') as f:
-        teams = json.load(f)
+    players = loadJSON('players')
+    teams = loadJSON('teams')
+    matches = loadJSON('matches')
 
-    # there shouldn't be a previous matches.json
-    if os.path.exists('data/matches.json'):
-        with open('data/matches.json', 'r') as f:
-            matches = json.load(f)
-    else:
-        matches = {}
 
     # loop through all the season files
-    for file in seasons_data.items():
-        if os.path.exists(file[1]['file']):
-            with open(file[1]['file'], 'r') as f:
-                esl_data = json.load(f)
+    for season_name, season in seasons_data.items():
 
-            # # loop through all the teams in that season
-            # for team in esl_data['teams'].items():
-            #     team_name = team[0]
+        if season['api_type'] != 'esl':
+            continue
 
-            #     # loop through the players on that team
-            #     if 'roster' in team[1]:
-            #         for player in team[1]['roster']:
+        esl_data = matches[season['file']]
 
-            #             if player['name'] not in players:
-            #                 players[player['name']] = {}
-            #             p = players[player['name']]
-            #             p['player_name'] = player['name']
-            #             p['esl_player_page'] = player['player_page']
-            #             p['esl_player_id'] = player['id']
+        # loop through all the cups in the season
+        for cup in esl_data['cups']:
+            # for each match in the cup
+            for match in cup['matches']:
+                # this overwrites any old match data
+                matches[match['id']] = match
 
-            #             if 'teams' not in p:
-            #                 p['teams'] = []
+                # loop through the 2 teams in this match
+                for team in match['teams']:
+                    if team['team_name'] is None:
+                        continue
 
-            #             if team_name not in p['teams']:
-            #                 p['teams'].append(team_name)
+                    # if the team doesn't exist, create it
+                    if team['team_name'] not in teams:
+                        teams[team['team_name']] = {
+                            "esl_team_id": team['id'],
+                            "esl_team_page": team['team_page'],
+                            "esl_team_logo": team['team_logo']
+                        }
 
-            #     if team_name not in teams:
-            #         teams[team_name] = {}
+                    # add the roster to the current season for each team
+                    t = teams[team['team_name']]
+                    if 'series' not in t:
+                        t['series'] = {}
+                    if season_name not in t['series']:
+                        t['series'][season_name] = {}
+                    if 'roster' not in t['series'][season_name]:
+                        t['series'][season_name]['roster'] = {}
+                    if 'matches' not in t['series'][season_name] or isinstance(t['series'][season_name]['matches'], dict):
+                        t['series'][season_name]['matches'] = []
 
-            #     t = teams[team_name]
-            #     t['esl_team_id'] = team[0]
-
-            # loop through all the cups in the season
-            for cup in esl_data['cups']:
-                # for each match in the cup
-                for match in cup['matches']:
                     # this overwrites any old match data
-                    matches[match['id']] = match
+                    if match['id'] not in t['series'][season_name]['matches']:
+                        t['series'][season_name]['matches'].append(match['id'])
 
-                    # loop through the 2 teams in this match
-                    for team in match['teams']:
-                        if team['team_name'] is None:
-                            continue
+                    if 'roster' in team:
+                        # the roster for this match
+                        new_roster = team['roster']
+                        # the historical roster for this season
+                        season_roster = t['series'][season_name]['roster']
+                        # loop through the players
+                        for p in new_roster:
+                            if p['player_name'] not in season_roster:
+                                season_roster[p['player_name']] = {
+                                    'game_count': 1,
+                                    'esl_player_id': p['esl_player_id'],
+                                    'esl_player_logo': p['esl_player_logo'],
+                                    'esl_player_page': p['esl_player_page']
+                                }
+                            else:
+                                season_roster[p['player_name']]['game_count'] += 1
 
-                        # if the team doesn't exist, create it
-                        if team['team_name'] not in teams:
-                            teams[team['team_name']] = {
-                                "esl_team_id": team['id'],
-                                "esl_team_page": team['team_page'],
-                                "esl_team_logo": team['team_logo']
-                            }
+                            if p['player_name'] not in players:
+                                print("player doesn't exist. problem")
+                                return
+                            playa = players[p['player_name']]
 
-                        # add the roster to the current season for each team
-                        t = teams[team['team_name']]
-                        if 'series' not in t:
-                            t['series'] = {}
-                        if file[0] not in t['series']:
-                            t['series'][file[0]] = {}
-                        if 'roster' not in t['series'][file[0]]:
-                            t['series'][file[0]]['roster'] = {}
-                        if 'matches' not in t['series'][file[0]] or isinstance(t['series'][file[0]]['matches'], dict):
-                            t['series'][file[0]]['matches'] = []
+                            if 'series' not in playa:
+                                playa['series'] = {}
+                            if season_name not in playa['series']:
+                                playa['series'][season_name] = {
+                                    'teams': {},
+                                    'matches': []
+                                }
+                            # add the match to the match history for this player
+                            if 'matches' in playa:
+                                del playa['matches']
+                            if match['id'] not in playa['series'][season_name]['matches']:
+                                playa['series'][season_name]['matches'].append(
+                                    match['id'])
 
-                        # this overwrites any old match data
-                        if match['id'] not in t['series'][file[0]]['matches']:
-                            t['series'][file[0]]['matches'].append(match['id'])
+                            # add the team to the team history for the player
+                            if team['id'] not in playa['series'][season_name]['teams']:
+                                playa['series'][season_name]['teams'][team['id']] = {
+                                    'game_count': 1
+                                }
+                            else:
+                                playa['series'][season_name]['teams'][team['id']]['game_count'] += 1
 
-                        if 'roster' in team:
-                            # the roster for this match
-                            new_roster = team['roster']
-                            # the historical roster for this season
-                            season_roster = t['series'][file[0]]['roster']
-                            # loop through the players
-                            for p in new_roster:
-                                if p['player_name'] not in season_roster:
-                                    season_roster[p['player_name']] = {
-                                        'game_count': 1,
-                                        'esl_player_id': p['esl_player_id'],
-                                        'esl_player_logo': p['esl_player_logo'],
-                                        'esl_player_page': p['esl_player_page']
-                                    }
-                                else:
-                                    season_roster[p['player_name']
-                                                  ]['game_count'] += 1
-
-                                if p['player_name'] not in players:
-                                    print("player doesn't exist. problem")
-                                    return
-                                playa = players[p['player_name']]
-
-                                if 'series' not in playa:
-                                    playa['series'] = {}
-                                if file[0] not in playa['series']:
-                                    playa['series'][file[0]] = {
-                                        'teams': {},
-                                        'matches': []
-                                    }
-                                # add the match to the match history for this player
-                                if 'matches' in playa:
-                                    del playa['matches']
-                                if match['id'] not in playa['series'][file[0]]['matches']:
-                                    playa['series'][file[0]]['matches'].append(
-                                        match['id'])
-
-                                # add the team to the team history for the player
-                                if team['id'] not in playa['series'][file[0]]['teams']:
-                                    playa['series'][file[0]]['teams'][team['id']] = {
-                                        'game_count': 1
-                                    }
-                                else:
-                                    playa['series'][file[0]
-                                                    ]['teams'][team['id']]['game_count'] += 1
-
-    with open('data/players.json', 'w') as f:
-        json.dump(players, f, indent=4)
-
-    with open('data/teams.json', 'w') as f:
-        json.dump(teams, f, indent=4)
-
-    with open('data/matches.json', 'w') as f:
-        json.dump(matches, f, indent=4)
+    dumpJSON('players', players)
+    dumpJSON('teams', teams)
+    dumpJSON('matches', matches)
 
 
 # adds vrml teams played for, matches casted, and matches cammed to players.json
 def add_teams_to_players_vrml():
-    with open('data/teams.json', 'r') as f:
-        teams = json.load(f)
+    print('add_teams_to_players_vrml')
 
-    with open('data/matches.json', 'r') as f:
-        matches = json.load(f)
-
-    with open('data/players.json', 'r') as f:
-        players = json.load(f)
+    teams = loadJSON('teams')
+    matches = loadJSON('matches')
+    players = loadJSON('players')
 
     # add teams played for to player
     for team_name, team in teams.items():
@@ -231,7 +190,7 @@ def add_teams_to_players_vrml():
                 if 'vrml' in season_name:
                     for player in season['roster']:
                         if player not in players:
-                            print('player not found: problem: ' + caster)
+                            print('player not found: problem: ' + player)
                         else:
                             p = players[player]
                             if 'series' not in p:
@@ -241,12 +200,11 @@ def add_teams_to_players_vrml():
                             if 'teams' not in p['series'][season_name]:
                                 p['series'][season_name]['teams'] = []
                             if team_name not in p['series'][season_name]['teams']:
-                                p['series'][season_name]['teams'].append(
-                                    team_name)
+                                p['series'][season_name]['teams'].append(team_name)
 
     # add matches casted by player
     for season_name, season in seasons_data.items():
-        if season_name in matches:
+        if season['api_type'] == 'vrml':
             for match_id, match in matches[season_name].items():
                 if 'casters' in match:
                     for caster in match['casters']:
@@ -261,12 +219,11 @@ def add_teams_to_players_vrml():
                         if 'matches_casted' not in p['series'][season_name]:
                             p['series'][season_name]['matches_casted'] = []
                         if match_id not in p['series'][season_name]['matches_casted']:
-                            p['series'][season_name]['matches_casted'].append(
-                                match_id)
+                            p['series'][season_name]['matches_casted'].append(match_id)
 
     # add matches camera-manned by player
     for season_name, season in seasons_data.items():
-        if season_name in matches:
+        if season['api_type'] == 'vrml':
             for match_id, match in matches[season_name].items():
                 if 'cameramen' in match:
                     for cammer in match['cameramen']:
@@ -281,11 +238,26 @@ def add_teams_to_players_vrml():
                         if 'matches_cammed' not in p['series'][season_name]:
                             p['series'][season_name]['matches_cammed'] = []
                         if match_id not in p['series'][season_name]['matches_cammed']:
-                            p['series'][season_name]['matches_cammed'].append(
-                                match_id)
+                            p['series'][season_name]['matches_cammed'].append(match_id)
 
-    with open('data/players.json', 'w') as f:
-        json.dump(players, f, indent=4)
+    dumpJSON('players', players)
+
+# loops through all the matches in the cups in esl and adds them to a dict at the top level with id as key
+def add_matches_as_list_esl():
+    print("add_matches_as_list_esl")
+
+    matches = loadJSON('matches')
+
+    for season_name, season in matches.items():
+        if seasons_data[season_name]['api_type'] == 'esl':
+            if 'matches' not in season:
+                season['matches'] = {}
+
+            for cup in season['cups']:
+                for match in cup['matches']:
+                    season['matches'][match['id']] = match
+
+    dumpJSON('matches', matches)
 
 
 # def merge_aka_teams():
@@ -306,14 +278,18 @@ def add_teams_to_players_vrml():
 # downloadImages()
 # uploadImages()
 
+# --------------------------
 ScrapeESL.scrapeESLCups()
 ScrapeESL.scrapeESLTeams()
 ScrapeESL.scrapeESLMatchPages()
 
 ScrapeVRML.scrapeVRMLTeams()
 ScrapeVRML.scrapeVRMLPlayers()
-# add_players_matches()
-# add_teams_to_players_vrml()
 
+add_matches_as_list_esl()
+add_teams_to_players_vrml()
+# --------------------------
+
+# add_players_matches()
 
 # ScrapeVRML.scrapeCurrentSeasonTeamStats("vrml_season_2")
