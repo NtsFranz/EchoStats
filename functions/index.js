@@ -149,4 +149,16 @@ app.get('/get_upcoming_matches', (req, res) => {
     });
 });
 
+app.get('/scoreboard', (req, res) => {
+    const client_name = req.query.client_name;
+    const series_name = req.query.series_name;
+    const live = req.query.live || false;
+
+    res.render("scoreboard", {
+        client_name,
+        series_name,
+        live
+    });
+});
+
 exports.app = functions.https.onRequest(app);

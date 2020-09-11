@@ -326,6 +326,10 @@ th {
 	cursor: grab;
 }
 
+#manual_input .logo_url_input {
+	width: 5em;
+}
+
 .game_clock_duration_bar {
 	position: absolute;
 	left: 0;
@@ -373,6 +377,20 @@ th {
 	color: black;
 }
 
+.match-hoverable:hover {
+	background-color: var(--button-color);
+	/* transform: scale(1.005); */
+	box-shadow: #fffa 0 0 .5em;
+	cursor: pointer;
+}
+
+.match-selected {
+	background-color: #666 !important;
+}
+
+.custom_team_input_form #autocomplete-list {
+	top: 6em;
+}
 
 .casterdesk_container {
 	display: flex;

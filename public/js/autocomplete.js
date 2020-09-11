@@ -1,6 +1,6 @@
 var maxElems = 10
 
-function autocomplete(inp, arr, minletters=2) {
+function autocomplete(inp, arr, minletters = 2, submitaction = null) {
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
   var currentFocus;
@@ -34,7 +34,11 @@ function autocomplete(inp, arr, minletters=2) {
           /*insert the value for the autocomplete text field:*/
           inp.value = this.getElementsByTagName("input")[0].value;
 
-          inp.form.submit();
+          if (submitaction == null) {
+            inp.form.submit();
+          } else {
+            submitaction(inp);
+          }
           /*close the list of autocompleted values,
           (or any other open lists of autocompleted values:*/
           closeAllLists();

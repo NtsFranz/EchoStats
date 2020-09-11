@@ -21,7 +21,7 @@ function Start(db) {
                     list.removeChild(m);
                 })
                 querySnapshot.docs.forEach(doc => {
-                    addMatch(doc);
+                    addMatchFastestJousts(doc);
                 });
             }
         });

@@ -166,6 +166,8 @@ function buildTeamVRMLStats(data, side) {
 
     setImage(side + "_rank", data.DivisionLogo);
     write(side + "_mmr", "MMR: " + data.MMR + " (" + data.W + " - " + data.L + ")");
+    write(side + "_only_mmr", data.MMR);
+    write(side + "_record", data.W + "-" + data.L);
 }
 
 function buildRosterTable(data, team_name, side) {
@@ -463,6 +465,8 @@ function setPlayerMatchStats(players, long = false) {
         "blue": {
         },
         "orange": {
+        },
+        "spectator": {
         }
     };
 
@@ -520,17 +524,19 @@ function setPlayerMatchStats(players, long = false) {
 
     Object.keys(teamStats).forEach(color => {
         Object.keys(teamStats[color]).forEach(stat => {
-            var homeaway = "home";
-            if (color == "blue") {
-                homeaway = "away";
-            }
-            write(homeaway + "_team_" + stat + "_perc", teamCentage(teamStats[color][stat], totalStats[stat]) + "%");
-            if (stat == "possession_time") {
-                write(homeaway + "_team_" + stat, toMinutesString(teamStats[color][stat]));
+            if (color != "spectator") {
+                var homeaway = "home";
+                if (color == "blue") {
+                    homeaway = "away";
+                }
+                write(homeaway + "_team_" + stat + "_perc", teamCentage(teamStats[color][stat], totalStats[stat]) + "%");
+                if (stat == "possession_time") {
+                    write(homeaway + "_team_" + stat, toMinutesString(teamStats[color][stat]));
 
-            } else {
-                write(homeaway + "_team_" + stat, teamStats[color][stat]);
+                } else {
+                    write(homeaway + "_team_" + stat, teamStats[color][stat]);
 
+                }
             }
         });
 
@@ -552,6 +558,62 @@ function autocompleteCasters(input, db) {
                 autocomplete(input, names, 0);
             }
         });
+}
+
+function autocompleteTeamInputs(data) {
+
+    data = JSON.parse(data);
+    teams = [];
+
+    data.forEach(t => {
+        teams.push(t['Name']);
+        teamLogosDict[t['Name']] = t;
+    })
+
+    Array.from(document.getElementsByClassName("team_input")).forEach(e => {
+        autocomplete(e, teams, 0, getTeamLogos);
+    });
+
+    // Array.from(document.getElementsByClassName('custom_team_input_form')).forEach(elem => {
+    //     elem.addEventListener('submit', handleForm);
+    //     // elem.addEventListener('submit', e => {
+    //     //     e.preventDefault();
+    //     //     getTeamLogos();
+    //     //     e.preventDefault();
+    //     //     return false;
+    //     // });
+    // });
+}
+
+function handleForm(event) { event.preventDefault(); }
+
+function getTeamLogos(inputElement) {
+    if (inputElement.classList.contains('home_team_name')) {
+        writeValue('home_team_logo', teamLogosDict[inputElement.value]['Logo']);
+        setImage('home_team_logo_img', teamLogosDict[inputElement.value]['Logo']);
+    } else if (inputElement.classList.contains('away_team_name')) {
+        writeValue('away_team_logo', teamLogosDict[inputElement.value]['Logo']);
+        setImage('away_team_logo_img', teamLogosDict[inputElement.value]['Logo']);
+    }
+
+    // home_team_name = document.getElementsByClassName('away_team_name')[0].value;}
+
+    // away_team_name = document.getElementsByClassName('away_team_name')[0].value;
+
+    // Array.from(document.getElementsByClassName("home_team_name")).forEach(tname => {
+    //     tname.addEventListener("input", function (event) {
+    //         Array.from(document.getElementsByClassName("home_team_logo")).forEach(tlogo => {
+    //             tlogo.value = teamLogosDict[tname.value]['Logo'];
+    //         });
+    //     });
+    // });
+    // Array.from(document.getElementsByClassName("away_team_name")).forEach(tname => {
+    //     tname.addEventListener("input", function (event) {
+    //         Array.from(document.getElementsByClassName("away_team_logo")).forEach(tlogo => {
+    //             tlogo.value = teamLogosDict[tname.value]['Logo'];
+    //         });
+    //     });
+    // });
 }
 
 function setupEventsOverlay(db) {

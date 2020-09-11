@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Match Data</title>
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/7.14.3/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/7.14.3/firebase-auth.js"></script>
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-database.js"></script> --}}
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-messaging.js"></script> --}}
+  <script defer src="/__/firebase/7.14.3/firebase-firestore.js"></script>
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-storage.js"></script> --}}
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-analytics.js"></script> --}}
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+
+  <!-- <link rel="stylesheet" type="text/css" href="css/styles.css"> -->
+  <link rel="stylesheet" type="text/css" href="css/vrml_overlay.css">
+</head>
+
+<body>
+
+  <div id="background_container" class="scoreboard_container stats_overlay_container fade_in_when_done">
+
+    <div id="home_team_box">
+      <div id="home_team_name_box" class="team_name_box">
+        <div class="team_name home_team_name"></div>
+      </div>
+      <div class="sidebar_team_stats">
+        <div class="mmr home_only_mmr"></div>
+        <div class="record home_record"></div>
+        <img class="logo home_logo">
+        <img class="rank home_rank" src="">
+      </div>
+    </div>
+
+    <div id="away_team_box">
+      <div id="away_team_name_box" class="team_name_box">
+        <div class="team_name away_team_name"></div>
+      </div>
+      <div class="sidebar_team_stats">
+        <div class="mmr away_only_mmr"></div>
+        <div class="record away_record"></div>
+        <img class="logo away_logo">
+        <img class="rank away_rank" src="">
+      </div>
+    </div>
+
+    <table class="orangestats">
+      <tr>
+        <td class="home_team_possession_time_perc"></td>
+        <td>Possession</td>
+      </tr>
+      <tr>
+        <td class="home_team_shots_taken_perc"></td>
+        <td>Shots Taken</td>
+      </tr>
+      <tr>
+        <td class="home_team_assists_perc"></td>
+        <td>Assists</td>
+      </tr>
+      <tr>
+        <td class="home_team_saves_perc"></td>
+        <td>Saves</td>
+      </tr>
+      <tr>
+        <td class="home_team_steals_perc"></td>
+        <td>Steals</td>
+      </tr>
+      <tr>
+        <td class="home_team_stuns_perc"></td>
+        <td>Stuns</td>
+      </tr>
+    </table>
+
+    <table class="orangeplayerhead playerhead">
+      <tr>
+        <td>PLAYER</td>
+        <td>POSS</td>
+        <td>ATT</td>
+        <td>POINTS</td>
+        <td>ASSISTS</td>
+        <td>SAVES</td>
+        <td>STEALS</td>
+        <td>STUNS</td>
+      </tr>
+    </table>
+
+    <table class="orange_player_stats_board playerstats"></table>
+
+    <table class="blueplayerhead playerhead">
+      <tr>
+        <td>PLAYER</td>
+        <td>POSS</td>
+        <td>ATT</td>
+        <td>POINTS</td>
+        <td>ASSISTS</td>
+        <td>SAVES</td>
+        <td>STEALS</td>
+        <td>STUNS</td>
+      </tr>
+    </table>
+
+    <table class="blue_player_stats_board playerstats">
+    </table>
+
+    <table class="bluestats">
+      <tr>
+        <td>Possession</td>
+        <td class="away_team_possession_time_perc"></td>
+      </tr>
+      <tr>
+        <td>Shots Taken</td>
+        <td class="away_team_shots_taken_perc"></td>
+      </tr>
+      <tr>
+        <td>Assists</td>
+        <td class="away_team_assists_perc"></td>
+      </tr>
+      <tr>
+        <td>Saves</td>
+        <td class="away_team_saves_perc"></td>
+      </tr>
+      <tr>
+        <td>Steals</td>
+        <td class="away_team_steals_perc"></td>
+      </tr>
+      <tr>
+        <td>Stuns</td>
+        <td class="away_team_stuns_perc"></td>
+      </tr>
+    </table>
+
+  </div>
+
+  <!-- Add data passed in by the request -->
+  <script type="text/javascript">
+    client_name = "{{ client_name }}"; series_name = "{{ series_name }}"; live = "{{ live }}";
+  </script>
+
+  <!-- Load our custom Firebase stuff -->
+  <script defer src="js/util.js"></script>
+  <script defer src="js/firebase_setup.js"></script>
+  <script defer src="js/fetch_data_methods.js"></script>
+
+  <script defer src="js/scoreboard.js"></script>
+
+
+  {{!-- FITTY --}}
+  <script src="js/fitty.min.js"></script>
+  <script>
+    fitty('.home_team_name', {
+      minSize: 12,
+      maxSize: 50,
+      multiLine: false
+    });
+    fitty('.away_team_name', {
+      minSize: 12,
+      maxSize: 50,
+      multiLine: false
+    });
+  </script>
+
+
+</body>
+
+</html>

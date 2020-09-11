@@ -72,6 +72,23 @@ function writeHREF(className, data, parentFade = null) {
     }
 }
 
+function writeValue(className, data, parentFade = null) {
+    var elements = document.getElementsByClassName(className);
+    Array.from(elements).forEach(e => {
+        e.value = data;
+        e.style.opacity = "1";
+    });
+
+    if (parentFade != null) {
+        var elements = document.getElementsByClassName(parentFade);
+        Array.from(elements).forEach(e => {
+            e.style.opacity = "1";
+            e.style.visibility = "visible";
+            e.style.display = "block";
+        });
+    }
+}
+
 function setImage(className, src_) {
     var elements = document.getElementsByClassName(className);
     Array.from(elements).forEach(e => {

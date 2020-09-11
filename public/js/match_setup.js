@@ -4,6 +4,7 @@ var sortableList;
 var swapSidesButton;
 var db;
 var side_bool;
+var teamLogosDict = {};
 
 
 function Start(db) {
@@ -53,6 +54,9 @@ function Start(db) {
     get_upcoming_matches();
 
     autocompleteCasters(document.getElementById("player_search"), db);
+
+    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_team_logos"
+    httpGetAsync(url, autocompleteTeamInputs);
 
 }
 

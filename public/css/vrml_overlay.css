@@ -278,17 +278,6 @@
 	background-color: rgba(73, 145, 221, 0.6);
 }
 
-.match-hoverable:hover {
-	background-color: var(--button-color);
-	transform: scale(1.005);
-	box-shadow: #fffa 0 0 .5em;
-	cursor: pointer;
-}
-
-.match-selected {
-	background-color: #666 !important;
-}
-
 #swap_sides_button {
 }
 
@@ -417,7 +406,7 @@
 
 .midmatch_layout #home_team_name_box {
 	position: absolute;
-	width: 580px;
+	width: 550px;
 	height: 60px;
 	left: 95px;
 	top: 0px;
@@ -432,7 +421,7 @@
 
 .midmatch_layout #away_team_name_box {
 	position: absolute;
-	width: 580px;
+	width: 550px;
 	height: 60px;
 	right: 95px;
 	top: 0px;
@@ -521,6 +510,98 @@
 	right:70px;
 	clip-path: polygon(97% 0%, 4% 0%, 0% 100%, 100% 100%, 97% 50%);
 }
+
+.scoreboard_container .team_name {
+	text-align: center;
+	-webkit-text-stroke: 2px black;
+
+	/* text gradient */
+	background: -webkit-linear-gradient(#eee, #777);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.scoreboard_container .team_name_box {
+	position: absolute;
+	width: 720px;
+	height: 200px;
+	bottom: 190px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.scoreboard_container #home_team_name_box {
+	left: 175px;
+}
+.scoreboard_container #away_team_name_box {
+	right: 175px;
+}
+
+.scoreboard_container .logo {
+	position: absolute;
+	bottom: 240px;
+	width: 150px;
+	height: 150px;
+}
+.scoreboard_container .home_logo {
+	left: 10px;
+}
+.scoreboard_container .away_logo {
+	right: 10px;
+}
+
+.scoreboard_container .sidebar_team_stats div {
+	font-size: 30px;
+	-webkit-text-stroke: .5px black;
+	position: absolute;
+	color: white;
+}
+
+.scoreboard_container .mmr {
+	bottom: 70px;
+	width: 145px;
+	text-align: center;
+}
+.scoreboard_container .home_only_mmr {
+	left: 10px;
+}
+.scoreboard_container .away_only_mmr {
+	right: 10px;
+}
+
+.scoreboard_container .record {
+	bottom: 135px;
+	width: 145px;
+	text-align: center;
+}
+.scoreboard_container .home_record {
+	left: 10px;
+}
+.scoreboard_container .away_record {
+	right: 10px;
+}
+
+.scoreboard_container .rank {
+	bottom: 205px;
+	width: 36px;
+	position: absolute;
+}
+.scoreboard_container .home_rank {
+	left: 25px;
+}
+.scoreboard_container .away_rank {
+	right: 100px;
+}
+.scoreboard_container.stats_overlay_container .playerhead{
+	bottom: 200px;
+}
+.scoreboard_container.stats_overlay_container .playerstats {
+	bottom: 55px;
+}
+
+
+
+
 
 @keyframes fade_in {
 	from {
