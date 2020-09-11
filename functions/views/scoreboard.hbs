@@ -33,8 +33,9 @@
       <div class="sidebar_team_stats">
         <div class="mmr home_only_mmr"></div>
         <div class="record home_record"></div>
+        <div class="rank home_rank"></div>
         <img class="logo home_logo">
-        <img class="rank home_rank" src="">
+        <img class="division home_division" src="">
       </div>
     </div>
 
@@ -45,96 +46,72 @@
       <div class="sidebar_team_stats">
         <div class="mmr away_only_mmr"></div>
         <div class="record away_record"></div>
+        <div class="rank away_rank"></div>
         <img class="logo away_logo">
-        <img class="rank away_rank" src="">
+        <img class="division away_division" src="">
       </div>
     </div>
 
-    <table class="orangestats">
-      <tr>
-        <td class="home_team_possession_time_perc"></td>
-        <td>Possession</td>
-      </tr>
-      <tr>
-        <td class="home_team_shots_taken_perc"></td>
-        <td>Shots Taken</td>
-      </tr>
-      <tr>
-        <td class="home_team_assists_perc"></td>
-        <td>Assists</td>
-      </tr>
-      <tr>
-        <td class="home_team_saves_perc"></td>
-        <td>Saves</td>
-      </tr>
-      <tr>
-        <td class="home_team_steals_perc"></td>
-        <td>Steals</td>
-      </tr>
-      <tr>
-        <td class="home_team_stuns_perc"></td>
-        <td>Stuns</td>
-      </tr>
-    </table>
+    <div class="scoreboard_stats">
 
-    <table class="orangeplayerhead playerhead">
-      <tr>
-        <td>PLAYER</td>
-        <td>POSS</td>
-        <td>ATT</td>
-        <td>POINTS</td>
-        <td>ASSISTS</td>
-        <td>SAVES</td>
-        <td>STEALS</td>
-        <td>STUNS</td>
-      </tr>
-    </table>
+      {{!-- Team percentages --}}
+      <table class="team_stats orangestats">
+        <tr>
+          <td class="totals">TOTALS</td>
+          <td class="home_team_possession_time_perc"></td>
+          <td class="home_team_shots_taken_perc"></td>
+          <td class="home_team_assists_perc"></td>
+          <td class="home_team_saves_perc"></td>
+          <td class="home_team_steals_perc"></td>
+          <td class="home_team_stuns_perc"></td>
+        </tr>
+      </table>
 
-    <table class="orange_player_stats_board playerstats"></table>
+      <table class="orangeplayerhead playerhead">
+        <tr>
+          <td>PLAYER</td>
+          <td>POSS</td>
+          <td>ATT</td>
+          <td>PTS</td>
+          <td>AST</td>
+          <td>SAV</td>
+          <td>STL</td>
+          <td>STN</td>
+        </tr>
+      </table>
 
-    <table class="blueplayerhead playerhead">
-      <tr>
-        <td>PLAYER</td>
-        <td>POSS</td>
-        <td>ATT</td>
-        <td>POINTS</td>
-        <td>ASSISTS</td>
-        <td>SAVES</td>
-        <td>STEALS</td>
-        <td>STUNS</td>
-      </tr>
-    </table>
+      {{!-- Actual player data --}}
+      <table class="orange_player_stats_board playerstats"></table>
 
-    <table class="blue_player_stats_board playerstats">
-    </table>
+      <table class="blueplayerhead playerhead">
+        <tr>
+          <td>PLAYER</td>
+          <td>POSS</td>
+          <td>ATT</td>
+          <td>PTS</td>
+          <td>AST</td>
+          <td>SAV</td>
+          <td>STL</td>
+          <td>STN</td>
+        </tr>
+      </table>
 
-    <table class="bluestats">
-      <tr>
-        <td>Possession</td>
-        <td class="away_team_possession_time_perc"></td>
-      </tr>
-      <tr>
-        <td>Shots Taken</td>
-        <td class="away_team_shots_taken_perc"></td>
-      </tr>
-      <tr>
-        <td>Assists</td>
-        <td class="away_team_assists_perc"></td>
-      </tr>
-      <tr>
-        <td>Saves</td>
-        <td class="away_team_saves_perc"></td>
-      </tr>
-      <tr>
-        <td>Steals</td>
-        <td class="away_team_steals_perc"></td>
-      </tr>
-      <tr>
-        <td>Stuns</td>
-        <td class="away_team_stuns_perc"></td>
-      </tr>
-    </table>
+      {{!-- Actual player data --}}
+      <table class="blue_player_stats_board playerstats"></table>
 
+      {{!-- Team percentages --}}
+      <table class="team_stats bluestats">
+        <tr>
+          <td class="totals">TOTALS</td>
+          <td class="away_team_possession_time_perc"></td>
+          <td class="away_team_shots_taken_perc"></td>
+          <td class="away_team_assists_perc"></td>
+          <td class="away_team_saves_perc"></td>
+          <td class="away_team_steals_perc"></td>
+          <td class="away_team_stuns_perc"></td>
+        </tr>
+      </table>
+    </div>
   </div>
 
   <!-- Add data passed in by the request -->

@@ -5,7 +5,7 @@ from pyquery import PyQuery as pq
 
 baseURL = 'https://vrmasterleague.com'
 
-def scrapeVRMLTeams():
+def scrapeVRMLTeams(forceRealInternetForS2: bool = False):
     print("scrapeVRMLTeams")
 
     players = loadJSON('players')
@@ -19,8 +19,10 @@ def scrapeVRMLTeams():
         if season['api_type'] != 'vrml':
             continue
 
+        forceRealInternet = (season_id == 'vrml_season_2' and forceRealInternetForS2)
+
         # load the series rankings to get all the team names
-        page = LocalInternet.local_pq(season['standings_url'])
+        page = LocalInternet.local_pq(season['standings_url'], forceRealInternet)
 
         # loop through the teams on this page
         for teamHTML in page('.standings_information > .vrml_table_container > .vrml_table > tbody > tr'):
@@ -58,7 +60,7 @@ def scrapeVRMLTeams():
             team['mmr'] = team_pq('.mmr_cell').text()
 
             # load the team page
-            default_team_page = LocalInternet.local_pq(team['team_page'])
+            default_team_page = LocalInternet.local_pq(team['team_page'], forceRealInternet)
 
             # go to the right season's page
             for season_option in default_team_page('.team_season_switcher > option'):
@@ -77,7 +79,7 @@ def scrapeVRMLTeams():
                     break
 
             # actually go to the team page for the correct season and get more stats from there
-            team_page = pq(LocalInternet.get(team['team_page']))
+            team_page = pq(LocalInternet.get(team['team_page'], forceRealInternet))
             # success = False
             # while not success:
             #     try:
@@ -228,7 +230,7 @@ def scrapeVRMLTeams():
     dumpJSON('matches', matches)
 
 
-def scrapeVRMLPlayers():
+def scrapeVRMLPlayers(forceRealInternetForS2: bool = False):
     print("scrapeVRMLPlayers")
 
     players = loadJSON('players')
@@ -237,14 +239,16 @@ def scrapeVRMLPlayers():
         if season['api_type'] != 'vrml':
             continue
 
-        page = LocalInternet.local_pq(season['players_url'])
+        forceRealInternet = (season_id == 'vrml_season_2' and forceRealInternetForS2)
+
+        page = LocalInternet.local_pq(season['players_url'], forceRealInternet)
         if season_id == 'vrml_season_2':
             numPlayers = int(page('.players-list-header-count').text()[20:24])
         else:
             numPlayers = int(page('.players-list-header-count').text()[0:4])
 
         for i in range(0, int(numPlayers/100)+1):
-            page = LocalInternet.local_pq(season['players_url']+"?posMin="+str(i*100+1))
+            page = LocalInternet.local_pq(season['players_url']+"?posMin="+str(i*100+1), forceRealInternet)
 
             for playerHTML in page('.vrml_table_row'):
                 player_pq = pq(playerHTML)
@@ -279,6 +283,7 @@ def scrapeVRMLPlayers():
                     player['vrml_nationality_logo'] = None
 
     dumpJSON('players', players)
+
 
 
 # only gets stats and rosters for the current season. This is faster than getting full stats

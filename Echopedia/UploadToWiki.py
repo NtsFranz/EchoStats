@@ -16,6 +16,8 @@ table_footer = '|}\n'
 # verified 8/31/20
 # updates the 3 cup pages
 def UploadSeasonCupsESL():
+
+    matches = loadJSON('matches')
     
     # loop through all the season files
     for season_name, season in seasons_data.items():
@@ -24,7 +26,7 @@ def UploadSeasonCupsESL():
             continue
 
         # load the data into an object from file
-        esl_data = loadJSON(season_name)
+        esl_data = matches[season_name]
 
         esl_data['cups'] = sorted(esl_data['cups'], key=lambda i: i['date'])
         
@@ -71,10 +73,10 @@ def UploadSeasonCupsESL():
         page += "\n=== Europe ===\n"
         page += table_str['eu']
 
-        # write the table result to an outfile
-        path = os.path.join(os.path.dirname(__file__), 'data/'+season_name+'_cups_page.txt')
-        with open(path, 'w') as f:
-            f.write(page)
+        # # write the table result to an outfile
+        # path = os.path.join(os.path.dirname(__file__), 'data/'+season_name+'_cups_page.txt')
+        # with open(path, 'w') as f:
+        #     f.write(page)
 
         # upload to the wiki
         updatePage(season['wiki_page'], page)
@@ -86,7 +88,7 @@ def GenerateSeasonPagesVRML():
     matches = loadJSON('matches')
 
     for season_name, season in seasons_data.items():
-        if season_name in matches:
+        if seasons_data[season_name]['api_type'] == "vrml":
 
             page = ""
             page = "[[Category:Series]]\n"
@@ -121,12 +123,15 @@ def GenerateSeasonPagesVRML():
 # verified 8/31/20
 # Creates pages with a list of matches for each cup
 def UploadCupMatchPagesESL():
+
+    matches = loadJSON('matches')
+
     for season_name, season in seasons_data.items():
         if season['api_type'] != 'esl':
             continue
 
         # load the data into an object from file
-        esl_data = loadJSON(season_name)
+        esl_data = matches[season_name]
 
         for cup in esl_data['cups']:
             page = "This cup is a part of the VR Challenger League. See the [[" + \
@@ -181,7 +186,7 @@ def UploadCupMatchPagesESL():
 
             updatePage(cup['name'].replace('#', ''), page)
 
-
+# verified 9/6/20
 def UploadTeamPages():
 
     # load the data into an object from file
@@ -311,7 +316,7 @@ def UploadTeamPages():
 
         updatePage(team_name, page)
 
-
+# verified 9/6/20
 def UploadPlayerPages():
 
 
@@ -583,7 +588,7 @@ def updatePage(pageName, pageData):
         new_data = parts[0] + splitter + "\n\n" + pageData
         createPage(pageName, new_data)
     else:
-        print("Pages are the same, not updating.")
+        print("Unchanged: " + pageName)
 
     
 # compare without whitespaces
@@ -599,8 +604,10 @@ def ezCompare(str1, str2):
     return str1 == str2
 
 
-# UploadSeasonCupsESL()
-# GenerateSeasonPagesVRML()
-# UploadCupMatchPagesESL()
-# UploadTeamPages()
+UploadSeasonCupsESL()
+UploadCupMatchPagesESL()
+
+GenerateSeasonPagesVRML()
+
+UploadTeamPages()
 UploadPlayerPages()

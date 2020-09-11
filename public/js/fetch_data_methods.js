@@ -1,4 +1,4 @@
-function buildpregame(db, previousMatches = true, teamStats = true, roster = true, live = true) {
+function buildpregame(db, previousMatches = true, teamStats = true, roster = true, live = true, get_team_ranking = false) {
     if (client_name == "") return;
     db.collection("caster_preferences").doc(client_name)
         .onSnapshot(doc => {
@@ -49,20 +49,25 @@ function buildpregame(db, previousMatches = true, teamStats = true, roster = tru
                     });
                 }
 
-                if (previousMatches) {
+                if (previousMatches || get_team_ranking) {
                     // get the home team's page
                     db.collection('series').doc(default_season).collection('teams').doc(home_team_name)
                         .get().then(doc => {
                             if (doc.exists) {
-                                var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_vrml_match_history_direct?team_page=" + doc.data()['vrml_team_page'];
-                                httpGetAsync(url, function (data) {
-                                    getPreviousMatchesVRMLPage(data, home_team_name, "home");
-                                    getPreviousHead2HeadMatchesVRMLPage(data, home_team_name, away_team_name);
-                                });
+                                if (previousMatches) {
+                                    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_vrml_match_history_direct?team_page=" + doc.data()['vrml_team_page'];
+                                    httpGetAsync(url, function (data) {
+                                        getPreviousMatchesVRMLPage(data, home_team_name, "home");
+                                        getPreviousHead2HeadMatchesVRMLPage(data, home_team_name, away_team_name);
+                                    });
 
-                                Array.from(document.getElementsByClassName("home_team_page")).forEach(e => {
-                                    e.href = doc.data()['vrml_team_page'];
-                                });
+                                    Array.from(document.getElementsByClassName("home_team_page")).forEach(e => {
+                                        e.href = doc.data()['vrml_team_page'];
+                                    });
+                                }
+                                else if (get_team_ranking) {
+                                    write("home_rank", "#"+doc.data()['rank']);
+                                }
                             }
                         });
 
@@ -70,14 +75,19 @@ function buildpregame(db, previousMatches = true, teamStats = true, roster = tru
                     db.collection('series').doc(default_season).collection('teams').doc(away_team_name)
                         .get().then(doc => {
                             if (doc.exists) {
-                                var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_vrml_match_history_direct?team_page=" + doc.data()['vrml_team_page'];
-                                httpGetAsync(url, function (data) {
-                                    getPreviousMatchesVRMLPage(data, away_team_name, "away");
-                                });
+                                if (previousMatches) {
+                                    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_vrml_match_history_direct?team_page=" + doc.data()['vrml_team_page'];
+                                    httpGetAsync(url, function (data) {
+                                        getPreviousMatchesVRMLPage(data, away_team_name, "away");
+                                    });
 
-                                Array.from(document.getElementsByClassName("away_team_page")).forEach(e => {
-                                    e.href = doc.data()['vrml_team_page'];
-                                });
+                                    Array.from(document.getElementsByClassName("away_team_page")).forEach(e => {
+                                        e.href = doc.data()['vrml_team_page'];
+                                    });
+                                }
+                                else if (get_team_ranking) {
+                                    write("away_rank", "#"+doc.data()['rank']);
+                                }
                             }
                         });
                 }
@@ -164,7 +174,7 @@ function buildTeamVRMLStats(data, side) {
     table = "";
     data = JSON.parse(data);
 
-    setImage(side + "_rank", data.DivisionLogo);
+    setImage(side + "_division", data.DivisionLogo);
     write(side + "_mmr", "MMR: " + data.MMR + " (" + data.W + " - " + data.L + ")");
     write(side + "_only_mmr", data.MMR);
     write(side + "_record", data.W + "-" + data.L);

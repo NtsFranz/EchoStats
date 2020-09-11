@@ -279,14 +279,13 @@ def add_matches_as_list_esl():
 # uploadImages()
 
 # --------------------------
-ScrapeESL.scrapeESLCups()
-ScrapeESL.scrapeESLTeams()
-ScrapeESL.scrapeESLMatchPages()
+# ScrapeESL.scrapeESLCups()
+# ScrapeESL.scrapeESLTeams()
+# ScrapeESL.scrapeESLMatchPages()
+# add_matches_as_list_esl()
 
-ScrapeVRML.scrapeVRMLTeams()
-ScrapeVRML.scrapeVRMLPlayers()
-
-add_matches_as_list_esl()
+ScrapeVRML.scrapeVRMLTeams(False)
+ScrapeVRML.scrapeVRMLPlayers(False)
 add_teams_to_players_vrml()
 # --------------------------
 

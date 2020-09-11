@@ -20,8 +20,6 @@ def save():
     dumpJSON('local_internet', local_internet)
 
 def get(url: str, force: bool = False):
-
-
     global local_internet
     if url not in local_internet or force:
         print(url)
@@ -34,5 +32,5 @@ def get(url: str, force: bool = False):
             print(url)
         return local_internet[url]
 
-def local_pq(url):
+def local_pq(url: str, force: bool = False):
     return pq(get(url))

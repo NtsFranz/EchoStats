@@ -581,16 +581,34 @@
 	right: 10px;
 }
 
+.scoreboard_container .division {
+	bottom: 205px;
+	width: 36px;
+	position: absolute;
+}
+.scoreboard_container .home_division {
+	left: 25px;
+}
+.scoreboard_container .away_division {
+	right: 100px;
+}
+
 .scoreboard_container .rank {
 	bottom: 205px;
 	width: 36px;
 	position: absolute;
 }
 .scoreboard_container .home_rank {
-	left: 25px;
+	left: 100px;
 }
 .scoreboard_container .away_rank {
-	right: 100px;
+	right: 25px;
+}
+
+
+.scoreboard_container.stats_overlay_container .scoreboard_stats{
+	color: white;
+	-webkit-text-stroke: 0;
 }
 .scoreboard_container.stats_overlay_container .playerhead{
 	bottom: 200px;
@@ -598,6 +616,30 @@
 .scoreboard_container.stats_overlay_container .playerstats {
 	bottom: 55px;
 }
+
+.scoreboard_container.stats_overlay_container .team_stats {
+	width: 724px;
+	height: 33px;
+	text-align: center;
+	bottom: 23px;
+	position: fixed;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.scoreboard_container.stats_overlay_container .orangestats {
+	left: 183px;
+}
+.scoreboard_container.stats_overlay_container .bluestats {
+	right: 183px;
+}
+.scoreboard_container.stats_overlay_container .team_stats tr td:first-child,
+.scoreboard_container.stats_overlay_container .team_stats tr td:last-child {
+	width:inherit;
+	background-color: inherit;
+	text-align: inherit;
+	font-size: inherit;
+	font-family: inherit;
+}
+
 
 
 
