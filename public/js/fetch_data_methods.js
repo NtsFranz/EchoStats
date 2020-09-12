@@ -466,6 +466,7 @@ function setPlayerMatchStats(players, long = false) {
 
     // which stats to include in the tables
     var statList = [
+        "points",
         "possession_time",
         "shots_taken",
         "assists",
@@ -519,6 +520,7 @@ function setPlayerMatchStats(players, long = false) {
             }
             playerTables[p.team_color] += "</td></tr>";
 
+            teamStats[p.team_color].points += p.points;
             teamStats[p.team_color].possession_time += p.possession_time;
             teamStats[p.team_color].shots_taken += p.shots_taken;
             teamStats[p.team_color].assists += p.assists;
