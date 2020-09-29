@@ -696,7 +696,7 @@ function setupEventsOverlay(db) {
 
 
 // get upcoming matches
-function get_upcoming_matches() {
-    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_upcoming_matches"
+function get_upcoming_matches(game = "echoarena") {
+    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_upcoming_matches?game=" + game;
     httpGetAsync(url, showUpcomingMatches);
 }

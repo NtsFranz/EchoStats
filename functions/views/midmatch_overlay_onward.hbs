@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Match Data</title>
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/7.14.3/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/7.14.3/firebase-auth.js"></script>
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-database.js"></script> --}}
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-messaging.js"></script> --}}
+  <script defer src="/__/firebase/7.14.3/firebase-firestore.js"></script>
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-storage.js"></script> --}}
+  {{!-- <script defer src="/__/firebase/7.14.3/firebase-analytics.js"></script> --}}
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+
+  <!-- <link rel="stylesheet" type="text/css" href="css/styles.css"> -->
+  <link rel="stylesheet" type="text/css" href="css/vrml_overlay.css">
+</head>
+
+<body style="margin: 0;">
+  <div id="background_container" class="midmatch_layout_onward">
+    <div id="home_team_box">
+      <div id="home_team_name_box">
+        <div class="home_team_name hide"></div>
+      </div>
+      <img class="home_logo hide">
+    </div>
+
+    <div id="away_team_box hide">
+      <div id="away_team_name_box">
+        <div class="away_team_name hide"></div>
+      </div>
+      <img class="away_logo hide">
+    </div>
+
+
+  </div>
+
+  <!-- Add data passed in by the request -->
+  <script type="text/javascript">
+    var client_name = "{{ client_name }}"; 
+    var custom_id = "{{ custom_id }}"; 
+    var series_name = "{{ series_name }}"; 
+    var live = "{{ live }}"; 
+    var show_on_load = "{{ show_on_load }}" == "true";
+  </script>
+
+  <!-- Load our custom Firebase stuff -->
+  <script defer src="js/util.js"></script>
+  <script defer src="js/firebase_setup.js"></script>
+  <script defer src="js/fetch_data_methods.js"></script>
+
+  <script src="js/midmatch_overlay_onward.js"></script>
+  <script src="js/fitty.min.js"></script>
+  <script>
+    fitty('.home_team_name', {
+      minSize: 12,
+      maxSize: 40,
+      multiLine: false
+    });
+    fitty('.away_team_name', {
+      minSize: 12,
+      maxSize: 40,
+      multiLine: false
+    });
+  </script>
+
+</body>
+
+</html>

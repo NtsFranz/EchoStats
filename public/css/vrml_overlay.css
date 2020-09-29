@@ -383,6 +383,61 @@ img[src] {
 	align-items: center;
 }
 
+/* Midmatch overlay onward*/
+
+.midmatch_layout_onward .home_team_name {
+	text-align: center;
+}
+
+.midmatch_layout_onward .home_logo {
+	position: absolute;
+	left: 0px;
+	top: 6px;
+	width: 80px;
+	height: 80px;
+}
+
+.midmatch_layout_onward .away_team_name {
+	text-align: center;
+}
+
+.midmatch_layout_onward .away_logo {
+	position: absolute;
+	right: 0;
+	top: 6px;
+	width: 80px;
+	height: 80px;
+}
+
+.midmatch_layout_onward #home_team_name_box {
+	position: absolute;
+	width: 550px;
+	height: 60px;
+	left: 95px;
+	top: 0px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	/* background: -webkit-linear-gradient(#eee, #aaa);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent; */
+}
+
+.midmatch_layout_onward #away_team_name_box {
+	position: absolute;
+	width: 550px;
+	height: 60px;
+	right: 95px;
+	top: 0px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/* 	
+	background: -webkit-linear-gradient(#eee, #aaa);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent; */
+}
 
 
 

@@ -58,6 +58,22 @@ app.get('/midmatch_overlay', (req, res) => {
     });
 });
 
+app.get('/midmatch_overlay_onward', (req, res) => {
+    const client_name = req.query.client_name;
+    const custom_id = req.query.custom_id;
+    const series_name = req.query.series_name;
+    const live = req.query.live || false;
+    const show_on_load = req.query.show_on_load || false;
+
+    res.render("midmatch_overlay_onward", {
+        client_name,
+        custom_id,
+        series_name,
+        live,
+        show_on_load
+    });
+});
+
 
 app.get('/prematch_overlay_2', (req, res) => {
     const client_name = req.query.client_name;
@@ -137,6 +153,18 @@ app.get('/match_setup', (req, res) => {
     const series_name = req.query.series_name;
     
     res.render("match_setup", {
+        client_name,
+        custom_id,
+        series_name
+    });
+});
+
+app.get('/match_setup_onward', (req, res) => {
+    const client_name = req.query.client_name;
+    const custom_id = req.query.custom_id;
+    const series_name = req.query.series_name;
+    
+    res.render("match_setup_onward", {
         client_name,
         custom_id,
         series_name
