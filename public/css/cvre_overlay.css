@@ -1,0 +1,37 @@
+.cvre_match_awards_container #match_awards {
+    display: flex;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+    color: white;
+}
+
+.cvre_match_awards_container .match_award {
+    width: 330px;
+    border: 1px solid black;
+    text-align: center;
+    margin: 30px;
+}
+
+.cvre_match_awards_container .match_award.blue {
+    background-color: #e38a0d;
+}
+
+.cvre_match_awards_container .match_award.orange {
+    background-color: #00a1e1;
+}
+
+.cvre_match_awards_container .match_award .title {
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.cvre_match_awards_container .match_award .player_name {
+    background: black;
+    color: #62d6d0;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.cvre_match_awards_container .match_award .value {
+    font-size: 25px;
+}

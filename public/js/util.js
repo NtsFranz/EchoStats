@@ -39,6 +39,8 @@ function timeSince(date) {
 }
 
 function write(className, data, parentFade = null) {
+    if (data == undefined || data.includes('undefined')) return;
+
     var elements = document.getElementsByClassName(className);
     Array.from(elements).forEach(e => {
         e.innerHTML = data;
@@ -56,6 +58,8 @@ function write(className, data, parentFade = null) {
 }
 
 function writeHREF(className, data, parentFade = null) {
+    if (data == undefined || data.includes('undefined')) return;
+
     var elements = document.getElementsByClassName(className);
     Array.from(elements).forEach(e => {
         e.href = data;
@@ -73,6 +77,8 @@ function writeHREF(className, data, parentFade = null) {
 }
 
 function writeValue(className, data, parentFade = null) {
+    if (data == undefined || data.includes('undefined')) return;
+    
     var elements = document.getElementsByClassName(className);
     Array.from(elements).forEach(e => {
         e.value = data;
@@ -90,6 +96,8 @@ function writeValue(className, data, parentFade = null) {
 }
 
 function setImage(className, src_) {
+    if (src_ == undefined || src_ == "") return;
+
     var elements = document.getElementsByClassName(className);
     Array.from(elements).forEach(e => {
         e.src = src_;

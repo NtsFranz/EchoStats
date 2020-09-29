@@ -20,7 +20,21 @@ app.get('/prematch_overlay', (req, res) => {
     const series_name = req.query.series_name;
     const live = req.query.live || false;
 
-    res.render("prematch_overlay", {
+    res.render("prematch_rosters", {
+        client_name,
+        custom_id,
+        series_name,
+        live
+    });
+});
+
+app.get('/prematch_overlay_old', (req, res) => {
+    const client_name = req.query.client_name;
+    const custom_id = req.query.custom_id;
+    const series_name = req.query.series_name;
+    const live = req.query.live || false;
+
+    res.render("prematch_overlay_old", {
         client_name,
         custom_id,
         series_name,
@@ -125,6 +139,16 @@ app.get('/match_setup', (req, res) => {
     res.render("match_setup", {
         client_name,
         custom_id,
+        series_name
+    });
+});
+
+app.get('/match_awards', (req, res) => {
+    const client_name = req.query.client_name;
+    const series_name = req.query.series_name;
+    
+    res.render("match_awards", {
+        client_name,
         series_name
     });
 });

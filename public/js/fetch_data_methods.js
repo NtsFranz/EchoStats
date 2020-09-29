@@ -1,3 +1,6 @@
+var debug_log = false;
+
+// gets data from caster_preferences and sets the home/away team names, rosters, team stats, etc with options
 function buildpregame(db, previousMatches = true, teamStats = true, roster = true, live = true, get_team_ranking = false) {
     if (client_name == "") return;
     db.collection("caster_preferences").doc(client_name)
@@ -326,22 +329,22 @@ function createMatchRowHTML(doc) {
     return row;
 }
 
-function getCurrentMatchStats(db, long = false, live = false, onlyaftercasterprefs = false) {
+function getCurrentMatchStats(db, long = false, live = false, onlyaftercasterprefs = false, dataProcessingCallback = null) {
     if (onlyaftercasterprefs) {
         db.collection("caster_preferences").doc(client_name)
             .onSnapshot(doc => {
                 if (doc.exists) {
                     lastCasterTime = doc.data()['last_modified'];
-                    doGetCurrentMatchStats(db, long, live, lastCasterTime);
+                    doGetCurrentMatchStats(db, long, live, lastCasterTime, dataProcessingCallback);
                 }
             });
     } else {
-        doGetCurrentMatchStats(db, long, live, onlyaftercasterprefs);
+        doGetCurrentMatchStats(db, long, live, onlyaftercasterprefs, dataProcessingCallback);
     }
 }
 
 
-function doGetCurrentMatchStats(db, long = false, live = false, lastCasterTime = null) {
+function doGetCurrentMatchStats(db, long = false, live = false, lastCasterTime = null, dataProcessingCallback = null) {
     if (live) {
         db.collection('series').doc(series_name).collection('match_stats')
             .orderBy("match_time", "desc")
@@ -357,10 +360,10 @@ function doGetCurrentMatchStats(db, long = false, live = false, lastCasterTime =
                         .where("custom_id", "==", recent_custom_id)
                         .where("session_id", "==", recent_session_id)
                         .where("disabled", "==", false)
-                        .where("client_name", "==", client_name) // Probably not necessary, but possible because of sha256 collisions on custom_id
+                        .where("client_name", "==", client_name) // not necessary, but possible because of sha256 collisions on custom_id
                         .get()
                         .then(querySnapshot => {
-                            processMatchStatsSnapshot(querySnapshot, long, lastCasterTime);
+                            processMatchStatsSnapshot(querySnapshot, long, lastCasterTime, dataProcessingCallback);
                         });
                 }
             });
@@ -383,7 +386,7 @@ function doGetCurrentMatchStats(db, long = false, live = false, lastCasterTime =
                         .where("client_name", "==", client_name) // Probably not necessary, but possible because of sha256 collisions on custom_id
                         .get()
                         .then(querySnapshot => {
-                            processMatchStatsSnapshot(querySnapshot, long, lastCasterTime);
+                            processMatchStatsSnapshot(querySnapshot, long, lastCasterTime, dataProcessingCallback);
                         });
                 }
             });
@@ -392,7 +395,7 @@ function doGetCurrentMatchStats(db, long = false, live = false, lastCasterTime =
 }
 
 // gets the match stats for each player in the match
-function processMatchStatsSnapshot(querySnapshot, long = false, lastCasterTime = null) {
+function processMatchStatsSnapshot(querySnapshot, long = false, lastCasterTime = null, dataProcessingCallback = null) {
     if (!querySnapshot.empty) {
 
         var players = {}
@@ -454,15 +457,17 @@ function processMatchStatsSnapshot(querySnapshot, long = false, lastCasterTime =
                 }
             });
 
-            console.log("Player data:");
-            console.log(players);
+            if (debug_log) {
+                console.log("Player data:");
+                console.log(players);
+            }
 
-            setPlayerMatchStats(players, long);
+            setPlayerMatchStats(players, long, dataProcessingCallback);
         });
     }
 }
 
-function setPlayerMatchStats(players, long = false) {
+function setPlayerMatchStats(players, long = false, dataProcessingCallback = null) {
 
     // which stats to include in the tables
     var statList = [
@@ -532,10 +537,12 @@ function setPlayerMatchStats(players, long = false) {
 
     var totalStats = mergeSum(teamStats.blue, teamStats.orange);
 
-    console.log("Blue team stats:");
-    console.log(teamStats.blue);
-    console.log("Orange team stats:");
-    console.log(teamStats.orange);
+    if (debug_log) {
+        console.log("Blue team stats:");
+        console.log(teamStats.blue);
+        console.log("Orange team stats:");
+        console.log(teamStats.orange);
+    }
 
     Object.keys(teamStats).forEach(color => {
         Object.keys(teamStats[color]).forEach(stat => {
@@ -557,6 +564,13 @@ function setPlayerMatchStats(players, long = false) {
 
         write(color + "_player_stats_board", playerTables[color]);
     });
+
+    if (dataProcessingCallback != null) {
+        dataProcessingCallback({
+            "team_stats": teamStats,
+            "player_stats": players
+        });
+    }
 
     fadeInWhenDone();
 }

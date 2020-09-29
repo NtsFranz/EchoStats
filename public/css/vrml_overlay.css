@@ -20,6 +20,14 @@
 	opacity: 0;
 }
 
+/* Don't show images that don't have a src */
+img {
+    display: none;
+}
+img[src] {
+   display: block;
+ }
+
 .sidebars_layout #homebox {
 	position: fixed;
 	left: 36px;
@@ -587,10 +595,10 @@
 	position: absolute;
 }
 .scoreboard_container .home_division {
-	left: 25px;
+	left: 32px;
 }
 .scoreboard_container .away_division {
-	right: 100px;
+	right: 105px;
 }
 
 .scoreboard_container .rank {
@@ -603,7 +611,7 @@
 	left: 88px;
 }
 .scoreboard_container .away_rank {
-	right: 25px;
+	right: 18px;
 }
 
 
@@ -634,13 +642,14 @@
 }
 .scoreboard_container.stats_overlay_container .orangestats {
 	left: 178px;
-	background-color: rgba(255, 150, 50, 0.7);
-	/* background-color: #c9732e; */
+	/* background-color: rgba(255, 150, 50, 0.7); */
+	background-color: #c9732e;
 	background-image: none;
 }
 .scoreboard_container.stats_overlay_container .bluestats {
 	right: 178px;
-	background-color: rgba(50, 150, 255, 0.7);
+	/* background-color: rgba(50, 150, 255, 0.7); */
+	background-color: #366bc3;
 	background-image: none;
 }
 .scoreboard_container.stats_overlay_container .orange_player_stats_board tr td:first-child,
@@ -672,9 +681,11 @@
 }
 .scoreboard_container.stats_overlay_container .orange_player_stats_board {
 	left: 178px;
+	background-color: #c9732e;
 }
 .scoreboard_container.stats_overlay_container .blue_player_stats_board {
 	right: 178px;
+	background-color: #366bc3;
 }
 .scoreboard_container.stats_overlay_container .orangeplayerhead tr {
 	height: inherit;
@@ -683,6 +694,26 @@
 	height: inherit;
 }
 
+.prematch_rosters .roster_table {
+	width: 724px;
+	height: 180px;
+	position: absolute;
+	bottom: 33px;
+	text-align: center;
+	font-size: 17px;
+	-webkit-text-stroke: 0.01px black;
+	font-weight: 700;
+	color: #d8d8d8;
+}
+.prematch_rosters .roster_table tr:nth-child(even) {
+	background-color: #0003;
+}
+.prematch_rosters .roster_table.home_roster {
+	left: 178px;
+}
+.prematch_rosters .roster_table.away_roster {
+	right: 178px;
+}
 
 
 
