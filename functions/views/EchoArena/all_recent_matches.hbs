@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Recent Matches</title>
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/7.14.3/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/7.14.3/firebase-auth.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-database.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-messaging.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-firestore.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-storage.js"></script>
+  <script defer src="/__/firebase/7.14.3/firebase-analytics.js"></script>
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+
+  <script defer src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+  <link defer type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+
+  <link rel="stylesheet" type="text/css" href="css/vrml_overlay.css">
+  <link rel="stylesheet" type="text/css" href="css/vrml_overlay_corrected_to_normal.css">
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+  <script defer type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+
+</head>
+
+<body>
+
+  <div id="firebaseui-auth-container"></div>
+
+  <div class="centered_content">
+    <table>
+      <thead>
+        <tr class="match_group_item">
+          <th class="match_time_elapsed">Time Since<br>Match Start</th>
+          <th class="match_time">Match Time</th>
+          <th class="session_id hide">Session ID</th>
+          <th class="client_name">Client Name</th>
+          <th class="version">Version</th>
+          <th class="orange_team_score">Orange</th>
+          <th class="blue_team_score">Blue</th>
+          <th class="finish_reason">Finish Reason</th>
+        </tr>
+      </thead>
+
+      <!-- List -->
+      <tbody class="list-group" id="match_list">
+        <tr class="match_group_item list-group-item hide">
+          <td class="match_id hide"></td>
+          <td class="custom_id hide"></td>
+          <td class="match_time_elapsed"></td>
+          <td class="match_time"></td>
+          <td class="session_id hide"></td>
+          <td class="client_name"></td>
+          <td class="version"></td>
+          <td class="orange_team_score"></td>
+          <td class="blue_team_score"></td>
+          <td class="finish_reason"></td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+
+  <!-- Add data passed in by the request -->
+  <script type="text/javascript">
+    custom_id = "{{ custom_id }}"; series_name = "{{ series_name }}"; live = "{{ live }}";
+  </script>
+
+  <!-- Load our custom Firebase stuff -->
+  <script defer src="js/util.js"></script>
+  <script defer src="js/fetch_data_methods.js"></script>
+  <script defer src="js/firebase_setup.js"></script>
+
+  <script defer src="js/EchoArena/all_recent_matches.js"></script>
+
+</body>
+
+</html>

@@ -4,17 +4,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Match Data</title>
+  <title>Midmatch Overlay</title>
 
   <!-- update the version number as needed -->
   <script defer src="/__/firebase/7.14.3/firebase-app.js"></script>
-  <!-- include only the Firebase features as you need -->
   <script defer src="/__/firebase/7.14.3/firebase-auth.js"></script>
-  {{!-- <script defer src="/__/firebase/7.14.3/firebase-database.js"></script> --}}
-  {{!-- <script defer src="/__/firebase/7.14.3/firebase-messaging.js"></script> --}}
   <script defer src="/__/firebase/7.14.3/firebase-firestore.js"></script>
-  {{!-- <script defer src="/__/firebase/7.14.3/firebase-storage.js"></script> --}}
-  {{!-- <script defer src="/__/firebase/7.14.3/firebase-analytics.js"></script> --}}
   <!-- initialize the SDK after all desired features are loaded -->
   <script defer src="/__/firebase/init.js"></script>
 
@@ -83,7 +78,8 @@
   <script defer src="js/firebase_setup.js"></script>
   <script defer src="js/fetch_data_methods.js"></script>
 
-  <script src="js/midmatch_overlay.js"></script>
+  <script src="js/EchoArena/midmatch_overlay.js"></script>
+  
   <script src="js/fitty.min.js"></script>
   <script>
     fitty('.home_team_name', {

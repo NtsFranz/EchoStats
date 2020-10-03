@@ -1,9 +1,14 @@
 var debug_log = false;
 
+var games = {
+    echoarena: { casterprefs: "caster_preferences"},
+    onward: { casterprefs: "caster_preferences_onward"}
+}
+
 // gets data from caster_preferences and sets the home/away team names, rosters, team stats, etc with options
-function buildpregame(db, previousMatches = true, teamStats = true, roster = true, live = true, get_team_ranking = false) {
+function buildpregame(db, previousMatches = true, teamStats = true, roster = true, live = true, get_team_ranking = false, game='echoarena') {
     if (client_name == "") return;
-    db.collection("caster_preferences").doc(client_name)
+    db.collection(games[game]['casterprefs']).doc(client_name)
         .onSnapshot(doc => {
             if (doc.exists) {
                 if (doc.data()['swap_sides']) {
@@ -110,9 +115,9 @@ function vrmlTeamNamesSame(team1, team2) {
         (team2.includes("aka") && team2.includes(team1)));
 }
 
-function getTeamNameLogo(db) {
+function getTeamNameLogo(db, game='echoarena') {
     if (client_name == "") return;
-    db.collection("caster_preferences").doc(client_name)
+    db.collection(games[game]['casterprefs']).doc(client_name)
         .onSnapshot(doc => {
             if (doc.exists) {
                 if (doc.data()['swap_sides']) {
@@ -329,9 +334,9 @@ function createMatchRowHTML(doc) {
     return row;
 }
 
-function getCurrentMatchStats(db, long = false, live = false, onlyaftercasterprefs = false, dataProcessingCallback = null) {
+function getCurrentMatchStats(db, long = false, live = false, onlyaftercasterprefs = false, dataProcessingCallback = null, game='echoarena') {
     if (onlyaftercasterprefs) {
-        db.collection("caster_preferences").doc(client_name)
+        db.collection(games[game]['casterprefs']).doc(client_name)
             .onSnapshot(doc => {
                 if (doc.exists) {
                     lastCasterTime = doc.data()['last_modified'];
@@ -575,8 +580,8 @@ function setPlayerMatchStats(players, long = false, dataProcessingCallback = nul
     fadeInWhenDone();
 }
 
-function autocompleteCasters(input, db) {
-    db.collection('caster_preferences')
+function autocompleteCasters(input, db, game='echoarena') {
+    db.collection(games[game]['casterprefs'])
         .get()
         .then(querySnapshot => {
             if (!querySnapshot.empty) {
@@ -697,6 +702,6 @@ function setupEventsOverlay(db) {
 
 // get upcoming matches
 function get_upcoming_matches(game = "echoarena") {
-    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_upcoming_matches?game=" + game;
+    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_upcoming_matches_vrml?game=" + game;
     httpGetAsync(url, showUpcomingMatches);
 }

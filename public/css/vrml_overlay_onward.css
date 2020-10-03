@@ -1,0 +1,49 @@
+@font-face {
+    font-family: goodtimes;
+    src: url(../fonts/goodtimes.ttf);
+}
+
+#background_container {
+    position: fixed;
+    transition: opacity .5s;
+    -webkit-text-stroke: 1px black;
+    color: #ccc;
+    font-family: goodtimes;
+    top: 0;
+    left: 0;
+    width: 1920px;
+    height: 1080px;
+}
+
+.fade_in_when_done {
+    transition: opacity .75s;
+    opacity: 0;
+}
+
+.midmatch_layout_onward .team_logo {
+    position: absolute;
+    top: 250px;
+}
+
+.midmatch_layout_onward .home_logo {
+    left: 1100px;
+}
+
+.midmatch_layout_onward .away_logo {
+    left: 1575px;
+}
+
+.midmatch_layout_onward .team_name_box {
+    position: absolute;
+    top: 550px;
+    width: 300px;
+    font-size: 30px;
+}
+
+.midmatch_layout_onward #home_team_name_box {
+    left: 1100px;
+}
+
+.midmatch_layout_onward #away_team_name_box {
+    left: 1575px;
+}

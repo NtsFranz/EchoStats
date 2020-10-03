@@ -8,49 +8,16 @@
 
   <!-- update the version number as needed -->
   <script defer src="/__/firebase/7.14.3/firebase-app.js"></script>
-  <!-- include only the Firebase features as you need -->
   <script defer src="/__/firebase/7.14.3/firebase-auth.js"></script>
-  {{!-- <script defer src="/__/firebase/7.14.3/firebase-database.js"></script> --}}
-  {{!-- <script defer src="/__/firebase/7.14.3/firebase-messaging.js"></script> --}}
   <script defer src="/__/firebase/7.14.3/firebase-firestore.js"></script>
-  {{!-- <script defer src="/__/firebase/7.14.3/firebase-storage.js"></script> --}}
-  {{!-- <script defer src="/__/firebase/7.14.3/firebase-analytics.js"></script> --}}
-  <!-- initialize the SDK after all desired features are loaded -->
   <script defer src="/__/firebase/init.js"></script>
 
-  <!-- <link rel="stylesheet" type="text/css" href="css/styles.css"> -->
-  <link rel="stylesheet" type="text/css" href="css/vrml_overlay.css">
+  <link rel="stylesheet" type="text/css" href="css/cvre_overlay.css">
 </head>
 
 <body>
 
   <div id="background_container" class="scoreboard_container stats_overlay_container fade_in_when_done">
-
-    <div id="home_team_box">
-      <div id="home_team_name_box" class="team_name_box">
-        <div class="team_name home_team_name"></div>
-      </div>
-      <div class="sidebar_team_stats">
-        <div class="mmr home_only_mmr"></div>
-        <div class="record home_record"></div>
-        <div class="rank home_rank"></div>
-        <img class="logo home_logo">
-        <img class="division home_division" src="">
-      </div>
-    </div>
-
-    <div id="away_team_box">
-      <div id="away_team_name_box" class="team_name_box">
-        <div class="team_name away_team_name"></div>
-      </div>
-      <div class="sidebar_team_stats">
-        <div class="mmr away_only_mmr"></div>
-        <div class="record away_record"></div>
-        <div class="rank away_rank"></div>
-        <img class="logo away_logo">
-        <img class="division away_division" src="">
-      </div>
-    </div>
 
     <div class="scoreboard_stats">
 
@@ -119,6 +86,9 @@
   <!-- Add data passed in by the request -->
   <script type="text/javascript">
     client_name = "{{ client_name }}"; series_name = "{{ series_name }}"; live = "{{ live }}";
+    if (series_name == "") {
+        series_name = "cvre";
+    }
   </script>
 
   <!-- Load our custom Firebase stuff -->
@@ -126,24 +96,7 @@
   <script defer src="js/firebase_setup.js"></script>
   <script defer src="js/fetch_data_methods.js"></script>
 
-  <script defer src="js/scoreboard.js"></script>
-
-
-  {{!-- FITTY --}}
-  <script src="js/fitty.min.js"></script>
-  <script>
-    fitty('.home_team_name', {
-      minSize: 12,
-      maxSize: 50,
-      multiLine: false
-    });
-    fitty('.away_team_name', {
-      minSize: 12,
-      maxSize: 50,
-      multiLine: false
-    });
-  </script>
-
+  <script defer src="js/CVRE/cvre_stats.js"></script>
 
 </body>
 

@@ -39,7 +39,7 @@ function timeSince(date) {
 }
 
 function write(className, data, parentFade = null) {
-    if (data == undefined || data.includes('undefined')) return;
+    if (data == undefined || data == null || data.toString().includes('undefined')) return;
 
     var elements = document.getElementsByClassName(className);
     Array.from(elements).forEach(e => {

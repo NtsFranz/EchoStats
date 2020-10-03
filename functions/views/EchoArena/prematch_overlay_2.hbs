@@ -22,14 +22,25 @@
   <link rel="stylesheet" type="text/css" href="css/vrml_overlay.css">
 </head>
 
-<body>
-  <div id="background_container" class="prematch_rosters">
-
-    <div class="fade_in_when_done" style="opacity: 0;">
-      <table class="home_roster roster_table"></table>
-      <table class="away_roster roster_table"></table>
+<body style="margin: 0;">
+  <div id="background_container" class="prematch_2_layout fade_in_when_done">
+    <div id="home_team_box">
+      <div id="home_team_name_box">
+        <div class="home_team_name"></div>
+      </div>
+      <div class="home_mmr"></div>
+      <img class="home_logo fade_in_when_done">
+      <img class="home_division" src="">
     </div>
 
+    <div id="away_team_box">
+      <div id="away_team_name_box">
+        <div class="away_team_name"></div>
+      </div>
+      <div class="away_mmr"></div>
+      <img class="away_logo fade_in_when_done">
+      <img class="away_division" src="">
+    </div>
   </div>
 
   <!-- Add data passed in by the request -->
@@ -42,7 +53,23 @@
   <script defer src="js/firebase_setup.js"></script>
   <script defer src="js/fetch_data_methods.js"></script>
 
-  <script src="js/prematch_rosters.js"></script>
+  <script src="js/EchoArena/prematch_overlay_2.js"></script>
+
+  {{!-- FITTY --}}
+  <script src="js/fitty.min.js"></script>
+  <script>
+    fitty('.home_team_name', {
+      minSize: 12,
+      maxSize: 60,
+      multiLine: false
+    });
+    fitty('.away_team_name', {
+      minSize: 12,
+      maxSize: 60,
+      multiLine: false
+    });
+  </script>
+  
 
 </body>
 

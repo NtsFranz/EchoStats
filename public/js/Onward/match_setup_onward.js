@@ -25,7 +25,7 @@ function Start(db) {
     var manualClickHandler = function (row) {
         return function () {
             if (client_name == "") return;
-            db.collection("caster_preferences").doc(client_name).set({
+            db.collection("caster_preferences_onward").doc(client_name).set({
                 home_team: row.getElementsByClassName('home_team_name')[0].value,
                 home_logo: row.getElementsByClassName('home_team_logo')[0].value,
                 away_logo: row.getElementsByClassName('away_team_logo')[0].value,
@@ -53,7 +53,7 @@ function Start(db) {
 
     get_upcoming_matches("onward");
 
-    autocompleteCasters(document.getElementById("player_search"), db);
+    autocompleteCasters(document.getElementById("player_search"), db, game='onward');
 
     var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_team_logos?game=onward"
     httpGetAsync(url, autocompleteTeamInputs);
@@ -73,7 +73,7 @@ function showUpcomingMatches(data) {
     if (client_name == "") return;
 
     // get the match that is currently set
-    db.collection("caster_preferences").doc(client_name).get().then(doc => {
+    db.collection("caster_preferences_onward").doc(client_name).get().then(doc => {
         if (!doc.empty) {
             side_bool = doc.data()['swap_sides'];
             if (side_bool) {
@@ -96,7 +96,7 @@ function showUpcomingMatches(data) {
 
 function toggleSides() {
     if (client_name != "") {
-        db.collection("caster_preferences").doc(client_name).set({
+        db.collection("caster_preferences_onward").doc(client_name).set({
             swap_sides: !side_bool
         }, {
             merge: true
@@ -137,7 +137,7 @@ function addMatchUpcoming(data) {
     if (client_name != "") {
         var createClickHandler = function (row) {
             return function () {
-                db.collection("caster_preferences").doc(client_name).set({
+                db.collection("caster_preferences_onward").doc(client_name).set({
                     home_team: data['HomeTeam'],
                     home_logo: data['HomeTeamLogo'],
                     away_logo: data['AwayTeamLogo'],

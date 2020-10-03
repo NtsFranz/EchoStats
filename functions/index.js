@@ -14,13 +14,19 @@ app.engine('hbs', engines.handlebars);
 app.set('views', './views');
 app.set('view engine', 'hbs');
 
+
+
+
+
+//////////////// ECHO ARENA //////////////////
+
 app.get('/prematch_overlay', (req, res) => {
     const client_name = req.query.client_name;
     const custom_id = req.query.custom_id;
     const series_name = req.query.series_name;
     const live = req.query.live || false;
 
-    res.render("prematch_rosters", {
+    res.render("EchoArena/prematch_rosters", {
         client_name,
         custom_id,
         series_name,
@@ -34,7 +40,7 @@ app.get('/prematch_overlay_old', (req, res) => {
     const series_name = req.query.series_name;
     const live = req.query.live || false;
 
-    res.render("prematch_overlay_old", {
+    res.render("EchoArena/prematch_overlay_old", {
         client_name,
         custom_id,
         series_name,
@@ -49,7 +55,7 @@ app.get('/midmatch_overlay', (req, res) => {
     const live = req.query.live || false;
     const show_on_load = req.query.show_on_load || false;
 
-    res.render("midmatch_overlay", {
+    res.render("EchoArena/midmatch_overlay", {
         client_name,
         custom_id,
         series_name,
@@ -57,23 +63,6 @@ app.get('/midmatch_overlay', (req, res) => {
         show_on_load
     });
 });
-
-app.get('/midmatch_overlay_onward', (req, res) => {
-    const client_name = req.query.client_name;
-    const custom_id = req.query.custom_id;
-    const series_name = req.query.series_name;
-    const live = req.query.live || false;
-    const show_on_load = req.query.show_on_load || false;
-
-    res.render("midmatch_overlay_onward", {
-        client_name,
-        custom_id,
-        series_name,
-        live,
-        show_on_load
-    });
-});
-
 
 app.get('/prematch_overlay_2', (req, res) => {
     const client_name = req.query.client_name;
@@ -81,7 +70,7 @@ app.get('/prematch_overlay_2', (req, res) => {
     const series_name = req.query.series_name;
     const live = req.query.live || false;
 
-    res.render("prematch_overlay_2", {
+    res.render("EchoArena/prematch_overlay_2", {
         client_name,
         custom_id,
         series_name,
@@ -95,7 +84,7 @@ app.get('/most_recent_match', (req, res) => {
     const series_name = req.query.series_name;
     const live = req.query.live || false;
 
-    res.render("most_recent_match", {
+    res.render("EchoArena/most_recent_match", {
         client_name,
         custom_id,
         series_name,
@@ -108,7 +97,7 @@ app.get('/group_recent_matches', (req, res) => {
     const custom_id = req.query.custom_id;
     const series_name = req.query.series_name;
 
-    res.render("group_recent_matches", {
+    res.render("EchoArena/group_recent_matches", {
         client_name,
         custom_id,
         series_name
@@ -119,7 +108,7 @@ app.get('/all_recent_matches', (req, res) => {
     const series_name = req.query.series_name;
     const live = req.query.live || false;
 
-    res.render("all_recent_matches", {
+    res.render("EchoArena/all_recent_matches", {
         series_name,
         live
     });
@@ -129,7 +118,7 @@ app.get('/fastest_jousts', (req, res) => {
     const series_name = req.query.series_name;
     const live = req.query.live || false;
 
-    res.render("fastest_jousts", {
+    res.render("EchoArena/fastest_jousts", {
         series_name,
         live
     });
@@ -140,7 +129,7 @@ app.get('/casterdesk', (req, res) => {
     const series_name = req.query.series_name;
     const live = req.query.live || true;   // live by default
 
-    res.render("casterdesk", {
+    res.render("EchoArena/casterdesk", {
         client_name,
         series_name,
         live
@@ -151,32 +140,10 @@ app.get('/match_setup', (req, res) => {
     const client_name = req.query.client_name;
     const custom_id = req.query.custom_id;
     const series_name = req.query.series_name;
-    
-    res.render("match_setup", {
+
+    res.render("EchoArena/match_setup", {
         client_name,
         custom_id,
-        series_name
-    });
-});
-
-app.get('/match_setup_onward', (req, res) => {
-    const client_name = req.query.client_name;
-    const custom_id = req.query.custom_id;
-    const series_name = req.query.series_name;
-    
-    res.render("match_setup_onward", {
-        client_name,
-        custom_id,
-        series_name
-    });
-});
-
-app.get('/match_awards', (req, res) => {
-    const client_name = req.query.client_name;
-    const series_name = req.query.series_name;
-    
-    res.render("match_awards", {
-        client_name,
         series_name
     });
 });
@@ -206,11 +173,101 @@ app.get('/scoreboard', (req, res) => {
     const series_name = req.query.series_name;
     const live = req.query.live || false;
 
-    res.render("scoreboard", {
+    res.render("EchoArena/scoreboard", {
         client_name,
         series_name,
         live
     });
 });
+
+
+
+
+
+
+
+//////////////// Onward //////////////////
+
+app.get('/midmatch_overlay_onward', (req, res) => {
+    const client_name = req.query.client_name;
+    const custom_id = req.query.custom_id;
+    const series_name = req.query.series_name;
+    const live = req.query.live || false;
+    const show_on_load = req.query.show_on_load || false;
+
+    res.render("Onward/midmatch_overlay_onward", {
+        client_name,
+        custom_id,
+        series_name,
+        live,
+        show_on_load
+    });
+});
+
+
+app.get('/match_setup_onward', (req, res) => {
+    const client_name = req.query.client_name;
+    const custom_id = req.query.custom_id;
+    const series_name = req.query.series_name;
+
+    res.render("Onward/match_setup_onward", {
+        client_name,
+        custom_id,
+        series_name
+    });
+});
+
+
+
+
+
+
+
+
+//////////////// CVRE //////////////////
+
+app.get('/match_awards', (req, res) => {
+    const client_name = req.query.client_name;
+    const series_name = req.query.series_name;
+
+    res.render("CVRE/match_awards", {
+        client_name,
+        series_name
+    });
+});
+
+app.get('/cvre_stats_blue', (req, res) => {
+    const client_name = req.query.client_name;
+    const series_name = req.query.series_name;
+    const live = req.query.live || false;
+
+    res.render("CVRE/cvre_stats_blue", {
+        client_name,
+        series_name,
+        live
+    });
+});
+
+app.get('/cvre_stats_orange', (req, res) => {
+    const client_name = req.query.client_name;
+    const series_name = req.query.series_name;
+    const live = req.query.live || false;
+
+    res.render("CVRE/cvre_stats_orange", {
+        client_name,
+        series_name,
+        live
+    });
+});
+
+
+
+
+
+
+
+
+
+
 
 exports.app = functions.https.onRequest(app);

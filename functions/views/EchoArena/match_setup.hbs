@@ -8,13 +8,8 @@
 
   <!-- update the version number as needed -->
   <script defer src="/__/firebase/7.14.3/firebase-app.js"></script>
-  <!-- include only the Firebase features as you need -->
   <script defer src="/__/firebase/7.14.3/firebase-auth.js"></script>
-  {{!-- <script defer src="/__/firebase/7.14.3/firebase-database.js"></script> --}}
-  {{!-- <script defer src="/__/firebase/7.14.3/firebase-messaging.js"></script> --}}
   <script defer src="/__/firebase/7.14.3/firebase-firestore.js"></script>
-  {{!-- <script defer src="/__/firebase/7.14.3/firebase-storage.js"></script> --}}
-  {{!-- <script defer src="/__/firebase/7.14.3/firebase-analytics.js"></script> --}}
   <!-- initialize the SDK after all desired features are loaded -->
   <script defer src="/__/firebase/init.js"></script>
 
@@ -28,7 +23,7 @@
   <link rel="stylesheet" type="text/css" href="css/autocomplete_styles.css">
 
   <!-- Latest Sortable -->
-  <script defer src="https://SortableJS.github.io/Sortable/Sortable.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.10.2/Sortable.min.js"></script>
 
   <script defer type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
@@ -38,7 +33,7 @@
 
 <body>
 
-  <a href="/casterdesk_onward?client_name={{client_name}}">
+  <a href="/casterdesk?client_name={{client_name}}">
     <div class="echobutton" style="position: absolute; top: 1em; left: 1em;">
       Caster Desk
     </div>
@@ -122,7 +117,7 @@
   <script defer src="js/firebase_setup.js"></script>
   <script defer src="js/fetch_data_methods.js"></script>
 
-  <script defer src="js/match_setup_onward.js"></script>
+  <script defer src="js/EchoArena/match_setup.js"></script>
 
 </body>
 
