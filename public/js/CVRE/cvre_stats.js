@@ -1,3 +1,3 @@
 function Start(db) {
-    getCurrentMatchStats(db, true, false);
+    getCurrentMatchStats(db, long=false, live=false);
 }

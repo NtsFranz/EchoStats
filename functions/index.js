@@ -14,6 +14,10 @@ app.engine('hbs', engines.handlebars);
 app.set('views', './views');
 app.set('view engine', 'hbs');
 
+app.get('/', (req, res) => {
+    res.render('index');
+});
+
 
 
 

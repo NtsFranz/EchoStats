@@ -17,42 +17,46 @@
 
 <body>
 
-  <div id="background_container" class="scoreboard_container stats_overlay_container fade_in_when_done">
+  <div id="background_container" class="scoreboard_container fade_in_when_done">
 
     <div class="scoreboard_stats">
 
-      {{!-- Team percentages --}}
-      <table class="team_stats orangestats">
-        <tr>
-          <td class="totals">TOTALS</td>
-          <td class="home_team_points_perc"></td>
-          <td class="home_team_assists_perc"></td>
-          <td class="home_team_saves_perc"></td>
-          <td class="home_team_steals_perc"></td>
-          <td class="home_team_stuns_perc"></td>
-          <td class="home_team_possession_time_perc"></td>
-          <td class="home_team_shots_taken_perc"></td>
-        </tr>
+      <table class="playerstats_table orange">
+        <thead class="playerhead orange">
+          <tr>
+            <th>PLAYER</th>
+            <th>PTS</th>
+            <th>AST</th>
+            <th>SAV</th>
+            <th>STL</th>
+            <th>STN</th>
+            {{!-- <th>POSS</th>
+          <th>ATT</th> --}}
+          </tr>
+        </thead>
+
+        {{!-- Actual player data --}}
+        <tbody class="orange_player_stats_board playerstats orange">
+
+        </tbody>
+
+        {{!-- Team percentages --}}
+        <tfoot class="team_stats orange">
+          <tr>
+            <td class="totals">TOTALS</td>
+            <td class="home_team_points_perc"></td>
+            <td class="home_team_assists_perc"></td>
+            <td class="home_team_saves_perc"></td>
+            <td class="home_team_steals_perc"></td>
+            <td class="home_team_stuns_perc"></td>
+            {{!-- <td class="home_team_possession_time_perc"></td>
+          <td class="home_team_shots_taken_perc"></td> --}}
+          </tr>
+        </tfoot>
       </table>
-
-      <table class="orangeplayerhead playerhead">
-        <tr>
-          <td>PLAYER</td>
-          <td>PTS</td>
-          <td>AST</td>
-          <td>SAV</td>
-          <td>STL</td>
-          <td>STN</td>
-          <td>POSS</td>
-          <td>ATT</td>
-        </tr>
-      </table>
-
-      {{!-- Actual player data --}}
-      <table class="orange_player_stats_board playerstats"></table>
-
-
+      
     </div>
+
   </div>
 
   <!-- Add data passed in by the request -->

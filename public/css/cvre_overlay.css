@@ -1,3 +1,36 @@
+@font-face {
+    font-family: "Oswald-ExtraLight";
+    src: url("//fonts.gstatic.com/s/oswald/v16/aBQVVQvnHeKhkWtMdHDrBA.eot?#iefix");
+    src: url("//fonts.gstatic.com/s/oswald/v16/aBQVVQvnHeKhkWtMdHDrBA.eot?#iefix") format("eot"),
+    url("//fonts.gstatic.com/s/oswald/v16/RqRF4AQrkUh3ft98NHH2mA.woff2") format("woff2"),
+    url("//fonts.gstatic.com/s/oswald/v16/PyqsDANUgLi2UsdO-d4iZQ.woff") format("woff"),
+    url("//fonts.gstatic.com/s/oswald/v16/AWM5wXtMJeRP-AcRTgT4qQ.ttf") format("truetype"),
+    url("//fonts.gstatic.com/l/font?kit=fxOl0NmPFyuGF72xEC-uaw&skey=653237e53512d0de&v=v16#Oswald") format("svg");
+}
+
+html,body {
+    height: 100%;
+}
+
+body {
+    font-family: "Oswald-ExtraLight";
+    margin: 0;
+    overflow: hidden;
+}
+
+#background_container {
+    margin: 0;
+}
+
+
+.fade_in_when_done {
+	transition: opacity .75s;
+	opacity: 0;
+}
+
+
+
+/* MATCH AWARDS */
 .cvre_match_awards_container #match_awards {
     display: flex;
     font-family: 'Courier New', Courier, monospace;
@@ -34,4 +67,57 @@
 
 .cvre_match_awards_container .match_award .value {
     font-size: 25px;
+}
+
+
+
+
+/* Stats Pages */
+.scoreboard_container {
+    height: 100%;
+    font-size: 1.5em;
+}
+
+.scoreboard_stats {
+    height: 100%;
+}
+
+.playerstats_table {
+    width: 100%;
+    height: 100%;
+    border-spacing: 0 .3em;
+    /* display: flex;
+    flex-direction: column; */
+}
+
+.playerstats_table thead,
+.playerstats_table tfoot {
+    color: #000c;
+}
+
+.playerstats td,
+.team_stats td {
+    text-align: center;
+}
+
+.playerstats td:nth-child(1),
+.team_stats td:nth-child(1) {
+    text-align: left;
+    padding-left: 1em;
+}
+
+.playerstats {
+    color: white;
+}
+
+.playerstats tr {
+    background-color: #0008;
+}
+
+.playerstats_table.blue {
+    background-color: #00a1e1;
+}
+
+.playerstats_table.orange {
+    background-color: #e38a0d;
 }

@@ -550,6 +550,15 @@ th {
 	text-align: center;
 }
 
+.text_content {
+	max-width: 80em;
+	margin: 2em auto;
+	background-color: #0001;
+	padding: 3em;
+	padding-top: 1em;
+	border: 1px solid #777;
+}
+
 @keyframes fade_in {
 	from {
 		opacity: 0;
