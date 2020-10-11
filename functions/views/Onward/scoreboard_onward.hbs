@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Midmatch Overlay</title>
+  <title>Scoreboard Scene</title>
 
   <!-- update the version number as needed -->
   <script defer src="/__/firebase/7.14.3/firebase-app.js"></script>
@@ -17,20 +17,17 @@
 </head>
 
 <body style="margin: 0;">
-  <div id="background_container" class="midmatch_layout_onward">
-    <div id="home_team_box">
-      <div id="home_team_name_box" class="team_name_box">
-        <div class="team_name home_team_name hide"></div>
-      </div>
-      <img class="team_logo home_logo hide">
-    </div>
+  <div id="background_container" class="scoreboard_layout_onward">
 
-    <div id="away_team_box hide">
-      <div id="away_team_name_box" class="team_name_box">
-        <div class="team_name away_team_name hide"></div>
-      </div>
-      <img class="team_logo away_logo hide">
+    <div id="home_team_name_box" class="team_name_box">
+      <div class="team_name home_team_name hide"></div>
     </div>
+    <img class="team_logo home_logo hide">
+
+    <div id="away_team_name_box" class="team_name_box">
+      <div class="team_name away_team_name hide"></div>
+    </div>
+    <img class="team_logo away_logo hide">
 
 
   </div>
@@ -49,19 +46,19 @@
   <script defer src="js/firebase_setup.js"></script>
   <script defer src="js/fetch_data_methods.js"></script>
 
-  <script src="js/Onward/midmatch_overlay_onward.js"></script>
+  <script src="js/Onward/scoreboard_onward.js"></script>
 
 
   <script src="js/fitty.min.js"></script>
   <script>
     fitty('.home_team_name', {
       minSize: 12,
-      maxSize: 40,
+      maxSize: 50,
       multiLine: false
     });
     fitty('.away_team_name', {
       minSize: 12,
-      maxSize: 40,
+      maxSize: 50,
       multiLine: false
     });
   </script>

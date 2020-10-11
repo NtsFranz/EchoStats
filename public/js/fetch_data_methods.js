@@ -1,12 +1,12 @@
 var debug_log = false;
 
 var games = {
-    echoarena: { casterprefs: "caster_preferences"},
-    onward: { casterprefs: "caster_preferences_onward"}
+    echoarena: { casterprefs: "caster_preferences" },
+    onward: { casterprefs: "caster_preferences_onward" }
 }
 
 // gets data from caster_preferences and sets the home/away team names, rosters, team stats, etc with options
-function buildpregame(db, previousMatches = true, teamStats = true, roster = true, live = true, get_team_ranking = false, game='echoarena') {
+function buildpregame(db, previousMatches = true, teamStats = true, roster = true, live = true, get_team_ranking = false, game = 'echoarena') {
     if (client_name == "") return;
     db.collection(games[game]['casterprefs']).doc(client_name)
         .onSnapshot(doc => {
@@ -74,7 +74,7 @@ function buildpregame(db, previousMatches = true, teamStats = true, roster = tru
                                     });
                                 }
                                 else if (get_team_ranking) {
-                                    write("home_rank", "#"+doc.data()['rank']);
+                                    write("home_rank", "#" + doc.data()['rank']);
                                 }
                             }
                         });
@@ -94,7 +94,7 @@ function buildpregame(db, previousMatches = true, teamStats = true, roster = tru
                                     });
                                 }
                                 else if (get_team_ranking) {
-                                    write("away_rank", "#"+doc.data()['rank']);
+                                    write("away_rank", "#" + doc.data()['rank']);
                                 }
                             }
                         });
@@ -115,7 +115,7 @@ function vrmlTeamNamesSame(team1, team2) {
         (team2.includes("aka") && team2.includes(team1)));
 }
 
-function getTeamNameLogo(db, game='echoarena') {
+function getTeamNameLogo(db, game = 'echoarena') {
     if (client_name == "") return;
     db.collection(games[game]['casterprefs']).doc(client_name)
         .onSnapshot(doc => {
@@ -139,6 +139,110 @@ function getTeamNameLogo(db, game='echoarena') {
         });
 
     fadeInWhenDone();
+}
+
+function getCasterPrefs(client_name, game = 'echoarena', callback) {
+    if (client_name == "") return;
+
+    db.collection(games[game]['casterprefs']).doc(client_name).get()
+        .then(doc => {
+            if (doc.exists) {
+                callback(doc.data());
+            }
+        });
+}
+
+// returns a js array of caster data
+function getCasterList(db, game = 'echoarena', callback) {
+    if (game != 'onward') return [];
+
+    var promises = [];
+
+    var casterprefs = {};
+    promises.push(db.collection(games[game]['casterprefs']).doc(client_name).get()
+        .then(doc => {
+            if (doc.exists) {
+                casterprefs = doc.data();
+            }
+        })
+    );
+
+    firebase.storage().ref('/OnwardVRML/casters').listAll().then((res) => {
+        var urls = [];
+        var count = res.items.length;
+        // loop through all the image files in the directory
+        res.items.forEach(function (i) {
+            promises.push(i.getDownloadURL().then((url) => {
+                urls.push({
+                    "name": i.name.split('.').slice(0, -1).join('.'),
+                    "url": url,
+                });
+
+                console.log(urls[urls.length - 1]);
+            }));
+        });
+
+        // once all the images were fetched and the current casters were fetched 
+        Promise.all(promises).then(() => {
+            // sort list first
+            urls.sort((a, b) => {
+                return a.name.toLowerCase() > b.name.toLowerCase();
+            });
+
+            // use the list in a callback
+            if (callback != null) {
+                callback(urls, casterprefs);
+            }
+            return urls;
+        });
+    });
+}
+
+function showSelectedCasters(elemClassName, casterprefs) {
+    var elems = document.getElementsByClassName(elemClassName);
+    var i = 0;
+    Array.from(elems).forEach(e => {
+        Array.from(e.querySelectorAll('div')).forEach(d => {
+            if (d.innerText == casterprefs['caster_' + i]) {
+                d.classList.add('selected');
+            }
+            else {
+                d.classList.remove('selected');
+            }
+        });
+
+        write("caster_" + i, casterprefs['caster_' + i]);
+        i += 1;
+    });
+}
+
+function addListOfCastersToElems(casterList, elemClassName, onClickEvent) {
+    var elems = document.getElementsByClassName(elemClassName);
+    let i = 0;
+    Array.from(elems).forEach(e => {
+        let j = i;  // so that the value doesn't change with reference, js is weird
+        addCasterButton(e, "None", "", j);
+        casterList.forEach(c => {
+            addCasterButton(e, c.name, c.url, j);
+        });
+        i += 1;
+    });
+}
+
+function addCasterButton(parent, name, url, index) {
+    var a = document.createElement("a");
+    var div = document.createElement("div");
+    var img = document.createElement("img");
+    var p = document.createElement("p");
+
+    p.innerText = name;
+    img.src = url;
+
+    div.appendChild(p);
+    div.appendChild(img);
+    a.appendChild(div);
+    a.addEventListener("click", () => { onClickEvent(name, url, index); });
+    parent.appendChild(a);
 }
 
 function getPreviousMatchesVRMLPage(data, team_name, side) {
@@ -334,7 +438,7 @@ function createMatchRowHTML(doc) {
     return row;
 }
 
-function getCurrentMatchStats(db, long = false, live = false, onlyaftercasterprefs = false, dataProcessingCallback = null, game='echoarena') {
+function getCurrentMatchStats(db, long = false, live = false, onlyaftercasterprefs = false, dataProcessingCallback = null, game = 'echoarena') {
     if (onlyaftercasterprefs) {
         db.collection(games[game]['casterprefs']).doc(client_name)
             .onSnapshot(doc => {
@@ -580,7 +684,7 @@ function setPlayerMatchStats(players, long = false, dataProcessingCallback = nul
     fadeInWhenDone();
 }
 
-function autocompleteCasters(input, db, game='echoarena') {
+function autocompleteCasters(input, db, game = 'echoarena') {
     db.collection(games[game]['casterprefs'])
         .get()
         .then(querySnapshot => {

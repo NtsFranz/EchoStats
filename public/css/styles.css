@@ -344,6 +344,84 @@ th {
 	width: max-content;
 }
 
+.centered_content .team_name {
+	text-align: center;
+	font-weight: 900;
+	margin: .1em;
+}
+
+.centered_content .team_logo {
+	margin: .1em;
+}
+
+.centered_content table {
+	margin: auto;
+}
+
+.caster_list_header {
+	background-color: #333;
+	color: white;
+	padding: 1em;
+	cursor: pointer;
+}
+
+.caster_list {
+	display: flex;
+	max-width: 55em;
+	flex-wrap: wrap;
+	max-height: 0;
+	overflow: hidden;
+	transition: .5s max-height;
+	margin: 0 auto;
+	margin-bottom: 1em;
+}
+
+.caster_list.expanded {
+	max-height: 22em;
+}
+
+.caster_list div {
+	position: relative;
+	width: 9.1em;
+	height: 100%;
+}
+
+.caster_list div:hover {
+	transform: scale(1.01);
+}
+
+.caster_list div.selected {
+	box-shadow: 0 0 1em black;
+	z-index: 2;
+}
+
+.caster_list p {
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	font-weight: 900;
+	font-size: 16px;
+	text-shadow: 2px 2px 5px black;
+	color: white;
+	z-index: 1;
+	bottom: 1em;
+	box-shadow: 0 0 20px black;
+	background-color: #000a;
+}
+
+.caster_list div.selected p {
+	background-color: #500a;
+}
+
+.caster_list img {
+	width: 100%;
+	/* filter: blur(2px); */
+}
+
+.caster_list img:hover {
+	/* filter: blur(0); */
+}
+
 .match_highlighted {
 	background-color: var(--accent-color-green);
 }

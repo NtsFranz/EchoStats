@@ -47,3 +47,40 @@
 .midmatch_layout_onward #away_team_name_box {
     left: 1575px;
 }
+
+
+
+
+/* Scoreboard */
+
+.scoreboard_layout_onward .team_logo {
+    position: absolute;
+    top: 52px;
+    width: 120px;
+}
+
+.scoreboard_layout_onward .home_logo {
+    left: 65px;
+}
+
+.scoreboard_layout_onward .away_logo {
+    right: 65px;
+}
+
+.scoreboard_layout_onward .team_name_box {
+    position: absolute;
+    top: 75px;
+    width: 600px;
+    /* height: 80px; */
+    line-height: 75px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.scoreboard_layout_onward #home_team_name_box {
+    left: 330px;
+}
+
+.scoreboard_layout_onward #away_team_name_box {
+    right: 330px;
+}

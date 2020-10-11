@@ -192,14 +192,30 @@ app.get('/scoreboard', (req, res) => {
 
 //////////////// Onward //////////////////
 
-app.get('/midmatch_overlay_onward', (req, res) => {
+app.get('/scoreboard_onward', (req, res) => {
     const client_name = req.query.client_name;
     const custom_id = req.query.custom_id;
     const series_name = req.query.series_name;
     const live = req.query.live || false;
     const show_on_load = req.query.show_on_load || false;
 
-    res.render("Onward/midmatch_overlay_onward", {
+    res.render("Onward/scoreboard_onward", {
+        client_name,
+        custom_id,
+        series_name,
+        live,
+        show_on_load
+    });
+});
+
+app.get('/preshow_onward', (req, res) => {
+    const client_name = req.query.client_name;
+    const custom_id = req.query.custom_id;
+    const series_name = req.query.series_name;
+    const live = req.query.live || false;
+    const show_on_load = req.query.show_on_load || false;
+
+    res.render("Onward/preshow_onward", {
         client_name,
         custom_id,
         series_name,

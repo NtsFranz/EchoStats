@@ -53,10 +53,49 @@ function Start(db) {
 
     get_upcoming_matches("onward");
 
-    autocompleteCasters(document.getElementById("player_search"), db, game='onward');
+    autocompleteCasters(document.getElementById("player_search"), db, game = 'onward');
 
     var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_team_logos?game=onward"
     httpGetAsync(url, autocompleteTeamInputs);
+
+    getTeamNameLogo(db, game = 'onward');
+
+    var casterList = getCasterList(db, game = 'onward', (list, casterprefs) => {
+        addListOfCastersToElems(list, elemClassName = "caster_list", onClickEvent = (caster_name, caster_img_url, index) => {
+            if (client_name != "") {
+                db.collection('caster_preferences_onward').doc(client_name).set({
+                    ["caster_" + index]: caster_name,
+                    ["caster_" + index + "_img_url"]: caster_img_url
+                }, {
+                    merge: true
+                }).catch(function (error) {
+                    // The document probably doesn't exist.
+                    console.error("Error updating document: ", error);
+                });
+
+                getCasterPrefs(client_name = client_name, game = game, (casterprefs) => {
+                    showSelectedCasters(elemClassName, casterprefs);
+                });
+            }
+        });
+
+        showSelectedCasters(elemClassName = "caster_list", casterprefs);
+
+    });
+
+    var headerButtons = Array.from(document.getElementsByClassName('caster_list_header'));
+    var casterLists = Array.from(document.getElementsByClassName('caster_list'));
+
+    for (var i = 0; i < headerButtons.length; i++) {
+        let j = i;
+        headerButtons[i].addEventListener('click', () => {
+            if (casterLists[j].classList.contains('expanded')) {
+                casterLists[j].classList.remove('expanded');
+            } else {
+                casterLists[j].classList.add('expanded');
+            }
+        });
+    }
 
 }
 
