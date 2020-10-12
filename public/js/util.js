@@ -39,20 +39,30 @@ function timeSince(date) {
 }
 
 function write(className, data, parentFade = null) {
-    if (data == undefined || data == null || data.toString().includes('undefined')) return;
+    if (data == undefined || data == null || data.toString().includes('undefined')) {
+        data = "";
+    }
 
     var elements = document.getElementsByClassName(className);
     Array.from(elements).forEach(e => {
         e.innerHTML = data;
-        e.style.opacity = "1";
+        if (data == "") {
+            e.style.opacity = "0";
+        } else {
+            e.style.opacity = "1";
+        }
     });
 
     if (parentFade != null) {
         var elements = document.getElementsByClassName(parentFade);
         Array.from(elements).forEach(e => {
-            e.style.opacity = "1";
-            e.style.visibility = "visible";
-            e.style.display = "block";
+            if (data == "") {
+                e.style.opacity = "0";
+            } else {
+                e.style.opacity = "1";
+                e.style.visibility = "visible";
+                e.style.display = "block";
+            }
         });
     }
 }
@@ -78,7 +88,7 @@ function writeHREF(className, data, parentFade = null) {
 
 function writeValue(className, data, parentFade = null) {
     if (data == undefined || data.includes('undefined')) return;
-    
+
     var elements = document.getElementsByClassName(className);
     Array.from(elements).forEach(e => {
         e.value = data;
@@ -95,14 +105,52 @@ function writeValue(className, data, parentFade = null) {
     }
 }
 
-function setImage(className, src_) {
-    if (src_ == undefined || src_ == "") return;
+function writeChecked(className, data, parentFade = null) {
+    if (data == undefined || data == null) return;
+
+    var elements = document.getElementsByClassName(className);
+    Array.from(elements).forEach(e => {
+        e.checked = data;
+        e.style.opacity = "1";
+    });
+
+    if (parentFade != null) {
+        var elements = document.getElementsByClassName(parentFade);
+        Array.from(elements).forEach(e => {
+            e.style.opacity = "1";
+            e.style.visibility = "visible";
+            e.style.display = "block";
+        });
+    }
+}
+
+function setImage(className, src_, parentFade = null) {
+    if (src_ == undefined || src_ == "") {
+        src_ = "";
+    }
 
     var elements = document.getElementsByClassName(className);
     Array.from(elements).forEach(e => {
         e.src = src_;
-        e.style.opacity = "1";
+        if (src_ == "") {
+            e.style.opacity = "0";
+        } else {
+            e.style.opacity = "1";
+        }
     });
+
+    if (parentFade != null) {
+        var elements = document.getElementsByClassName(parentFade);
+        Array.from(elements).forEach(e => {
+            if (src_ == "") {
+                e.style.opacity = "0";
+            } else {
+                e.style.opacity = "1";
+                e.style.visibility = "visible";
+                e.style.display = "block";
+            }
+        });
+    }
 }
 
 function sumOfStats(playerData) {

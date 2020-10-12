@@ -29,6 +29,20 @@
     </div>
     <img class="team_logo away_logo hide">
 
+    <div class="caster_img_box caster_0_img_box">
+      <div class="caster_name caster_0_name"></div>
+      <img class="caster_img caster_0_img" />
+    </div>
+
+    <div class="caster_img_box caster_1_img_box">
+      <div class="caster_name caster_1_name"></div>
+      <img class="caster_img caster_1_img" />
+    </div>
+
+    <div class="analyst_box">
+      <div>Analyst: <span class="analyst_name"></span></div>
+    </div>
+
 
   </div>
 
@@ -59,6 +73,16 @@
     fitty('.away_team_name', {
       minSize: 12,
       maxSize: 50,
+      multiLine: false
+    });
+    fitty('.caster_0_name', {
+      minSize: 12,
+      maxSize: 45,
+      multiLine: false
+    });
+    fitty('.caster_1_name', {
+      minSize: 12,
+      maxSize: 45,
       multiLine: false
     });
   </script>

@@ -69,11 +69,21 @@
 
     <br>
 
-    <div class="caster_list_header">Caster 1: <span class="caster_0"></span></div>
+    <div class="caster_list_header">
+      Caster 1: <span class="caster_0_name"></span>
+      <label for="caster_0_webcam">Webcam</label><input type="checkbox" id="caster_0_webcam"
+        class="caster_webcam caster_0_webcam">
+    </div>
     <div class="caster_list"></div>
-    <div class="caster_list_header">Caster 2: <span class="caster_1"></span></div>
+    <div class="caster_list_header">Caster 2: <span class="caster_1_name"></span>
+      <label for="caster_1_webcam">Webcam</label><input type="checkbox" id="caster_1_webcam"
+        class="caster_webcam caster_1_webcam">
+    </div>
     <div class="caster_list"></div>
-    <div class="caster_list_header">Caster 3: <span class="caster_2"></span></div>
+    <div class="caster_list_header">Analyst: <span class="analyst_name"></span>
+      <label for="analyst_webcam">Webcam</label><input type="checkbox" id="analyst_webcam"
+        class="caster_webcam analyst_webcam">
+    </div>
     <div class="caster_list"></div>
 
     <table>
@@ -108,12 +118,12 @@
 
           <td>
             <form onsubmit="return false" class="custom_team_input_form">
-              <input autocomplete="off" type="text" class="home_team_name team_input">
+              <input autocomplete="off" type="text" class="home_team_name team_input force_visible">
             </form>
           </td>
           <td>
             <form onsubmit="return false" class="custom_team_input_form">
-              <input autocomplete="off" type="text" class="away_team_name team_input" style="text-align: right;">
+              <input autocomplete="off" type="text" class="away_team_name team_input force_visible" style="text-align: right;">
             </form>
           </td>
 

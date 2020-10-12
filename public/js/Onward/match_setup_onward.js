@@ -58,14 +58,15 @@ function Start(db) {
     var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_team_logos?game=onward"
     httpGetAsync(url, autocompleteTeamInputs);
 
-    getTeamNameLogo(db, game = 'onward');
+    getTeamNameLogo(db, 'onward');
 
-    var casterList = getCasterList(db, game = 'onward', (list, casterprefs) => {
-        addListOfCastersToElems(list, elemClassName = "caster_list", onClickEvent = (caster_name, caster_img_url, index) => {
+    var casterList = getCasterList(db, 'onward', (list, casterprefs) => {
+        addListOfCastersToElems(list, "caster_list", (caster_name, caster_img, index) => {
             if (client_name != "") {
+                if (caster_name == "None") caster_name = "";
                 db.collection('caster_preferences_onward').doc(client_name).set({
-                    ["caster_" + index]: caster_name,
-                    ["caster_" + index + "_img_url"]: caster_img_url
+                    ["caster_" + index + "_name"]: caster_name,
+                    ["caster_" + index + "_img"]: caster_img
                 }, {
                     merge: true
                 }).catch(function (error) {
@@ -73,18 +74,19 @@ function Start(db) {
                     console.error("Error updating document: ", error);
                 });
 
-                getCasterPrefs(client_name = client_name, game = game, (casterprefs) => {
-                    showSelectedCasters(elemClassName, casterprefs);
+                getCasterPrefs(game, true, (casterprefs) => {
+                    showSelectedCasters("caster_list", casterprefs);
                 });
             }
         });
 
-        showSelectedCasters(elemClassName = "caster_list", casterprefs);
+        showSelectedCasters("caster_list", casterprefs);
 
     });
 
     var headerButtons = Array.from(document.getElementsByClassName('caster_list_header'));
     var casterLists = Array.from(document.getElementsByClassName('caster_list'));
+    var webcamButtons = Array.from(document.getElementsByClassName('caster_webcam'));
 
     for (var i = 0; i < headerButtons.length; i++) {
         let j = i;
@@ -95,7 +97,22 @@ function Start(db) {
                 casterLists[j].classList.add('expanded');
             }
         });
+
+        // webcam checkboxes
+        webcamButtons[j].addEventListener('click', () => {
+            db.collection('caster_preferences_onward').doc(client_name).set({
+                ["caster_" + j + "_webcam"]: webcamButtons[j].checked
+            }, {
+                merge: true
+            }).catch(function (error) {
+                // The document probably doesn't exist.
+                console.error("Error updating document: ", error);
+            });
+        });
     }
+
+
+    getCasters(game = 'onward');
 
 }
 
@@ -109,27 +126,23 @@ function showUpcomingMatches(data) {
         addMatchUpcoming(match);
     });
 
-    if (client_name == "") return;
-
     // get the match that is currently set
-    db.collection("caster_preferences_onward").doc(client_name).get().then(doc => {
-        if (!doc.empty) {
-            side_bool = doc.data()['swap_sides'];
-            if (side_bool) {
-                swapSidesButton.classList.add("sides_swapped");
-                swapSidesButton.innerHTML = "Home/Away is swapped";
-            } else {
-                swapSidesButton.classList.remove("sides_swapped");
-                swapSidesButton.innerHTML = "Home/Away is <em>not</em> swapped";
-            }
-            Array.from(sortableList.getElementsByTagName('tr')).forEach(r => {
-                if (r.getElementsByClassName('home_team_name')[0].innerText == doc.data()['home_team'] &&
-                    r.getElementsByClassName('away_team_name')[0].innerText == doc.data()['away_team']) {
-                    r.classList.add('match-selected');
-                    return;
-                }
-            });
+    getCasterPrefs(game = "onward", true, (data) => {
+        side_bool = data['swap_sides'];
+        if (side_bool) {
+            swapSidesButton.classList.add("sides_swapped");
+            swapSidesButton.innerHTML = "Home/Away is swapped";
+        } else {
+            swapSidesButton.classList.remove("sides_swapped");
+            swapSidesButton.innerHTML = "Home/Away is <em>not</em> swapped";
         }
+        Array.from(sortableList.getElementsByTagName('tr')).forEach(r => {
+            if (r.getElementsByClassName('home_team_name')[0].innerText == data['home_team'] &&
+                r.getElementsByClassName('away_team_name')[0].innerText == data['away_team']) {
+                r.classList.add('match-selected');
+                return;
+            }
+        });
     });
 }
 

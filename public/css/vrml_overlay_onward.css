@@ -3,6 +3,17 @@
     src: url(../fonts/goodtimes.ttf);
 }
 
+@font-face {
+    font-family: furore;
+    src: url(../fonts/Furore.otf);
+}
+
+@font-face {
+    font-family: big_noodle_titling;
+    src: url(../fonts/big_noodle_titling.ttf);
+}
+
+
 #background_container {
     position: fixed;
     transition: opacity .5s;
@@ -20,32 +31,35 @@
     opacity: 0;
 }
 
-.midmatch_layout_onward .team_logo {
+.preshow_layout_onward .team_logo {
     position: absolute;
-    top: 250px;
+    top: 267px;
+    height: 260px;
 }
 
-.midmatch_layout_onward .home_logo {
-    left: 1100px;
+.preshow_layout_onward .home_logo {
+    left: 1090px;
 }
 
-.midmatch_layout_onward .away_logo {
-    left: 1575px;
+.preshow_layout_onward .away_logo {
+    left: 1565px;
 }
 
-.midmatch_layout_onward .team_name_box {
+.preshow_layout_onward .team_name_box {
     position: absolute;
-    top: 550px;
-    width: 300px;
+    top: 560px;
+    width: 325px;
     font-size: 30px;
+    line-height: 30px;
+    text-align: center;
 }
 
-.midmatch_layout_onward #home_team_name_box {
-    left: 1100px;
+.preshow_layout_onward #home_team_name_box {
+    left: 1060px;
 }
 
-.midmatch_layout_onward #away_team_name_box {
-    left: 1575px;
+.preshow_layout_onward #away_team_name_box {
+    left: 1530px;
 }
 
 
@@ -55,7 +69,7 @@
 
 .scoreboard_layout_onward .team_logo {
     position: absolute;
-    top: 52px;
+    top: 51px;
     width: 120px;
 }
 
@@ -64,7 +78,7 @@
 }
 
 .scoreboard_layout_onward .away_logo {
-    right: 65px;
+    right: 61px;
 }
 
 .scoreboard_layout_onward .team_name_box {
@@ -83,4 +97,46 @@
 
 .scoreboard_layout_onward #away_team_name_box {
     right: 330px;
+}
+
+.scoreboard_layout_onward .caster_img_box {
+    position: absolute;
+    width: 320px;
+    height: 275px;
+    top: 240px;
+}
+
+.scoreboard_layout_onward .caster_name {
+    width: 100%;
+    text-align: center;
+    font-size: 45px;
+    font-family: furore;
+}
+
+.scoreboard_layout_onward .caster_img {
+    height: 220px;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.scoreboard_layout_onward .caster_0_img_box {
+    left: 170px;
+    top: 234px;
+}
+
+.scoreboard_layout_onward .caster_1_img_box {
+    right: 170px;
+}
+
+.scoreboard_layout_onward .analyst_box {
+    position: absolute;
+    bottom: 25px;
+    width: 100%;
+    font-family: furore;
+    font-size: 35px;
+}
+
+.scoreboard_layout_onward .analyst_box div {
+    text-align: center;
 }

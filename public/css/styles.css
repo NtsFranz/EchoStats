@@ -23,6 +23,10 @@ body {
 	background: radial-gradient(circle, #b4b8bb 0%, #8a8d8f 100%);
 }
 
+.force_visible {
+	opacity: 1 !important;
+}
+
 .echobutton {
 	width: 14em;
 	height: 1em;
@@ -363,6 +367,15 @@ th {
 	color: white;
 	padding: 1em;
 	cursor: pointer;
+}
+
+.caster_list_header:hover {
+	background-color: #444;
+}
+
+.caster_list_header .caster_webcam,
+.caster_list_header label {
+	float: right;
 }
 
 .caster_list {

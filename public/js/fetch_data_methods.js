@@ -141,15 +141,24 @@ function getTeamNameLogo(db, game = 'echoarena') {
     fadeInWhenDone();
 }
 
-function getCasterPrefs(client_name, game = 'echoarena', callback) {
+function getCasterPrefs(game = 'echoarena', live = true, callback) {
     if (client_name == "") return;
 
-    db.collection(games[game]['casterprefs']).doc(client_name).get()
-        .then(doc => {
-            if (doc.exists) {
-                callback(doc.data());
-            }
-        });
+    if (live) {
+        db.collection(games[game]['casterprefs']).doc(client_name)
+            .onSnapshot(doc => {
+                if (doc.exists) {
+                    callback(doc.data());
+                }
+            });
+    } else {
+        db.collection(games[game]['casterprefs']).doc(client_name).get()
+            .then(doc => {
+                if (doc.exists) {
+                    callback(doc.data());
+                }
+            });
+    }
 }
 
 // returns a js array of caster data
@@ -202,17 +211,47 @@ function showSelectedCasters(elemClassName, casterprefs) {
     var elems = document.getElementsByClassName(elemClassName);
     var i = 0;
     Array.from(elems).forEach(e => {
+        var casterName = casterprefs['caster_' + i + '_name'];
         Array.from(e.querySelectorAll('div')).forEach(d => {
-            if (d.innerText == casterprefs['caster_' + i]) {
+            if (casterName == "") casterName = "None";
+            if (d.innerText == casterName) {
                 d.classList.add('selected');
             }
             else {
                 d.classList.remove('selected');
             }
         });
-
-        write("caster_" + i, casterprefs['caster_' + i]);
         i += 1;
+    });
+}
+
+function getCasters(game = "echoarena") {
+    getCasterPrefs(game, true, (data) => {
+
+        write('caster_0_name', data['caster_0_name']);
+        if (data['caster_0_webcam']) {
+            setImage('caster_0_img', "");
+        } else {
+            setImage('caster_0_img', data['caster_0_img']);
+        }
+        writeChecked('caster_0_webcam', data['caster_0_webcam']);
+
+        write('caster_1_name', data['caster_1_name']);
+        if (data['caster_1_webcam']) {
+            setImage('caster_1_img', "");
+        } else {
+            setImage('caster_1_img', data['caster_1_img']);
+        }
+        writeChecked('caster_1_webcam', data['caster_1_webcam']);
+
+        write('analyst_name', data['caster_2_name'], "analyst_box");
+        if (data['caster_2_webcam']) {
+            setImage('analyst_img', "");
+        } else {
+            setImage('analyst_img', data['caster_2_img']);
+        }
+        writeChecked('analyst_webcam', data['caster_2_webcam']);
+
     });
 }
 
@@ -221,15 +260,15 @@ function addListOfCastersToElems(casterList, elemClassName, onClickEvent) {
     let i = 0;
     Array.from(elems).forEach(e => {
         let j = i;  // so that the value doesn't change with reference, js is weird
-        addCasterButton(e, "None", "", j);
+        addCasterButton(e, "None", "", j, onClickEvent);
         casterList.forEach(c => {
-            addCasterButton(e, c.name, c.url, j);
+            addCasterButton(e, c.name, c.url, j, onClickEvent);
         });
         i += 1;
     });
 }
 
-function addCasterButton(parent, name, url, index) {
+function addCasterButton(parent, name, url, index, onClickEvent) {
     var a = document.createElement("a");
     var div = document.createElement("div");
     var img = document.createElement("img");
