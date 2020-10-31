@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Scoreboard Scene</title>
+  <title>CASTER 1</title>
 
   <!-- update the version number as needed -->
   <script defer src="/__/firebase/7.14.3/firebase-app.js"></script>
@@ -17,42 +17,18 @@
 </head>
 
 <body style="margin: 0;">
-  <div id="background_container" class="scoreboard_layout_onward">
 
-    <div id="home_team_name_box" class="team_name_box">
-      <div class="team_name home_team_name hide"></div>
-    </div>
-    <img class="team_logo home_logo hide">
-
-    <div id="away_team_name_box" class="team_name_box">
-      <div class="team_name away_team_name hide"></div>
-    </div>
-    <img class="team_logo away_logo hide">
-
+  <div class="single_element">
     <div class="caster_img_box caster_0_img_box">
       <div class="caster_name caster_0_name"></div>
       <img class="caster_img caster_0_img" />
     </div>
-
-    <div class="caster_img_box caster_1_img_box">
-      <div class="caster_name caster_1_name"></div>
-      <img class="caster_img caster_1_img" />
-    </div>
-
-    <div class="analyst_box">
-      <div>Analyst: <span class="analyst_name"></span></div>
-    </div>
-
-
   </div>
 
   <!-- Add data passed in by the request -->
   <script type="text/javascript">
     var client_name = "{{ client_name }}";
-    var custom_id = "{{ custom_id }}";
     var series_name = "{{ series_name }}";
-    var live = "{{ live }}";
-    var show_on_load = "{{ show_on_load }}" == "true";
   </script>
 
   <!-- Load our custom Firebase stuff -->
@@ -65,22 +41,7 @@
 
   <script src="/js/fitty.min.js"></script>
   <script>
-    fitty('.home_team_name', {
-      minSize: 12,
-      maxSize: 50,
-      multiLine: false
-    });
-    fitty('.away_team_name', {
-      minSize: 12,
-      maxSize: 50,
-      multiLine: false
-    });
     fitty('.caster_0_name', {
-      minSize: 12,
-      maxSize: 45,
-      multiLine: false
-    });
-    fitty('.caster_1_name', {
       minSize: 12,
       maxSize: 45,
       multiLine: false

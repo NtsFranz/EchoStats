@@ -32,7 +32,7 @@ function buildpregame(db, previousMatches = true, teamStats = true, roster = tru
                 write("match_title", doc.data()[left_side + '_team'] + " vs " + doc.data()[right_side + '_team']);
 
                 if (roster) {
-                    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_all_players_vrml";
+                    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_all_players_vrml?game=" + game;
                     httpGetAsync(url, function (data) {
                         buildRosterTable(data, home_team_name, "home");
                         buildRosterTable(data, away_team_name, "away");
@@ -42,14 +42,14 @@ function buildpregame(db, previousMatches = true, teamStats = true, roster = tru
                 }
 
                 if (teamStats) {
-                    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_team_stats?team_name=" + home_team_name;
+                    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_team_stats?team_name=" + home_team_name + "&game=" + game;
                     httpGetAsync(url, function (data) {
                         buildTeamVRMLStats(data, "home");
 
                         fadeInWhenDone();
                     });
 
-                    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_team_stats?team_name=" + away_team_name;
+                    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_team_stats?team_name=" + away_team_name + "&game=" + game;
                     httpGetAsync(url, function (data) {
                         buildTeamVRMLStats(data, "away");
 
@@ -58,24 +58,33 @@ function buildpregame(db, previousMatches = true, teamStats = true, roster = tru
                 }
 
                 if (previousMatches || get_team_ranking) {
+
+                    // get previous matches
+                    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_matches_recaps_vrml?game=" + game;
+                    httpGetAsync(url, function (data) {
+                        var matches;
+                        try {
+                            matches = JSON.parse(data);
+
+                            getPreviousMatchesVRMLPage(matches, home_team_name, "home");
+                            getPreviousMatchesVRMLPage(matches, away_team_name, "away");
+                            getPreviousHead2HeadMatchesVRMLPage(matches, home_team_name, away_team_name);
+                            getPreviousMapHistory(matches, home_team_name, "home");
+                            getPreviousMapHistory(matches, away_team_name, "away");
+                        } catch (e) {
+                            console.error("Can't parse json response: " + data)
+                        }
+
+                    });
+
                     // get the home team's page
                     db.collection('series').doc(default_season).collection('teams').doc(home_team_name)
                         .get().then(doc => {
                             if (doc.exists) {
-                                if (previousMatches) {
-                                    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_vrml_match_history_direct?team_page=" + doc.data()['vrml_team_page'];
-                                    httpGetAsync(url, function (data) {
-                                        getPreviousMatchesVRMLPage(data, home_team_name, "home");
-                                        getPreviousHead2HeadMatchesVRMLPage(data, home_team_name, away_team_name);
-                                    });
-
-                                    Array.from(document.getElementsByClassName("home_team_page")).forEach(e => {
-                                        e.href = doc.data()['vrml_team_page'];
-                                    });
-                                }
-                                else if (get_team_ranking) {
-                                    write("home_rank", "#" + doc.data()['rank']);
-                                }
+                                Array.from(document.getElementsByClassName("home_team_page")).forEach(e => {
+                                    e.href = doc.data()['vrml_team_page'];
+                                });
+                                write("home_rank", "#" + doc.data()['rank']);
                             }
                         });
 
@@ -84,11 +93,6 @@ function buildpregame(db, previousMatches = true, teamStats = true, roster = tru
                         .get().then(doc => {
                             if (doc.exists) {
                                 if (previousMatches) {
-                                    var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_vrml_match_history_direct?team_page=" + doc.data()['vrml_team_page'];
-                                    httpGetAsync(url, function (data) {
-                                        getPreviousMatchesVRMLPage(data, away_team_name, "away");
-                                    });
-
                                     Array.from(document.getElementsByClassName("away_team_page")).forEach(e => {
                                         e.href = doc.data()['vrml_team_page'];
                                     });
@@ -207,6 +211,52 @@ function getCasterList(db, game = 'echoarena', callback) {
     });
 }
 
+// returns a js array of caster data
+function getMapList(db, game = 'onward', callback) {
+    if (game != 'onward') return [];
+
+    var promises = [];
+
+    var casterprefs = {};
+    promises.push(db.collection(games[game]['casterprefs']).doc(client_name).get()
+        .then(doc => {
+            if (doc.exists) {
+                casterprefs = doc.data();
+            }
+        })
+    );
+
+    firebase.storage().ref('/OnwardVRML/maps').listAll().then((res) => {
+        var urls = [];
+        var count = res.items.length;
+        // loop through all the image files in the directory
+        res.items.forEach(function (i) {
+            promises.push(i.getDownloadURL().then((url) => {
+                urls.push({
+                    "name": i.name.split('.').slice(0, -1).join('.'),
+                    "url": url,
+                });
+
+                console.log(urls[urls.length - 1]);
+            }));
+        });
+
+        // once all the images were fetched and the current casters were fetched 
+        Promise.all(promises).then(() => {
+            // sort list first
+            urls.sort((a, b) => {
+                return a.name.toLowerCase() > b.name.toLowerCase();
+            });
+
+            // use the list in a callback
+            if (callback != null) {
+                callback(urls, casterprefs);
+            }
+            return urls;
+        });
+    });
+}
+
 function showSelectedCasters(elemClassName, casterprefs) {
     var elems = document.getElementsByClassName(elemClassName);
     var i = 0;
@@ -215,6 +265,25 @@ function showSelectedCasters(elemClassName, casterprefs) {
         Array.from(e.querySelectorAll('div')).forEach(d => {
             if (casterName == "") casterName = "None";
             if (d.innerText == casterName) {
+                d.classList.add('selected');
+            }
+            else {
+                d.classList.remove('selected');
+            }
+        });
+        i += 1;
+    });
+}
+
+
+function showSelectedMaps(elemClassName, casterprefs) {
+    var elems = document.getElementsByClassName(elemClassName);
+    var i = 0;
+    Array.from(elems).forEach(e => {
+        var mapName = casterprefs['map_' + i + '_name'];
+        Array.from(e.querySelectorAll('div')).forEach(d => {
+            if (mapName == "") mapName = "None";
+            if (d.innerText == mapName) {
                 d.classList.add('selected');
             }
             else {
@@ -255,20 +324,44 @@ function getCasters(game = "echoarena") {
     });
 }
 
+function getMaps(game = "onward") {
+    getCasterPrefs(game, true, (data) => {
+        for (var i = 0; i < 3; i++) {
+            const j = i;
+            write('map_' + j + '_name', data['map_' + j + '_name']);
+            setImage('map_' + j + '_img', data['map_' + j + '_img']);
+        }
+
+    });
+}
+
 function addListOfCastersToElems(casterList, elemClassName, onClickEvent) {
     var elems = document.getElementsByClassName(elemClassName);
     let i = 0;
     Array.from(elems).forEach(e => {
         let j = i;  // so that the value doesn't change with reference, js is weird
-        addCasterButton(e, "None", "", j, onClickEvent);
+        addImageButton(e, "None", "", j, onClickEvent);
         casterList.forEach(c => {
-            addCasterButton(e, c.name, c.url, j, onClickEvent);
+            addImageButton(e, c.name, c.url, j, onClickEvent);
         });
         i += 1;
     });
 }
 
-function addCasterButton(parent, name, url, index, onClickEvent) {
+function addListOfMapsToElems(list, elemClassName, onClickEvent) {
+    var elems = document.getElementsByClassName(elemClassName);
+    let i = 0;
+    Array.from(elems).forEach(e => {
+        let j = i;  // so that the value doesn't change with reference, js is weird
+        addImageButton(e, "None", "", j, onClickEvent);
+        list.forEach(c => {
+            addImageButton(e, c.name, c.url, j, onClickEvent);
+        });
+        i += 1;
+    });
+}
+
+function addImageButton(parent, name, url, index, onClickEvent) {
     var a = document.createElement("a");
     var div = document.createElement("div");
     var img = document.createElement("img");
@@ -284,41 +377,71 @@ function addCasterButton(parent, name, url, index, onClickEvent) {
     parent.appendChild(a);
 }
 
-function getPreviousMatchesVRMLPage(data, team_name, side) {
+function getPreviousMatchesVRMLPage(matches, team_name, side) {
     table = "";
-    var matches;
-    try {
-        matches = JSON.parse(data).matches;
-    } catch (e) {
-        console.error("Can't parse json response: " + data)
-        return;
-    }
     matches.forEach(m => {
-        if (m.match_time.length > 0) {
+        if (m['DatePlayed'].length > 0 &&
+            (m['HomeTeam'] == team_name || m['AwayTeam'] == team_name)) {
             table += genPreviousMatchVRMLPage(m, team_name);
         }
     });
     write(side + "_recent_matches", table);
 }
 
-function getPreviousHead2HeadMatchesVRMLPage(data, home_team_name, away_team_name) {
+function getPreviousHead2HeadMatchesVRMLPage(matches, home_team_name, away_team_name) {
     table = "";
-    var matches;
-    try {
-        matches = JSON.parse(data).matches;
-    } catch (e) {
-        console.error("Can't parse json response: " + data)
-        return;
-    }
     matches.forEach(m => {
-        if (m.match_time.length > 0) {
-            if ((m.home_team == home_team_name || m.away_team == home_team_name) &&
-                (m.home_team == away_team_name || m.away_team == away_team_name)) {
-                table += genPreviousHead2HeadMatchVRMLPage(m, home_team_name, away_team_name);
+        if (m['DatePlayed'].length > 0) {
+            if ((m['HomeTeam'] == home_team_name || m['AwayTeam'] == home_team_name) &&
+                (m['HomeTeam'] == away_team_name || m['AwayTeam'] == away_team_name)) {
+                table += genPreviousHead2HeadMatchVRMLPage(m, home_team_name, away_team_name, true);
             }
         }
     });
     write("prev_head2head", table, "previous_matchups");
+}
+
+function getPreviousMapHistory(matches, team_name, side) {
+    maps = {};
+    matches.forEach(m => {
+        if (m['DatePlayed'].length > 0) {
+            // if we are on one of the teams
+            if ((m['HomeTeam'] == team_name || m['AwayTeam'] == team_name)) {
+                var side = m['HomeTeam'] == team_name ? "Home" : "Away";
+                m['MapsSet'].forEach(map => {
+                    if (!maps.hasOwnProperty(map['MapName'])) {
+                        maps[map['MapName']] = 0;
+                    }
+                    maps[map['MapName']] += map[side + "Score"] - map[otherSide(side) + "Score"];
+                });
+            }
+        }
+    });
+
+    // Create maps array
+    var mapsArray = Object.keys(maps).map(key => {
+        return [key, maps[key]];
+    });
+
+    // Sort the array based on the second element
+    mapsArray.sort((first, second) => {
+        return second[1] - first[1];
+    });
+
+    var table = "";
+    // if the length is zero, we want table to be completely empty so it goes away
+    if (mapsArray.length > 0) {
+        table += "<tr>";
+        mapsArray.forEach(m => {
+            table += "<tr>";
+            table += "<td>" + m[0] + "</td>";
+            table += "<td>" + m[1] + "</td>";
+            table += "</tr>";
+        });
+        table += "</tr>";
+    }
+
+    write("map_history_body_" + side, table, "map_history_" + side);
 }
 
 function buildTeamVRMLStats(data, side) {
@@ -377,58 +500,66 @@ function genPreviousMatchVRMLPage(match, team_name) {
     var out = "<tr>";
 
     // whether this team won or not
-    if (vrmlTeamNamesSame(match.winning_team, team_name)) {
+    if (vrmlTeamNamesSame(match['WinningTeam'], team_name)) {
         out += '<td><i class="icofont-arrow-up" style="color: green;"></i></td>';
     } else {
         out += '<td><i class="icofont-arrow-down" style="color: #b50a0a;"></i></td>';
     }
 
     // what is the other team's name and write the scores in the correct order
-    if (vrmlTeamNamesSame(match.home_team, team_name)) {
-        out += '<td><a href="' + match.match_page + '" target="blank">' + match.away_team + "</a></td><td>" + match.home_team_score + " - " + match.away_team_score + "</td>";
+    if (vrmlTeamNamesSame(match['HomeTeam'], team_name)) {
+        out += '<td><a href="' + '#' + '" target="blank">' + match['AwayTeam'] + "</a></td><td>" + match['HomeScore'] + " - " + match['AwayScore'] + "</td>";
     } else {
-        out += '<td><a href="' + match.match_page + '" target="blank">' + match.home_team + "</a></td><td>" + match.away_team_score + " - " + match.home_team_score + "</td>";
+        out += '<td><a href="' + '#' + '" target="blank">' + match['HomeTeam'] + "</a></td><td>" + match['AwayScore'] + " - " + match['HomeScore'] + "</td>";
     }
     out += "</tr>";
     return out;
 }
 
-function genPreviousHead2HeadMatchVRMLPage(match, home_team_name, away_team_name) {
+function genPreviousHead2HeadMatchVRMLPage(match, home_team_name, away_team_name, by_round = false) {
     var out = "<tr>";
 
-    out += "<td>" + match.match_time + "</td>";
+    out += "<td>" + match["DatePlayed"] + "</td>";
 
-    var side = "away"
-    if (match.home_team == home_team_name) {
-        side = "home";
+    var side = "Away"
+    if (match['HomeTeam'] == home_team_name) {
+        side = "Home";
     }
 
     // home team
-    if (match[side + "_team_won"]) {
+    if (match['WinningTeam'] == home_team_name) {
         out += '<td><i class="icofont-arrow-up" style="color: green;"></i></td>';
     } else {
         out += '<td><i class="icofont-arrow-down" style="color: #b50a0a;"></i></td>';
     }
-    out += "<td>" + match[side + "_team"] + "</td>"
-    out += "<td>" + match[side + "_team_score"] + " - ";
+    out += "<td>" + match[side + 'Team'] + "</td>"
+    out += "<td>" + match[side + 'Score'] + " - ";
 
     // swap sides
-    if (side == "home") {
-        side = "away";
-    } else {
-        side = "home";
-    }
+    side = otherSide(side);
 
     // away team
-    out += match[side + "_team_score"] + "</td>";
-    out += "<td>" + match[side + "_team"] + "</td>"
-    if (match[side + "_team_won"]) {
+    out += match[side + 'Score'] + "</td>";
+    out += "<td>" + match[side + "Team"] + "</td>"
+    if (match['WinningTeam'] == away_team_name) {
         out += '<td><i class="icofont-arrow-up" style="color: green;"></i></td>';
     } else {
         out += '<td><i class="icofont-arrow-down" style="color: #b50a0a;"></i></td>';
     }
 
     out += "</tr>";
+
+
+    // add the individual rounds
+    if (by_round) {
+        match['MapsSet'].forEach(map => {
+            out += "<tr>";
+            out += "<td colspan=3>" + map['MapName'] + "</td>";
+            out += "<td>" + map[otherSide(side) + 'Score'] + " - " + map[side + 'Score'] + "</td>";
+            out += "</tr>";
+        });
+    }
+
     return out;
 }
 

@@ -17,16 +17,16 @@
   <script defer src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
   <link defer type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 
-  <link rel="stylesheet" type="text/css" href="css/styles.css">
-  <link rel="stylesheet" type="text/css" href="css/styles_onward.css">
-  <link rel="stylesheet" type="text/css" href="css/autocomplete_styles.css">
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
+  <link rel="stylesheet" type="text/css" href="/css/styles_onward.css">
+  <link rel="stylesheet" type="text/css" href="/css/autocomplete_styles.css">
 
   <!-- Latest Sortable -->
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.10.2/Sortable.min.js"></script>
 
   <script defer type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
-  <script type="text/javascript" src="js/autocomplete.js"></script>
+  <script type="text/javascript" src="/js/autocomplete.js"></script>
 
 </head>
 
@@ -69,22 +69,31 @@
 
     <br>
 
-    <div class="caster_list_header">
+    <div class="selection_list_header caster_list_header">
       Caster 1: <span class="caster_0_name"></span>
       <label for="caster_0_webcam">Webcam</label><input type="checkbox" id="caster_0_webcam"
         class="caster_webcam caster_0_webcam">
     </div>
-    <div class="caster_list"></div>
-    <div class="caster_list_header">Caster 2: <span class="caster_1_name"></span>
+    <div class="selection_list caster_list"></div>
+
+    <div class="selection_list_header caster_list_header">Caster 2: <span class="caster_1_name"></span>
       <label for="caster_1_webcam">Webcam</label><input type="checkbox" id="caster_1_webcam"
         class="caster_webcam caster_1_webcam">
     </div>
-    <div class="caster_list"></div>
-    <div class="caster_list_header">Analyst: <span class="analyst_name"></span>
+    <div class="selection_list caster_list"></div>
+    
+    <div class="selection_list_header caster_list_header">Analyst: <span class="analyst_name"></span>
       <label for="analyst_webcam">Webcam</label><input type="checkbox" id="analyst_webcam"
         class="caster_webcam analyst_webcam">
     </div>
-    <div class="caster_list"></div>
+    <div class="selection_list caster_list"></div>
+
+    <div class="selection_list_header map_list_header">Map 1: <span class="map_0_name"></span></div>
+    <div class="selection_list map_list"></div>
+    <div class="selection_list_header map_list_header">Map 2: <span class="map_1_name"></span></div>
+    <div class="selection_list map_list"></div>
+    <div class="selection_list_header map_list_header">Map 3: <span class="map_2_name"></span></div>
+    <div class="selection_list map_list"></div>
 
     <table>
       <thead>
@@ -103,10 +112,10 @@
         <tr class="match_group_item list-group-item match-hoverable hide">
           <td class="match_id hide"></td>
           <td class="match_time"></td>
-          <td class="home_team_logo"><img /></td>
-          <td class="home_team_name"></td>
-          <td class="away_team_name" style="text-align: right;"></td>
-          <td class="away_team_logo"><img /></td>
+          <td class="upcoming_home_team_logo"><img /></td>
+          <td class="upcoming_home_team_name"></td>
+          <td class="upcoming_away_team_name" style="text-align: right;"></td>
+          <td class="upcoming_away_team_logo"><img /></td>
           <td class="casters"></td>
         </tr>
         <tr class="match_group_item list-group-item match-hoverable" id="manual_input">
@@ -123,7 +132,8 @@
           </td>
           <td>
             <form onsubmit="return false" class="custom_team_input_form">
-              <input autocomplete="off" type="text" class="away_team_name team_input force_visible" style="text-align: right;">
+              <input autocomplete="off" type="text" class="away_team_name team_input force_visible"
+                style="text-align: right;">
             </form>
           </td>
 
@@ -143,11 +153,11 @@
   </script>
 
   <!-- Load our custom Firebase stuff -->
-  <script defer src="js/util.js"></script>
-  <script defer src="js/firebase_setup.js"></script>
-  <script defer src="js/fetch_data_methods.js"></script>
+  <script defer src="/js/util.js"></script>
+  <script defer src="/js/firebase_setup.js"></script>
+  <script defer src="/js/fetch_data_methods.js"></script>
 
-  <script defer src="js/Onward/match_setup_onward.js"></script>
+  <script defer src="/js/Onward/match_setup_onward.js"></script>
 
 </body>
 

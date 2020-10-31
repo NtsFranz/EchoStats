@@ -206,3 +206,10 @@ function toMinutesString(seconds) {
 
     return Math.floor(mins) + ":" + secs;
 }
+
+function otherSide(side) {
+    if (side == "home") return "away";
+    else if (side == "away") return "home";
+    else if (side == "Home") return "Away";
+    else if (side == "Away") return "Home";
+}

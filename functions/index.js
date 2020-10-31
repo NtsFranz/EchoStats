@@ -192,7 +192,7 @@ app.get('/scoreboard', (req, res) => {
 
 //////////////// Onward //////////////////
 
-app.get('/scoreboard_onward', (req, res) => {
+app.get('/onward/scoreboard', (req, res) => {
     const client_name = req.query.client_name;
     const custom_id = req.query.custom_id;
     const series_name = req.query.series_name;
@@ -208,7 +208,7 @@ app.get('/scoreboard_onward', (req, res) => {
     });
 });
 
-app.get('/preshow_onward', (req, res) => {
+app.get('/onward/preshow', (req, res) => {
     const client_name = req.query.client_name;
     const custom_id = req.query.custom_id;
     const series_name = req.query.series_name;
@@ -225,7 +225,7 @@ app.get('/preshow_onward', (req, res) => {
 });
 
 
-app.get('/match_setup_onward', (req, res) => {
+app.get('/onward/match_setup', (req, res) => {
     const client_name = req.query.client_name;
     const custom_id = req.query.custom_id;
     const series_name = req.query.series_name;
@@ -237,9 +237,87 @@ app.get('/match_setup_onward', (req, res) => {
     });
 });
 
+app.get('/onward/casterdesk', (req, res) => {
+    const client_name = req.query.client_name;
+    const series_name = req.query.series_name;
 
+    res.render("Onward/casterdesk", {
+        client_name,
+        series_name
+    });
+});
 
+app.get('/onward/caster_1', (req, res) => {
+    const client_name = req.query.client_name;
+    const series_name = req.query.series_name;
 
+    res.render("Onward/caster_1", {
+        client_name
+    });
+});
+
+app.get('/onward/caster_2', (req, res) => {
+    const client_name = req.query.client_name;
+    const series_name = req.query.series_name;
+
+    res.render("Onward/caster_2", {
+        client_name
+    });
+});
+
+app.get('/onward/caster_3', (req, res) => {
+    const client_name = req.query.client_name;
+    const series_name = req.query.series_name;
+
+    res.render("Onward/caster_3", {
+        client_name
+    });
+});
+
+app.get('/onward/analyst', (req, res) => {
+    const client_name = req.query.client_name;
+    const series_name = req.query.series_name;
+
+    res.render("Onward/analyst", {
+        client_name
+    });
+});
+
+app.get('/onward/home_team_logo', (req, res) => {
+    const client_name = req.query.client_name;
+    const series_name = req.query.series_name;
+
+    res.render("Onward/home_team_logo", {
+        client_name
+    });
+});
+
+app.get('/onward/away_team_logo', (req, res) => {
+    const client_name = req.query.client_name;
+    const series_name = req.query.series_name;
+
+    res.render("Onward/away_team_logo", {
+        client_name
+    });
+});
+
+app.get('/onward/home_team_name', (req, res) => {
+    const client_name = req.query.client_name;
+    const series_name = req.query.series_name;
+
+    res.render("Onward/home_team_name", {
+        client_name
+    });
+});
+
+app.get('/onward/away_team_name', (req, res) => {
+    const client_name = req.query.client_name;
+    const series_name = req.query.series_name;
+
+    res.render("Onward/away_team_name", {
+        client_name
+    });
+});
 
 
 

@@ -81,16 +81,40 @@ function Start(db) {
         });
 
         showSelectedCasters("caster_list", casterprefs);
-
     });
 
-    var headerButtons = Array.from(document.getElementsByClassName('caster_list_header'));
+    var mapList = getMapList(db, 'onward', (list, casterprefs) => {
+        addListOfMapsToElems(list, "map_list", (map_name, map_img, index) => {
+            if (client_name != "") {
+                if (map_name == "None") map_name = "";
+                db.collection('caster_preferences_onward').doc(client_name).set({
+                    ["map_" + index + "_name"]: map_name,
+                    ["map_" + index + "_img"]: map_img
+                }, {
+                    merge: true
+                }).catch(function (error) {
+                    // The document probably doesn't exist.
+                    console.error("Error updating document: ", error);
+                });
+
+                getCasterPrefs(game, true, (casterprefs) => {
+                    showSelectedMaps("map_list", casterprefs);
+                });
+            }
+        });
+    });
+
+    var casterListHeaders = Array.from(document.getElementsByClassName('caster_list_header'));
     var casterLists = Array.from(document.getElementsByClassName('caster_list'));
     var webcamButtons = Array.from(document.getElementsByClassName('caster_webcam'));
 
-    for (var i = 0; i < headerButtons.length; i++) {
+    var mapListHeaders = Array.from(document.getElementsByClassName('map_list_header'));
+    var mapLists = Array.from(document.getElementsByClassName('map_list'));
+
+
+    for (var i = 0; i < casterListHeaders.length; i++) {
         let j = i;
-        headerButtons[i].addEventListener('click', () => {
+        casterListHeaders[i].addEventListener('click', () => {
             if (casterLists[j].classList.contains('expanded')) {
                 casterLists[j].classList.remove('expanded');
             } else {
@@ -111,8 +135,22 @@ function Start(db) {
         });
     }
 
+    // map list expansion
+    for (var i = 0; i < mapListHeaders.length; i++) {
+        let j = i;
+        mapListHeaders[i].addEventListener('click', () => {
+            if (mapLists[j].classList.contains('expanded')) {
+                mapLists[j].classList.remove('expanded');
+            } else {
+                mapLists[j].classList.add('expanded');
+            }
+        });
+    }
+
+
 
     getCasters(game = 'onward');
+    getMaps(game = 'onward');
 
 }
 
@@ -137,8 +175,9 @@ function showUpcomingMatches(data) {
             swapSidesButton.innerHTML = "Home/Away is <em>not</em> swapped";
         }
         Array.from(sortableList.getElementsByTagName('tr')).forEach(r => {
-            if (r.getElementsByClassName('home_team_name')[0].innerText == data['home_team'] &&
-                r.getElementsByClassName('away_team_name')[0].innerText == data['away_team']) {
+            if (r.getElementsByClassName('upcoming_home_team_name').length > 0 &&
+                r.getElementsByClassName('upcoming_home_team_name')[0].innerText == data['home_team'] &&
+                r.getElementsByClassName('upcoming_away_team_name')[0].innerText == data['away_team']) {
                 r.classList.add('match-selected');
                 return;
             }
@@ -176,10 +215,10 @@ function addMatchUpcoming(data) {
 
     // rowNode.getElementsByClassName('match_id')[0].innerText = doc.id;
     rowNode.getElementsByClassName('match_time')[0].innerText = data['DateScheduled'];
-    rowNode.getElementsByClassName('home_team_logo')[0].getElementsByTagName("img")[0].src = data['HomeTeamLogo'];
-    rowNode.getElementsByClassName('home_team_name')[0].innerText = data['HomeTeam'];
-    rowNode.getElementsByClassName('away_team_name')[0].innerText = data['AwayTeam'];
-    rowNode.getElementsByClassName('away_team_logo')[0].getElementsByTagName("img")[0].src = data['AwayTeamLogo'];
+    rowNode.getElementsByClassName('upcoming_home_team_logo')[0].getElementsByTagName("img")[0].src = data['HomeTeamLogo'];
+    rowNode.getElementsByClassName('upcoming_home_team_name')[0].innerText = data['HomeTeam'];
+    rowNode.getElementsByClassName('upcoming_away_team_name')[0].innerText = data['AwayTeam'];
+    rowNode.getElementsByClassName('upcoming_away_team_logo')[0].getElementsByTagName("img")[0].src = data['AwayTeamLogo'];
     var castersString = data['CasterName'];
     if (data['CoCasterName'] != "") {
         castersString += ", " + data['CoCasterName'];

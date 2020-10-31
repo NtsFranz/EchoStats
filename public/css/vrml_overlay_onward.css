@@ -84,11 +84,6 @@
 .scoreboard_layout_onward .team_name_box {
     position: absolute;
     top: 75px;
-    width: 600px;
-    /* height: 80px; */
-    line-height: 75px;
-    font-size: 30px;
-    text-align: center;
 }
 
 .scoreboard_layout_onward #home_team_name_box {
@@ -101,23 +96,7 @@
 
 .scoreboard_layout_onward .caster_img_box {
     position: absolute;
-    width: 320px;
-    height: 275px;
     top: 240px;
-}
-
-.scoreboard_layout_onward .caster_name {
-    width: 100%;
-    text-align: center;
-    font-size: 45px;
-    font-family: furore;
-}
-
-.scoreboard_layout_onward .caster_img {
-    height: 220px;
-    display: block;
-    margin: auto;
-    margin-top: 10px;
 }
 
 .scoreboard_layout_onward .caster_0_img_box {
@@ -132,11 +111,57 @@
 .scoreboard_layout_onward .analyst_box {
     position: absolute;
     bottom: 25px;
+}
+
+
+/* Single caster views */
+.single_element {
+    transition: opacity .5s;
+    -webkit-text-stroke: 1px black;
+    color: #ccc;
+    font-family: goodtimes;
+}
+
+.caster_img_box {
+    width: 320px;
+    height: 275px;
+}
+
+.caster_name {
+    width: 100%;
+    text-align: center;
+    font-size: 45px;
+    -webkit-text-stroke: 1px black;
+    color: #ccc;
+    font-family: furore;
+}
+
+.caster_img {
+    height: 220px;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.analyst_box {
     width: 100%;
     font-family: furore;
+    -webkit-text-stroke: 1px black;
+    color: #ccc;
     font-size: 35px;
 }
 
-.scoreboard_layout_onward .analyst_box div {
+.analyst_box div {
     text-align: center;
+}
+
+.team_name_box {
+    width: 600px;
+    line-height: 75px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.team_logo {
+    width: 128px;
 }

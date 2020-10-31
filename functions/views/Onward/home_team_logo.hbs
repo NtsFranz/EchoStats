@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Preshow Scene</title>
+  <title>Home Team Logo</title>
 
   <!-- update the version number as needed -->
   <script defer src="/__/firebase/7.14.3/firebase-app.js"></script>
@@ -17,32 +17,15 @@
 </head>
 
 <body style="margin: 0;">
-  <div id="background_container" class="preshow_layout_onward">
-    
-    <div id="home_team_box">
-      <div id="home_team_name_box" class="team_name_box">
-        <div class="team_name home_team_name hide"></div>
-      </div>
-      <img class="team_logo home_logo hide">
-    </div>
 
-    <div id="away_team_box hide">
-      <div id="away_team_name_box" class="team_name_box">
-        <div class="team_name away_team_name hide"></div>
-      </div>
-      <img class="team_logo away_logo hide">
-    </div>
-
-
+  <div class="single_element">
+    <img class="team_logo home_logo hide">
   </div>
 
   <!-- Add data passed in by the request -->
   <script type="text/javascript">
     var client_name = "{{ client_name }}";
-    var custom_id = "{{ custom_id }}";
     var series_name = "{{ series_name }}";
-    var live = "{{ live }}";
-    var show_on_load = "{{ show_on_load }}" == "true";
   </script>
 
   <!-- Load our custom Firebase stuff -->
@@ -50,22 +33,7 @@
   <script defer src="/js/firebase_setup.js"></script>
   <script defer src="/js/fetch_data_methods.js"></script>
 
-  <script src="/js/Onward/preshow_onward.js"></script>
-
-
-  <script src="/js/fitty.min.js"></script>
-  <script>
-    fitty('.home_team_name', {
-      minSize: 12,
-      maxSize: 45,
-      multiLine: false
-    });
-    fitty('.away_team_name', {
-      minSize: 12,
-      maxSize: 45,
-      multiLine: false
-    });
-  </script>
+  <script src="/js/Onward/teams_casters_maps_onward.js"></script>
 
 </body>
 
