@@ -14,9 +14,9 @@ app.engine('hbs', engines.handlebars);
 app.set('views', './views');
 app.set('view engine', 'hbs');
 
-app.get('/', (req, res) => {
-    res.render('index');
-});
+// app.get('/', (req, res) => {
+//     res.render('index');
+// });
 
 
 
@@ -315,6 +315,22 @@ app.get('/onward/away_team_name', (req, res) => {
     const series_name = req.query.series_name;
 
     res.render("Onward/away_team_name", {
+        client_name
+    });
+});
+
+app.get('/onward/home_team_roster', (req, res) => {
+    const client_name = req.query.client_name;
+
+    res.render("Onward/home_team_roster", {
+        client_name
+    });
+});
+
+app.get('/onward/away_team_roster', (req, res) => {
+    const client_name = req.query.client_name;
+
+    res.render("Onward/away_team_roster", {
         client_name
     });
 });

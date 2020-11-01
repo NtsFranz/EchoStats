@@ -15,9 +15,9 @@
 <body>
 
   <div class="text_content">
-    <h1 align="center">List of IgniteVR overlays.</h1>
+    <h1 style="text-align: center;">List of IgniteVR overlays.</h1>
 
-    <p>Most overlays require &lt;?client_name=USERNAME&gt; to retrieve the correct data.</p>
+    <p>Most overlays require <b>?client_name=USERNAME</b> to retrieve the correct data.</p>
     <p>Overlays require the OBS source to be set to 1920x1080 unless otherwise specified.</p>
 
     <h2>VRML</h2>
@@ -98,24 +98,108 @@
 
     <h3>Onward</h3>
     <ul>
-      <li><a href="/match_setup_onward">/match_setup_onward</a>
+      <li><a href="/onward/match_setup">/onward/match_setup</a>
         <ul>
           <li>Contains a list of upcoming matches. Click on one to set the team name and logo for the rest of the
             overlays.</li>
           <li>Has an input field for client name.</li>
         </ul>
       </li>
-      <li><a href="/midmatch_overlay_onward">/midmatch_overlay_onward</a>
+      <li><a href="/onward/casterdesk">/onward/casterdesk</a>
         <ul>
-          <li>Has team names and logos</li>
-          <li>Parameter(s): client_name, series_name</li>
+          <li>Overview for a matchup. Contains team info, previous matches for each team, map history, and previous
+            direct matchups.</li>
+          <li>Has an input field for client name.</li>
         </ul>
       </li>
+      <li><a href="/onward/scoreboard">/onward/scoreboard</a>
+        <ul>
+          <li>Overlay for scoreboard scene. Has team names, team logos, caster names/images, and analyst name.</li>
+          <li>Parameter(s): client_name</li>
+        </ul>
+      </li>
+      <li><a href="/onward/preshow">/onward/preshow</a>
+        <ul>
+          <li>Overlay for scoreboard scene. Has team names, team logos, caster names/images, and analyst name.</li>
+          <li>Parameter(s): client_name</li>
+        </ul>
+      </li>
+      <li><a href="/onward/caster_1">/onward/caster_1</a>
+        <ul>
+          <li>Overlay that contains only the caster 1 name/image.</li>
+          <li>This overlay can be set to a smaller resolution and then positioned in OBS.</li>
+          <li>Parameter(s): client_name</li>
+        </ul>
+      </li>
+      <li><a href="/onward/caster_2">/onward/caster_2</a>
+        <ul>
+          <li>Overlay that contains only the caster 2 name/image.</li>
+          <li>This overlay can be set to a smaller resolution and then positioned in OBS.</li>
+          <li>Parameter(s): client_name</li>
+        </ul>
+      </li>
+      <li><a href="/onward/caster_3">/onward/caster_3</a>
+        <ul>
+          <li>Overlay that contains only the caster 3 name/image.</li>
+          <li>This overlay can be set to a smaller resolution and then positioned in OBS.</li>
+          <li>Parameter(s): client_name</li>
+        </ul>
+      </li>
+      <li><a href="/onward/analyst">/onward/analyst</a>
+        <ul>
+          <li>Overlay that contains only the analyst name.</li>
+          <li>This overlay can be set to a smaller resolution and then positioned in OBS.</li>
+          <li>Parameter(s): client_name</li>
+        </ul>
+      </li>
+      <li><a href="/onward/home_team_logo">/onward/home_team_logo</a>
+        <ul>
+          <li>Overlay that contains only the home team logo.</li>
+          <li>This overlay can be set to a smaller resolution and then positioned in OBS.</li>
+          <li>Parameter(s): client_name</li>
+        </ul>
+      </li>
+      <li><a href="/onward/away_team_logo">/onward/away_team_logo</a>
+        <ul>
+          <li>Overlay that contains only the away team logo.</li>
+          <li>This overlay can be set to a smaller resolution and then positioned in OBS.</li>
+          <li>Parameter(s): client_name</li>
+        </ul>
+      </li>
+      <li><a href="/onward/home_team_name">/onward/home_team_name</a>
+        <ul>
+          <li>Overlay that contains only the home team name.</li>
+          <li>This overlay can be set to a smaller resolution and then positioned in OBS.</li>
+          <li>Parameter(s): client_name</li>
+        </ul>
+      </li>
+      <li><a href="/onward/away_team_name">/onward/away_team_name</a>
+        <ul>
+          <li>Overlay that contains only the away team name.</li>
+          <li>This overlay can be set to a smaller resolution and then positioned in OBS.</li>
+          <li>Parameter(s): client_name</li>
+        </ul>
+      </li>
+      <li><a href="/onward/home_team_roster">/onward/home_team_roster</a>
+        <ul>
+          <li>Overlay that contains only the home team player list.</li>
+          <li>This overlay can be set to a smaller resolution and then positioned in OBS.</li>
+          <li>Parameter(s): client_name</li>
+        </ul>
+      </li>
+      <li><a href="/onward/away_team_roster">/onward/away_team_roster</a>
+        <ul>
+          <li>Overlay that contains only the away team player list.</li>
+          <li>This overlay can be set to a smaller resolution and then positioned in OBS.</li>
+          <li>Parameter(s): client_name</li>
+        </ul>
+      </li>
+
     </ul>
 
     <h2>CVRE</h2>
     <ul>
-      <li><a href="/match_awards">/match_awards</a>
+      <li><a href="/cvre/match_awards">/match_awards</a>
         <ul>
           <li>Shows a series of custom match awards</li>
           <li>Parameter(s): client_name, series_name</li>

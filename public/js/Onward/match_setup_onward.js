@@ -22,6 +22,20 @@ function Start(db) {
         currentCaster.innerHTML = "<span style='font-weight:900; color: #900;'>Overlay user not set.</span>";
     }
 
+    autocompleteCasters(document.getElementById("player_search"), db, game = 'onward');
+
+    get_upcoming_matches("onward");
+
+
+
+    // STOP IF NO CLIENT NAME
+    if (client_name == "" || client_name == null) {
+        return;
+    }
+
+
+    
+
     var manualClickHandler = function (row) {
         return function () {
             if (client_name == "") return;
@@ -50,10 +64,6 @@ function Start(db) {
 
     rowNode = document.getElementById('manual_input');
     rowNode.onclick = manualClickHandler(rowNode);
-
-    get_upcoming_matches("onward");
-
-    autocompleteCasters(document.getElementById("player_search"), db, game = 'onward');
 
     var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_team_logos?game=onward"
     httpGetAsync(url, autocompleteTeamInputs);
