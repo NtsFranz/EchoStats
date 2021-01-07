@@ -1,4 +1,11 @@
 function Start(db) {
-    buildpregame(db, false, true, false, live=false, get_team_ranking=true);
+    buildpregame(
+        db, 
+        previousMatches = false, 
+        teamStats = true, 
+        roster = false, 
+        live = false, 
+        get_team_ranking = true,
+        game = 'echoarena');
     getCurrentMatchStats(db, true, false);
 }

@@ -610,13 +610,15 @@ function createMatchRowHTML(doc) {
 
 function getCurrentMatchStats(db, long = false, live = false, onlyaftercasterprefs = false, dataProcessingCallback = null, game = 'echoarena') {
     if (onlyaftercasterprefs) {
-        db.collection(games[game]['casterprefs']).doc(client_name)
-            .onSnapshot(doc => {
-                if (doc.exists) {
-                    lastCasterTime = doc.data()['last_modified'];
-                    doGetCurrentMatchStats(db, long, live, lastCasterTime, dataProcessingCallback);
-                }
-            });
+        if (client_name != "") {
+            db.collection(games[game]['casterprefs']).doc(client_name)
+                .onSnapshot(doc => {
+                    if (doc.exists) {
+                        lastCasterTime = doc.data()['last_modified'];
+                        doGetCurrentMatchStats(db, long, live, lastCasterTime, dataProcessingCallback);
+                    }
+                });
+        }
     } else {
         doGetCurrentMatchStats(db, long, live, onlyaftercasterprefs, dataProcessingCallback);
     }

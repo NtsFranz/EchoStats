@@ -16,18 +16,15 @@
   <script defer src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
   <link defer type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 
-
-  <link rel="stylesheet" type="text/css" href="css/vrml_overlay.css">
-  <link rel="stylesheet" type="text/css" href="css/vrml_overlay_corrected_to_normal.css">
-  <link rel="stylesheet" type="text/css" href="css/styles.css">
-  <link rel="stylesheet" type="text/css" href="css/autocomplete_styles.css">
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
+  <link rel="stylesheet" type="text/css" href="/css/autocomplete_styles.css">
 
   <!-- Latest Sortable -->
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.10.2/Sortable.min.js"></script>
 
   <script defer type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
-  <script type="text/javascript" src="js/autocomplete.js"></script>
+  <script type="text/javascript" src="/js/autocomplete.js"></script>
 
 </head>
 
@@ -38,8 +35,10 @@
       Caster Desk
     </div>
   </a>
+  
 
   <div class="centered_content">
+
 
     <div id="home_team_box" style="float:left;">
       <div class="team_name home_team_name fade_in_when_done"></div>
@@ -72,10 +71,10 @@
       <thead>
         <tr class="match_group_item">
           <th class="match_time">Match Time</th>
-          <th class="home_team_logo"></th>
-          <th class="home_team_name">Home Team</th>
-          <th class="away_team_name">Away Team</th>
-          <th class="away_team_logo"></th>
+          <th class="home_team_logo_head"></th>
+          <th class="home_team_name_head">Home Team</th>
+          <th class="away_team_name_head">Away Team</th>
+          <th class="away_team_logo_head"></th>
           <th class="casters">Casters</th>
         </tr>
       </thead>
@@ -85,30 +84,33 @@
         <tr class="match_group_item list-group-item match-hoverable hide">
           <td class="match_id hide"></td>
           <td class="match_time"></td>
-          <td class="home_team_logo"><img /></td>
-          <td class="home_team_name"></td>
-          <td class="away_team_name" style="text-align: right;"></td>
-          <td class="away_team_logo"><img /></td>
+          <td class="upcoming_home_team_logo"><img /></td>
+          <td class="upcoming_home_team_name"></td>
+          <td class="upcoming_away_team_name" style="text-align: right;"></td>
+          <td class="upcoming_away_team_logo"><img /></td>
           <td class="casters"></td>
         </tr>
         <tr class="match_group_item list-group-item match-hoverable" id="manual_input">
 
           <td class="match_id hide"></td>
           <td class="match_time">Manual Input</td>
-          <td>Logo URL<br><br><input class="home_team_logo logo_url_input"><br><br><img class="home_team_logo_img" /></td>
+          <td>Logo URL<br><br><input class="home_team_logo logo_url_input"><br><br><img class="home_team_logo_img" />
+          </td>
 
           <td>
             <form onsubmit="return false" class="custom_team_input_form">
-              <input autocomplete="off" type="text" class="home_team_name team_input">
+              <input autocomplete="off" type="text" class="home_team_name team_input force_visible">
             </form>
           </td>
           <td>
             <form onsubmit="return false" class="custom_team_input_form">
-              <input autocomplete="off" type="text" class="away_team_name team_input" style="text-align: right;">
+              <input autocomplete="off" type="text" class="away_team_name team_input force_visible"
+              style="text-align: right;">
             </form>
           </td>
 
-          <td>Logo URL<br><br><input class="away_team_logo logo_url_input"><br><br><img class="away_team_logo_img" /></td>
+          <td>Logo URL<br><br><input class="away_team_logo logo_url_input"><br><br><img class="away_team_logo_img" />
+          </td>
           <td class="casters">Manual Input</td>
         </tr>
 
@@ -123,11 +125,11 @@
   </script>
 
   <!-- Load our custom Firebase stuff -->
-  <script defer src="js/util.js"></script>
-  <script defer src="js/firebase_setup.js"></script>
-  <script defer src="js/fetch_data_methods.js"></script>
+  <script defer src="/js/util.js"></script>
+  <script defer src="/js/firebase_setup.js"></script>
+  <script defer src="/js/fetch_data_methods.js"></script>
 
-  <script defer src="js/EchoArena/match_setup.js"></script>
+  <script defer src="/js/EchoArena/match_setup.js"></script>
 
 </body>
 

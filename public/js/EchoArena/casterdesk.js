@@ -12,9 +12,21 @@ function Start(db) {
         currentCaster.innerHTML = "<span style='font-weight:900; color: #900;'>User not set.</span>";
     }
 
-    buildpregame(db, true, true, true);
+    buildpregame(
+        db, 
+        previousMatches = true, 
+        teamStats = true, 
+        roster = true, 
+        live = true, 
+        get_team_ranking = false, 
+        game = 'echoarena'
+    );
 
-    getCurrentMatchStats(db, true, true, true);
+    getCurrentMatchStats(
+        db, 
+        long = true, 
+        live = true, 
+        onlyaftercasterprefs = false);
 
-    autocompleteCasters(document.getElementById("player_search"), db);
+    autocompleteCasters(document.getElementById("player_search"), db, game = 'echoarena');
 }

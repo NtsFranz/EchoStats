@@ -12,7 +12,15 @@ function Start(db) {
         currentCaster.innerHTML = "<span style='font-weight:900; color: #900;'>User not set.</span>";
     }
 
-    buildpregame(db, previousMatches = true, teamStats = true, roster = true, live = true, get_team_ranking = true, game = 'onward');
+    buildpregame(
+        db, 
+        previousMatches = true, 
+        teamStats = true, 
+        roster = true, 
+        live = true, 
+        get_team_ranking = true, 
+        game = 'onward'
+    );
 
     autocompleteCasters(document.getElementById("player_search"), db, game = 'onward');
 }

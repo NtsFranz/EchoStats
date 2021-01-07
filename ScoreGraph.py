@@ -39,12 +39,16 @@ def get_all_players(json: str) -> []:
                     players_list.append(player['name'])
     return players_list
 
-
-folder = sys.argv[1]
-count = sys.argv[2]
+if len(sys.argv) == 3:
+    folder = sys.argv[1]
+    count = sys.argv[2]
+else:
+    folder = r"C:\Users\Anton\Documents\IgniteBot\replays"
+    count = 3
 
 files = os.listdir(folder)
-files = files[len(files)-int(count):]
+files = [file for file in files if not os.path.isdir(os.path.join(folder,file))] # skip directories
+files = files[len(files)-int(count):]   # limit to *count* files
 
 # exctract the .echoreplay file
 data = []

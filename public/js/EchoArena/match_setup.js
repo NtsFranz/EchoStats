@@ -22,6 +22,17 @@ function Start(db) {
         currentCaster.innerHTML = "<span style='font-weight:900; color: #900;'>Overlay user not set.</span>";
     }
 
+    autocompleteCasters(document.getElementById("player_search"), db, game = 'echoarena');
+
+    get_upcoming_matches("echoarena");
+
+
+    // STOP IF NO CLIENT NAME
+    if (client_name == "" || client_name == null) {
+        return;
+    }
+
+
     var manualClickHandler = function (row) {
         return function () {
             if (client_name == "") return;
@@ -51,12 +62,10 @@ function Start(db) {
     rowNode = document.getElementById('manual_input');
     rowNode.onclick = manualClickHandler(rowNode);
 
-    get_upcoming_matches();
-
-    autocompleteCasters(document.getElementById("player_search"), db);
-
     var url = "https://ignitevr.gg/cgi-bin/EchoStats.cgi/get_team_logos"
     httpGetAsync(url, autocompleteTeamInputs);
+    
+    getTeamNameLogo(db, 'echoarena');
 
 }
 
@@ -73,24 +82,23 @@ function showUpcomingMatches(data) {
     if (client_name == "") return;
 
     // get the match that is currently set
-    db.collection("caster_preferences").doc(client_name).get().then(doc => {
-        if (!doc.empty) {
-            side_bool = doc.data()['swap_sides'];
-            if (side_bool) {
-                swapSidesButton.classList.add("sides_swapped");
-                swapSidesButton.innerHTML = "Home/Away is swapped";
-            } else {
-                swapSidesButton.classList.remove("sides_swapped");
-                swapSidesButton.innerHTML = "Home/Away is <em>not</em> swapped";
-            }
-            Array.from(sortableList.getElementsByTagName('tr')).forEach(r => {
-                if (r.getElementsByClassName('home_team_name')[0].innerText == doc.data()['home_team'] &&
-                    r.getElementsByClassName('away_team_name')[0].innerText == doc.data()['away_team']) {
-                    r.classList.add('match-selected');
-                    return;
-                }
-            });
+    getCasterPrefs(game = "echoarena", true, (data) => {
+        side_bool = data['swap_sides'];
+        if (side_bool) {
+            swapSidesButton.classList.add("sides_swapped");
+            swapSidesButton.innerHTML = "Home/Away is swapped";
+        } else {
+            swapSidesButton.classList.remove("sides_swapped");
+            swapSidesButton.innerHTML = "Home/Away is <em>not</em> swapped";
         }
+        Array.from(sortableList.getElementsByTagName('tr')).forEach(r => {
+            if (r.getElementsByClassName('upcoming_home_team_name').length > 0 &&
+                r.getElementsByClassName('upcoming_home_team_name')[0].innerText == data['home_team'] &&
+                r.getElementsByClassName('upcoming_away_team_name')[0].innerText == data['away_team']) {
+                r.classList.add('match-selected');
+                return;
+            }
+        });
     });
 }
 
@@ -124,10 +132,10 @@ function addMatchUpcoming(data) {
 
     // rowNode.getElementsByClassName('match_id')[0].innerText = doc.id;
     rowNode.getElementsByClassName('match_time')[0].innerText = data['DateScheduled'];
-    rowNode.getElementsByClassName('home_team_logo')[0].getElementsByTagName("img")[0].src = data['HomeTeamLogo'];
-    rowNode.getElementsByClassName('home_team_name')[0].innerText = data['HomeTeam'];
-    rowNode.getElementsByClassName('away_team_name')[0].innerText = data['AwayTeam'];
-    rowNode.getElementsByClassName('away_team_logo')[0].getElementsByTagName("img")[0].src = data['AwayTeamLogo'];
+    rowNode.getElementsByClassName('upcoming_home_team_logo')[0].getElementsByTagName("img")[0].src = data['HomeTeamLogo'];
+    rowNode.getElementsByClassName('upcoming_home_team_name')[0].innerText = data['HomeTeam'];
+    rowNode.getElementsByClassName('upcoming_away_team_name')[0].innerText = data['AwayTeam'];
+    rowNode.getElementsByClassName('upcoming_away_team_logo')[0].getElementsByTagName("img")[0].src = data['AwayTeamLogo'];
     var castersString = data['CasterName'];
     if (data['CoCasterName'] != "") {
         castersString += ", " + data['CoCasterName'];

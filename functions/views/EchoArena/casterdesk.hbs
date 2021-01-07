@@ -10,26 +10,21 @@
   <script defer src="/__/firebase/7.14.3/firebase-app.js"></script>
   <!-- include only the Firebase features as you need -->
   <script defer src="/__/firebase/7.14.3/firebase-auth.js"></script>
-  {{!-- <script defer src="/__/firebase/7.14.3/firebase-database.js"></script> --}}
-  {{!-- <script defer src="/__/firebase/7.14.3/firebase-messaging.js"></script> --}}
   <script defer src="/__/firebase/7.14.3/firebase-firestore.js"></script>
   {{!-- <script defer src="/__/firebase/7.14.3/firebase-storage.js"></script> --}}
-  {{!-- <script defer src="/__/firebase/7.14.3/firebase-analytics.js"></script> --}}
   <!-- initialize the SDK after all desired features are loaded -->
   <script defer src="/__/firebase/init.js"></script>
 
   <script defer src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
   <link defer type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 
-  <link rel="stylesheet" type="text/css" href="css/icofont.min.css">
-  <link rel="stylesheet" type="text/css" href="css/vrml_overlay.css">
-  <link rel="stylesheet" type="text/css" href="css/vrml_overlay_corrected_to_normal.css">
-  <link rel="stylesheet" type="text/css" href="css/styles.css">
-  <link rel="stylesheet" type="text/css" href="css/autocomplete_styles.css">
+  <link rel="stylesheet" type="text/css" href="/css/icofont.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
+  <link rel="stylesheet" type="text/css" href="/css/autocomplete_styles.css">
 
   <script defer type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
-  <script type="text/javascript" src="js/autocomplete.js"></script>
+  <script type="text/javascript" src="/js/autocomplete.js"></script>
 
 </head>
 
@@ -38,15 +33,14 @@
   <div id="firebaseui-auth-container"></div>
 
 
-  <a href="/match_setup?client_name={{client_name}}">
-    <div class="echobutton" style="position: absolute; top: 1em; left: 1em;">
+  <a href="match_setup?client_name={{client_name}}">
+    <div class="echobutton match_setup_echobutton">
       Match Setup
     </div>
   </a>
 
   {{!-- Top Content --}}
-  <form id="player-search-box" method="get"
-    style="margin:1em auto;max-width:300px;color:black;display:flex;position:relative;" class="header_with_background">
+  <form id="player-search-box" method="get" class="header_with_background caster_search_box">
     <div></div>
     <input autocomplete="off" type="text" id="player_search" placeholder="Enter Oculus name" name="client_name">
     {{!-- <button type="submit" id="player_search_button"><i class="icofont-arrow-right"></i></button> --}}
@@ -84,10 +78,10 @@
 
       <div class="atlas_buttons fade_hide">
         <p class="atlas_header">ATLAS</p>
-        <a style="float:left; text-decoration: none;" class="atlas_player_join">
+        <a class="atlas_player_join atlas_button">
           <div class="echobutton small">Join as Player</div>
         </a>
-        <a style="float:left; text-decoration: none;" class="atlas_spectator_join">
+        <a class="atlas_spectator_join atlas_button">
           <div class="echobutton small">Join as Spectator</div>
         </a>
       </div>
@@ -262,11 +256,11 @@
   </script>
 
   <!-- Load our custom Firebase stuff -->
-  <script defer src="js/util.js"></script>
-  <script defer src="js/firebase_setup.js"></script>
-  <script defer src="js/fetch_data_methods.js"></script>
+  <script defer src="/js/util.js"></script>
+  <script defer src="/js/firebase_setup.js"></script>
+  <script defer src="/js/fetch_data_methods.js"></script>
 
-  <script defer src="js/EchoArena/casterdesk.js"></script>
+  <script defer src="/js/EchoArena/casterdesk.js"></script>
 
 </body>
 

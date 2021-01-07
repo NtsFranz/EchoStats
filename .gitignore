@@ -72,3 +72,4 @@ Echopedia/WikiBotSetup.py
 Echopedia/data/local_internet.json
 Echopedia/data/local_internet - Copy.json
 ping_graph_env/
+.ipynb_checkpoints/

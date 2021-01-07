@@ -340,7 +340,7 @@ app.get('/onward/away_team_roster', (req, res) => {
 
 //////////////// CVRE //////////////////
 
-app.get('/match_awards', (req, res) => {
+app.get('/cvre/match_awards', (req, res) => {
     const client_name = req.query.client_name;
     const series_name = req.query.series_name;
 

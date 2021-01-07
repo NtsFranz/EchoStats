@@ -27,14 +27,11 @@ function Start(db) {
     get_upcoming_matches("onward");
 
 
-
     // STOP IF NO CLIENT NAME
     if (client_name == "" || client_name == null) {
         return;
     }
 
-
-    
 
     var manualClickHandler = function (row) {
         return function () {

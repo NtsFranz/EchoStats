@@ -1,4 +1,4 @@
-var default_season = "eacs";
+var default_season = "vrml_season_3";
 var db;
 
 document.addEventListener('DOMContentLoaded', function () {
