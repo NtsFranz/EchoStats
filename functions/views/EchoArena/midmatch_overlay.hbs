@@ -41,7 +41,8 @@
         <div class="joust_stats_data">
           <div class="joust_speed_title">Joust Speed</div>
           <div class="joust_speed_orange number"></div>
-          {{!-- <hr> --}}
+          {{!--
+          <hr> --}}
           <div class="joust_time_title">Joust Time</div>
           <div class="joust_time_orange number"></div>
         </div>
@@ -54,7 +55,8 @@
         <div class="joust_stats_data">
           <div class="joust_speed_title">Joust Speed</div>
           <div class="joust_speed_blue number"></div>
-          {{!-- <hr> --}}
+          {{!--
+          <hr> --}}
           <div class="joust_time_title">Joust Time</div>
           <div class="joust_time_blue number"></div>
         </div>
@@ -62,14 +64,20 @@
       </div>
     </div>
 
+    <div class="casters_box">
+      <div class="caster_name caster_0_name"></div>
+      <div class="caster_name caster_1_name"></div>
+      <div class="caster_name analyst_name"></div>
+    </div>
+
   </div>
 
   <!-- Add data passed in by the request -->
   <script type="text/javascript">
-    var client_name = "{{ client_name }}"; 
-    var custom_id = "{{ custom_id }}"; 
-    var series_name = "{{ series_name }}"; 
-    var live = "{{ live }}"; 
+    var client_name = "{{ client_name }}";
+    var custom_id = "{{ custom_id }}";
+    var series_name = "{{ series_name }}";
+    var live = "{{ live }}";
     var show_on_load = "{{ show_on_load }}" == "true";
   </script>
 
@@ -79,7 +87,7 @@
   <script defer src="js/fetch_data_methods.js"></script>
 
   <script src="js/EchoArena/midmatch_overlay.js"></script>
-  
+
   <script src="js/fitty.min.js"></script>
   <script>
     fitty('.home_team_name', {

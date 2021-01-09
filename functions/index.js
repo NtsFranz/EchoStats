@@ -184,6 +184,17 @@ app.get('/scoreboard', (req, res) => {
     });
 });
 
+app.get('/maps', (req, res) => {
+    const client_name = req.query.client_name;
+    const series_name = req.query.series_name;
+    const live = req.query.live || false;
+
+    res.render("EchoArena/maps", {
+        client_name,
+        series_name,
+        live
+    });
+});
 
 
 

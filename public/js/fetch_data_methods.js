@@ -321,6 +321,7 @@ function getCasters(game = "echoarena") {
         }
         writeChecked('analyst_webcam', data['caster_2_webcam']);
 
+        write('cameraman_name', client_name);
     });
 }
 
@@ -969,6 +970,79 @@ function setupEventsOverlay(db) {
                             });
                             freshPage = false;
 
+                        }
+                    });
+            }
+        });
+}
+
+// not live
+function getMatchGoals(db, callback) {
+    db.collection('series').doc(series_name).collection('match_stats')
+        .orderBy("match_time", "desc")
+        .where("client_name", "==", client_name)
+        .where("disabled", "==", false)
+        .limit(1)
+        .get()
+        .then(querySnapshot => {
+            if (!querySnapshot.empty) {
+
+                var version = querySnapshot.docs[0].data()['version'];
+                console.log(version);
+
+                var recent_custom_id = querySnapshot.docs[0].data().custom_id;
+                var recent_session_id = querySnapshot.docs[0].data().session_id;
+                db.collection('series').doc(series_name).collection('match_stats')
+                    .orderBy("match_time", "desc")
+                    .where("custom_id", "==", recent_custom_id)
+                    .where("session_id", "==", recent_session_id)
+                    .where("disabled", "==", false)
+                    .where("client_name", "==", client_name) // not necessary, but possible because of sha256 collisions on custom_id
+                    .get()
+                    .then(querySnapshot => {
+                        console.log("Matches: " + querySnapshot.docs.length);
+                        if (!querySnapshot.empty) {
+                            var promises = [];
+                            var raw_goals = [];
+                            querySnapshot.docs.forEach(q => {
+                                promises.push(db
+                                    .collection('series')
+                                    .doc(series_name)
+                                    .collection('match_stats')
+                                    .doc(q.data().match_time + '_' + q.data().session_id)
+                                    .collection('events')
+                                    .where('event_type', '==', 'goal')
+                                    .get()
+                                    .then(eventsSnapshot => {
+                                        if (!eventsSnapshot.empty) {
+                                            eventsSnapshot.docs.forEach(e => {
+                                                raw_goals.push(e.data());
+                                            });
+                                        }
+                                    })
+                                );
+                            });
+
+                            // once all the matches where fetched, loop through the events in those matches
+                            Promise.all(promises).then(() => {
+                                var goals = [];
+                                // loop through all the events for this match
+                                raw_goals.forEach(g => {
+                                    goals.push({
+                                        pos_x: g['pos_x'],
+                                        pos_y: g['pos_y'],
+                                        pos_z: g['pos_z'],
+                                        goal_color: g['goal_color'],
+                                        goal_pos_x: g['goal_pos_x'],
+                                        goal_pos_y: g['goal_pos_y'],
+                                        goal_pos_z: g['goal_pos_z'],
+                                        disc_speed: g['disc_speed'],
+                                        goal_distance: g['goal_distance']
+                                    });
+                                });
+                                console.log(goals);
+                                callback(goals);
+                            });
                         }
                     });
             }

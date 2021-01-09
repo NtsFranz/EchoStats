@@ -497,6 +497,29 @@ img[src] {
 	-webkit-text-fill-color: transparent; */
 }
 
+.midmatch_layout .casters_box {
+	display: flex;
+	flex-direction: row;
+	position: absolute;
+	bottom: 1em;
+	width: 800px;
+	font-size: 1.5em;
+}
+.midmatch_layout .casters_box div {
+	flex-grow: 1;
+	text-align: center;
+}
+
+.maps_container .map {
+	width: 800px;
+	position: relative;
+}
+
+.maps_container .map img {
+	width: 100%;
+}
+
+
 
 /* JOUST SPEEDS */
 .midmatch_layout .joust_stats {

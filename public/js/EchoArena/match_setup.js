@@ -41,6 +41,9 @@ function Start(db) {
                 home_logo: row.getElementsByClassName('home_team_logo')[0].value,
                 away_logo: row.getElementsByClassName('away_team_logo')[0].value,
                 away_team: row.getElementsByClassName('away_team_name')[0].value,
+                caster_0_name: "",
+                caster_1_name: "",
+                caster_2_name: "",
                 last_modified: firebase.firestore.FieldValue.serverTimestamp()
             }, {
                 merge: true
@@ -150,6 +153,9 @@ function addMatchUpcoming(data) {
                     home_logo: data['HomeTeamLogo'],
                     away_logo: data['AwayTeamLogo'],
                     away_team: data['AwayTeam'],
+                    caster_0_name: data['CasterName'],
+                    caster_1_name: data['CoCasterName'],
+                    caster_2_name: data['PostGameInterviewName'],
                     last_modified: firebase.firestore.FieldValue.serverTimestamp()
                 }, {
                     merge: true
