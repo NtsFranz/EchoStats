@@ -939,7 +939,7 @@ function setupEventsOverlay(db) {
                 console.log(version);
 
                 querySnapshot.docs[0].ref.collection('events')
-                    .where("event_type", "==", "joust_speed")
+                    .where('event_type', 'in', ['joust_speed', 'defensive_joust'])
                     .onSnapshot(eventsSnapshot => {
                         if (!eventsSnapshot.empty) {
                             // loop through all the events for this match
