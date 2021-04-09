@@ -151,8 +151,7 @@ if replay_file_buffer is not None:
             name='Head Position'
         ),
         # go.Scatter3d(x=[-1, 1, 1, -1, -1, -1], y=[-1, -1, -1, -1], z=[-1, -1, 1, 1])
-        go.Scatter3d(x=[-r, r, r, -r, -r], y=[r, r, -r, -r, r], z=[bottom, bottom, bottom, bottom, bottom], 
-            name='4ft x 4ft'),
+        go.Scatter3d(x=[-r, r, r, -r, -r], y=[r, r, -r, -r, r], z=[bottom, bottom, bottom, bottom, bottom], name='4ft x 4ft'),
         # go.Scatter3d(x=[-r, r, r, -r, -r], y=[r, r, -r, -r, r], z=[0, 0, 0, 0, 0]),
     ]
     )
