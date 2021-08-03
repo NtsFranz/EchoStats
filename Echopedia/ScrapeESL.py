@@ -1,6 +1,10 @@
 import json
 import os
+import asyncio
+import re
 
+from datetime import datetime
+from pyppeteer import launch
 from pyquery import PyQuery as pq
 
 from WikiCommon import *
@@ -292,9 +296,142 @@ def scrapeESLMatchPages():
                                 playa['series'][season_name]['teams'][team['id']]['game_count'] += 1
 
 
-
     dumpJSON('matches', matches)
     dumpJSON('players', players)
     dumpJSON('teams', teams)
 
     LocalInternet.save()
+
+
+
+
+# loads each team history page and gets the full activity history 
+# this doesn't work because of captcha
+def scrapeESLTeamLogPages():
+    print("scrapeESLTeamLogPages")
+
+    teams = loadJSON('teams')
+
+    for team_name, team_data in teams.items():
+        if 'esl_team_page' not in team_data: continue
+
+        tpage = team_data['esl_team_page']
+        index = tpage.rindex('/')
+        historyPageURL = tpage[:index] + '/log' + tpage[index:]
+        historyPage = LocalInternet.local_pq(historyPageURL)
+
+        print(historyPage.html())
+        print(historyPage('.esl-content'))
+        for row in historyPage('.esl-content table tr').items():
+            print(row('td').text())
+
+        break
+
+
+async def scrapeESLTeamLogPagesPyppeteer():
+    print("scrapeESLTeamLogPages")
+
+    teams = loadJSON('teams')
+    players = loadJSON('players')
+
+    for team_name, team_data in teams.items():
+        if 'esl_team_page' not in team_data:
+            continue
+
+        tpage = team_data['esl_team_page']
+        index = tpage.rindex('/')
+        historyPageURL = tpage[:index] + '/log' + tpage[index:]
+
+        historyPageContent = await LocalInternet.innerHTMLPuppet(historyPageURL)
+
+        roster_changes = []
+        name_changes = []
+
+        index = 0
+        for row in historyPageContent('.esl-content table tr').items():
+            index += 1
+            if index < 3:
+                continue
+            print(row.children().text())
+            if row.children().text() == '':
+                continue
+            timestamp_text = row('td:nth-child(1)').text()
+            timestamp = datetime.strptime(timestamp_text, '%d.%m.%y %H:%Mh')
+            event = row('td:nth-child(2) b').text()
+
+            # roster change
+            if event == 'register_team' or event == 'new_member' or event == 'kick_member':
+
+                if event == 'kick_member':
+                    userid = int(re.search('/(\d*)/', row('td:nth-child(2) a').attr('href')).group(1))
+                    kicked_by = re.search('by (.*) \(\d*\)', row('td:nth-child(2) a').text()).group(1)
+                    kicked_by_id = re.search('by .* \((\d*)\)', row('td:nth-child(2) a').text()).group(1)
+                    username = next((pname for pname, p in players.items() if 'esl_player_id' in p and p['esl_player_id'] == userid), None)
+                    if username is None:
+                        print("Can't find player in list of players")
+                        continue
+
+                    roster_changes.append({
+                        'timestamp': timestamp.isoformat(),
+                        'action': event,
+                        'player_name': username,
+                        'player_id': userid,
+                        'kicked_by_name': kicked_by,
+                        'kicked_by_id': kicked_by_id,
+                    })
+                    player_roster_change_dict = {
+                        'timestamp': timestamp.isoformat(),
+                        'action': event,
+                        'team_name': team_name,
+                        'kicked_by_name': kicked_by,
+                        'kicked_by_id': kicked_by_id,
+                    }
+                else:
+                    user = row('td:nth-child(2) a').text()
+                    username_match = re.search('(.*) \(\d*\)', user)
+                    username = username_match.group(1)
+                    userid = int(re.search(' \((\d*)\)', user).group(1))
+                    roster_changes.append({
+                        'timestamp': timestamp.isoformat(),
+                        'action': event,
+                        'player_name': username,
+                        'player_id': userid
+                    })
+                    player_roster_change_dict = {
+                        'timestamp': timestamp.isoformat(),
+                        'action': event,
+                        'team_name': team_name,
+                    }
+
+                if username not in players:
+                    print("couldn't find player name in players.json: " + username)
+                    continue
+
+                # if this is the first entry
+                if 'esl_roster_changes' not in players[username]:
+                    players[username]['esl_roster_changes'] = []
+                # if any duplicate entry, delete the whole thing
+                if any(r['timestamp'] == timestamp.isoformat() for r in players[username]['esl_roster_changes']):
+                    players[username]['esl_roster_changes'] = []
+                players[username]['esl_roster_changes'].append(player_roster_change_dict)
+                
+            # name change
+            elif event == 'change_name':
+                line_end = row('td:nth-child(2)').remove('b').text()
+                name_changes.append({
+                    'timestamp': timestamp.isoformat(),
+                    'new_name': line_end
+                })
+            
+
+        if team_name not in teams:
+            print("couldn't find team name in teams.json: " + team_name)
+            continue
+
+        teams[team_name]['esl_roster_changes'] = roster_changes
+        teams[team_name]['esl_name_changes'] = name_changes
+
+    dumpJSON('players', players)
+    dumpJSON('teams', teams)
+
+asyncio.get_event_loop().run_until_complete(scrapeESLTeamLogPagesPyppeteer())
