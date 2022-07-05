@@ -434,4 +434,22 @@ async def scrapeESLTeamLogPagesPyppeteer():
     dumpJSON('players', players)
     dumpJSON('teams', teams)
 
-asyncio.get_event_loop().run_until_complete(scrapeESLTeamLogPagesPyppeteer())
+
+# loops through all the matches in the cups in esl and adds them to a dict at the top level with id as key
+def add_matches_as_list():
+    print("add_matches_as_list_esl")
+
+    matches = loadJSON('matches')
+
+    for season_name, season in matches.items():
+        if seasons_data[season_name]['api_type'] == 'esl':
+            if 'matches' not in season:
+                season['matches'] = {}
+
+            for cup in season['cups']:
+                for match in cup['matches']:
+                    season['matches'][match['id']] = match
+
+    dumpJSON('matches', matches)
+
+# asyncio.get_event_loop().run_until_complete(scrapeESLTeamLogPagesPyppeteer())

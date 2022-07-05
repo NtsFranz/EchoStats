@@ -32,27 +32,57 @@ seasons_data = {
     'vrml_preseason': {
         'name': 'VR Master League Pre-season',
         'wiki_page': 'VR Master League (VRML) Pre-season 2019',
+        'dropdown_name': 'Pre-season - 2019 (history)',
         'file': 'data/vrml_preseason.json',
         'api_type': 'vrml',
-        'standings_url': 'https://vrmasterleague.com/EchoArena/Standings/SnE5TUFtaWRJZnJNSzVPMG9XcTlLdz090',
-        'players_url': 'https://vrmasterleague.com/EchoArena/Players/List/U3ZUS2g0NkdkZjg90'
+        'standings_url': 'https://vrmasterleague.com/EchoArena/Standings/SnE5TUFtaWRJZnFoQitjQjFjYlBXZz090?season=b-VHi9XjGIR0Pv17C7P_Tw2',
+        'players_url': 'https://vrmasterleague.com/EchoArena/Players?season=b-VHi9XjGIR0Pv17C7P_Tw2'
     },
     'vrml_season_1': {
         'name': 'VR Master League Season 1',
         'wiki_page': 'VR Master League (VRML) Season 1 2020',
+        'dropdown_name': 'Season 1 - 2020 (history)',
         'file': 'data/vrml_s1.json',
         'api_type': 'vrml',
-        'standings_url': 'https://vrmasterleague.com/EchoArena/Standings/SnE5TUFtaWRJZnFoQitjQjFjYlBXZz090',
-        'players_url': 'https://vrmasterleague.com/EchoArena/Players/List/c2VkWExsOERkSmc90'
+        'standings_url': 'https://vrmasterleague.com/EchoArena/Standings/SnE5TUFtaWRJZnFoQitjQjFjYlBXZz090?season=PS5eV-VOdnRPCAxRix9xlQ2',
+        'players_url': 'https://vrmasterleague.com/EchoArena/Players?season=PS5eV-VOdnRPCAxRix9xlQ2'
     },
     'vrml_season_2': {
         'name': 'VR Master League Season 2',
         'wiki_page': 'VR Master League (VRML) Season 2 2020',
+        'dropdown_name': 'Season 2 - 2020 (history)',
         'file': 'data/vrml_s2.json',
         'api_type': 'vrml',
-        'standings_url': 'https://vrmasterleague.com/EchoArena/Standings/d3JZU1F5WlVraGc90',
-        'players_url': 'https://vrmasterleague.com/EchoArena/Players/List/bnpWeFFsakNtTjA90'
-    }
+        'standings_url': 'https://vrmasterleague.com/EchoArena/Standings/SnE5TUFtaWRJZnFoQitjQjFjYlBXZz090?season=NLQNdfR3j0lyy6eLpLhIYw2',
+        'players_url': 'https://vrmasterleague.com/EchoArena/Players?season=NLQNdfR3j0lyy6eLpLhIYw2'
+    },
+    'vrml_season_3': {
+        'name': 'VR Master League Season 3',
+        'wiki_page': 'VR Master League (VRML) Season 3 2021',
+        'dropdown_name': 'Season 3 - 2021 (history)',
+        'file': 'data/vrml_s3.json',
+        'api_type': 'vrml',
+        'standings_url': 'https://vrmasterleague.com/EchoArena/Standings/SnE5TUFtaWRJZnFoQitjQjFjYlBXZz090?season=XPtJ0s7XBpsbDHrjS0e_3g2',
+        'players_url': 'https://vrmasterleague.com/EchoArena/Players?season=XPtJ0s7XBpsbDHrjS0e_3g2'
+    },
+    'vrml_season_4': {
+        'name': 'VR Master League Season 4',
+        'wiki_page': 'VR Master League (VRML) Season 4 2021',
+        'dropdown_name': 'Season 4 - 2021 (history)',
+        'file': 'data/vrml_s4.json',
+        'api_type': 'vrml',
+        'standings_url': 'https://vrmasterleague.com/EchoArena/Standings/SnE5TUFtaWRJZnFoQitjQjFjYlBXZz090?season=YJoYnb3iWN8EcCrs92U04A2',
+        'players_url': 'https://vrmasterleague.com/EchoArena/Players?season=YJoYnb3iWN8EcCrs92U04A2'
+    },
+    'vrml_season_5': {
+        'name': 'VR Master League Season 5',
+        'wiki_page': 'VR Master League (VRML) Season 5 2022',
+        'dropdown_name': 'Season 5 - 2022',
+        'file': 'data/vrml_s5.json',
+        'api_type': 'vrml',
+        'standings_url': 'https://vrmasterleague.com/EchoArena/Standings/SnE5TUFtaWRJZnFoQitjQjFjYlBXZz090?season=XKVgWTi5AdpkSQnLhhs7bw2',
+        'players_url': 'https://vrmasterleague.com/EchoArena/Players?season=XKVgWTi5AdpkSQnLhhs7bw2'
+    },
 }
 
 import os

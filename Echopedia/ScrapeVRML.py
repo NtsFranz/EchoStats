@@ -1,11 +1,14 @@
 from WikiCommon import *
 import LocalInternet
+import re
 
 from pyquery import PyQuery as pq
 
 baseURL = 'https://vrmasterleague.com'
+latest_season = 'vrml_season_5'
 
-def scrapeVRMLTeams(forceRealInternetForS2: bool = False):
+
+def scrapeVRMLTeams():
     print("scrapeVRMLTeams")
 
     players = loadJSON('players')
@@ -19,10 +22,12 @@ def scrapeVRMLTeams(forceRealInternetForS2: bool = False):
         if season['api_type'] != 'vrml':
             continue
 
-        forceRealInternet = (season_id == 'vrml_season_2' and forceRealInternetForS2)
+        print("Scraping teams: " + season_id)
+
+        force_real_internet = False
 
         # load the series rankings to get all the team names
-        page = LocalInternet.local_pq(season['standings_url'], forceRealInternet)
+        page = LocalInternet.local_pq(season['standings_url'], force_real_internet)
 
         # loop through the teams on this page
         for teamHTML in page('.standings_information > .vrml_table_container > .vrml_table > tbody > tr'):
@@ -43,16 +48,15 @@ def scrapeVRMLTeams(forceRealInternetForS2: bool = False):
                 team['old_team_name'] = team['team_name'].split(' (aka ')[0]
                 team['team_name'] = team['team_name'].split(' (aka ')[1][:-1]
 
-
             team['team_page'] = baseURL + team_pq('.team_link').attr('href')
             team['team_logo'] = baseURL + team_pq('.team_logo').attr('src')
             team['division'] = team_pq('.div_cell > img').attr('title')
             team['division_logo'] = baseURL + \
-                team_pq('.div_cell > img').attr('src')
+                                    team_pq('.div_cell > img').attr('src')
             team['rank'] = team_pq('.pos_cell').text()
             team['region'] = team_pq('.group_cell > img').attr('title')
             team['region_logo'] = baseURL + \
-                team_pq('.group_cell > img').attr('src')
+                                  team_pq('.group_cell > img').attr('src')
             team['games_played'] = team_pq('.gp_cell').text()
             team['wins'] = team_pq('.win_cell').text()
             team['losses'] = team_pq('.loss_cell').text()
@@ -60,37 +64,26 @@ def scrapeVRMLTeams(forceRealInternetForS2: bool = False):
             team['mmr'] = team_pq('.mmr_cell').text()
 
             # load the team page
-            default_team_page = LocalInternet.local_pq(team['team_page'], forceRealInternet)
+            default_team_page = LocalInternet.local_pq(team['team_page'], force_real_internet)
+            found_season_team_page = False
 
             # go to the right season's page
             for season_option in default_team_page('.team_season_switcher > option'):
                 opt = pq(season_option)
-                if opt.text() == "Pre-season - 2019 (history)" and season_id == "vrml_preseason":
-                    team['team_page'] = baseURL + \
-                        "/EchoArena/Teams/" + opt.attr('value')
+                # get the dropdown name from the initial dictionary
+                if opt.text() == season['dropdown_name']:
+                    team['team_page'] += "?season=" + opt.attr('value')
+                    found_season_team_page = True
                     break
-                if opt.text() == "Season 1 - 2020 (history)" and season_id == "vrml_season_1":
-                    team['team_page'] = baseURL + \
-                        "/EchoArena/Teams/" + opt.attr('value')
-                    break
-                if opt.text() == "Season 2 - 2020" and season_id == "vrml_season_2":
-                    team['team_page'] = baseURL + \
-                        "/EchoArena/Teams/" + opt.attr('value')
-                    break
+
+            if not found_season_team_page:
+                print("COULDN'T FIND TEAM PAGE FOR THIS SEASON. THIS IS WRONG")
 
             # actually go to the team page for the correct season and get more stats from there
-            team_page = pq(LocalInternet.get(team['team_page'], forceRealInternet))
-            # success = False
-            # while not success:
-            #     try:
-            #         team_page = pq(LocalInternet.get(team['team_page']))
-            #         success = True
-            #     except:
-            #         print("Failed to load. Retrying...")
-            
+            team_page = pq(LocalInternet.get(team['team_page'], force_real_internet))
 
             roster = []
-            if season_id == "vrml_season_2":
+            if season_id == latest_season:
                 past_roster = team_page('.players_container .player_name')
             else:
                 past_roster = team_page(
@@ -99,7 +92,6 @@ def scrapeVRMLTeams(forceRealInternetForS2: bool = False):
             for p in past_roster:
                 roster.append(pq(p).text())
             team['roster'] = roster
-
 
             # look through the ex-members and add them to the general player list if they aren't already
             all_players = team_page('.player_container')
@@ -120,17 +112,12 @@ def scrapeVRMLTeams(forceRealInternetForS2: bool = False):
                         players[gen_pname]['vrml_nationality'] = None
                         players[gen_pname]['vrml_nationality_logo'] = None
 
-
             # get team bio and discord
             team['bio'] = team_page('.bio-text').html()
             rawpage = team_page.outer_html()
-            discordIndex = rawpage.find('discord.gg/')
-            if discordIndex > 0:
-                discordEndIndex = rawpage.find('&quot;', discordIndex)
-                if discordEndIndex < 0 or discordEndIndex - discordIndex > 50:
-                    discordEndIndex = rawpage.find('"', discordIndex)
-                team['discord'] = rawpage[discordIndex:discordEndIndex]
-
+            discord_search = re.search("'(https:\/\/discord\.gg\/.*)'", rawpage)
+            if discord_search is not None:
+                team['discord'] = discord_search.group(1)
 
             # scrape the match history on the team page
             season_matches = []
@@ -141,6 +128,7 @@ def scrapeVRMLTeams(forceRealInternetForS2: bool = False):
                     '.match-page-info > a').attr('href').split('/')[3]
                 match['match_time'] = match_pq('.date_recent_cell').text()
                 if len(match_pq('.score_cell').text().split(' ')) > 2:
+
                     match['teams'] = [
                         {
                             'team_id': match_pq('.home_team_cell > .team_link').attr('href').split('/')[-1],
@@ -148,7 +136,7 @@ def scrapeVRMLTeams(forceRealInternetForS2: bool = False):
                             'team_logo': baseURL + match_pq('.home_team_cell > .team_link > .team_logo').attr('src'),
                             'team_name': match_pq('.home_team_cell').text(),
                             'score': match_pq('.score_cell').text().split(' ')[0],
-                            'won': len(match_pq('.home_team_cell > .glyphicon-arrow-up')) > 0
+                            'won': pq(match_pq('.score_cell').children()[0]).attr('title') == 'Team has won'
                         },
                         {
                             'team_id': match_pq('.away_team_cell > .team_link').attr('href').split('/')[-1],
@@ -156,14 +144,12 @@ def scrapeVRMLTeams(forceRealInternetForS2: bool = False):
                             'team_logo': baseURL + match_pq('.away_team_cell > .team_link > .team_logo').attr('src'),
                             'team_name': match_pq('.away_team_cell').text(),
                             'score': match_pq('.score_cell').text().split(' ')[2],
-                            'won': len(match_pq('.away_team_cell > .glyphicon-arrow-up')) > 0
+                            'won': pq(match_pq('.score_cell').children()[-1]).attr('title') == 'Team has won'
                         }
                     ]
-                    match['video_url'] = match_pq(
-                        '.match-video-url-wrapper').attr('href')
+                    match['video_url'] = match_pq('.match-video-url-wrapper').attr('href')
 
-                    caster_cells = [i for i in match_pq(
-                        '.caster-vod-cell').items()]
+                    caster_cells = [i for i in match_pq('.caster-vod-cell').items()]
                     casters = []
                     for e in pq(caster_cells[1])('.caster-name').items():
                         casters.append(e.text())
@@ -174,7 +160,7 @@ def scrapeVRMLTeams(forceRealInternetForS2: bool = False):
                         cameramen.append(e.text())
                     match['cameramen'] = cameramen
                     match['match_page'] = baseURL + \
-                        match_pq('.match-page-info > a').attr('href')
+                                          match_pq('.match-page-info > a').attr('href')
                     match['challenge'] = match_pq(
                         '.date_recent_cell > img').hasClass('challenge_icon')
                     team_matches_temp.append(match)
@@ -191,11 +177,9 @@ def scrapeVRMLTeams(forceRealInternetForS2: bool = False):
                 teams[team['team_name']] = {}
             t = teams[team['team_name']]
 
-            team_id = str(team['team_page'].split('/')[-1])
+            team_id = str(team['team_page'].split('/')[-1].split('?')[0])
 
-
-            
-            if season_id == "vrml_season_2" or 'vrml_team_id' not in t:
+            if season_id == latest_season or 'vrml_team_id' not in t:
                 t['vrml_team_id'] = team_id
                 t['vrml_team_page'] = team['team_page']
             t['vrml_team_logo'] = team['team_logo']
@@ -230,7 +214,7 @@ def scrapeVRMLTeams(forceRealInternetForS2: bool = False):
     dumpJSON('matches', matches)
 
 
-def scrapeVRMLPlayers(forceRealInternetForS2: bool = False):
+def scrapeVRMLPlayers():
     print("scrapeVRMLPlayers")
 
     players = loadJSON('players')
@@ -239,16 +223,16 @@ def scrapeVRMLPlayers(forceRealInternetForS2: bool = False):
         if season['api_type'] != 'vrml':
             continue
 
-        forceRealInternet = (season_id == 'vrml_season_2' and forceRealInternetForS2)
+        print("Scraping players: " + season_id)
+
+        forceRealInternet = False
 
         page = LocalInternet.local_pq(season['players_url'], forceRealInternet)
-        if season_id == 'vrml_season_2':
-            numPlayers = int(page('.players-list-header-count').text()[20:24])
-        else:
-            numPlayers = int(page('.players-list-header-count').text()[0:4])
+        txt = page('.players-list-header-count').text()
+        numPlayers = int(re.search("(\d+)", txt).group(1))
 
-        for i in range(0, int(numPlayers/100)+1):
-            page = LocalInternet.local_pq(season['players_url']+"?posMin="+str(i*100+1), forceRealInternet)
+        for i in range(0, int(numPlayers / 100) + 1):
+            page = LocalInternet.local_pq(season['players_url'] + "?posMin=" + str(i * 100 + 1), forceRealInternet)
 
             for playerHTML in page('.vrml_table_row'):
                 player_pq = pq(playerHTML)
@@ -260,24 +244,24 @@ def scrapeVRMLPlayers(forceRealInternetForS2: bool = False):
 
                 player['player_name'] = pname
                 player['vrml_player_page'] = baseURL + \
-                    player_pq('.player_cell > a').attr('href')
+                                             player_pq('.player_cell > a').attr('href')
                 player['vrml_player_logo'] = baseURL + \
-                    player_pq('.player_cell > a > img').attr('src')
+                                             player_pq('.player_cell > a > img').attr('src')
                 if 'vrml_team' not in player:
                     player["vrml_team"] = {}
                 player['vrml_team'][season_id] = {
                     "team_name": player_pq(
-                    '.team_cell > a > span').text(),
+                        '.team_cell > a > span').text(),
                     "team_page": baseURL + \
-                    player_pq('.team_cell > a').attr('href'),
+                                 player_pq('.team_cell > a').attr('href'),
                     "team_logo": baseURL + \
-                    player_pq('.team_cell > a > img').attr('src')
+                                 player_pq('.team_cell > a > img').attr('src')
                 }
                 nat_img_cell = player_pq('.nationality_cell > img')
                 if nat_img_cell:
                     player['vrml_nationality'] = nat_img_cell.attr('title')
                     player['vrml_nationality_logo'] = baseURL + \
-                        nat_img_cell.attr('src')
+                                                      nat_img_cell.attr('src')
                 else:
                     player['vrml_nationality'] = None
                     player['vrml_nationality_logo'] = None
@@ -285,11 +269,9 @@ def scrapeVRMLPlayers(forceRealInternetForS2: bool = False):
     dumpJSON('players', players)
 
 
-
 # only gets stats and rosters for the current season. This is faster than getting full stats
 # This method forces actual network loading instead of LocalInternet caching
 def scrapeCurrentSeasonTeamStats(season_name):
-
     forceRealInternet = True
 
     teams = loadJSON('teams')
@@ -299,19 +281,19 @@ def scrapeCurrentSeasonTeamStats(season_name):
     print(seasons_data[season_name]['players_url'])
     page = pq(LocalInternet.get(seasons_data[season_name]['players_url'], forceRealInternet))
 
-    if season_name == 'vrml_season_2':
+    if season_name == latest_season:
         numPlayers = int(page('.players-list-header-count').text()[20:23])
     else:
         numPlayers = int(page('.players-list-header-count').text()[0:4])
-
 
     # load the team standing page
     another_page = True
     page_num = 0
 
     while another_page:
-        print(seasons_data[season_name]['standings_url']+"?rankMin="+str(page_num*100+1))
-        page = pq(LocalInternet.get(seasons_data[season_name]['standings_url']+"?rankMin="+str(page_num*100+1), forceRealInternet))
+        print(seasons_data[season_name]['standings_url'] + "?rankMin=" + str(page_num * 100 + 1))
+        page = pq(LocalInternet.get(seasons_data[season_name]['standings_url'] + "?rankMin=" + str(page_num * 100 + 1),
+                                    forceRealInternet))
         page_num += 1
         another_page = False
         for teamHTML in page('.standings_information > .vrml_table_container > .vrml_table > tbody > tr'):
@@ -335,27 +317,26 @@ def scrapeCurrentSeasonTeamStats(season_name):
             if season_name not in team['series']:
                 team['series'][season_name] = {}
             season_team = team['series'][season_name]
-            
-            team['vrml_team_page'] = baseURL + team_pq('.team_link').attr('href')   # this may not be necessary here. There are also team pages for 
+
+            team['vrml_team_page'] = baseURL + team_pq('.team_link').attr(
+                'href')  # this may not be necessary here. There are also team pages for
             season_team['vrml_team_page'] = baseURL + team_pq('.team_link').attr('href')
             team['vrml_team_logo'] = baseURL + team_pq('.team_logo').attr('src')
             season_team['division'] = team_pq('.div_cell > img').attr('title')
             season_team['division_logo'] = baseURL + \
-                team_pq('.div_cell > img').attr('src')
+                                           team_pq('.div_cell > img').attr('src')
             season_team['rank'] = team_pq('.pos_cell').text()
             team['region'] = team_pq('.group_cell > img').attr('title')
             team['region_logo'] = baseURL + \
-                team_pq('.group_cell > img').attr('src')
+                                  team_pq('.group_cell > img').attr('src')
             season_team['games_played'] = team_pq('.gp_cell').text()
             season_team['wins'] = team_pq('.win_cell').text()
             season_team['losses'] = team_pq('.loss_cell').text()
             season_team['points'] = team_pq('.pts_cell').text()
             season_team['mmr'] = team_pq('.mmr_cell').text()
 
-
-
-    for i in range(0, int(numPlayers/100)+1):
-        url = seasons_data[season_name]['players_url']+"?posMin="+str(i*100+1)
+    for i in range(0, int(numPlayers / 100) + 1):
+        url = seasons_data[season_name]['players_url'] + "?posMin=" + str(i * 100 + 1)
         print(url)
         page = pq(LocalInternet.get(url, forceRealInternet))
 
@@ -369,24 +350,23 @@ def scrapeCurrentSeasonTeamStats(season_name):
 
             player['player_name'] = pname
             player['vrml_player_page'] = baseURL + \
-                player_pq('.player_cell > a').attr('href')
+                                         player_pq('.player_cell > a').attr('href')
             player['vrml_player_logo'] = baseURL + \
-                player_pq('.player_cell > a > img').attr('src')
+                                         player_pq('.player_cell > a > img').attr('src')
             player['vrml_team_name'] = player_pq(
                 '.team_cell > a > span').text()
             player['vrml_team_page'] = baseURL + \
-                player_pq('.team_cell > a').attr('href')
+                                       player_pq('.team_cell > a').attr('href')
             player['vrml_team_logo'] = baseURL + \
-                player_pq('.team_cell > a > img').attr('src')
+                                       player_pq('.team_cell > a > img').attr('src')
             nat_img_cell = player_pq('.nationality_cell > img')
             if nat_img_cell:
                 player['vrml_nationality'] = nat_img_cell.attr('title')
                 player['vrml_nationality_logo'] = baseURL + \
-                    nat_img_cell.attr('src')
+                                                  nat_img_cell.attr('src')
             else:
                 player['vrml_nationality'] = None
                 player['vrml_nationality_logo'] = None
-
 
             # add this player to the team roster as well
             if player['vrml_team_name'] not in teams:
@@ -402,4 +382,72 @@ def scrapeCurrentSeasonTeamStats(season_name):
                 teams[player['vrml_team_name']]['series'][season_name]['roster'].append(player['player_name'])
 
     dumpJSON('teams', teams)
+    dumpJSON('players', players)
+
+
+# adds vrml teams played for, matches casted, and matches cammed to players.json
+def add_teams_to_players():
+    print('add_teams_to_players_vrml')
+
+    teams = loadJSON('teams')
+    matches = loadJSON('matches')
+    players = loadJSON('players')
+
+    # add teams played for to player
+    for team_name, team in teams.items():
+        if 'series' in team:
+            for season_name, season in team['series'].items():
+                if 'vrml' in season_name:
+                    for player in season['roster']:
+                        if player not in players:
+                            print('player not found: problem: ' + player)
+                        else:
+                            p = players[player]
+                            if 'series' not in p:
+                                p['series'] = {}
+                            if season_name not in p['series']:
+                                p['series'][season_name] = {}
+                            if 'teams' not in p['series'][season_name]:
+                                p['series'][season_name]['teams'] = []
+                            if team_name not in p['series'][season_name]['teams']:
+                                p['series'][season_name]['teams'].append(team_name)
+
+    # add matches casted by player
+    for season_name, season in seasons_data.items():
+        if season['api_type'] == 'vrml':
+            for match_id, match in matches[season_name].items():
+                if 'casters' in match:
+                    for caster in match['casters']:
+                        if caster not in players:
+                            players[caster] = {}
+                            players[caster]['player_name'] = caster
+                        p = players[caster]
+                        if 'series' not in p:
+                            p['series'] = {}
+                        if season_name not in p['series']:
+                            p['series'][season_name] = {}
+                        if 'matches_casted' not in p['series'][season_name]:
+                            p['series'][season_name]['matches_casted'] = []
+                        if match_id not in p['series'][season_name]['matches_casted']:
+                            p['series'][season_name]['matches_casted'].append(match_id)
+
+    # add matches camera-manned by player
+    for season_name, season in seasons_data.items():
+        if season['api_type'] == 'vrml':
+            for match_id, match in matches[season_name].items():
+                if 'cameramen' in match:
+                    for cammer in match['cameramen']:
+                        if cammer not in players:
+                            players[cammer] = {}
+                            players[cammer]['player_name'] = cammer
+                        p = players[cammer]
+                        if 'series' not in p:
+                            p['series'] = {}
+                        if season_name not in p['series']:
+                            p['series'][season_name] = {}
+                        if 'matches_cammed' not in p['series'][season_name]:
+                            p['series'][season_name]['matches_cammed'] = []
+                        if match_id not in p['series'][season_name]['matches_cammed']:
+                            p['series'][season_name]['matches_cammed'].append(match_id)
+
     dumpJSON('players', players)

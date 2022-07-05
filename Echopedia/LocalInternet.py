@@ -13,6 +13,8 @@ local_internet = {}
 
 print_urls = False
 
+requests.packages.urllib3.util.connection.HAS_IPV6 = False
+
 
 def load():
     global local_internet
@@ -28,7 +30,9 @@ def get(url: str, force: bool = False):
     global local_internet
     if url not in local_internet or force:
         print(url)
-        r = requests.get(url)
+        r = requests.get(url, headers={
+            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36',
+        })
         local_internet[url] = r.text
         save()
         return r.text

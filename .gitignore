@@ -74,3 +74,5 @@ Echopedia/data/local_internet - Copy.json
 ping_graph_env/
 .ipynb_checkpoints/
 streamlit_env/
+env/
+.idea/
