@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Arena Block Map</title>
+    <link rel="shortcut icon" href="https://echopedia.gg/images/manual/echopedia-logo_512.png"/>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            background-color: #0f0d1b;
+        }
+
+        .annotated_image {
+            position: relative;
+            width: 106.4em;
+            height: fit-content;
+            font-size: 1em;
+            top: -14em;
+            margin: 0 auto;
+        }
+
+        .annotated_image img {
+            width: 200em;
+        }
+
+        .image_labels {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .image_label {
+            position: absolute;
+        }
+
+        .image_label_text {
+            display: none;
+            position: absolute;
+            background-color: #1f1f1fc7;
+            padding: 0.5em;
+            text-shadow: 1px 1px black;
+            top: 0;
+            left: 0;
+            color: #8c8c8c;
+            border: 0.1em solid #2d2d2d;
+            border-radius: 0.2em;
+            font-family: Ubuntu, arial, sans-serif;
+            z-index: 3;
+            line-height: 1.4em;
+            width: max-content;
+        }
+
+        .image_label_hover {
+            position: absolute;
+            background-color: #037ff41c;
+            bottom: 0;
+            right: 0;
+            z-index: 2;
+        }
+
+        .image_label_hover:hover,
+        .image_label.clicked .image_label_hover {
+            background-color: #008eff54;
+        }
+
+        .image_label_hover:hover + .image_label_text,
+        .image_label.clicked .image_label_text {
+            display: block;
+        }
+
+        .upvote {
+            display: inline;
+            cursor: pointer;
+            padding: .5em;
+        }
+
+        .upvote:hover {
+            color: white;
+        }
+
+        .image_label ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .submit_new_name {
+            display: inline;
+            cursor: pointer;
+            padding: .5em;
+        }
+
+        .submit_new_name:hover {
+            color: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal.show {
+            display: block;
+        }
+
+        .modal_content {
+            background-color: #1b1b1b;
+            margin: 10em auto;
+            padding: 1.2em 1.2em 3em 1.2em;
+            border: 1px solid #888;
+            color: #bdbdbd;
+            text-align: center;
+            max-width: 33em;
+            border-radius: 0.4em;
+            font-family: Ubuntu, Arial, sans-serif;
+        }
+
+        .modal_button {
+            background-color: #2f2f2f;
+            padding: 0.4em;
+            margin: .2em auto;
+            border-radius: 0.4em;
+            border: 1px solid #4e4e4e;
+            cursor: pointer;
+        }
+
+        #modal_close {
+            max-width: 4em;
+            float: right;
+        }
+
+        #modal_close:hover {
+            background-color: #4e4e4e;
+        }
+
+        #modal_code_tooltip {
+            width: 10em;
+            background-color: #555;
+            color: inherit;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: relative;
+            z-index: 3;
+            left: 50%;
+            margin-left: -75px;
+            float: left;
+            opacity: 0;
+            animation-duration: 1s;
+            animation-name: tempshow;
+        }
+
+        #modal_code_tooltip::after {
+            content: "";
+            position: absolute;
+            top: -.5em;
+            left: 50%;
+            margin-left: -.5em;
+            border-left: .5em solid transparent;
+            border-right: .5em solid transparent;
+            border-bottom: 0.5em solid #555;
+        }
+
+        @keyframes tempshow {
+            from {
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        .code {
+            margin: 0.7em;
+            font-family: monospace;
+            font-size: 1.7em;
+            width: 22em;
+            height: 1.2em;
+            text-align: center;
+            background-color: #0000;
+            border: none;
+            color: inherit;
+        }
+
+        ::selection {
+            background: #293a5c;
+        }
+
+        .image_label input {
+            background-color: #3a3a3a;
+            color: darkgray;
+            border: 1px solid #5f5f5f;
+            margin: 0.6em 0px;
+            font-size: inherit;
+        }
+
+        #image_labels_background {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            z-index: 1;
+        }
+
+        #titles {
+            position: absolute;
+            left: 19em;
+            top: 20em;
+            color: #bdc2c6;
+            font-size: 2.1em;
+            font-weight: 100;
+            font-family: Source Code Pro;
+        }
+
+        #titles span {
+            font-weight: 900;
+            font-family: courier new, monospace;
+        }
+
+        @media screen and (min-width: 2000px) {
+            .annotated_image {
+                font-size: 1.1em;
+            }
+        }
+
+        @media screen and (min-width: 2500px) {
+            .annotated_image {
+                font-size: 1.4em;
+            }
+        }
+
+        @media screen and (max-width: 1000px) {
+            .annotated_image {
+                left: -22.2em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="command_modal" class="modal">
+    <div class="modal_content">
+        <div>Paste this command into a discord channel that the "Ignite Stats Bot" is in:</div>
+        <input readonly id="command_modal_command" class="code" value="echopedia vote block#0 test">
+        <div id="modal_code_tooltip">Copied to Clipboard</div>
+        <br>
+        <p id="or_text" style="width: max-content; margin: auto;">or</p>
+        <br>
+        <div id="modal_login_discord" class="modal_button">Login to vote with Discord</div>
+        <div id="modal_vote_discord" class="modal_button">Vote with Discord</div>
+        <div id="modal_close" class="modal_button">Close</div>
+    </div>
+</div>
+
+<div class="annotated_image">
+    <div style="overflow:hidden; width:100%; height:100%;">
+        <img id="background_image" src="https://echopedia.gg/images/1/1d/Echoarena_render_map_orthographic.jpg"/>
+    </div>
+
+    <div id="titles">Made for the <span>ECHOPEDIA</span><br><br>by NtsFranz<br>and the community on Discord</div>
+
+    <div class="image_labels">
+
+
+        <div id="image_labels_background"></div>
+
+
+        <!-- Side View -->
+        <div>
+            <!-- Pacman -->
+            <div class="block_1 image_label" style="left: 72.8em;top: 31.2em;">
+                <div class="image_label_hover" style="
+                        width: 4em;
+                        height: 5.6em;
+                        "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- TREE -->
+            <div class="block_2 image_label" style="left: 79.4em;top: 23.9em;">
+                <div class="image_label_hover" style="
+                        width: 4em;
+                        height: 3.9em;
+                        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+                        "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Root -->
+            <div class="block_3 image_label" style="left: 75.8em;top: 35.1em;">
+                <div class="image_label_hover" style="
+                        width: 3.7em;
+                        height: 2.5em;
+                        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+                        "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Boulder -->
+            <div class="block_4 image_label" style="left: 66em;top: 29.5em;">
+                <div class="image_label_hover" style="
+                        width: 3.2em;
+                        height: 2.3em;
+                        "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Nest -->
+            <div class="block_5 image_label" style="left: 66.2em;top: 25.8em;">
+                <div class="image_label_hover" style="
+                        width: 2.2em;
+                        height: 1.6em;
+                        "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Ankle -->
+            <div class="block_6 image_label" style="left: 64.3em;top: 36.9em;">
+                <div class="image_label_hover" style="
+                    width: 2.8em;
+                    height: 4.2em;
+                    clip-path: polygon(0% 0%, 100% 0%, 100% 70%, 50% 100%, 0% 70%);
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Thingie -->
+            <div class="block_7 image_label" style="left: 71.75em;top: 34.2em;">
+                <div class="image_label_hover" style="
+                        width: 2.2em;
+                        height: 3em;
+                        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+                        "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Shoulder -->
+            <div class="block_8 image_label" style="left: 59.26em;top: 25.5em;">
+                <div class="image_label_hover" style="
+                        width: 2.3em;
+                        height: 2.6em;
+                        transform: rotate(11deg);
+                        clip-path: polygon(0% 5%, 100% 0%, 100% 95%, 0% 100%);
+                        "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Double Diamonds -->
+            <div class="block_9 image_label" style="left: 93em;top: 32.2em;">
+                <div class="image_label_hover" style="
+                        width: 2.8em;
+                        height: 7.5em;
+                        clip-path: polygon(50% 0%, 100% 25%, 0% 75%, 50% 100%, 100% 75%, 0% 25%);
+                        "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Bowtie -->
+            <div class="block_10 image_label" style="left: 81.6em;top: 30.3em;">
+                <div class="image_label_hover" style="
+                        width: 7.6em;
+                        height: 3.8em;
+                        clip-path: polygon(25% 00%, 75% 100%, 100% 50%, 75% 0%, 25% 100%,0% 50%);
+                        "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Post -->
+            <div class="block_11 image_label" style="left: 59em;top: 30.5em;">
+                <div class="image_label_hover" style="
+                        width: 0.6em;
+                        height: 2.9em;
+                        "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Dorito -->
+            <div class="block_12 image_label" style="left: 91.2em;top: 30.4em; z-index: 3;">
+                <div class="image_label_hover" style="
+                        width: 3.8em;
+                        height: 3.9em;
+                        "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Dorito -->
+            <div class="block_12 image_label" style="left: 88.4em;top: 30.4em;">
+                <div class="image_label_hover" style="
+                        width: 3.8em;
+                        height: 3.9em;
+                        "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Goal -->
+            <div class="block_13 image_label" style="left: 54.6em;top: 28.9%;">
+                <div class="image_label_hover" style="
+                        width: 0.8em;
+                        height: 4.2em;
+                        "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Backboard -->
+            <div class="block_14 image_label" style="left: 51em;top: 32.5em;">
+                <div class="image_label_hover" style="
+                        width: 2.1em;
+                        height: 8.2em;
+                        clip-path: polygon(0% 0%, 100% 10%, 100% 90%, 0% 100%);
+                        "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Trench -->
+            <div class="block_15 image_label" style="left: 87em;top: 41.4em;">
+                <div class="image_label_hover" style="
+                        width: 15em;
+                        height: 2.4em;
+                        clip-path: polygon(0% 0%, 100% 0%, 75% 78%, 50% 100%, 25% 78%);
+                        "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Top Trench -->
+            <div class="block_16 image_label" style="left: 87em;top: 17.9em;">
+                <div class="image_label_hover" style="
+                        width: 15em;
+                        height: 2.4em;
+                        clip-path: polygon(0% 100%, 100% 100%, 75% 22%, 50% 0%, 25% 22%);
+                        "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Launch Tube -->
+            <div class="block_17 image_label" style="left: 48.4em;top: 28.3em;">
+                <div class="image_label_hover" style="
+                    width: 25em;
+                    height: 7.3em;
+                    clip-path: polygon(30.75% 6.57%, 3% 63.45%, 0.5% 65.07%, 0% 95.89%, 7.75% 90.75%, 34.75% 38.53%, 53.75% 45.2%, 99.75% 39.21%, 99.75% 5.99%, 53.25% 0%);
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Launch Ring -->
+            <div class="block_18 image_label" style="left: 36.2em;top: 28.2em;">
+                <div class="image_label_hover" style="
+                        width: 1em;
+                        height: 3.3em;
+                        "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Bottom Pocket Block -->
+            <div class="block_19 image_label" style="left: 89em;top: 34.8em;">
+                <div class="image_label_hover" style="
+                        width: 1.9em;
+                        height: 1.9em;
+                        "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Top Pocket Block -->
+            <div class="block_20 image_label" style="left: 88.4em;top: 25.7em; z-index: 3;">
+                <div class="image_label_hover" style="
+                    width: 2.6em;
+                    height: 3.7em;
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Moon -->
+            <div class="block_21 image_label" style="left: 86.4em;top: 23.0em;">
+                <div class="image_label_hover" style="
+                    width: 2.6em;
+                    height: 1.8em;
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Tunnel -->
+            <div class="block_28 image_label" style="left: 106.4em;top: 33.6em;">
+                <div class="image_label_hover" style="
+                    width: 12.7em;
+                    height: 10.4em;
+                    clip-path: polygon(0% 0%, 10.49% 10.2%, 23.5% 10.2%, 37.49% 4.4%, 63% 4.4%, 77.45% 10.2%, 90.49% 10.20%, 100% 0%, 100% 100%, 89.97% 89.61%, 76.96% 90.21%, 63.48% 94.96%, 37.5% 94.96%, 24.02% 89.65%, 10.35% 89.65%, 0% 100%);
+                    "></div>
+                <div class="image_label_text" style="left: -15em;">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <!-- Top View -->
+        <div>
+            <!-- Pacman -->
+            <div class="block_1 image_label" style="left: 73.6em;top: 62.5em;">
+                <div class="image_label_hover" style="
+                    width: 3.9em;
+                    height: 2.9em;
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Pacman -->
+            <div class="block_1 image_label" style="left: 73.6em;top: 92.8em;">
+                <div class="image_label_hover" style="
+                    width: 3.9em;
+                    height: 2.9em;
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- TREE -->
+            <div class="block_2 image_label" style="left: 79.4em;top: 70.3em; z-index: 3;">
+                <div class="image_label_hover" style="
+                    width: 4em;
+                    height: 3.9em;
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- TREE -->
+            <div class="block_2 image_label" style="left: 79.4em;top: 85.9em;z-index: 3;">
+                <div class="image_label_hover" style="
+                    width: 4em;
+                    height: 3.9em;
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Root -->
+            <div class="block_3 image_label" style="left: 76.4em;top: 85.3em;">
+                <div class="image_label_hover" style="
+                    width: 3.7em;
+                    height: 3.5em;
+                    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Root -->
+            <div class="block_3 image_label" style="left: 76.5em;top: 70.6em;">
+                <div class="image_label_hover" style="
+                    width: 3.7em;
+                    height: 3.5em;
+                    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Boulder -->
+            <div class="block_4 image_label" style="left: 66.8em;top: 89.9em;">
+                <div class="image_label_hover" style="
+                width: 3.1em;
+                height: 2.3em;
+                "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Boulder -->
+            <div class="block_4 image_label" style="left: 66.8em;top: 64.6em;">
+                <div class="image_label_hover" style="
+                width: 3.1em;
+                height: 2.3em;
+                "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Nest -->
+            <div class="block_5 image_label" style="left: 66em;top: 77.7em;">
+                <div class="image_label_hover" style="
+                    width: 2.3em;
+                    height: 3.1em;
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Ankle -->
+            <div class="block_6 image_label" style="left: 65.4em;top: 72.9em;">
+                <div class="image_label_hover" style="
+                    width: 3em;
+                    height: 4.2em;
+                    clip-path: polygon(50% 0%, 100% 35%, 100% 100%, 0% 100%, 0% 30%);
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Ankle -->
+            <div class="block_6 image_label" style="left: 65.4em;top: 83.7em;">
+                <div class="image_label_hover" style="
+                    width: 3em;
+                    height: 4.2em;
+                    clip-path: polygon(0% 0%, 100% 0%, 100% 65%, 50% 100%, 0% 65%);
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Thingie -->
+            <div class="block_7 image_label" style="left: 72em;top: 77.6em;">
+                <div class="image_label_hover" style="
+                width: 2.2em;
+                height: 3em;
+                clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+                "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Shoulder -->
+            <div class="block_8 image_label" style="left: 59.6em;top: 85.3em;">
+                <div class="image_label_hover" style="
+                    width: 2.6em;
+                    height: 3.0em;
+                    transform: rotate(-13deg);
+                    clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Shoulder -->
+            <div class="block_8 image_label" style="left: 59.6em;top: 70em;">
+                <div class="image_label_hover" style="
+                    width: 2.6em;
+                    height: 3.0em;
+                    transform: rotate(13deg);
+                    clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Double Diamonds -->
+            <div class="block_9 image_label" style="left: 93em;top: 78.1em;">
+                <div class="image_label_hover" style="
+                    width: 2.8em;
+                    height: 3.9em;
+                    clip-path: polygon(50% 0%, 0% 50%, 50% 100%, 100% 50%);
+                    "></div>
+                <div class="image_label_text" style="left: -3em;">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Bowtie -->
+            <div class="block_10 image_label" style="left: 81.6em;top: 78.1em;">
+                <div class="image_label_hover" style="
+                    width: 7.6em;
+                    height: 3.8em;
+                    clip-path: polygon(25% 00%, 75% 100%, 100% 50%, 75% 0%, 25% 100%,0% 50%);
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Dorito -->
+            <div class="block_12 image_label" style="left: 91.4em;top: 86.5em;">
+                <div class="image_label_hover" style="
+                    width: 3.8em;
+                    height: 3.7em;
+                    clip-path: polygon(50% 0%, 0% 50%, 50% 100%, 100% 50%);
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Dorito -->
+            <div class="block_12 image_label" style="left: 88.1em;top: 70.5em;">
+                <div class="image_label_hover" style="
+                    width: 3.8em;
+                    height: 3.7em;
+                    clip-path: polygon(50% 0%, 0% 50%, 50% 100%, 100% 50%);
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Goal -->
+            <div class="block_13 image_label" style="left: 54.6em;top: 74%;">
+                <div class="image_label_hover" style="
+                    width: 0.8em;
+                    height: 4.2em;
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Backboard -->
+            <div class="block_14 image_label" style="left: 51em;top: 80.2em;">
+                <div class="image_label_hover" style="
+                width: 2.1em;
+                height: 8.2em;
+                clip-path: polygon(0% 0%, 100% 10%, 100% 90%, 0% 100%);
+                "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Launch Tube -->
+            <div class="block_17 image_label" style="left: 48.4em;top: 72.3em;">
+                <div class="image_label_hover" style="
+                    width: 25.3em;
+                    height: 3.3em;
+                    clip-path: polygon(0.49% 15.15%, 50% 0%, 100.00% 15.15%, 100.25% 88.64%, 50% 100%, 0.74% 86.74%);
+                     "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Launch Ring -->
+            <div class="block_18 image_label" style="left: 36.2em;top: 77.8em;">
+                <div class="image_label_hover" style="
+                    width: 1em;
+                    height: 3.3em;
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Top Pocket Block -->
+            <div class="block_20 image_label" style="left: 89.8em;top: 62.8em;">
+                <div class="image_label_hover" style="
+                    width: 3.8em;
+                    height: 3.7em;
+                    clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Top Pocket Block -->
+            <div class="block_20 image_label" style="left: 89.8em;top: 93.2em;z-index: 3;">
+                <div class="image_label_hover" style="
+                    width: 3.8em;
+                    height: 3.7em;
+                    clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Moon -->
+            <div class="block_21 image_label" style="left: 86.2em;top: 81.3em;">
+                <div class="image_label_hover" style="
+                    width: 2.6em;
+                    height: 1.8em;
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Moon -->
+            <div class="block_21 image_label" style="left: 91.7em;top: 72.8em;z-index: 3;">
+                <div class="image_label_hover" style="
+                    width: 2.6em;
+                    height: 1.8em;
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Diamond -->
+            <div class="block_22 image_label" style="left: 101.4em;top: 78.1em;">
+                <div class="image_label_hover" style="
+                    width: 2.8em;
+                    height: 3.9em;
+                    clip-path: polygon(50% 0%, 0% 50%, 50% 100%, 100% 50%);
+                    "></div>
+                <div class="image_label_text" style="left: -10em;">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Nut -->
+            <div class="block_23 image_label" style="left: 101.4em;top: 72.2em;">
+                <div class="image_label_hover" style="
+                    width: 2.8em;
+                    height: 3.9em;
+                    clip-path: polygon(50% 0%, 0% 50%, 50% 100%, 100% 50%);
+                    "></div>
+                <div class="image_label_text" style="left: -10em;">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Nut -->
+            <div class="block_23 image_label" style="left: 101.4em;top: 83.9em;">
+                <div class="image_label_hover" style="
+                    width: 2.8em;
+                    height: 3.9em;
+                    clip-path: polygon(50% 0%, 0% 50%, 50% 100%, 100% 50%);
+                    "></div>
+                <div class="image_label_text" style="left: -10em;">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Pebble -->
+            <div class="block_24 image_label" style="left: 70.8em;top: 83.1em;">
+                <div class="image_label_hover" style="
+                    width: 1.6em;
+                    height: 1.1em;
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Pebble -->
+            <div class="block_24 image_label" style="left: 70.8em;top: 70.3em;">
+                <div class="image_label_hover" style="
+                    width: 1.6em;
+                    height: 1.1em;
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Shield -->
+            <div class="block_25 image_label" style="left: 63.7em;top: 78.9em;">
+                <div class="image_label_hover" style="
+                    width: 1em;
+                    height: 5.6em;
+                    clip-path: polygon(0% 0%, 50% 0%, 100% 50%, 50% 100%, 0% 100%, 50% 50%);
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Nose -->
+            <div class="block_26 image_label" style="left: 89.9em;top: 96em;">
+                <div class="image_label_hover" style="
+                    width: 19.6em;
+                    height: 9.8em;
+                    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+                    "></div>
+                <div class="image_label_text">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Pyramid -->
+            <div class="block_27 image_label" style="left: 93.8em;top: 74.5em;">
+                <div class="image_label_hover" style="
+                    width: 7.3em;
+                    height: 14.7em;
+                    clip-path: polygon(100% 0%, 100% 100%, 0% 50%);
+                    "></div>
+                <div class="image_label_text" style="left: -3em;">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+            <!-- Tunnel -->
+            <div class="block_28 image_label" style="left: 106.3em;top: 96.3em;">
+                <div class="image_label_hover" style="
+                    width: 12.4em;
+                    height: 9.8em;
+                    clip-path: polygon(0% 0%, 10% 9%, 22.52% 9%, 37% 5%, 63% 5%, 75.97% 9%, 90% 9%, 100% 0%, 100% 100%, 88.99% 87.81%, 76.47% 87.81%, 62% 94.36%, 37.5% 94.36%, 23.53% 88.45%, 9.86% 88.45%, 0% 100%);
+                    "></div>
+                <div class="image_label_text" style="left: -15em;">
+                    <ul></ul>
+                    <input type="text">
+                    <div class="submit_new_name">►</div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    let blocks = document.getElementsByClassName('image_label');
+
+    // Get the block names from the server
+    fetch('https://api.ignitevr.gg/echopedia/get_block_names')
+        .then(response => {
+            if (response.status !== 200) {
+                console.log('Looks like there was a problem. Status Code: ' + response.status);
+                return;
+            }
+
+            console.log(response.text)
+
+            // Examine the text in the response
+            response.json().then(data => {
+                console.log(data);
+                Array.from(data).forEach(row => {
+
+                    let liNode = document.createElement('li');
+                    liNode.innerText = row['block_name'] + " (" + row['count'] + ") ";
+                    let upvoteNode = document.createElement('div');
+                    upvoteNode.classList.add('upvote');
+                    upvoteNode.innerText = "▲";
+                    liNode.appendChild(upvoteNode);
+
+                    let views = document.getElementsByClassName('block_' + row['block_id']);
+                    Array.from(views).forEach(v => {
+                        let newNode = v.getElementsByTagName('ul')[0].appendChild(liNode.cloneNode(true));
+                        newNode.getElementsByClassName('upvote')[0].addEventListener("click", function () {
+                            showModal(row['block_id'], row['block_name']);
+                        });
+                    });
+                });
+            })
+                .catch(err => {
+                    console.log('Fetch Error :-S', err);
+                });
+        });
+
+    Array.from(blocks).forEach(b => {
+        let input = b.getElementsByTagName('input')[0];
+        input.placeholder = "Enter your own name...";
+
+        b.getElementsByClassName('submit_new_name')[0].addEventListener("click", function () {
+            b.classList.forEach(c => {
+                if (c.startsWith('block_')) {
+                    let number = c.split('_')[1];
+                    let value = input.value;
+                    showModal(number, value);
+                }
+            });
+        });
+
+        b.getElementsByClassName('image_label_hover')[0].addEventListener("click", function () {
+            Array.from(blocks).forEach(b => {
+                b.classList.remove('clicked');
+            });
+            b.classList.add('clicked');
+        });
+    });
+
+    let image_labels_background = document.getElementById("image_labels_background");
+    image_labels_background.addEventListener("click", function () {
+        Array.from(blocks).forEach(b => {
+            b.classList.remove('clicked');
+        });
+    })
+
+    let modal = document.getElementById('command_modal');
+    let modal_command = document.getElementById('command_modal_command');
+    let modal_discord_command = document.getElementById('command_modal_discord_command');
+    let modal_close = document.getElementById('modal_close');
+    modal_close.addEventListener("click", hideModal);
+    let vote_discord = document.getElementById("modal_vote_discord")
+    let discord_login = document.getElementById("modal_login_discord")
+    let or_text = document.getElementById("or_text");
+
+    fetch("/logged_in").then(resp => resp.json()).then(resp => {
+        if (resp['logged_in']) {
+            vote_discord.style.display = "block";
+            discord_login.style.display = "none";
+        } else {
+            discord_login.style.display = "block";
+            vote_discord.style.display = "none";
+        }
+    })
+
+    vote_discord.addEventListener("click", voteWithDiscord);
+    discord_login.addEventListener("click", () => {
+        window.location = "/login";
+    });
+    let voteUrl = "";
+
+    function hideModal() {
+        modal.classList.remove('show');
+    }
+
+    function showModal(block_id, block_name) {
+        modal.classList.add('show');
+        modal_command.value = "echopedia vote block#" + block_id + " " + block_name;
+        modal_command.select();
+        document.execCommand("copy");
+        or_text.innerText = "or";
+        voteUrl = `https://api.ignitevr.gg/echopedia/add_block_name?block_id=${block_id}&block_name=${block_name}&discord_token=${getCookie("discord_auth_token")}`;
+    }
+
+    async function voteWithDiscord() {
+        const response = await fetch(voteUrl, {
+            method: 'POST',
+        });
+        let resp = await response.json();
+        if (resp['success']) {
+            or_text.innerText = "Success!"
+        } else if (resp['error'] === "Already voted for that block name.") {
+            or_text.innerText = "Failed! Already voted for this block."
+        } else {
+            or_text.innerText = "Failed! Not sure why."
+        }
+        console.log(resp);
+    }
+
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+</script>
+</body>
+
+</html>
