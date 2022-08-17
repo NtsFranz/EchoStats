@@ -1,9 +1,16 @@
-from fastapi import FastAPI
-from fastapi.responses import RedirectResponse
 import requests
+from fastapi import FastAPI, Depends
+from fastapi.responses import JSONResponse
+from fastapi.responses import RedirectResponse
+from fastapi_discord import DiscordOAuthClient, RateLimited, Unauthorized, User
+
+from config import *
 
 app = FastAPI()
 
+discord = DiscordOAuthClient(
+    client_id, client_secret, "http://localhost:8000/callback/user", ("identify", "guilds", "email")
+)  # scopes
 
 
 @app.get('/more/vrml_match_twitch/{match_id}')
@@ -28,7 +35,7 @@ async def login():
 @app.get("/callback/{location}", tags=["Discord Auth"])
 async def callback(code: str, location: str):
     token, refresh_token = await discord.get_access_token(code)
-    response = RedirectResponse("location")
+    response = RedirectResponse("/" + location)
     response.set_cookie(key="discord_auth_token", value=token)
     return response
 
@@ -45,6 +52,16 @@ async def is_authenticated(token: str = Depends(discord.get_token)):
         return auth
     except Unauthorized:
         return False
+
+
+@app.get(
+    "/user",
+    dependencies=[Depends(discord.requires_authorization)],
+    response_model=User,
+    tags=["Discord Auth"]
+)
+async def get_user(user: User = Depends(discord.user)):
+    return user
 
 
 @app.exception_handler(Unauthorized)
