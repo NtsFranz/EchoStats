@@ -13,6 +13,7 @@ DOME was a one-off subsidized buy-in tournament with all proceeds funneled direc
 - Live disc trail
 - Goal explosions
 - Live joust graphs
+- Multiple VDO.ninja cameraperson views embedded into a single browser source with branded styling
 - Automatic OBS installation as part of Spark (for casters only)
 
 Examples:
